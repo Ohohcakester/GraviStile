@@ -286,7 +286,7 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
     shape.setFillColor(sf::Color::Green);
     extraLineShape = sf::RectangleShape();
     extraLineShape.setFillColor(sf::Color::Red);
-    pivotShape = sf::CircleShape(TILE_WIDTH/3);
+    pivotShape = sf::CircleShape(game.zoom*TILE_WIDTH/3);
     pivotShape.setFillColor(sf::Color::Magenta);
 }
 
@@ -376,6 +376,7 @@ Camera::Camera() {}
 Camera::Camera(Player* player) {
     freeze = false;
 
+    zoom = 0.4;
     rotateSpeed = 0.1f;
     snapSpeed = 0.2f;
     snapSpeedRotating = 0.6f;
@@ -412,8 +413,8 @@ void Camera::toRel(float* _x, float* _y) {
     float theta = angle - atan2(dy,dx);
     float length = sqrt(dx*dx+dy*dy);
 
-    *_x = length*cos(theta) + RES_X/2;
-    *_y = RES_Y/2 - length*sin(theta);
+    *_x = game.zoom*length*cos(theta) + RES_X/2;
+    *_y = RES_Y/2 - game.zoom*length*sin(theta);
 }
 
 void Camera::draw() {

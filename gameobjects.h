@@ -127,6 +127,7 @@ public:
     float snapSpeed;
     float snapSpeedRotating;
 
+    float zoom;
     float px, py;
     float cx, cy;
     float angle;
