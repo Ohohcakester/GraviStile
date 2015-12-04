@@ -56,6 +56,7 @@ bool Player::canRotate(bool right) {
     if (freeze) return false;
     if (currentPlatform->isNull) return false;
     if (!currentPlatform->rotatable) return false;
+    if (!currentPlatform->sweep(right)) return false;
     return orientation == currentPlatform->orientation;
 }
 
@@ -320,6 +321,136 @@ void Platform::setOrientation(int orientation) {
         this->y1 -= TILE_WIDTH * rightTiles;
         this->y2 += TILE_WIDTH * leftTiles;
     }
+}
+
+bool Platform::sweep(bool right) {
+    int leftQuad;
+    int rightQuad;
+    if ((right && (orientation == dir_up || orientation == dir_down))
+        || (!right && (orientation == dir_right || orientation == dir_left))) { // quads24
+        switch(orientation) {
+            case dir_up:
+            case dir_right:
+                leftQuad = (TILE_WIDTH / 2) + TILE_WIDTH * leftTiles;
+                rightQuad = (TILE_WIDTH / 2) + TILE_WIDTH * rightTiles;
+                break;
+            case dir_down:
+            case dir_left:
+                leftQuad = (TILE_WIDTH / 2) + TILE_WIDTH * rightTiles;
+                rightQuad = (TILE_WIDTH / 2) + TILE_WIDTH * leftTiles;
+                break;
+        }
+        for (int i=0;i<game.platforms.size();++i) {
+            if (!platCheck(x, y, leftQuad, rightQuad, false, game.platforms[i])) return false;
+        }
+    } else { // quads13
+        switch(orientation) {
+            case dir_up:
+            case dir_left:
+                leftQuad = (TILE_WIDTH / 2) + TILE_WIDTH * leftTiles;
+                rightQuad = (TILE_WIDTH / 2) + TILE_WIDTH * rightTiles;
+                break;
+            case dir_down:
+            case dir_right:
+                leftQuad = (TILE_WIDTH / 2) + TILE_WIDTH * rightTiles;
+                rightQuad = (TILE_WIDTH / 2) + TILE_WIDTH * leftTiles;
+                break;
+        }
+        for (int i=0;i<game.platforms.size();++i) {
+            if (!platCheck(x, y, leftQuad, rightQuad, true, game.platforms[i])) return false;
+        }
+    }
+    return true;
+}
+
+bool Platform::platCheck(int pivotx, int pivoty, int leftQuad, int rightQuad, bool vertFlip, Platform other) { // vertFlip ? quads 2-4 : quads 1-3
+    Point centerPivot(pivotx, pivoty);
+    int centerx1 = other.x - TILE_WIDTH/2;
+    int centerx2 = other.x + TILE_WIDTH/2;
+    int centery1 = other.y - TILE_WIDTH/2;
+    int centery2 = other.y + TILE_WIDTH/2;
+    
+    switch(orientation) {
+        case dir_up: {
+            for (int i = 0; i < other.leftTiles + 1; ++i) {
+                if (!twoPointsTwoDistances(centerPivot, centerx1 - TILE_WIDTH * i, centery1,
+                                                        centerx1 - TILE_WIDTH * i, centery2, 
+                                           leftQuad, rightQuad, vertFlip)) return false;
+            }
+            for (int i = 0; i < other.rightTiles + 1; ++i) {
+                if (!twoPointsTwoDistances(centerPivot, centerx2 + TILE_WIDTH * i, centery1,
+                                                        centerx2 + TILE_WIDTH * i, centery2, 
+                                           leftQuad, rightQuad, vertFlip)) return false;
+            }
+            break;
+        }
+        case dir_down: {
+            for (int i = 0; i < other.leftTiles + 1; ++i) {
+                if (!twoPointsTwoDistances(centerPivot, centerx2 + TILE_WIDTH * i, centery1,
+                                                        centerx2 + TILE_WIDTH * i, centery2, 
+                                           leftQuad, rightQuad, vertFlip)) return false;
+            }
+            for (int i = 0; i < other.rightTiles + 1; ++i) {
+                if (!twoPointsTwoDistances(centerPivot, centerx1 - TILE_WIDTH * i, centery1,
+                                                        centerx1 - TILE_WIDTH * i, centery2, 
+                                           leftQuad, rightQuad, vertFlip)) return false;
+            }
+            break;
+        }
+        case dir_right: {
+            for (int i = 0; i < other.leftTiles + 1; ++i) {
+                if (!twoPointsTwoDistances(centerPivot, centerx1, centery1 - TILE_WIDTH * i,
+                                                        centerx2, centery1 - TILE_WIDTH * i, 
+                                           leftQuad, rightQuad, vertFlip)) return false;
+            }
+            for (int i = 0; i < other.rightTiles + 1; ++i) {
+                if (!twoPointsTwoDistances(centerPivot, centerx1, centery2 + TILE_WIDTH * i,
+                                                        centerx2, centery2 + TILE_WIDTH * i, 
+                                           leftQuad, rightQuad, vertFlip)) return false;
+            }
+            break;
+        }
+        case dir_left: {
+            for (int i = 0; i < other.leftTiles + 1; ++i) {
+                if (!twoPointsTwoDistances(centerPivot, centerx1, centery2 + TILE_WIDTH * i,
+                                                        centerx2, centery2 + TILE_WIDTH * i, 
+                                           leftQuad, rightQuad, vertFlip)) return false;
+            }
+            for (int i = 0; i < other.rightTiles + 1; ++i) {
+                if (!twoPointsTwoDistances(centerPivot, centerx1, centery1 - TILE_WIDTH * i,
+                                                        centerx2, centery1 - TILE_WIDTH * i, 
+                                           leftQuad, rightQuad, vertFlip)) return false;
+            }
+            break;
+        }
+    }
+    return true;
+}
+
+bool Platform::twoPointsTwoDistances(Point center, int p1x, int p1y, int p2x, int p2y, int lQuad, int rQuad, bool quads24) {
+    Point one(p1x, p1y);
+    Point two(p2x, p2y);
+    if (quads24) {
+        if (p1x < center.x && p1y > center.y && one.distance(center) < lQuad) return false; // quad2
+        if (p1x > center.x && p1y < center.y && one.distance(center) < rQuad) return false; // quad4
+        if (p2x < center.x && p2y > center.y && two.distance(center) < lQuad) return false; // quad2
+        if (p2x > center.x && p2y < center.y && two.distance(center) < rQuad) return false; // quad4
+    } else {
+        if (p1x < center.x && p1y < center.y && one.distance(center) < lQuad) return false; // quad3
+        if (p1x > center.x && p1y > center.y && one.distance(center) < rQuad) return false; // quad1
+        if (p2x < center.x && p2y < center.y && two.distance(center) < lQuad) return false; // quad3
+        if (p2x > center.x && p2y > center.y && two.distance(center) < rQuad) return false; // quad1
+    }
+    return true;
+}
+
+Point::Point(int x, int y) {
+    this->x = x;
+    this->y = y;
+}
+
+float Point::distance(Point other) {
+    return sqrt(pow((float) x - (float) other.x, 2.0) + pow((float) y - (float) other.y, 2.0));
 }
 
 Door::Door() {
