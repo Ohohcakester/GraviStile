@@ -47,29 +47,44 @@ Player::Player() {
 }
 
 void Player::draw() {
-    int x1 = x - pwidth/2;
-    int x2 = x + pwidth/2;
-    int y1 = y - pheight/2;
-    int y2 = y + pheight/2;
     drawRectangle(shape,x1,y1,x1,y2,x2,y2);
 }
 
 void Player::update(Keyboard k) {
-    vx = 0;
-    int x1 = x - pwidth/2;
-    int x2 = x + pwidth/2;
-    int y1 = y - pheight/2;
-    int y2 = y + pheight/2;
+    x1 = x;
+    x2 = x;
+    y1 = y;
+    y2 = y;
+    switch(orientation) {
+        case dir_up:
+        case dir_down:
+            x1 -= pwidth/2;
+            x2 += pwidth/2;
+            y1 -= pheight/2;
+            y2 += pheight/2;
+            break;
+        case dir_left:
+        case dir_right:
+            x1 -= pheight/2;
+            x2 += pheight/2;
+            y1 -= pwidth/2;
+            y2 += pwidth/2;
+            break;
+        default:
+            std::cout << "Nu\n";
+    }
     
     // Fall off the sides
     switch(this->orientation) {
         case dir_up:
         case dir_down:
             if (x1 >= currentPlatform.x2 || x2 <= currentPlatform.x1) currentPlatform = Platform();
+            vx = 0; // also sneak in speed control
             break;
         case dir_left:
         case dir_right:
             if (y1 >= currentPlatform.y2 || y2 <= currentPlatform.y1) currentPlatform = Platform();
+            vy = 0;
             break;
         default:
             std::cout << "Wat\n";
@@ -143,11 +158,6 @@ void Player::setOrientation(int orientation) {
 }
 
 void Player::collision(Platform plat) {
-    int x1 = x - pwidth/2;
-    int x2 = x + pwidth/2;
-    int y1 = y - pheight/2;
-    int y2 = y + pheight/2;
-    
     if (x2 > plat.x1 && x1 < plat.x2 && y2 > plat.y1 && y1 < plat.y2) {
         int touchSide = -1;
         int closestDist = TILE_WIDTH * 2;
