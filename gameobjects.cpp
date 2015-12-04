@@ -52,6 +52,18 @@ Player::Player() {
     shape.setFillColor(sf::Color::Blue);
 }
 
+bool Player::canRotate(bool right) {
+    if (freeze) return false;
+    if (currentPlatform.isNull) return false;
+    if (!currentPlatform.rotatable) return false;
+    return orientation == currentPlatform.orientation;
+}
+
+void Player::rotateTo(int orientation) {
+    setOrientation(orientation);
+    currentPlatform.setOrientation(orientation);
+}
+
 void Player::setIsRotating(bool value) {
     freeze = value;
     currentPlatform.freeze = value;

@@ -97,6 +97,10 @@ public:
     virtual void update(Keyboard k);
 
     virtual void jump();
+
+    bool canRotate(bool right);
+
+    void rotateTo(int orientation);
     
     void getGridCoordinates(int* gridX, int* gridY);
 
