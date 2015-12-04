@@ -7,7 +7,32 @@
 
 
 void IGameObject::drawCircle(sf::CircleShape shape, int px, int py) {
+    px = game.camera.toRelX(px);
+    py = game.camera.toRelY(py);
     shape.setOrigin(-px+shape.getRadius(),-py+shape.getRadius());
+    window.draw(shape);
+}
+
+
+void IGameObject::drawRectangle(sf::RectangleShape shape, int tl_x, int tl_y, int bl_x, int bl_y, int br_x, int br_y) {
+    tl_x = game.camera.toRelX(tl_x);
+    tl_y = game.camera.toRelY(tl_y);
+    bl_x = game.camera.toRelX(bl_x);
+    bl_y = game.camera.toRelY(bl_y);
+    br_x = game.camera.toRelX(br_x);
+    br_y = game.camera.toRelY(br_y);
+
+    float dx1 = tl_x-bl_x;
+    float dy1 = tl_y-bl_y;
+    float dx2 = br_x-bl_x;
+    float dy2 = br_y-bl_y;
+    float width = sqrt(dx2*dx2+dy2*dy2);
+    float height = sqrt(dx1*dx1+dy1*dy1);
+    float angle = atan2(dy2,dx2)*180/M_PI;
+
+    shape.setSize(sf::Vector2f(width,height));
+    shape.setPosition(tl_x,tl_y);
+    shape.setRotation(angle);
     window.draw(shape);
 }
 
@@ -24,7 +49,7 @@ Player::Player() {
 }
 
 void Player::draw() {
-    drawCircle(shape, game.camera.toRelX(x), game.camera.toRelY(y));
+    drawCircle(shape, x, y);
 }
 
 void Player::update(Keyboard k) {
@@ -62,10 +87,13 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
     this->rightTiles = rightTiles;
     this->rotatable = rotatable;
     this->orientation = orientation;
+
+    shape = sf::RectangleShape();
+    shape.setFillColor(sf::Color::Green);
 }
 
 void Platform::draw() {
-
+    drawRectangle(shape,30,40,30,80,130,80);
 }
 
 void Platform::update(Keyboard k) {
@@ -84,6 +112,7 @@ Door::Door(int cx, int cy, int orientation) {
 }
 
 void Door::draw() {
+    
 }
 
 void Door::update(Keyboard k) {

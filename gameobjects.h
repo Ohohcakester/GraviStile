@@ -21,10 +21,13 @@ public:
     virtual void update(Keyboard k) = 0;
 
     void drawCircle(sf::CircleShape shape, int px, int py);
+    void drawRectangle(sf::RectangleShape shape, int tl_x, int tl_y, int bl_x, int bl_y, int br_x, int br_y);
 };
 
 class Platform : public IGameObject {
 public:
+    sf::RectangleShape shape;
+
     bool isNull;
     int cx;
     int cy;
@@ -32,7 +35,7 @@ public:
     int rightTiles;
     bool rotatable;
     int orientation;
-
+float a;
     Platform();
 
     Platform(int pivotX, int pivotY, int leftTiles, int rightTiles, bool rotatable, int orientation);
