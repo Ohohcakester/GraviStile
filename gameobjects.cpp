@@ -13,7 +13,7 @@ void IGameObject::drawCircle(sf::CircleShape shape, int px, int py) {
 
 
 Player::Player() {
-    x = WIDTH/2; y = HEIGHT/2;
+    x = 0; y = 0;
     speed = 10;
     shape = sf::CircleShape(50);
     shape.setFillColor(sf::Color::Green);
@@ -40,12 +40,13 @@ Platform::Platform() {
     this->isNull = true;
 }
 
-Platform::Platform(int pivotX, int pivotY, int leftTiles, int rightTiles, int orientation) {
+Platform::Platform(int pivotX, int pivotY, int leftTiles, int rightTiles, bool rotatable, int orientation) {
     this->isNull = false;
     this->x = pivotX;
     this->y = pivotY;
     this->leftTiles = leftTiles;
     this->rightTiles = rightTiles;
+    this->rotatable = rotatable;
     this->orientation = orientation;
 }
 
@@ -56,9 +57,12 @@ void Platform::draw() {
 void Platform::update(Keyboard k) {
 }
 
-
+Door::Door() {
+    this->isNull = true;
+}
 
 Door::Door(int cx, int cy, int orientation) {
+    this->isNull = false;
     this->cx = cx;
     this->cy = cy;
     this->orientation = orientation;

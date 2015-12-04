@@ -22,12 +22,19 @@ void processEvent(sf::Event event) {
 
 void initialiseLevel1(GameGlobals game) {
     game.player = Player();
-    game.platforms = { Platform(5, 5, 3, 4, true, dir_up); }
+    game.player.x = 2;
+    game.player.y = 2;
+    int nPlats = 2;
+    Platform plats[nPlats] = { Platform(5, 5, 3, 4, true, dir_up), Platform(1, 1, 1, 2, false, dir_down) };
+    
+    // game.platforms =
 }
 
 void initialiseGame() {
     game = GameGlobals();
     initialiseLevel1(game);
+    game.width = game.nTilesX*TILE_WIDTH;
+    game.height = game.nTilesY*TILE_WIDTH;
 }
 
 void updateGame() {

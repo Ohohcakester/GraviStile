@@ -45,11 +45,14 @@ public:
 
 class Door : public IGameObject {
 public:
+    bool isNull;
     int cx;
     int cy;
     bool rotatable;
     int orientation;
-
+    
+    Door();
+    
     Door(int cx, int cy, int orientation);
 
     virtual void draw();
