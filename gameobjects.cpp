@@ -75,11 +75,10 @@ void Player::jump() {
 void Player::collision(Platform plat) {
     int x1 = x - 50;
     int x2 = x + 50;
-    int y1 = y + 50;
-    int y2 = y - 50;
+    int y1 = y - 50;
+    int y2 = y + 50;
     
     if (x2 > plat.x1 && x1 < plat.x2 && y2 > plat.y1 && y1 < plat.y2) {
-        std::cout << "COLLIDING";
         int touchSide = -1;
         int closestDist = TILE_WIDTH * 2;
         if (x2 - plat.x1 < closestDist) {
