@@ -79,4 +79,30 @@ public:
     void getGridCoordinates(int* gridX, int* gridY);
 };
 
+class Camera : public IGameObject {
+public:
+    float rotateSpeed;
+    float snapSpeed;
+
+    float px, py;
+    float angle;
+    float targetAngle;
+    int orientation;
+    bool rotating;
+    Player player;
+
+    Camera();
+
+    Camera(Player player);
+
+    void rotateTo(int newOrientation);
+
+    virtual void draw();
+
+    virtual void update(Keyboard k);
+
+    void onReach();
+};
+
+
 #endif
