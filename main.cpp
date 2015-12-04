@@ -10,7 +10,10 @@ void rotateRight() {
     orientation += 1;
     if (orientation >= 4) orientation = 0;
 
-    game.camera.rotateTo(orientation);
+    int pivotX, pivotY;
+    gridToActual(game.player.currentPlatform->cx, game.player.currentPlatform->cy, &pivotX, &pivotY);
+
+    game.camera.rotateTo(orientation, pivotX, pivotY);
     game.player.rotateTo(orientation);
 }
 
@@ -19,9 +22,11 @@ void rotateLeft() {
     int orientation = game.player.orientation;
     orientation -= 1;
     if (orientation < 0) orientation = 3;
-    std::cout << orientation;
 
-    game.camera.rotateTo(orientation);
+    int pivotX, pivotY;
+    gridToActual(game.player.currentPlatform->cx, game.player.currentPlatform->cy, &pivotX, &pivotY);
+
+    game.camera.rotateTo(orientation, pivotX, pivotY);
     game.player.rotateTo(orientation);
 }
 

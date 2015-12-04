@@ -378,6 +378,7 @@ Camera::Camera(Player* player) {
 
     rotateSpeed = 0.1f;
     snapSpeed = 0.2f;
+    snapSpeedRotating = 0.6f;
 
     this->orientation = 0;
     this->player = player;
@@ -387,7 +388,10 @@ Camera::Camera(Player* player) {
     this->targetAngle = 0;
 }
 
-void Camera::rotateTo(int newOrientation) {
+void Camera::rotateTo(int newOrientation, int pivotX, int pivotY) {
+    this->cx = pivotX;
+    this->cy = pivotY;
+
     int diff = newOrientation - orientation;
     if (diff >= 3) diff -= 4;
     if (diff < -1) diff += 4;
@@ -417,10 +421,24 @@ void Camera::draw() {
 }
 
 void Camera::update(Keyboard k) {
-    float dx = player->x - px;
-    float dy = player->y - py;
-    px += dx*snapSpeed;
-    py += dy*snapSpeed;
+    if (!rotating) {
+        float dx = player->x - px;
+        float dy = player->y - py;
+        px += dx*snapSpeed;
+        py += dy*snapSpeed;
+        return;
+    }
+
+    float dx = player->x - cx;
+    float dy = player->y - cy;
+    float remAng = targetAngle - angle;
+    float tx = dx*cos(remAng) + dy*sin(remAng) + cx;
+    float ty = -dx*sin(remAng) + dy*cos(remAng) + cy;
+    dx = tx - px;
+    dy = ty - py;
+
+    px += dx*snapSpeedRotating;
+    py += dy*snapSpeedRotating;
 
     if (!rotating) return;
     //std::cout << angle << " " << targetAngle << "\n";

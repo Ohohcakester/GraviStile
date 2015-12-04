@@ -125,8 +125,10 @@ class Camera : public IGameObject {
 public:
     float rotateSpeed;
     float snapSpeed;
+    float snapSpeedRotating;
 
     float px, py;
+    float cx, cy;
     float angle;
     float targetAngle;
     int orientation;
@@ -139,7 +141,7 @@ public:
 
     void toRel(float* _x, float* _y);
 
-    void rotateTo(int newOrientation);
+    void rotateTo(int newOrientation, int pivotX, int pivotY);
 
     void setIsRotating(bool value);
 
