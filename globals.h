@@ -8,6 +8,8 @@ public:
     Player player;
     Keyboard key;
     Door door;
+    Camera camera;
+    
     int nTilesX;
     int nTilesY;
     int width;
