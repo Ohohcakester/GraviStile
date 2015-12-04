@@ -29,8 +29,6 @@ void initialiseLevel1() {
     game.nTilesY = 10;
     game.player = Player();
     gridToActual(8, 3, &game.player.x, &game.player.y);
-    std::cout << "actual x = " << game.player.x << "\n";
-    std::cout << "actual y = " << game.player.y << "\n";
     game.platforms.assign(plats, plats + (size_t) nPlats);
 }
 
@@ -39,9 +37,6 @@ void initialiseGame() {
     initialiseLevel1();
     game.width = game.nTilesX*TILE_WIDTH;
     game.height = game.nTilesY*TILE_WIDTH;
-    std::cout << "2actual x = " << game.player.x << "\n";
-    std::cout << "2actual y = " << game.player.y << "\n";
-    std::cout << "platform size = " << game.platforms.size() << "\n";
 }
 
 void updateGame() {
@@ -60,8 +55,7 @@ int main() {
     float dTime = 0;
 
     initialiseGame();
-    std::cout << "3actual x = " << game.player.x << "\n";
-    std::cout << "3actual y = " << game.player.y << "\n";
+    
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -72,9 +66,7 @@ int main() {
 
         if (dTime > frameTime) {
             dTime -= frameTime;
-            //std::cout << "4actual x = " << game.player.x << "\n";
-            //std::cout << "4actual y = " << game.player.y << "\n";
-
+            
             updateGame();
 
             if (dTime < frameTime) {
