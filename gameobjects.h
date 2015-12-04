@@ -35,7 +35,13 @@ public:
     int rightTiles;
     bool rotatable;
     int orientation;
-float a;
+    
+    // rect
+    int x1;
+    int y1;
+    int x2;
+    int y2;
+
     Platform();
 
     Platform(int pivotX, int pivotY, int leftTiles, int rightTiles, bool rotatable, int orientation);
@@ -43,6 +49,8 @@ float a;
     virtual void draw();
 
     virtual void update(Keyboard k);
+    
+    virtual void setOrientation(int orientation);
 };
 
 class Door : public IGameObject {
@@ -86,6 +94,8 @@ public:
     virtual void jump();
     
     void getGridCoordinates(int* gridX, int* gridY);
+    
+    void collision(Platform plat);
 };
 
 class Camera : public IGameObject {

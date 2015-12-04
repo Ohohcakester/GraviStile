@@ -13,7 +13,6 @@ void IGameObject::drawCircle(sf::CircleShape shape, float px, float py) {
     window.draw(shape);
 }
 
-
 void IGameObject::drawRectangle(sf::RectangleShape shape, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y) {
     game.camera.toRel(&tl_x, &tl_y);
     game.camera.toRel(&bl_x, &bl_y);
@@ -32,9 +31,6 @@ void IGameObject::drawRectangle(sf::RectangleShape shape, float tl_x, float tl_y
     shape.setRotation(angle);
     window.draw(shape);
 }
-
-
-
 
 Player::Player() {
     x = 0; y = 0;
@@ -57,6 +53,10 @@ void Player::update(Keyboard k) {
  
     x += vx;
     y += vy;
+    
+    for (std::vector<Platform>::iterator it = game.platforms.begin(); it != game.platforms.end(); ++it) {
+        collision(*it);
+    }
 }
 
 void Player::getGridCoordinates(int* gridX, int* gridY) {
@@ -69,11 +69,63 @@ void Player::jump() {
     vy = (-1) * speed;
 }
 
+void Player::collision(Platform plat) {
+    int x1 = x - 50;
+    int x2 = x + 50;
+    int y1 = y - 50;
+    int y2 = y + 50;
+    
+    if (x2 > plat.x1 && x1 < plat.x2 && y2 > plat.y1 && y1 < plat.y2) {
+        int touchSide = -1;
+        int closestDist = TILE_WIDTH * 2;
+        if (x2 - plat.x1 < closestDist) {
+            touchSide = dir_left;
+            closestDist = x2 - plat.x1;
+        }
+        if (plat.x2 - x1 < closestDist) {
+            touchSide = dir_right;
+            closestDist = plat.x2 - x1;
+        }
+        if (y2 - plat.y1 < closestDist) {
+            touchSide = dir_up;
+            closestDist = y2 - plat.y1;
+        }
+        if (plat.y2 - y1 < closestDist) {
+            touchSide = dir_down;
+            closestDist = plat.y2 - y1;
+        }
+        
+        switch(touchSide) {
+            case dir_left: {
+                x -= closestDist;
+                vx = 0;
+                break;
+            }
+            case dir_right: {
+                x += closestDist;
+                vx = 0;
+                break;
+            }
+            case dir_up: {
+                y -= closestDist;
+                vy = 0;
+                break;
+            }
+            case dir_down: {
+                y += closestDist;
+                vy = 0;
+                break;
+            }
+            default: {
+                std::cout << "Why\n";
+            }
+        }
+    }
+}
 
 Platform::Platform() {
     this->isNull = true;
 }
-
 
 Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable, int orientation) {
     this->isNull = false;
@@ -83,17 +135,46 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
     this->leftTiles = leftTiles;
     this->rightTiles = rightTiles;
     this->rotatable = rotatable;
-    this->orientation = orientation;
+    setOrientation(orientation);
 
     shape = sf::RectangleShape();
     shape.setFillColor(sf::Color::Green);
 }
 
 void Platform::draw() {
-    drawRectangle(shape,30,40,30,80,130,80);
+    drawRectangle(shape,x1,y1,x1,y2,x2,y2);
 }
 
 void Platform::update(Keyboard k) {
+}
+
+void Platform::setOrientation(int orientation) {
+    this->orientation = orientation;
+    
+    this->x1 = x - TILE_WIDTH/2;
+    this->x2 = x + TILE_WIDTH/2;
+    this->y1 = y - TILE_WIDTH/2;
+    this->y2 = y + TILE_WIDTH/2;
+    
+    if (orientation == dir_up) {
+        this->x1 -= TILE_WIDTH * leftTiles;
+        this->x2 += TILE_WIDTH * rightTiles;
+    }
+    
+    if (orientation == dir_right) {
+        this->y1 -= TILE_WIDTH * leftTiles;
+        this->y2 += TILE_WIDTH * rightTiles;
+    }
+    
+    if (orientation == dir_down) {
+        this->x1 -= TILE_WIDTH * rightTiles;
+        this->x2 += TILE_WIDTH * leftTiles;
+    }
+    
+    if (orientation == dir_left) {
+        this->y1 -= TILE_WIDTH * rightTiles;
+        this->y2 += TILE_WIDTH * leftTiles;
+    }
 }
 
 Door::Door() {
