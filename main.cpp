@@ -4,10 +4,21 @@
 #include "gameobjects.h"
 #include "globals.h"
 
+void rotateLeft() {
+
+}
+
+void rotateRight() {
+
+}
+
 void keyPress(sf::Keyboard::Key keyCode) {
     std::cout << "Press " << keyCode << std::endl;
     if (keyCode == sf::Keyboard::Space) game.player.jump();
+    if (keyCode == sf::Keyboard::A) rotateLeft();
+    if (keyCode == sf::Keyboard::D) rotateRight();
 }
+
 
 void processEvent(sf::Event event) {
     switch(event.type) {

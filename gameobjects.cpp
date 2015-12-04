@@ -6,33 +6,39 @@
 #include "globals.h"
 
 
-void IGameObject::drawCircle(sf::CircleShape shape, float px, float py) {
-    game.camera.toRel(&px, &py);
+void IGameObject::drawCircle(sf::CircleShape* shape, float px, float py) {
+    if (!freeze) {
+        game.camera.toRel(&px, &py);
 
-    shape.setOrigin(-px+shape.getRadius(),-py+shape.getRadius());
-    window.draw(shape);
+        shape->setOrigin(-px+shape->getRadius(),-py+shape->getRadius());
+    }
+    window.draw(*shape);
 }
 
-void IGameObject::drawRectangle(sf::RectangleShape shape, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y) {
-    game.camera.toRel(&tl_x, &tl_y);
-    game.camera.toRel(&bl_x, &bl_y);
-    game.camera.toRel(&br_x, &br_y);
+void IGameObject::drawRectangle(sf::RectangleShape* shape, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y) {
+    if (!freeze) {
+        game.camera.toRel(&tl_x, &tl_y);
+        game.camera.toRel(&bl_x, &bl_y);
+        game.camera.toRel(&br_x, &br_y);
 
-    float dx1 = tl_x-bl_x;
-    float dy1 = tl_y-bl_y;
-    float dx2 = br_x-bl_x;
-    float dy2 = br_y-bl_y;
-    float width = sqrt(dx2*dx2+dy2*dy2);
-    float height = sqrt(dx1*dx1+dy1*dy1);
-    float angle = atan2(dy2,dx2)*180/M_PI;
+        float dx1 = tl_x-bl_x;
+        float dy1 = tl_y-bl_y;
+        float dx2 = br_x-bl_x;
+        float dy2 = br_y-bl_y;
+        float width = sqrt(dx2*dx2+dy2*dy2);
+        float height = sqrt(dx1*dx1+dy1*dy1);
+        float angle = atan2(dy2,dx2)*180/M_PI;
 
-    shape.setSize(sf::Vector2f(width,height));
-    shape.setPosition(tl_x,tl_y);
-    shape.setRotation(angle);
-    window.draw(shape);
+        shape->setSize(sf::Vector2f(width,height));
+        shape->setPosition(tl_x,tl_y);
+        shape->setRotation(angle);
+    }
+    window.draw(*shape);
 }
 
 Player::Player() {
+    freeze = false;
+    
     x = 0; y = 0;
     speed = 10;
     jumpSpeed = 11;
@@ -46,8 +52,13 @@ Player::Player() {
     shape.setFillColor(sf::Color::Blue);
 }
 
+void Player::setIsRotating(bool value) {
+    freeze = value;
+    currentPlatform.freeze = value;
+}
+
 void Player::draw() {
-    drawRectangle(shape,x1,y1,x1,y2,x2,y2);
+    drawRectangle(&shape,x1,y1,x1,y2,x2,y2);
 }
 
 void Player::update(Keyboard k) {
@@ -215,6 +226,8 @@ Platform::Platform() {
 }
 
 Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable, int orientation) {
+    freeze = false;
+    
     this->isNull = false;
     this->cx = cx;
     this->cy = cy;
@@ -229,7 +242,7 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
 }
 
 void Platform::draw() {
-    drawRectangle(shape,x1,y1,x1,y2,x2,y2);
+    drawRectangle(&shape,x1,y1,x1,y2,x2,y2);
 }
 
 void Platform::update(Keyboard k) {
@@ -269,6 +282,8 @@ Door::Door() {
 }
 
 Door::Door(int cx, int cy, int orientation) {
+    freeze = false;
+    
     this->isNull = false;
     this->cx = cx;
     this->cy = cy;
@@ -302,7 +317,12 @@ void Camera::rotateTo(int newOrientation) {
     if (diff < -1) diff += 3;
     orientation = newOrientation;
     targetAngle += M_PI/2 * diff;
-    rotating = true;
+    setIsRotating(true);
+}
+
+void Camera::setIsRotating(bool value) {
+    rotating = value;
+    player->setIsRotating(value);
 }
 
 void Camera::toRel(float* _x, float* _y) {
@@ -320,6 +340,8 @@ void Camera::draw() {
 }
 
 void Camera::update(Keyboard k) {
+    freeze = false;
+    
     float dx = player->x - px;
     float dy = player->y - py;
     px += dx*snapSpeed;
@@ -343,5 +365,5 @@ void Camera::onReach() {
     while (targetAngle < 0) targetAngle += 2*M_PI;
     while (targetAngle > M_PI) targetAngle -= 2*M_PI;
     angle = targetAngle;
-    rotating = false;
+    setIsRotating(false);
 }
