@@ -40,9 +40,9 @@ Player::Player() {
     freeze = false;
     
     x = 0; y = 0;
-    speed = 10;
+    speed = 5;
     jumpSpeed = 11;
-    gravity = 0.4f;
+    gravity = 0.7f;
     gravityX = 0;
     gravityY = 0;
     pwidth = 30;

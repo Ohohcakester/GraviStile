@@ -50,7 +50,7 @@ void processEvent(sf::Event event) {
     }
 }
 
-void initialiseLevel1() {
+void initialiseLevel0() {
     int nPlats = 4;
     Platform plats[nPlats] = {
         Platform(8, 7, 3, 4, true, dir_up),
@@ -65,6 +65,30 @@ void initialiseLevel1() {
     gridToActual(8, 3, &game.player.x, &game.player.y);
     // game.player.setOrientation(dir_right);
     game.platforms.assign(plats, plats + (size_t) nPlats);
+}
+
+
+void initialiseLevel1() {
+    int nPlats = 9;
+    Platform plats[nPlats] = {
+        Platform(2, 2, 1, 1, true, dir_up),
+        Platform(4, 1, 0, 0, true, dir_right),
+        Platform(3, 5, 2, 2, true, dir_up),
+        Platform(6, 6, 1, 1, true, dir_right),
+        Platform(5, 8, 1, 1, true, dir_down),
+        Platform(8, 7, 1, 1, true, dir_up),
+        Platform(3, 9, 0, 0, true, dir_left),
+        Platform(5, 11, 1, 1, true, dir_right),
+        Platform(9, 9, 2, 2, false, dir_up),
+    };
+    
+    game.nTilesX = 12;
+    game.nTilesY = 12;
+    game.player = Player();
+    gridToActual(3, 4, &game.player.x, &game.player.y);
+    // game.player.setOrientation(dir_right);
+    game.platforms.assign(plats, plats + (size_t) nPlats);
+    game.zoom = 0.7;
 }
 
 void initialiseGame() {
