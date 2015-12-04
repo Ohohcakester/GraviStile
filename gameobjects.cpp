@@ -54,6 +54,13 @@ void Player::draw() {
 
 void Player::update(Keyboard k) {
     vx = 0;
+    int x1 = x - pwidth/2;
+    int x2 = x + pwidth/2;
+    int y1 = y - pheight/2;
+    int y2 = y + pheight/2;
+    if (x1 >= currentPlatform.x2 || x2 <= currentPlatform.x1) currentPlatform = Platform();
+    if (y2 != currentPlatform.y1) currentPlatform = Platform();
+    
     if (currentPlatform.isNull) vy += gravity;
     if (k.left) vx -= speed;
     if (k.right) vx += speed;
@@ -106,25 +113,25 @@ void Player::collision(Platform plat) {
         switch(touchSide) {
             case dir_left: {
                 x -= closestDist;
-                vx = 0;
+                if (vx > 0) vx = 0;
                 if (this->orientation == dir_left) currentPlatform = plat;
                 break;
             }
             case dir_right: {
                 x += closestDist;
-                vx = 0;
+                if (vx < 0) vx = 0;
                 if (this->orientation == dir_right) currentPlatform = plat;
                 break;
             }
             case dir_up: {
                 y -= closestDist;
-                vy = 0;
+                if (vy > 0) vy = 0;
                 if (this->orientation == dir_up) currentPlatform = plat;
                 break;
             }
             case dir_down: {
                 y += closestDist;
-                vy = 0;
+                if (vy < 0) vy = 0;
                 if (this->orientation == dir_down) currentPlatform = plat;
                 break;
             }
