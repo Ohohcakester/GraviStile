@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <math.h>
 #include "gameobjects.h"
 #include "keyboard.h"
 #include "globals.h"
@@ -87,4 +88,56 @@ void Door::draw() {
 
 void Door::update(Keyboard k) {
 
+}
+
+
+Camera::Camera() {}
+
+Camera::Camera(Player player) {
+    rotateSpeed = 0.1f;
+    snapSpeed = 0.2f;
+
+    this->player = player;
+    this->px = player.x;
+    this->py = player.y;
+}
+
+void Camera::rotateTo(int newOrientation) {
+    int diff = newOrientation - orientation;
+    if (diff >= 3) diff -= 3;
+    if (diff < -1) diff += 3;
+    orientation = newOrientation;
+    targetAngle += M_PI/2 * diff;
+    rotating = true;
+}
+
+void Camera::draw() {
+
+}
+
+void Camera::update(Keyboard k) {
+    if (!rotating) return;
+    float dx = player.x - px;
+    float dy = player.y - py;
+    px += dx*snapSpeed;
+    py += dy*snapSpeed;
+
+    if (angle < targetAngle) {
+        angle += rotateSpeed;
+        if (angle >= targetAngle) {
+            onReach();
+        }
+    } else {
+        angle -= rotateSpeed;
+        if (angle < targetAngle) {
+            onReach();
+        }
+    }
+}
+
+void Camera::onReach() {
+    while (targetAngle < 0) targetAngle += 2*M_PI;
+    while (targetAngle > M_PI) targetAngle -= 2*M_PI;
+    angle = targetAngle;
+    rotating = false;
 }
