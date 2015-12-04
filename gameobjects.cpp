@@ -7,7 +7,31 @@
 
 
 void IGameObject::drawCircle(sf::CircleShape shape, int px, int py) {
+    px = game.camera.toRelX(px);
+    py = game.camera.toRelY(py);
     shape.setOrigin(-px+shape.getRadius(),-py+shape.getRadius());
+    window.draw(shape);
+}
+
+void IGameObject::drawRectangle(sf::RectangleShape shape, int tl_x, int tl_y, int bl_x, int bl_y, int br_x, int br_y) {
+    tl_x = game.camera.toRelX(tl_x);
+    tl_y = game.camera.toRelY(tl_y);
+    bl_x = game.camera.toRelX(bl_x);
+    bl_y = game.camera.toRelY(bl_y);
+    br_x = game.camera.toRelX(br_x);
+    br_y = game.camera.toRelY(br_y);
+
+    float dx1 = tl_x-bl_x;
+    float dy1 = tl_y-bl_y;
+    float dx2 = br_x-bl_x;
+    float dy2 = br_y-bl_y;
+    float width = sqrt(dx2*dx2+dy2*dy2);
+    float height = sqrt(dx1*dx1+dy1*dy1);
+    float angle = atan2(dy2,dx2)*180/M_PI;
+
+    shape.setSize(sf::Vector2f(width,height));
+    shape.setPosition(tl_x,tl_y);
+    shape.setRotation(angle);
     window.draw(shape);
 }
 
@@ -116,9 +140,13 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
     this->rightTiles = rightTiles;
     this->rotatable = rotatable;
     setOrientation(orientation);
+
+    shape = sf::RectangleShape();
+    shape.setFillColor(sf::Color::Green);
 }
 
 void Platform::draw() {
+    drawRectangle(shape,x1,y1,x1,y2,x2,y2);
 }
 
 void Platform::update(Keyboard k) {
@@ -166,6 +194,7 @@ Door::Door(int cx, int cy, int orientation) {
 }
 
 void Door::draw() {
+    
 }
 
 void Door::update(Keyboard k) {
@@ -175,13 +204,13 @@ void Door::update(Keyboard k) {
 
 Camera::Camera() {}
 
-Camera::Camera(Player player) {
+Camera::Camera(Player* player) {
     rotateSpeed = 0.1f;
     snapSpeed = 0.2f;
 
     this->player = player;
-    this->px = player.x;
-    this->py = player.y;
+    this->px = player->x;
+    this->py = player->y;
 }
 
 void Camera::rotateTo(int newOrientation) {
@@ -193,17 +222,25 @@ void Camera::rotateTo(int newOrientation) {
     rotating = true;
 }
 
+float Camera::toRelX(float _x) {
+    return _x - px + RES_X/2;
+}
+
+float Camera::toRelY(float _y) {
+    return _y - py + RES_Y/2;
+}
+
 void Camera::draw() {
 
 }
 
 void Camera::update(Keyboard k) {
-    if (!rotating) return;
-    float dx = player.x - px;
-    float dy = player.y - py;
+    float dx = player->x - px;
+    float dy = player->y - py;
     px += dx*snapSpeed;
     py += dy*snapSpeed;
 
+    if (!rotating) return;
     if (angle < targetAngle) {
         angle += rotateSpeed;
         if (angle >= targetAngle) {

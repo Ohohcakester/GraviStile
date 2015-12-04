@@ -35,6 +35,7 @@ void initialiseLevel1() {
 void initialiseGame() {
     game = GameGlobals();
     initialiseLevel1();
+    game.camera = Camera(&game.player);
     game.width = game.nTilesX*TILE_WIDTH;
     game.height = game.nTilesY*TILE_WIDTH;
 }
@@ -42,10 +43,20 @@ void initialiseGame() {
 void updateGame() {
     game.key.update();
     game.player.update(game.key);
+    game.camera.update(game.key);
+    for (int i=0;i<game.platforms.size();++i) {
+        game.platforms[i].update(game.key);
+    }
+    game.door.update(game.key);
 }
 
 void drawGameFrame() {
     game.player.draw();
+    game.camera.draw();
+    for (int i=0;i<game.platforms.size();++i) {
+        game.platforms[i].draw();
+    }
+    game.door.draw();
 }
 
 int main() {

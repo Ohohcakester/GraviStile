@@ -21,10 +21,13 @@ public:
     virtual void update(Keyboard k) = 0;
 
     void drawCircle(sf::CircleShape shape, int px, int py);
+    void drawRectangle(sf::RectangleShape shape, int tl_x, int tl_y, int bl_x, int bl_y, int br_x, int br_y);
 };
 
 class Platform : public IGameObject {
 public:
+    sf::RectangleShape shape;
+
     bool isNull;
     int cx;
     int cy;
@@ -105,11 +108,14 @@ public:
     float targetAngle;
     int orientation;
     bool rotating;
-    Player player;
+    Player* player;
 
     Camera();
 
-    Camera(Player player);
+    Camera(Player* player);
+
+    float toRelX(float _x);
+    float toRelY(float _y);
 
     void rotateTo(int newOrientation);
 
