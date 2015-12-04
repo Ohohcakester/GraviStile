@@ -43,9 +43,11 @@ Player::Player() {
     speed = 10;
     jumpSpeed = 11;
     gravity = 0.4f;
+    gravityX = 0;
+    gravityY = 0;
     pwidth = 30;
     pheight = 50;
-    orientation = dir_up;
+    setOrientation(dir_up);
     shape = sf::RectangleShape();
     shape.setFillColor(sf::Color::Blue);
 }
@@ -67,7 +69,38 @@ void Player::update(Keyboard k) {
     if (freeze) return;
 
     vx = 0;
-    if (currentPlatform.isNull) vy += gravity;
+    int x1 = x - pwidth/2;
+    int x2 = x + pwidth/2;
+    int y1 = y - pheight/2;
+    int y2 = y + pheight/2;
+    
+    // Fall off the sides
+    switch(this->orientation) {
+        case dir_up:
+        case dir_down:
+            if (x1 >= currentPlatform.x2 || x2 <= currentPlatform.x1) currentPlatform = Platform();
+            break;
+        case dir_left:
+        case dir_right:
+            if (y1 >= currentPlatform.y2 || y2 <= currentPlatform.y1) currentPlatform = Platform();
+            break;
+        default:
+            std::cout << "Wat\n";
+    }
+    
+    // Do not fly off
+    switch(this->orientation) {
+        case dir_up: if (y2 != currentPlatform.y1) currentPlatform = Platform(); break;
+        case dir_down: if (y1 != currentPlatform.y2) currentPlatform = Platform(); break;
+        case dir_left: if (x2 != currentPlatform.x1) currentPlatform = Platform(); break;
+        case dir_right: if (x1 != currentPlatform.x2) currentPlatform = Platform(); break;
+        default: std::cout << "Wut\n";
+    }
+    
+    if (currentPlatform.isNull) {
+        vx += gravityX;
+        vy += gravityY;
+    }
     if (k.left) vx -= speed;
     if (k.right) vx += speed;
  
@@ -86,7 +119,39 @@ void Player::getGridCoordinates(int* gridX, int* gridY) {
 void Player::jump() {
     if (!currentPlatform.isNull) {
         currentPlatform = Platform(); // isNull
-        vy = (-1) * jumpSpeed;
+        switch(orientation) {
+            case dir_up: vy = (-1) * jumpSpeed; break;
+            case dir_down: vy = jumpSpeed; break;
+            case dir_left: vx = (-1) * jumpSpeed; break;
+            case dir_right: vx = jumpSpeed; break;
+        }
+    }
+}
+
+void Player::setOrientation(int orientation) {
+    this->orientation = orientation;
+    
+    switch(orientation) {
+        case dir_up: {
+            gravityX = 0;
+            gravityY = gravity;
+            break;
+        }
+        case dir_down: {
+            gravityX = 0;
+            gravityY = (-1) * gravity;
+            break;
+        }
+        case dir_left: {
+            gravityX = gravity;
+            gravityY = 0;
+            break;
+        }
+        case dir_right: {
+            gravityX = (-1) * gravity;
+            gravityY = 0;
+            break;
+        }
     }
 }
 
@@ -119,25 +184,25 @@ void Player::collision(Platform plat) {
         switch(touchSide) {
             case dir_left: {
                 x -= closestDist;
-                vx = 0;
+                if (vx > 0) vx = 0;
                 if (this->orientation == dir_left) currentPlatform = plat;
                 break;
             }
             case dir_right: {
                 x += closestDist;
-                vx = 0;
+                if (vx < 0) vx = 0;
                 if (this->orientation == dir_right) currentPlatform = plat;
                 break;
             }
             case dir_up: {
                 y -= closestDist;
-                vy = 0;
+                if (vy > 0) vy = 0;
                 if (this->orientation == dir_up) currentPlatform = plat;
                 break;
             }
             case dir_down: {
                 y += closestDist;
-                vy = 0;
+                if (vy < 0) vy = 0;
                 if (this->orientation == dir_down) currentPlatform = plat;
                 break;
             }

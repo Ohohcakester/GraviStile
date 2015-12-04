@@ -33,13 +33,19 @@ void processEvent(sf::Event event) {
 }
 
 void initialiseLevel1() {
-    int nPlats = 2;
-    Platform plats[nPlats] = { Platform(8, 7, 3, 4, true, dir_up), Platform(1, 6, 1, 2, false, dir_down) };
+    int nPlats = 4;
+    Platform plats[nPlats] = {
+        Platform(8, 7, 3, 4, true, dir_up),
+        Platform(1, 6, 1, 2, false, dir_down),
+        Platform(8, 10, 5, 6, true, dir_up),
+        Platform(16, 11, 1, 6, true, dir_right)
+    };
     
     game.nTilesX = 10;
     game.nTilesY = 10;
     game.player = Player();
     gridToActual(8, 3, &game.player.x, &game.player.y);
+    // game.player.setOrientation(dir_right);
     game.platforms.assign(plats, plats + (size_t) nPlats);
 }
 
