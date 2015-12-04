@@ -127,9 +127,12 @@ int main() {
 
             updateGame();
 
-            window.clear();
-            drawGameFrame();
-            window.display();
+            if (dTime < frameTime) {
+                // frame skip if lagging
+                window.clear();
+                drawGameFrame();
+                window.display();
+            }
         }
     }
 
