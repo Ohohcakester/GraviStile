@@ -4,6 +4,8 @@
 #include "gameobjects.h"
 #include "globals.h"
 
+void initialiseGame();
+
 void rotateRight() {
     if (!game.player.canRotate(false)) return;
     int orientation = game.player.orientation;
@@ -35,6 +37,7 @@ void keyPress(sf::Keyboard::Key keyCode) {
     if (keyCode == sf::Keyboard::Space) game.player.jump();
     if (keyCode == sf::Keyboard::A) rotateLeft();
     if (keyCode == sf::Keyboard::D) rotateRight();
+    if (keyCode == sf::Keyboard::Escape) initialiseGame();
 }
 
 
@@ -69,7 +72,7 @@ void initialiseLevel0() {
 
 
 void initialiseLevel1() {
-    int nPlats = 9;
+    int nPlats = 10;
     Platform plats[nPlats] = {
         Platform(2, 2, 1, 1, true, dir_up),
         Platform(4, 1, 0, 0, true, dir_right),
@@ -80,6 +83,7 @@ void initialiseLevel1() {
         Platform(3, 9, 0, 0, true, dir_left),
         Platform(5, 11, 1, 1, true, dir_right),
         Platform(9, 9, 2, 2, false, dir_up),
+        Platform(7, 0, 1, 1, true, dir_down),
     };
     
     game.nTilesX = 12;
