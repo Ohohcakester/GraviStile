@@ -20,9 +20,14 @@ void processEvent(sf::Event event) {
     }
 }
 
+void initialiseLevel1(GameGlobals game) {
+    game.player = Player();
+    game.platforms = { Platform(5, 5, 3, 4, true, dir_up); }
+}
+
 void initialiseGame() {
     game = GameGlobals();
-    game.player = Player();
+    initialiseLevel1(game);
 }
 
 void updateGame() {

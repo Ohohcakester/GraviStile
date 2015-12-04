@@ -35,7 +35,7 @@ public:
 
     Platform();
 
-    Platform(int pivotX, int pivotY, int leftTiles, int rightTiles, int orientation);
+    Platform(int pivotX, int pivotY, int leftTiles, int rightTiles, bool rotatable, int orientation);
 
     virtual void draw();
 

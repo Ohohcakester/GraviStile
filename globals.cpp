@@ -8,6 +8,6 @@ int RES_Y = 600;
 int WIDTH = RES_X;
 int HEIGHT = RES_Y;
 
-sf::RenderWindow window(sf::VideoMode(RES_X, RES_Y), "SFML works!");
+sf::RenderWindow window(sf::VideoMode(RES_X, RES_Y), "SFML In Space");
 
 

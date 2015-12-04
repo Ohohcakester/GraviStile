@@ -7,6 +7,9 @@ class GameGlobals {
 public:
     Player player;
     Keyboard key;
+    Door door;
+    
+    std::vector<Platform> platforms;
 };
 
 extern GameGlobals game;
