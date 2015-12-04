@@ -127,8 +127,28 @@ void Player::update(Keyboard k) {
         vx += gravityX;
         vy += gravityY;
     }
-    if (k.left) vx -= speed;
-    if (k.right) vx += speed;
+    
+    // What do left and right do
+    switch(this->orientation) {
+        case dir_up:         
+            if (k.left) vx -= speed;
+            if (k.right) vx += speed;
+            break;
+        case dir_down:
+            if (k.left) vx += speed;
+            if (k.right) vx -= speed;
+            break;
+        case dir_left:
+            if (k.left) vy += speed;
+            if (k.right) vy -= speed;
+            break;
+        case dir_right:
+            if (k.left) vy -= speed;
+            if (k.right) vy += speed;
+            break;
+        default:
+            std::cout << "Whyyy\n";
+    }
  
     x += vx;
     y += vy;
