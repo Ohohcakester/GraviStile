@@ -334,8 +334,8 @@ Camera::Camera(Player* player) {
 
 void Camera::rotateTo(int newOrientation) {
     int diff = newOrientation - orientation;
-    if (diff >= 3) diff -= 3;
-    if (diff < -1) diff += 3;
+    if (diff >= 3) diff -= 4;
+    if (diff < -1) diff += 4;
     orientation = newOrientation;
     std::cout << diff;
     targetAngle += M_PI/2 * diff;
