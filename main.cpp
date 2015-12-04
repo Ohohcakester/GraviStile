@@ -19,6 +19,7 @@ void rotateLeft() {
     int orientation = game.player.orientation;
     orientation -= 1;
     if (orientation < 0) orientation = 3;
+    std::cout << orientation;
 
     game.camera.rotateTo(orientation);
     game.player.rotateTo(orientation);

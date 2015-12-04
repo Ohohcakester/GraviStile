@@ -107,6 +107,8 @@ public:
     bool canRotate(bool right);
 
     void rotateTo(int orientation);
+
+    void updateBoundaries();
     
     void getGridCoordinates(int* gridX, int* gridY);
 
