@@ -95,11 +95,14 @@ public:
     float targetAngle;
     int orientation;
     bool rotating;
-    Player player;
+    Player* player;
 
     Camera();
 
-    Camera(Player player);
+    Camera(Player* player);
+
+    float toRelX(float _x);
+    float toRelY(float _y);
 
     void rotateTo(int newOrientation);
 

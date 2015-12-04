@@ -37,7 +37,7 @@ void initialiseLevel1() {
 void initialiseGame() {
     game = GameGlobals();
     initialiseLevel1();
-    game.camera = Camera(game.player);
+    game.camera = Camera(&game.player);
     game.width = game.nTilesX*TILE_WIDTH;
     game.height = game.nTilesY*TILE_WIDTH;
     std::cout << "2actual x = " << game.player.x << "\n";
@@ -48,6 +48,7 @@ void initialiseGame() {
 void updateGame() {
     game.key.update();
     game.player.update(game.key);
+    game.camera.update(game.key);
 }
 
 void drawGameFrame() {

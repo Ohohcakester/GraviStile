@@ -24,7 +24,7 @@ Player::Player() {
 }
 
 void Player::draw() {
-    drawCircle(shape, x, y);
+    drawCircle(shape, game.camera.toRelX(x), game.camera.toRelY(y));
 }
 
 void Player::update(Keyboard k) {
@@ -93,13 +93,13 @@ void Door::update(Keyboard k) {
 
 Camera::Camera() {}
 
-Camera::Camera(Player player) {
+Camera::Camera(Player* player) {
     rotateSpeed = 0.1f;
     snapSpeed = 0.2f;
 
     this->player = player;
-    this->px = player.x;
-    this->py = player.y;
+    this->px = player->x;
+    this->py = player->y;
 }
 
 void Camera::rotateTo(int newOrientation) {
@@ -111,17 +111,25 @@ void Camera::rotateTo(int newOrientation) {
     rotating = true;
 }
 
+float Camera::toRelX(float _x) {
+    return _x - px + RES_X/2;
+}
+
+float Camera::toRelY(float _y) {
+    return _y - py + RES_Y/2;
+}
+
 void Camera::draw() {
 
 }
 
 void Camera::update(Keyboard k) {
-    if (!rotating) return;
-    float dx = player.x - px;
-    float dy = player.y - py;
+    float dx = player->x - px;
+    float dy = player->y - py;
     px += dx*snapSpeed;
     py += dy*snapSpeed;
 
+    if (!rotating) return;
     if (angle < targetAngle) {
         angle += rotateSpeed;
         if (angle >= targetAngle) {
