@@ -28,6 +28,8 @@ public:
 class Platform : public IGameObject {
 public:
     sf::RectangleShape shape;
+    sf::CircleShape pivotShape;
+    sf::RectangleShape extraLineShape;
 
     bool isNull;
     int cx;

@@ -284,10 +284,36 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
 
     shape = sf::RectangleShape();
     shape.setFillColor(sf::Color::Green);
+    extraLineShape = sf::RectangleShape();
+    extraLineShape.setFillColor(sf::Color::Red);
+    pivotShape = sf::CircleShape(TILE_WIDTH/3);
+    pivotShape.setFillColor(sf::Color::Magenta);
 }
 
 void Platform::draw() {
     drawRectangle(&shape,x1,y1,x1,y2,x2,y2);
+
+    if (this->rotatable) {
+        int fraction = 5;
+        int e_x1 = x1; int e_x2 = x2; int e_y1 = y1; int e_y2 = y2;
+        switch(this->orientation) {
+            case dir_up:
+                e_y2 = (y2-y1)/fraction + y1;
+                break;
+            case dir_down:
+                e_y1 = (y1-y2)/fraction + y2;
+                break;
+            case dir_left:
+                e_x2 = (x2-x1)/fraction + x1;
+                break;
+            case dir_right:
+                e_x1 = (x1-x2)/fraction + x2;
+                break;
+        }
+        drawRectangle(&extraLineShape,e_x1,e_y1,e_x1,e_y2,e_x2,e_y2);
+
+        drawCircle(&pivotShape,x,y);
+    }
 }
 
 void Platform::update(Keyboard k) {
