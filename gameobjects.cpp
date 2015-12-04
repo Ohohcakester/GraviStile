@@ -60,9 +60,11 @@ bool Player::canRotate(bool right) {
 }
 
 void Player::rotateTo(int newOrientation) {
+    vx = 0; vy = 0;
     rotateAboutPivotActual(orientation, newOrientation, currentPlatform->cx, currentPlatform->cy, &x, &y);
     setOrientation(newOrientation);
     currentPlatform->setOrientation(newOrientation);
+    updateBoundaries();
 }
 
 void Player::setIsRotating(bool value) {
@@ -74,7 +76,7 @@ void Player::draw() {
     drawRectangle(&shape,x1,y1,x1,y2,x2,y2);
 }
 
-void Player::update(Keyboard k) {
+void Player::updateBoundaries() {
     x1 = x;
     x2 = x;
     y1 = y;
@@ -98,6 +100,13 @@ void Player::update(Keyboard k) {
             std::cout << "Nu\n";
     }
     
+}
+
+void Player::update(Keyboard k) {
+    if (freeze) return;
+
+    updateBoundaries();
+
     // Fall off the sides
     switch(this->orientation) {
         case dir_up:
@@ -354,8 +363,8 @@ Camera::Camera(Player* player) {
 
 void Camera::rotateTo(int newOrientation) {
     int diff = newOrientation - orientation;
-    if (diff >= 3) diff -= 3;
-    if (diff < -1) diff += 3;
+    if (diff >= 3) diff -= 4;
+    if (diff < -1) diff += 4;
     orientation = newOrientation;
     std::cout << diff;
     targetAngle += M_PI/2 * diff;

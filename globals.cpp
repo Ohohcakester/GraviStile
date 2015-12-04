@@ -22,8 +22,8 @@ void actualToGrid(int actualX, int actualY, int* gridX, int* gridY) {
 void rotateClockwise(int cx, int cy, int* x, int* y) {
     int dx = *x-cx;
     int dy = *y-cy;
-    *x = cx+dy;
-    *y = cy-dx;
+    *x = cx-dy;
+    *y = cy+dx;
 }
 
 void rotateAboutPivot(int oldOrientation, int newOrientation, int cx, int cy, int* x, int* y) {
