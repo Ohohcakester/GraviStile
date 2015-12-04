@@ -10,3 +10,4 @@ int HEIGHT = RES_Y;
 
 sf::RenderWindow window(sf::VideoMode(RES_X, RES_Y), "SFML works!");
 
+

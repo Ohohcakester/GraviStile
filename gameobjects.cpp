@@ -3,6 +3,7 @@
 #include "keyboard.h"
 #include "globals.h"
 
+
 void IGameObject::drawCircle(sf::CircleShape shape, int px, int py) {
     shape.setOrigin(-px+shape.getRadius(),-py+shape.getRadius());
     window.draw(shape);
@@ -31,4 +32,41 @@ void Player::update(Keyboard k) {
 
     x += vx;
     y += vy;
+}
+
+
+
+Platform::Platform() {
+    this->isNull = true;
+}
+
+Platform::Platform(int pivotX, int pivotY, int leftTiles, int rightTiles, int orientation) {
+    this->isNull = false;
+    this->x = pivotX;
+    this->y = pivotY;
+    this->leftTiles = leftTiles;
+    this->rightTiles = rightTiles;
+    this->orientation = orientation;
+}
+
+void Platform::draw() {
+
+}
+
+void Platform::update(Keyboard k) {
+}
+
+
+
+Door::Door(int cx, int cy, int orientation) {
+    this->cx = cx;
+    this->cy = cy;
+    this->orientation = orientation;
+}
+
+void Door::draw() {
+}
+
+void Door::update(Keyboard k) {
+
 }
