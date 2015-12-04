@@ -7,12 +7,13 @@ class GameGlobals {
 public:
     Player player;
     Keyboard key;
-
-
+    Door door;
     int nTilesX;
     int nTilesY;
     int width;
     int height;
+    
+    std::vector<Platform> platforms;
 };
 
 extern GameGlobals game;

@@ -45,13 +45,15 @@ Platform::Platform() {
     this->isNull = true;
 }
 
-Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, int orientation) {
+
+Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable, int orientation) {
     this->isNull = false;
     this->cx = cx;
     this->cy = cy;
     gridToActual(cx, cy, &this->x, &this->y);
     this->leftTiles = leftTiles;
     this->rightTiles = rightTiles;
+    this->rotatable = rotatable;
     this->orientation = orientation;
 }
 
@@ -62,9 +64,12 @@ void Platform::draw() {
 void Platform::update(Keyboard k) {
 }
 
-
+Door::Door() {
+    this->isNull = true;
+}
 
 Door::Door(int cx, int cy, int orientation) {
+    this->isNull = false;
     this->cx = cx;
     this->cy = cy;
     gridToActual(cx, cy, &this->x, &this->y);

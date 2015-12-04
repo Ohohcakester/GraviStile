@@ -7,9 +7,7 @@ int RES_X = 800;
 int RES_Y = 600;
 int TILE_WIDTH = 50;
 
-sf::RenderWindow window(sf::VideoMode(RES_X, RES_Y), "SFML works!");
-
-
+sf::RenderWindow window(sf::VideoMode(RES_X, RES_Y), "SFML In Space");
 
 void gridToActual(int gridX, int gridY, int* actualX, int* actualY) {
     *actualX = gridX*TILE_WIDTH + TILE_WIDTH/2;
