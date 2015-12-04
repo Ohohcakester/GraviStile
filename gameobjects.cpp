@@ -58,8 +58,29 @@ void Player::update(Keyboard k) {
     int x2 = x + pwidth/2;
     int y1 = y - pheight/2;
     int y2 = y + pheight/2;
-    if (x1 >= currentPlatform.x2 || x2 <= currentPlatform.x1) currentPlatform = Platform();
-    if (y2 != currentPlatform.y1) currentPlatform = Platform();
+    
+    // Fall off the sides
+    switch(this->orientation) {
+        case dir_up:
+        case dir_down:
+            if (x1 >= currentPlatform.x2 || x2 <= currentPlatform.x1) currentPlatform = Platform();
+            break;
+        case dir_left:
+        case dir_right:
+            if (y1 >= currentPlatform.y2 || y2 <= currentPlatform.y1) currentPlatform = Platform();
+            break;
+        default:
+            std::cout << "Wat\n";
+    }
+    
+    // Do not fly off
+    switch(this->orientation) {
+        case dir_up: if (y2 != currentPlatform.y1) currentPlatform = Platform(); break;
+        case dir_down: if (y1 != currentPlatform.y2) currentPlatform = Platform(); break;
+        case dir_left: if (x2 != currentPlatform.x1) currentPlatform = Platform(); break;
+        case dir_right: if (x1 != currentPlatform.x2) currentPlatform = Platform(); break;
+        default: std::cout << "Wut\n";
+    }
     
     if (currentPlatform.isNull) vy += gravity;
     if (k.left) vx -= speed;
