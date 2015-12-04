@@ -6,20 +6,17 @@
 #include "globals.h"
 
 
-void IGameObject::drawCircle(sf::CircleShape shape, int px, int py) {
-    px = game.camera.toRelX(px);
-    py = game.camera.toRelY(py);
+void IGameObject::drawCircle(sf::CircleShape shape, float px, float py) {
+    game.camera.toRel(&px, &py);
+
     shape.setOrigin(-px+shape.getRadius(),-py+shape.getRadius());
     window.draw(shape);
 }
 
-void IGameObject::drawRectangle(sf::RectangleShape shape, int tl_x, int tl_y, int bl_x, int bl_y, int br_x, int br_y) {
-    tl_x = game.camera.toRelX(tl_x);
-    tl_y = game.camera.toRelY(tl_y);
-    bl_x = game.camera.toRelX(bl_x);
-    bl_y = game.camera.toRelY(bl_y);
-    br_x = game.camera.toRelX(br_x);
-    br_y = game.camera.toRelY(br_y);
+void IGameObject::drawRectangle(sf::RectangleShape shape, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y) {
+    game.camera.toRel(&tl_x, &tl_y);
+    game.camera.toRel(&bl_x, &bl_y);
+    game.camera.toRel(&br_x, &br_y);
 
     float dx1 = tl_x-bl_x;
     float dy1 = tl_y-bl_y;
@@ -205,7 +202,7 @@ Door::Door(int cx, int cy, int orientation) {
 }
 
 void Door::draw() {
-    
+
 }
 
 void Door::update(Keyboard k) {
@@ -233,12 +230,14 @@ void Camera::rotateTo(int newOrientation) {
     rotating = true;
 }
 
-float Camera::toRelX(float _x) {
-    return _x - px + RES_X/2;
-}
+void Camera::toRel(float* _x, float* _y) {
+    float dx = *_x - px;
+    float dy = *_y - py;
+    float theta = angle - atan2(dy,dx);
+    float length = sqrt(dx*dx+dy*dy);
 
-float Camera::toRelY(float _y) {
-    return _y - py + RES_Y/2;
+    *_x = length*cos(theta) + RES_X/2;
+    *_y = RES_Y/2 - length*sin(theta);
 }
 
 void Camera::draw() {

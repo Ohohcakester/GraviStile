@@ -20,8 +20,8 @@ public:
     virtual void draw() = 0;
     virtual void update(Keyboard k) = 0;
 
-    void drawCircle(sf::CircleShape shape, int px, int py);
-    void drawRectangle(sf::RectangleShape shape, int tl_x, int tl_y, int bl_x, int bl_y, int br_x, int br_y);
+    void drawCircle(sf::CircleShape shape, float px, float py);
+    void drawRectangle(sf::RectangleShape shape, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y);
 };
 
 class Platform : public IGameObject {
@@ -116,8 +116,7 @@ public:
 
     Camera(Player* player);
 
-    float toRelX(float _x);
-    float toRelY(float _y);
+    void toRel(float* _x, float* _y);
 
     void rotateTo(int newOrientation);
 
