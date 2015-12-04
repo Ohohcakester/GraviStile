@@ -40,12 +40,19 @@ Player::Player() {
     speed = 10;
     jumpSpeed = 11;
     gravity = 0.4f;
-    shape = sf::CircleShape(50);
-    shape.setFillColor(sf::Color::Green);
+    pwidth = 30;
+    pheight = 50;
+    orientation = dir_up;
+    shape = sf::RectangleShape();
+    shape.setFillColor(sf::Color::Blue);
 }
 
 void Player::draw() {
-    drawCircle(shape, x, y);
+    int x1 = x - pwidth/2;
+    int x2 = x + pwidth/2;
+    int y1 = y - pheight/2;
+    int y2 = y + pheight/2;
+    drawRectangle(shape,x1,y1,x1,y2,x2,y2);
 }
 
 void Player::update(Keyboard k) {
@@ -67,16 +74,17 @@ void Player::getGridCoordinates(int* gridX, int* gridY) {
 }
 
 void Player::jump() {
-    currentPlatform = Platform(); // isNull
-    std::cout<<"jumping\n";
-    vy = (-1) * speed;
+    if (!currentPlatform.isNull) {
+        currentPlatform = Platform(); // isNull
+        vy = (-1) * jumpSpeed;
+    }
 }
 
 void Player::collision(Platform plat) {
-    int x1 = x - 50;
-    int x2 = x + 50;
-    int y1 = y - 50;
-    int y2 = y + 50;
+    int x1 = x - pwidth/2;
+    int x2 = x + pwidth/2;
+    int y1 = y - pheight/2;
+    int y2 = y + pheight/2;
     
     if (x2 > plat.x1 && x1 < plat.x2 && y2 > plat.y1 && y1 < plat.y2) {
         int touchSide = -1;
@@ -102,21 +110,25 @@ void Player::collision(Platform plat) {
             case dir_left: {
                 x -= closestDist;
                 vx = 0;
+                if (this->orientation == dir_left) currentPlatform = plat;
                 break;
             }
             case dir_right: {
                 x += closestDist;
                 vx = 0;
+                if (this->orientation == dir_right) currentPlatform = plat;
                 break;
             }
             case dir_up: {
                 y -= closestDist;
                 vy = 0;
+                if (this->orientation == dir_up) currentPlatform = plat;
                 break;
             }
             case dir_down: {
                 y += closestDist;
                 vy = 0;
+                if (this->orientation == dir_down) currentPlatform = plat;
                 break;
             }
             default: {

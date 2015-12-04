@@ -74,7 +74,7 @@ public:
 
 class Player : public IGameObject {
 public:
-    sf::CircleShape shape;
+    sf::RectangleShape shape;
     float vx;
     float vy;
     float ax;
@@ -83,8 +83,10 @@ public:
     int jumpSpeed;
     float gravity;
     int orientation;
+    int pwidth;
+    int pheight;
     Platform currentPlatform;
-
+    
     Player();
 
     virtual void draw();
