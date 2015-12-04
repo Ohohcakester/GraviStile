@@ -34,16 +34,22 @@ void Player::update(Keyboard k) {
     y += vy;
 }
 
+void Player::getGridCoordinates(int* gridX, int* gridY) {
+    actualToGrid(x, y, gridX, gridY);
+}
+
+
 
 
 Platform::Platform() {
     this->isNull = true;
 }
 
-Platform::Platform(int pivotX, int pivotY, int leftTiles, int rightTiles, int orientation) {
+Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, int orientation) {
     this->isNull = false;
-    this->x = pivotX;
-    this->y = pivotY;
+    this->cx = cx;
+    this->cy = cy;
+    gridToActual(cx, cy, &this->x, &this->y);
     this->leftTiles = leftTiles;
     this->rightTiles = rightTiles;
     this->orientation = orientation;
@@ -61,6 +67,7 @@ void Platform::update(Keyboard k) {
 Door::Door(int cx, int cy, int orientation) {
     this->cx = cx;
     this->cy = cy;
+    gridToActual(cx, cy, &this->x, &this->y);
     this->orientation = orientation;
 }
 

@@ -40,7 +40,6 @@ public:
     virtual void draw();
 
     virtual void update(Keyboard k);
-
 };
 
 class Door : public IGameObject {
@@ -73,6 +72,8 @@ public:
     virtual void draw();
 
     virtual void update(Keyboard k);
+
+    void getGridCoordinates(int* gridX, int* gridY);
 };
 
 #endif

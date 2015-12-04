@@ -23,6 +23,8 @@ extern int TILE_WIDTH;
 
 extern sf::RenderWindow window;
 
+void gridToActual(int gridX, int gridY, int* actualX, int* actualY);
+void actualToGrid(int actualX, int actualY, int* gridX, int* gridY);
 
 
 
