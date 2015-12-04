@@ -13,7 +13,7 @@ void IGameObject::drawCircle(sf::CircleShape shape, int px, int py) {
 
 
 Player::Player() {
-    x = WIDTH/2; y = HEIGHT/2;
+    x = 0; y = 0;
     speed = 10;
     shape = sf::CircleShape(50);
     shape.setFillColor(sf::Color::Green);

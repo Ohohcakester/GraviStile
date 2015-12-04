@@ -23,6 +23,9 @@ void processEvent(sf::Event event) {
 void initialiseGame() {
     game = GameGlobals();
     game.player = Player();
+
+    game.width = game.nTilesX*TILE_WIDTH;
+    game.height = game.nTilesY*TILE_WIDTH;
 }
 
 void updateGame() {
