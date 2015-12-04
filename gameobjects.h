@@ -82,6 +82,8 @@ public:
     int speed;
     int jumpSpeed;
     float gravity;
+    float gravityX;
+    float gravityY;
     int orientation;
     int pwidth;
     int pheight;
@@ -98,6 +100,8 @@ public:
     void getGridCoordinates(int* gridX, int* gridY);
     
     void collision(Platform plat);
+    
+    void setOrientation(int orientation);
 };
 
 class Camera : public IGameObject {

@@ -34,6 +34,7 @@ void initialiseLevel1() {
     game.nTilesY = 10;
     game.player = Player();
     gridToActual(8, 3, &game.player.x, &game.player.y);
+    // game.player.setOrientation(dir_right);
     game.platforms.assign(plats, plats + (size_t) nPlats);
 }
 

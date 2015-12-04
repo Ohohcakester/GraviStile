@@ -37,9 +37,11 @@ Player::Player() {
     speed = 10;
     jumpSpeed = 11;
     gravity = 0.4f;
+    gravityX = 0;
+    gravityY = 0;
     pwidth = 30;
     pheight = 50;
-    orientation = dir_up;
+    setOrientation(dir_up);
     shape = sf::RectangleShape();
     shape.setFillColor(sf::Color::Blue);
 }
@@ -82,7 +84,10 @@ void Player::update(Keyboard k) {
         default: std::cout << "Wut\n";
     }
     
-    if (currentPlatform.isNull) vy += gravity;
+    if (currentPlatform.isNull) {
+        vx += gravityX;
+        vy += gravityY;
+    }
     if (k.left) vx -= speed;
     if (k.right) vx += speed;
  
@@ -101,7 +106,39 @@ void Player::getGridCoordinates(int* gridX, int* gridY) {
 void Player::jump() {
     if (!currentPlatform.isNull) {
         currentPlatform = Platform(); // isNull
-        vy = (-1) * jumpSpeed;
+        switch(orientation) {
+            case dir_up: vy = (-1) * jumpSpeed; break;
+            case dir_down: vy = jumpSpeed; break;
+            case dir_left: vx = (-1) * jumpSpeed; break;
+            case dir_right: vx = jumpSpeed; break;
+        }
+    }
+}
+
+void Player::setOrientation(int orientation) {
+    this->orientation = orientation;
+    
+    switch(orientation) {
+        case dir_up: {
+            gravityX = 0;
+            gravityY = gravity;
+            break;
+        }
+        case dir_down: {
+            gravityX = 0;
+            gravityY = (-1) * gravity;
+            break;
+        }
+        case dir_left: {
+            gravityX = gravity;
+            gravityY = 0;
+            break;
+        }
+        case dir_right: {
+            gravityX = (-1) * gravity;
+            gravityY = 0;
+            break;
+        }
     }
 }
 
