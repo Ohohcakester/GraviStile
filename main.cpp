@@ -21,13 +21,18 @@ void processEvent(sf::Event event) {
 }
 
 void initialiseLevel1(GameGlobals game) {
-    game.player = Player();
-    game.player.x = 2;
-    game.player.y = 2;
     int nPlats = 2;
     Platform plats[nPlats] = { Platform(5, 5, 3, 4, true, dir_up), Platform(1, 1, 1, 2, false, dir_down) };
     
-    // game.platforms =
+    game.player = Player();
+    game.player.x = 2;
+    game.player.y = 2;
+    game.platforms.assign(plats, plats + (size_t) nPlats);
+    
+    /*
+    for (std::vector<Platform>::iterator it = game.platforms.begin(); it != game.platforms.end(); ++it) {
+        std::cout << "cx = " << it->cx << "\n";
+    }*/
 }
 
 void initialiseGame() {
@@ -52,7 +57,8 @@ int main() {
     float frameTime = 1/60.f;
     float dTime = 0;
 
-
+    initialiseGame();
+    
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
