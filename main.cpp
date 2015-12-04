@@ -78,7 +78,7 @@ GameGlobals game;
 Keyboard key;
 
 void keyPress(sf::Keyboard::Key keyCode) {
-    std::cout << keyCode;
+    std::cout << "Press " << keyCode << std::endl;
 }
 
 void processEvent(sf::Event event) {
@@ -108,17 +108,29 @@ void drawGameFrame() {
 }
 
 int main() {
+    sf::Clock clock;
+
+    float frameTime = 1/60.f;
+    float dTime = 0;
+
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
             processEvent(event);
         }
+        dTime += clock.getElapsedTime().asSeconds();
+        clock.restart();
 
-        updateGame();
+        if (dTime > frameTime) {
+            dTime -= frameTime;
 
-        window.clear();
-        drawGameFrame();
-        window.display();
+            updateGame();
+
+            window.clear();
+            drawGameFrame();
+            window.display();
+        }
     }
 
     return 0;
