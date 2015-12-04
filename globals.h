@@ -9,7 +9,7 @@ public:
     Keyboard key;
     Door door;
     Camera camera;
-    
+
     int nTilesX;
     int nTilesY;
     int width;
@@ -29,7 +29,8 @@ extern sf::RenderWindow window;
 void gridToActual(int gridX, int gridY, int* actualX, int* actualY);
 void actualToGrid(int actualX, int actualY, int* gridX, int* gridY);
 
-
+void rotateAboutPivotActual(int oldOrientation, int newOrientation, int gridcx, int gridcy, int* x, int* y);
+void rotateAboutPivotGrid(int oldOrientation, int newOrientation, int gridcx, int gridcy, int* x, int* y);
 
 
 

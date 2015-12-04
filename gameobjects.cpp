@@ -54,19 +54,20 @@ Player::Player() {
 
 bool Player::canRotate(bool right) {
     if (freeze) return false;
-    if (currentPlatform.isNull) return false;
-    if (!currentPlatform.rotatable) return false;
-    return orientation == currentPlatform.orientation;
+    if (currentPlatform->isNull) return false;
+    if (!currentPlatform->rotatable) return false;
+    return orientation == currentPlatform->orientation;
 }
 
-void Player::rotateTo(int orientation) {
-    setOrientation(orientation);
-    currentPlatform.setOrientation(orientation);
+void Player::rotateTo(int newOrientation) {
+    rotateAboutPivotActual(orientation, newOrientation, currentPlatform->cx, currentPlatform->cy, &x, &y);
+    setOrientation(newOrientation);
+    currentPlatform->setOrientation(newOrientation);
 }
 
 void Player::setIsRotating(bool value) {
     freeze = value;
-    currentPlatform.freeze = value;
+    currentPlatform->freeze = value;
 }
 
 void Player::draw() {
@@ -101,12 +102,12 @@ void Player::update(Keyboard k) {
     switch(this->orientation) {
         case dir_up:
         case dir_down:
-            if (x1 >= currentPlatform.x2 || x2 <= currentPlatform.x1) currentPlatform = Platform();
+            if (x1 >= currentPlatform->x2 || x2 <= currentPlatform->x1) currentPlatform = new Platform(); // Note: Memory leak?
             vx = 0; // also sneak in speed control
             break;
         case dir_left:
         case dir_right:
-            if (y1 >= currentPlatform.y2 || y2 <= currentPlatform.y1) currentPlatform = Platform();
+            if (y1 >= currentPlatform->y2 || y2 <= currentPlatform->y1) currentPlatform = new Platform();
             vy = 0;
             break;
         default:
@@ -115,14 +116,14 @@ void Player::update(Keyboard k) {
     
     // Do not fly off
     switch(this->orientation) {
-        case dir_up: if (y2 != currentPlatform.y1) currentPlatform = Platform(); break;
-        case dir_down: if (y1 != currentPlatform.y2) currentPlatform = Platform(); break;
-        case dir_left: if (x2 != currentPlatform.x1) currentPlatform = Platform(); break;
-        case dir_right: if (x1 != currentPlatform.x2) currentPlatform = Platform(); break;
+        case dir_up: if (y2 != currentPlatform->y1) currentPlatform = new Platform(); break;
+        case dir_down: if (y1 != currentPlatform->y2) currentPlatform = new Platform(); break;
+        case dir_left: if (x2 != currentPlatform->x1) currentPlatform = new Platform(); break;
+        case dir_right: if (x1 != currentPlatform->x2) currentPlatform = new Platform(); break;
         default: std::cout << "Wut\n";
     }
     
-    if (currentPlatform.isNull) {
+    if (currentPlatform->isNull) {
         vx += gravityX;
         vy += gravityY;
     }
@@ -132,9 +133,12 @@ void Player::update(Keyboard k) {
     x += vx;
     y += vy;
     
-    for (std::vector<Platform>::iterator it = game.platforms.begin(); it != game.platforms.end(); ++it) {
-        collision(*it);
+    for (int i=0;i<game.platforms.size();++i) {
+        collision(&game.platforms[i]);
     }
+    /*for (std::vector<Platform>::iterator it = game.platforms.begin(); it != game.platforms.end(); ++it) {
+        collision(it);
+    }*/
 }
 
 void Player::getGridCoordinates(int* gridX, int* gridY) {
@@ -142,8 +146,8 @@ void Player::getGridCoordinates(int* gridX, int* gridY) {
 }
 
 void Player::jump() {
-    if (!currentPlatform.isNull) {
-        currentPlatform = Platform(); // isNull
+    if (!currentPlatform->isNull) {
+        currentPlatform = new Platform(); // isNull
         switch(orientation) {
             case dir_up: vy = (-1) * jumpSpeed; break;
             case dir_down: vy = jumpSpeed; break;
@@ -180,25 +184,25 @@ void Player::setOrientation(int orientation) {
     }
 }
 
-void Player::collision(Platform plat) {
-    if (x2 > plat.x1 && x1 < plat.x2 && y2 > plat.y1 && y1 < plat.y2) {
+void Player::collision(Platform* plat) {
+    if (x2 > plat->x1 && x1 < plat->x2 && y2 > plat->y1 && y1 < plat->y2) {
         int touchSide = -1;
         int closestDist = TILE_WIDTH * 2;
-        if (x2 - plat.x1 < closestDist) {
+        if (x2 - plat->x1 < closestDist) {
             touchSide = dir_left;
-            closestDist = x2 - plat.x1;
+            closestDist = x2 - plat->x1;
         }
-        if (plat.x2 - x1 < closestDist) {
+        if (plat->x2 - x1 < closestDist) {
             touchSide = dir_right;
-            closestDist = plat.x2 - x1;
+            closestDist = plat->x2 - x1;
         }
-        if (y2 - plat.y1 < closestDist) {
+        if (y2 - plat->y1 < closestDist) {
             touchSide = dir_up;
-            closestDist = y2 - plat.y1;
+            closestDist = y2 - plat->y1;
         }
-        if (plat.y2 - y1 < closestDist) {
+        if (plat->y2 - y1 < closestDist) {
             touchSide = dir_down;
-            closestDist = plat.y2 - y1;
+            closestDist = plat->y2 - y1;
         }
         
         switch(touchSide) {
@@ -315,12 +319,17 @@ void Door::update(Keyboard k) {
 Camera::Camera() {}
 
 Camera::Camera(Player* player) {
+    freeze = false;
+
     rotateSpeed = 0.1f;
     snapSpeed = 0.2f;
 
+    this->orientation = 0;
     this->player = player;
     this->px = player->x;
     this->py = player->y;
+    this->angle = 0;
+    this->targetAngle = 0;
 }
 
 void Camera::rotateTo(int newOrientation) {
@@ -328,6 +337,7 @@ void Camera::rotateTo(int newOrientation) {
     if (diff >= 3) diff -= 3;
     if (diff < -1) diff += 3;
     orientation = newOrientation;
+    std::cout << diff;
     targetAngle += M_PI/2 * diff;
     setIsRotating(true);
 }
@@ -352,14 +362,13 @@ void Camera::draw() {
 }
 
 void Camera::update(Keyboard k) {
-    freeze = false;
-    
     float dx = player->x - px;
     float dy = player->y - py;
     px += dx*snapSpeed;
     py += dy*snapSpeed;
 
     if (!rotating) return;
+    //std::cout << angle << " " << targetAngle << "\n";
     if (angle < targetAngle) {
         angle += rotateSpeed;
         if (angle >= targetAngle) {

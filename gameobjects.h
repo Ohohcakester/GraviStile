@@ -88,7 +88,7 @@ public:
     int orientation;
     int pwidth;
     int pheight;
-    Platform currentPlatform;
+    Platform* currentPlatform;
     
     // rect
     int x1;
@@ -112,7 +112,7 @@ public:
 
     void setIsRotating(bool value);
     
-    void collision(Platform plat);
+    void collision(Platform* plat);
     
     void setOrientation(int orientation);
 };

@@ -4,7 +4,7 @@
 #include "gameobjects.h"
 #include "globals.h"
 
-void rotateLeft() {
+void rotateRight() {
     if (!game.player.canRotate(false)) return;
     int orientation = game.player.orientation;
     orientation += 1;
@@ -14,12 +14,12 @@ void rotateLeft() {
     game.player.rotateTo(orientation);
 }
 
-void rotateRight() {
+void rotateLeft() {
     if (!game.player.canRotate(true)) return;
     int orientation = game.player.orientation;
     orientation -= 1;
-    if (orientation < 4) orientation = 3;
-    
+    if (orientation < 0) orientation = 3;
+
     game.camera.rotateTo(orientation);
     game.player.rotateTo(orientation);
 }
