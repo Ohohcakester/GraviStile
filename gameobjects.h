@@ -64,9 +64,13 @@ public:
 class Player : public IGameObject {
 public:
     sf::CircleShape shape;
-    int vx;
-    int vy;
+    float vx;
+    float vy;
+    float ax;
+    float ay;
     int speed;
+    int jumpSpeed;
+    float gravity;
     int orientation;
     Platform currentPlatform;
 
@@ -76,6 +80,8 @@ public:
 
     virtual void update(Keyboard k);
 
+    virtual void jump();
+    
     void getGridCoordinates(int* gridX, int* gridY);
 };
 

@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "gameobjects.h"
 #include "keyboard.h"
 #include "globals.h"
@@ -15,6 +16,8 @@ void IGameObject::drawCircle(sf::CircleShape shape, int px, int py) {
 Player::Player() {
     x = 0; y = 0;
     speed = 10;
+    jumpSpeed = 11;
+    gravity = 0.4f;
     shape = sf::CircleShape(50);
     shape.setFillColor(sf::Color::Green);
 }
@@ -24,12 +27,11 @@ void Player::draw() {
 }
 
 void Player::update(Keyboard k) {
-    vx = 0; vy = 0;
-    if (k.down) vy += speed;
-    if (k.up) vy -= speed;
+    vx = 0;
+    if (currentPlatform.isNull) vy += gravity;
     if (k.left) vx -= speed;
     if (k.right) vx += speed;
-
+ 
     x += vx;
     y += vy;
 }
@@ -38,7 +40,11 @@ void Player::getGridCoordinates(int* gridX, int* gridY) {
     actualToGrid(x, y, gridX, gridY);
 }
 
-
+void Player::jump() {
+    currentPlatform = Platform(); // isNull
+    std::cout<<"jumping\n";
+    vy = (-1) * speed;
+}
 
 
 Platform::Platform() {
