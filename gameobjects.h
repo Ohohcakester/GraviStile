@@ -111,6 +111,7 @@ public:
     int pwidth;
     int pheight;
     Platform* currentPlatform;
+    Platform* frozenPlatform;
     
     // rect
     int x1;

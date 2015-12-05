@@ -70,7 +70,12 @@ void Player::rotateTo(int newOrientation) {
 
 void Player::setIsRotating(bool value) {
     freeze = value;
-    currentPlatform->freeze = value;
+    if (value == true) {
+        currentPlatform->freeze = value;
+        frozenPlatform = currentPlatform;
+    } else {
+        frozenPlatform->freeze = value;
+    }
 }
 
 void Player::draw() {
