@@ -87,7 +87,7 @@ void initialiseLevel0() {
     game.platforms.assign(plats, plats + (size_t) nPlats);
     
     game.zoom = 1.2;
-    Door door = Door(6, 0, dir_left);
+    Door door = Door(6, 0, dir_up);
     game.door = door;
 }
 
@@ -137,12 +137,14 @@ void initialiseLevel2() {
 
 
 void initialiseLevel3() {
-    int nPlats = 4;
+    int nPlats = 6;
     Platform plats[nPlats] = {
         Platform(2, 0, 1, 1, false, dir_up),
         Platform(2, 2, 1, 1, true, dir_up),
         Platform(0, 4, 1, 1, true, dir_right),
         Platform(4, 4, 1, 1, true, dir_left),
+        Platform(0, 0, 0, 0, true, dir_down),
+        Platform(4, 0, 0, 0, true, dir_down),
     };
     
     game.nTilesX = 5;
@@ -185,15 +187,15 @@ void initialiseLevel5() {
     int nPlats = 6;
     Platform plats[nPlats] = {
         Platform(0, 0, 0, 0, true, dir_up),
-        Platform(1, 1, 0, 0, true, dir_down),
+        Platform(1, 2, 0, 0, true, dir_down),
         Platform(2, 0, 0, 0, true, dir_up),
-        Platform(0, 2, 0, 0, true, dir_up),
-        Platform(2, 2, 0, 0, true, dir_up),
-        Platform(1, 4, 1, 0, true, dir_right),
+        Platform(0, 3, 0, 0, true, dir_up),
+        Platform(2, 3, 0, 0, true, dir_up),
+        Platform(1, 5, 1, 0, true, dir_right),
     };
     
     game.nTilesX = 3;
-    game.nTilesY = 5;
+    game.nTilesY = 6;
     game.player = Player();
     gridToActual(1, 0, &game.player.x, &game.player.y);
     // game.player.setOrientation(dir_right);
@@ -287,7 +289,13 @@ void initialiseMenu() {
 }
 
 void updateGame() {
-    if (game.puzzleComplete) return;
+    if (game.puzzleComplete) {
+        game.door.endStageTimeout--;
+        if (game.door.endStageTimeout <= 0) {
+            initialiseMenu();
+        }
+        return;
+    }
 
     game.key.update();
     game.background.update(game.key);
