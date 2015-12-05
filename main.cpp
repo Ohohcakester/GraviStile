@@ -4,7 +4,9 @@
 #include "gameobjects.h"
 #include "globals.h"
 
-void initialiseGame();
+bool inMenu = true;
+
+void initialiseGame(int stage);
 
 void rotateRight() {
     if (!game.player.canRotate(false)) return;
@@ -34,10 +36,18 @@ void rotateLeft() {
 
 void keyPress(sf::Keyboard::Key keyCode) {
     std::cout << "Press " << keyCode << std::endl;
-    if (keyCode == sf::Keyboard::Space) game.player.jump();
-    if (keyCode == sf::Keyboard::A) rotateLeft();
-    if (keyCode == sf::Keyboard::D) rotateRight();
-    if (keyCode == sf::Keyboard::Escape) initialiseGame();
+    if (inMenu) {
+        if (keyCode == sf::Keyboard::Space) initialiseGame(menu.selection);
+        if (keyCode == sf::Keyboard::Left) menu.previous();
+        if (keyCode == sf::Keyboard::Right) menu.next();
+        if (keyCode == sf::Keyboard::Up) {for (int i=0;i<menu.cols;++i) menu.previous();}
+        if (keyCode == sf::Keyboard::Down) {for (int i=0;i<menu.cols;++i) menu.next();}
+    } else {
+        if (keyCode == sf::Keyboard::Space) game.player.jump();
+        if (keyCode == sf::Keyboard::A) rotateLeft();
+        if (keyCode == sf::Keyboard::D) rotateRight();
+        if (keyCode == sf::Keyboard::Escape) initialiseGame(game.currentStage);
+    }
 }
 
 
@@ -99,18 +109,27 @@ void initialiseLevel1() {
     game.door = door;
 }
 
-void initialiseGame() {
+void initialiseGame(int stage) {
+    inMenu = false;
     game = GameGlobals();
     game.puzzleComplete = false;
     game.zoom = 0.4;
 
-    initialiseLevel1();
-    
+    game.currentStage = stage;
+    switch(stage) {
+        case 0: initialiseLevel0(); break;
+        case 1: initialiseLevel1(); break;
+    }
+
     game.camera = Camera(&game.player);
     game.width = game.nTilesX*TILE_WIDTH;
     game.height = game.nTilesY*TILE_WIDTH;
     Background bg = Background();
     game.background = bg;
+}
+
+void initialiseMenu() {
+    inMenu = true;
 }
 
 void updateGame() {
@@ -126,6 +145,10 @@ void updateGame() {
     game.door.update(game.key);
 }
 
+void updateMenu() {
+
+}
+
 void drawGameFrame() {
     game.background.draw();
     game.camera.draw();
@@ -136,13 +159,50 @@ void drawGameFrame() {
     game.player.draw();
 }
 
+void drawMenuFrame() {
+    float itemSpacing = RES_X / menu.cols;
+    float itemGlowWidth = itemSpacing*0.7f;
+    float halfItemGlowWidth = itemGlowWidth/2;
+
+    float itemOutlineWidth = itemSpacing*0.6f;
+    float halfItemOutlineWidth = itemOutlineWidth/2;
+
+    float itemWidth = itemSpacing*0.5f;
+    float halfItemWidth = itemWidth/2;
+
+    for (int i=0;i<menu.nItems;++i) {
+        int col = i%menu.cols;
+        int row = i/menu.cols;
+
+        if (i == menu.selection) {
+            sf::RectangleShape shape3;
+            shape3.setFillColor(sf::Color::Yellow);
+            shape3.setSize(sf::Vector2f(itemGlowWidth,itemGlowWidth));
+            shape3.setPosition(itemSpacing*(col+0.5f)-halfItemGlowWidth, itemSpacing*(row+0.5f)-halfItemGlowWidth);
+            window.draw(shape3);
+        }
+
+        sf::RectangleShape shape;
+        shape.setFillColor(sf::Color::Magenta);
+        shape.setSize(sf::Vector2f(itemOutlineWidth,itemOutlineWidth));
+        shape.setPosition(itemSpacing*(col+0.5f)-halfItemOutlineWidth, itemSpacing*(row+0.5f)-halfItemOutlineWidth);
+        window.draw(shape);
+
+        sf::RectangleShape shape2;
+        shape.setFillColor(sf::Color::Blue);
+        shape2.setSize(sf::Vector2f(itemWidth,itemWidth));
+        shape2.setPosition(itemSpacing*(col+0.5f)-halfItemWidth, itemSpacing*(row+0.5f)-halfItemWidth);
+        window.draw(shape2);
+    }
+}
+
 int main() {
     sf::Clock clock;
 
     float frameTime = 1/60.f;
     float dTime = 0;
 
-    initialiseGame();
+    initialiseMenu();
     
     while (window.isOpen()) {
         sf::Event event;
@@ -155,12 +215,14 @@ int main() {
         if (dTime > frameTime) {
             dTime -= frameTime;
             
-            updateGame();
+            if (inMenu) updateMenu();
+            else updateGame();
 
             if (dTime < frameTime) {
                 // frame skip if lagging
                 window.clear();
-                drawGameFrame();
+                if (inMenu) drawMenuFrame();
+                else drawGameFrame();
                 window.display();
             }
         }

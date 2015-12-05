@@ -4,6 +4,7 @@
 
 GameGlobals game;
 Textures textures;
+Menu menu;
 
 int RES_X = 800;
 int RES_Y = 600;
@@ -29,6 +30,24 @@ Textures::Textures() {
     platformSurfaceColor = sf::Color(255,191,196,255);
     //std::cout << platformColor.r << " " << platformColor.g << " " << platformColor.b << std::endl;
 }
+
+
+Menu::Menu() {
+    cols = 5;
+    nItems = 15;
+    selection = 0;
+}
+
+void Menu::next() {
+    selection++;
+    if (selection >= nItems) selection = 0;
+}
+
+void Menu::previous() {
+    selection--;
+    if (selection < 0) selection = nItems - 1;
+}
+
 
 void gridToActual(int gridX, int gridY, int* actualX, int* actualY) {
     *actualX = gridX*TILE_WIDTH + TILE_WIDTH/2;

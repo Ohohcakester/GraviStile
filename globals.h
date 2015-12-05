@@ -5,6 +5,8 @@
 
 class GameGlobals {
 public:
+    int currentStage;
+
     Player player;
     Keyboard key;
     Door door;
@@ -23,6 +25,17 @@ public:
     std::vector<Platform> platforms;
 };
 
+class Menu {
+public:
+    int cols;
+    int nItems;
+    int selection;
+
+    Menu();
+    void next();
+    void previous();
+};
+
 class Textures {
 public:
     sf::Texture background;
@@ -37,6 +50,7 @@ public:
 
 extern GameGlobals game;
 extern Textures textures;
+extern Menu menu;
 
 extern int RES_X;
 extern int RES_Y;
