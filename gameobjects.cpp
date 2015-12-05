@@ -236,7 +236,7 @@ void Player::update(Keyboard k) {
 }
 
 void Player::getGridCoordinates(int* gridX, int* gridY) {
-    actualToGrid(x, y, gridX, gridY);
+    actualToGrid(x+TILE_WIDTH/2, y+TILE_WIDTH/2, gridX, gridY);
 }
 
 void Player::jump() {
@@ -656,7 +656,7 @@ void Door::draw() {
 }
 
 void Door::update(Keyboard k) {
-    if (game.camera.rotating) return;
+    if (game.player.freeze) return;
     if (game.player.currentPlatform->isNull) return;
     if (game.player.orientation != orientation) return;
     int playerX, playerY;

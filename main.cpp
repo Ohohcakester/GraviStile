@@ -184,25 +184,26 @@ void initialiseLevel4() {
 
 
 void initialiseLevel5() {
-    int nPlats = 6;
+    int nPlats = 7;
     Platform plats[nPlats] = {
-        Platform(0, 0, 0, 0, true, dir_up),
-        Platform(1, 2, 0, 0, true, dir_down),
-        Platform(2, 0, 0, 0, true, dir_up),
-        Platform(0, 3, 0, 0, true, dir_up),
-        Platform(2, 3, 0, 0, true, dir_up),
-        Platform(1, 5, 1, 0, true, dir_right),
+        Platform(3, 1, 0, 0, true, dir_right),
+        Platform(3, 4, 0, 0, true, dir_up),
+        Platform(4, 3, 0, 0, true, dir_down),
+        Platform(5, 2, 0, 0, true, dir_up),
+        Platform(5, 5, 0, 0, true, dir_down),
+        Platform(2, 6, 0, 2, true, dir_right),
+        Platform(1, 5, 0, 0, true, dir_right),
     };
     
-    game.nTilesX = 3;
-    game.nTilesY = 6;
+    game.nTilesX = 8;
+    game.nTilesY = 9;
     game.player = Player();
-    gridToActual(1, 0, &game.player.x, &game.player.y);
+    gridToActual(3, 0, &game.player.x, &game.player.y);
     // game.player.setOrientation(dir_right);
     game.platforms.assign(plats, plats + (size_t) nPlats);
     
-    game.zoom = 1.0;
-    Door door = Door(2, 3, dir_up);
+    game.zoom = 0.9;
+    Door door = Door(3, 7, dir_down);
     game.door = door;
 }
 
