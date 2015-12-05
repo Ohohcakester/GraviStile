@@ -87,6 +87,7 @@ public:
     int cy;
     bool rotatable;
     int orientation;
+    int endStageTimeout;
     
     Door();
     
