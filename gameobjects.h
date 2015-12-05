@@ -40,6 +40,8 @@ public:
 class Platform : public IGameObject {
 public:
     sf::RectangleShape shape;
+    sf::CircleShape pivotShape;
+    sf::RectangleShape extraLineShape;
 
     bool isNull;
     int cx;
@@ -67,7 +69,7 @@ public:
     
     virtual bool sweep(bool right);
     
-    virtual bool platCheck(int pivotx, int pivoty, int leftQuad, int rightQuad, bool vertFlip, Platform other);
+    virtual bool platCheck(int leftQuad, int rightQuad, bool vertFlip, Platform other);
     
     virtual bool twoPointsTwoDistances(Point center, int p1x, int p1y, int p2x, int p2y, int lQuad, int rQuad, bool quads24);
 };
@@ -141,8 +143,11 @@ class Camera : public IGameObject {
 public:
     float rotateSpeed;
     float snapSpeed;
+    float snapSpeedRotating;
 
+    float zoom;
     float px, py;
+    float cx, cy;
     float angle;
     float targetAngle;
     int orientation;
@@ -155,7 +160,7 @@ public:
 
     void toRel(float* _x, float* _y);
 
-    void rotateTo(int newOrientation);
+    void rotateTo(int newOrientation, int pivotX, int pivotY);
 
     void setIsRotating(bool value);
 

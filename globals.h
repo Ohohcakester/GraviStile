@@ -14,6 +14,8 @@ public:
     int nTilesY;
     int width;
     int height;
+
+    float zoom;
     
     std::vector<Platform> platforms;
 };

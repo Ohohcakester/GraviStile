@@ -40,9 +40,9 @@ Player::Player() {
     freeze = false;
     
     x = 0; y = 0;
-    speed = 10;
+    speed = 5;
     jumpSpeed = 11;
-    gravity = 0.4f;
+    gravity = 0.7f;
     gravityX = 0;
     gravityY = 0;
     pwidth = 30;
@@ -162,6 +162,8 @@ void Player::update(Keyboard k) {
  
     x += vx;
     y += vy;
+    
+    // std::cout << "x = " << x << " y = " << y << "\n";
     
     for (int i=0;i<game.platforms.size();++i) {
         collision(&game.platforms[i]);
@@ -285,10 +287,36 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
 
     shape = sf::RectangleShape();
     shape.setFillColor(sf::Color::Green);
+    extraLineShape = sf::RectangleShape();
+    extraLineShape.setFillColor(sf::Color::Red);
+    pivotShape = sf::CircleShape(game.zoom*TILE_WIDTH/3);
+    pivotShape.setFillColor(sf::Color::Magenta);
 }
 
 void Platform::draw() {
     drawRectangle(&shape,x1,y1,x1,y2,x2,y2);
+
+    if (this->rotatable) {
+        int fraction = 5;
+        int e_x1 = x1; int e_x2 = x2; int e_y1 = y1; int e_y2 = y2;
+        switch(this->orientation) {
+            case dir_up:
+                e_y2 = (y2-y1)/fraction + y1;
+                break;
+            case dir_down:
+                e_y1 = (y1-y2)/fraction + y2;
+                break;
+            case dir_left:
+                e_x2 = (x2-x1)/fraction + x1;
+                break;
+            case dir_right:
+                e_x1 = (x1-x2)/fraction + x2;
+                break;
+        }
+        drawRectangle(&extraLineShape,e_x1,e_y1,e_x1,e_y2,e_x2,e_y2);
+
+        drawCircle(&pivotShape,x,y);
+    }
 }
 
 void Platform::update(Keyboard k) {
@@ -331,56 +359,60 @@ bool Platform::sweep(bool right) {
         switch(orientation) {
             case dir_up:
             case dir_right:
-                leftQuad = (TILE_WIDTH / 2) + TILE_WIDTH * leftTiles;
-                rightQuad = (TILE_WIDTH / 2) + TILE_WIDTH * rightTiles;
+                leftQuad = TILE_WIDTH * leftTiles;
+                rightQuad = TILE_WIDTH * rightTiles;
                 break;
             case dir_down:
             case dir_left:
-                leftQuad = (TILE_WIDTH / 2) + TILE_WIDTH * rightTiles;
-                rightQuad = (TILE_WIDTH / 2) + TILE_WIDTH * leftTiles;
+                leftQuad = TILE_WIDTH * rightTiles;
+                rightQuad = TILE_WIDTH * leftTiles;
                 break;
         }
         for (int i=0;i<game.platforms.size();++i) {
-            if (!platCheck(x, y, leftQuad, rightQuad, false, game.platforms[i])) return false;
+            if (game.platforms[i].cx == cx && game.platforms[i].cy == cy) continue;
+            std::cout << "i = " << i << "\n";
+            if (!platCheck(leftQuad, rightQuad, false, game.platforms[i])) return false;
         }
     } else { // quads13
         switch(orientation) {
             case dir_up:
             case dir_left:
-                leftQuad = (TILE_WIDTH / 2) + TILE_WIDTH * leftTiles;
-                rightQuad = (TILE_WIDTH / 2) + TILE_WIDTH * rightTiles;
+                leftQuad = TILE_WIDTH * leftTiles;
+                rightQuad = TILE_WIDTH * rightTiles;
                 break;
             case dir_down:
             case dir_right:
-                leftQuad = (TILE_WIDTH / 2) + TILE_WIDTH * rightTiles;
-                rightQuad = (TILE_WIDTH / 2) + TILE_WIDTH * leftTiles;
+                leftQuad = TILE_WIDTH * rightTiles;
+                rightQuad = TILE_WIDTH * leftTiles;
                 break;
         }
         for (int i=0;i<game.platforms.size();++i) {
-            if (!platCheck(x, y, leftQuad, rightQuad, true, game.platforms[i])) return false;
+            if (game.platforms[i].cx == cx && game.platforms[i].cy == cy) continue;
+            std::cout << "i = " << i << "\n";
+            if (!platCheck(leftQuad, rightQuad, true, game.platforms[i])) return false;
         }
     }
     return true;
 }
 
-bool Platform::platCheck(int pivotx, int pivoty, int leftQuad, int rightQuad, bool vertFlip, Platform other) { // vertFlip ? quads 2-4 : quads 1-3
-    Point centerPivot(pivotx, pivoty);
+bool Platform::platCheck(int leftQuad, int rightQuad, bool quads24, Platform other) { // quads24 ? quads 2-4 : quads 1-3
+    Point centerPivot(x, y);
     int centerx1 = other.x - TILE_WIDTH/2;
     int centerx2 = other.x + TILE_WIDTH/2;
     int centery1 = other.y - TILE_WIDTH/2;
     int centery2 = other.y + TILE_WIDTH/2;
     
-    switch(orientation) {
+    switch(other.orientation) {
         case dir_up: {
             for (int i = 0; i < other.leftTiles + 1; ++i) {
                 if (!twoPointsTwoDistances(centerPivot, centerx1 - TILE_WIDTH * i, centery1,
                                                         centerx1 - TILE_WIDTH * i, centery2, 
-                                           leftQuad, rightQuad, vertFlip)) return false;
+                                           leftQuad, rightQuad, quads24)) return false;
             }
             for (int i = 0; i < other.rightTiles + 1; ++i) {
                 if (!twoPointsTwoDistances(centerPivot, centerx2 + TILE_WIDTH * i, centery1,
                                                         centerx2 + TILE_WIDTH * i, centery2, 
-                                           leftQuad, rightQuad, vertFlip)) return false;
+                                           leftQuad, rightQuad, quads24)) return false;
             }
             break;
         }
@@ -388,12 +420,12 @@ bool Platform::platCheck(int pivotx, int pivoty, int leftQuad, int rightQuad, bo
             for (int i = 0; i < other.leftTiles + 1; ++i) {
                 if (!twoPointsTwoDistances(centerPivot, centerx2 + TILE_WIDTH * i, centery1,
                                                         centerx2 + TILE_WIDTH * i, centery2, 
-                                           leftQuad, rightQuad, vertFlip)) return false;
+                                           leftQuad, rightQuad, quads24)) return false;
             }
             for (int i = 0; i < other.rightTiles + 1; ++i) {
                 if (!twoPointsTwoDistances(centerPivot, centerx1 - TILE_WIDTH * i, centery1,
                                                         centerx1 - TILE_WIDTH * i, centery2, 
-                                           leftQuad, rightQuad, vertFlip)) return false;
+                                           leftQuad, rightQuad, quads24)) return false;
             }
             break;
         }
@@ -401,12 +433,12 @@ bool Platform::platCheck(int pivotx, int pivoty, int leftQuad, int rightQuad, bo
             for (int i = 0; i < other.leftTiles + 1; ++i) {
                 if (!twoPointsTwoDistances(centerPivot, centerx1, centery1 - TILE_WIDTH * i,
                                                         centerx2, centery1 - TILE_WIDTH * i, 
-                                           leftQuad, rightQuad, vertFlip)) return false;
+                                           leftQuad, rightQuad, quads24)) return false;
             }
             for (int i = 0; i < other.rightTiles + 1; ++i) {
                 if (!twoPointsTwoDistances(centerPivot, centerx1, centery2 + TILE_WIDTH * i,
                                                         centerx2, centery2 + TILE_WIDTH * i, 
-                                           leftQuad, rightQuad, vertFlip)) return false;
+                                           leftQuad, rightQuad, quads24)) return false;
             }
             break;
         }
@@ -414,12 +446,12 @@ bool Platform::platCheck(int pivotx, int pivoty, int leftQuad, int rightQuad, bo
             for (int i = 0; i < other.leftTiles + 1; ++i) {
                 if (!twoPointsTwoDistances(centerPivot, centerx1, centery2 + TILE_WIDTH * i,
                                                         centerx2, centery2 + TILE_WIDTH * i, 
-                                           leftQuad, rightQuad, vertFlip)) return false;
+                                           leftQuad, rightQuad, quads24)) return false;
             }
             for (int i = 0; i < other.rightTiles + 1; ++i) {
                 if (!twoPointsTwoDistances(centerPivot, centerx1, centery1 - TILE_WIDTH * i,
                                                         centerx2, centery1 - TILE_WIDTH * i, 
-                                           leftQuad, rightQuad, vertFlip)) return false;
+                                           leftQuad, rightQuad, quads24)) return false;
             }
             break;
         }
@@ -431,16 +463,76 @@ bool Platform::twoPointsTwoDistances(Point center, int p1x, int p1y, int p2x, in
     Point one(p1x, p1y);
     Point two(p2x, p2y);
     if (quads24) {
-        if (p1x < center.x && p1y > center.y && one.distance(center) < lQuad) return false; // quad2
-        if (p1x > center.x && p1y < center.y && one.distance(center) < rQuad) return false; // quad4
-        if (p2x < center.x && p2y > center.y && two.distance(center) < lQuad) return false; // quad2
-        if (p2x > center.x && p2y < center.y && two.distance(center) < rQuad) return false; // quad4
+        if (p1x < center.x && p1y < center.y && one.distance(center) < lQuad) {
+            std::cout << "a p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad2
+        }
+        if (p1x > center.x && p1y > center.y && one.distance(center) < rQuad) {
+            std::cout << "b p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad4
+        }
+        if (p2x < center.x && p2y < center.y && two.distance(center) < lQuad) {
+            std::cout << "c p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad2
+        }
+        if (p2x > center.x && p2y > center.y && two.distance(center) < rQuad) {
+            std::cout << "d p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad4
+        }
     } else {
-        if (p1x < center.x && p1y < center.y && one.distance(center) < lQuad) return false; // quad3
-        if (p1x > center.x && p1y > center.y && one.distance(center) < rQuad) return false; // quad1
-        if (p2x < center.x && p2y < center.y && two.distance(center) < lQuad) return false; // quad3
-        if (p2x > center.x && p2y > center.y && two.distance(center) < rQuad) return false; // quad1
+        if (p1x < center.x && p1y > center.y && one.distance(center) < lQuad) {
+            std::cout << "d p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad3
+        }
+        if (p1x > center.x && p1y < center.y && one.distance(center) < rQuad) {
+            std::cout << "e p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad1
+        }
+        if (p2x < center.x && p2y > center.y && two.distance(center) < lQuad) {
+            std::cout << "f p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad3
+        }
+        if (p2x > center.x && p2y < center.y && two.distance(center) < rQuad) {
+            std::cout << "g p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad1
+        }
     }
+    /*
+    if (quads24) {
+        if (p1x < center.x && p1y > center.y && one.distance(center) < lQuad) {
+            std::cout << "a p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad2
+        }
+        if (p1x > center.x && p1y < center.y && one.distance(center) < rQuad) {
+            std::cout << "b p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad4
+        }
+        if (p2x < center.x && p2y > center.y && two.distance(center) < lQuad) {
+            std::cout << "c p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad2
+        }
+        if (p2x > center.x && p2y < center.y && two.distance(center) < rQuad) {
+            std::cout << "d p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad4
+        }
+    } else {
+        if (p1x < center.x && p1y < center.y && one.distance(center) < lQuad) {
+            std::cout << "d p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad3
+        }
+        if (p1x > center.x && p1y > center.y && one.distance(center) < rQuad) {
+            std::cout << "e p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad1
+        }
+        if (p2x < center.x && p2y < center.y && two.distance(center) < lQuad) {
+            std::cout << "f p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad3
+        }
+        if (p2x > center.x && p2y > center.y && two.distance(center) < rQuad) {
+            std::cout << "g p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            return false; // quad1
+        }
+    }*/
     return true;
 }
 
@@ -481,8 +573,10 @@ Camera::Camera() {}
 Camera::Camera(Player* player) {
     freeze = false;
 
+    zoom = 0.4;
     rotateSpeed = 0.1f;
     snapSpeed = 0.2f;
+    snapSpeedRotating = 0.6f;
 
     this->orientation = 0;
     this->player = player;
@@ -492,7 +586,10 @@ Camera::Camera(Player* player) {
     this->targetAngle = 0;
 }
 
-void Camera::rotateTo(int newOrientation) {
+void Camera::rotateTo(int newOrientation, int pivotX, int pivotY) {
+    this->cx = pivotX;
+    this->cy = pivotY;
+
     int diff = newOrientation - orientation;
     if (diff >= 3) diff -= 4;
     if (diff < -1) diff += 4;
@@ -513,8 +610,8 @@ void Camera::toRel(float* _x, float* _y) {
     float theta = angle - atan2(dy,dx);
     float length = sqrt(dx*dx+dy*dy);
 
-    *_x = length*cos(theta) + RES_X/2;
-    *_y = RES_Y/2 - length*sin(theta);
+    *_x = game.zoom*length*cos(theta) + RES_X/2;
+    *_y = RES_Y/2 - game.zoom*length*sin(theta);
 }
 
 void Camera::draw() {
@@ -522,10 +619,24 @@ void Camera::draw() {
 }
 
 void Camera::update(Keyboard k) {
-    float dx = player->x - px;
-    float dy = player->y - py;
-    px += dx*snapSpeed;
-    py += dy*snapSpeed;
+    if (!rotating) {
+        float dx = player->x - px;
+        float dy = player->y - py;
+        px += dx*snapSpeed;
+        py += dy*snapSpeed;
+        return;
+    }
+
+    float dx = player->x - cx;
+    float dy = player->y - cy;
+    float remAng = targetAngle - angle;
+    float tx = dx*cos(remAng) + dy*sin(remAng) + cx;
+    float ty = -dx*sin(remAng) + dy*cos(remAng) + cy;
+    dx = tx - px;
+    dy = ty - py;
+
+    px += dx*snapSpeedRotating;
+    py += dy*snapSpeedRotating;
 
     if (!rotating) return;
     //std::cout << angle << " " << targetAngle << "\n";
