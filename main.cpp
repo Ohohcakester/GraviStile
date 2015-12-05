@@ -109,12 +109,15 @@ void initialiseGame() {
     game.camera = Camera(&game.player);
     game.width = game.nTilesX*TILE_WIDTH;
     game.height = game.nTilesY*TILE_WIDTH;
+    Background bg = Background();
+    game.background = bg;
 }
 
 void updateGame() {
     if (game.puzzleComplete) return;
 
     game.key.update();
+    game.background.update(game.key);
     game.player.update(game.key);
     game.camera.update(game.key);
     for (int i=0;i<game.platforms.size();++i) {
@@ -124,6 +127,7 @@ void updateGame() {
 }
 
 void drawGameFrame() {
+    game.background.draw();
     game.camera.draw();
     for (int i=0;i<game.platforms.size();++i) {
         game.platforms[i].draw();

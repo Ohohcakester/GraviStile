@@ -9,6 +9,7 @@ public:
     Keyboard key;
     Door door;
     Camera camera;
+    Background background;
 
     int nTilesX;
     int nTilesY;
@@ -22,7 +23,20 @@ public:
     std::vector<Platform> platforms;
 };
 
+class Textures {
+public:
+    sf::Texture background;
+    sf::Texture player;
+    sf::Texture door;
+    sf::Texture pivot;
+    sf::Color platformColor;
+    sf::Color platformSurfaceColor;
+
+    Textures();
+};
+
 extern GameGlobals game;
+extern Textures textures;
 
 extern int RES_X;
 extern int RES_Y;

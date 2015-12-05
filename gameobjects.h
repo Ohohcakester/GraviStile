@@ -23,6 +23,8 @@ public:
 
     void drawCircle(sf::CircleShape* shape, float px, float py);
     void drawRectangle(sf::RectangleShape* shape, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y);
+    void drawSprite(sf::Sprite* sprite, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y);
+    void drawPlayerSprite(sf::Sprite* sprite, float x1, float y1, float x2, float y2, bool facingRight);
 };
 
 class Point {
@@ -41,6 +43,7 @@ class Platform : public IGameObject {
 public:
     sf::RectangleShape shape;
     sf::CircleShape pivotShape;
+    sf::Sprite sprite;
     sf::RectangleShape extraLineShape;
 
     bool isNull;
@@ -77,6 +80,7 @@ public:
 class Door : public IGameObject {
 public:
     sf::RectangleShape shape;
+    sf::Sprite sprite;
     
     bool isNull;
     int cx;
@@ -97,6 +101,7 @@ public:
 
 class Player : public IGameObject {
 public:
+    sf::Sprite sprite;
     sf::RectangleShape shape;
     float vx;
     float vy;
@@ -112,6 +117,7 @@ public:
     int pheight;
     Platform* currentPlatform;
     Platform* frozenPlatform;
+    bool facingRight;
     
     // rect
     int x1;
@@ -172,6 +178,19 @@ public:
     virtual void update(Keyboard k);
 
     void onReach();
+};
+
+class Background : public IGameObject {
+public:
+    sf::Sprite sprite;
+    float width;
+    float height;
+
+    Background();
+
+    virtual void draw();
+
+    virtual void update(Keyboard k);
 };
 
 

@@ -36,6 +36,57 @@ void IGameObject::drawRectangle(sf::RectangleShape* shape, float tl_x, float tl_
     window.draw(*shape);
 }
 
+void IGameObject::drawPlayerSprite(sf::Sprite* sprite, float x1, float y1, float x2, float y2, bool facingRight) {
+    if (!freeze) {
+        game.camera.toRel(&x1, &y1);
+        game.camera.toRel(&x2, &y2);
+
+        float width = sprite->getLocalBounds().width;
+        float height = sprite->getLocalBounds().height;
+
+        float dx = abs(x2 - x1)/width;
+        float dy = abs(y2 - y1)/height;
+        float fit = std::min(dx,dy);
+
+        if (facingRight) {
+            sprite->setScale(sf::Vector2f(fit,fit));
+            sprite->setPosition(std::min(x1,x2),std::min(y1,y2));
+        } else {
+            sprite->setScale(sf::Vector2f(-fit,fit));
+            sprite->setPosition(std::max(x1,x2),std::min(y1,y2));
+        }
+    }
+    window.draw(*sprite);
+}
+
+void IGameObject::drawSprite(sf::Sprite* sprite, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y) {
+    if (!freeze) {
+        game.camera.toRel(&tl_x, &tl_y);
+        game.camera.toRel(&bl_x, &bl_y);
+        game.camera.toRel(&br_x, &br_y);
+
+        float dx1 = tl_x-bl_x;
+        float dy1 = tl_y-bl_y;
+        float dx2 = br_x-bl_x;
+        float dy2 = br_y-bl_y;
+        float width = sqrt(dx2*dx2+dy2*dy2);
+        float height = sqrt(dx1*dx1+dy1*dy1);
+        float angle = atan2(dy2,dx2)*180/M_PI;
+
+        float spriteWidth = sprite->getLocalBounds().width;
+        float spriteHeight = sprite->getLocalBounds().height;
+
+        float dx = width/spriteWidth;
+        float dy = height/spriteHeight;
+        float fit = std::min(dx,dy);
+
+        sprite->setScale(sf::Vector2f(fit,fit));
+        sprite->setPosition(tl_x,tl_y);
+        sprite->setRotation(angle);
+    }
+    window.draw(*sprite);
+}
+
 Player::Player() {
     freeze = false;
     
@@ -47,7 +98,10 @@ Player::Player() {
     gravityY = 0;
     pwidth = 30;
     pheight = 50;
+    facingRight = true;
     setOrientation(dir_up);
+
+    sprite.setTexture(textures.player);
     shape = sf::RectangleShape();
     shape.setFillColor(sf::Color::Blue);
 }
@@ -79,7 +133,8 @@ void Player::setIsRotating(bool value) {
 }
 
 void Player::draw() {
-    drawRectangle(&shape,x1,y1,x1,y2,x2,y2);
+    //drawRectangle(&shape,x1,y1,x1,y2,x2,y2);
+    drawPlayerSprite(&sprite,x1,y1,x2,y2,facingRight);
 }
 
 void Player::updateBoundaries() {
@@ -164,6 +219,8 @@ void Player::update(Keyboard k) {
         default:
             std::cout << "Whyyy\n";
     }
+    if (k.left) facingRight = false;
+    if (k.right) facingRight = true;
  
     x += vx;
     y += vy;
@@ -290,10 +347,11 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
     this->rotatable = rotatable;
     setOrientation(orientation);
 
+    sprite.setTexture(textures.pivot);
     shape = sf::RectangleShape();
-    shape.setFillColor(sf::Color::Green);
+    shape.setFillColor(textures.platformColor);
     extraLineShape = sf::RectangleShape();
-    extraLineShape.setFillColor(sf::Color::Red);
+    extraLineShape.setFillColor(textures.platformSurfaceColor);
     pivotShape = sf::CircleShape(game.zoom*TILE_WIDTH/3);
     pivotShape.setFillColor(sf::Color::Magenta);
 }
@@ -321,6 +379,9 @@ void Platform::draw() {
         drawRectangle(&extraLineShape,e_x1,e_y1,e_x1,e_y2,e_x2,e_y2);
 
         drawCircle(&pivotShape,x,y);
+
+        float radius = game.zoom*TILE_WIDTH/3;
+        drawSprite(&sprite, x-radius,y-radius,x-radius,y+radius,x+radius,y+radius);
     }
 }
 
@@ -563,13 +624,15 @@ Door::Door(int cx, int cy, int orientation) {
     gridToActual(cx, cy, &this->x, &this->y);
     this->orientation = orientation;
 
+    sprite.setTexture(textures.door);
+
     shape = sf::RectangleShape();
     shape.setFillColor(sf::Color::Yellow);
 }
 
 void Door::draw() {
-    float width = TILE_WIDTH*1/3;
-    float height_top = TILE_WIDTH*1/3;
+    float width = TILE_WIDTH*1/2;
+    float height_top = TILE_WIDTH*1/2;
     float height_bottom = TILE_WIDTH*1/2;
 
     float x1,y1,x2,y2;
@@ -600,7 +663,8 @@ void Door::draw() {
             break;
     }
 
-    drawRectangle(&shape,x1,y1,x1,y2,x2,y2);
+    //drawRectangle(&shape,x1,y1,x1,y2,x2,y2);
+    drawSprite(&sprite,x1,y1,x1,y2,x2,y2);
 }
 
 void Door::update(Keyboard k) {
@@ -706,4 +770,18 @@ void Camera::onReach() {
     while (targetAngle > M_PI) targetAngle -= 2*M_PI;
     angle = targetAngle;
     setIsRotating(false);
+}
+
+Background::Background() {
+    gridToActual(game.nTilesX/2, game.nTilesY/2, &this->x, &this->y);
+    this->width = game.nTilesX*TILE_WIDTH*3;
+    this->height = game.nTilesY*TILE_WIDTH*3;
+    sprite.setTexture(textures.background);
+}
+
+void Background::draw() {
+    drawSprite(&sprite, x-width,y-height,x-width,y+height,x+width,y+height);
+}
+
+void Background::update(Keyboard k) {
 }
