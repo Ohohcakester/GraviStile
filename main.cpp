@@ -54,12 +54,13 @@ void processEvent(sf::Event event) {
 }
 
 void initialiseLevel0() {
-    int nPlats = 4;
+    int nPlats = 5;
     Platform plats[nPlats] = {
         Platform(8, 7, 3, 4, true, dir_up),
         Platform(1, 6, 1, 2, false, dir_down),
         Platform(8, 10, 5, 6, true, dir_up),
-        Platform(16, 11, 1, 6, true, dir_right)
+        Platform(16, 11, 1, 6, true, dir_right),
+        Platform(1, 10, 2, 2, true, dir_right)
     };
     
     game.nTilesX = 10;

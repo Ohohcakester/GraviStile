@@ -25,6 +25,18 @@ public:
     void drawRectangle(sf::RectangleShape* shape, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y);
 };
 
+class Point {
+public:
+    int x;
+    int y;
+    
+    Point();
+    
+    Point(int x, int y);
+    
+    float distance(Point other);
+};
+
 class Platform : public IGameObject {
 public:
     sf::RectangleShape shape;
@@ -54,6 +66,12 @@ public:
     virtual void update(Keyboard k);
     
     virtual void setOrientation(int orientation);
+    
+    virtual bool sweep(bool right);
+    
+    virtual bool platCheck(int leftQuad, int rightQuad, bool vertFlip, Platform other);
+    
+    virtual bool twoPointsTwoDistances(Point center, int p1x, int p1y, int p2x, int p2y, int lQuad, int rQuad, bool quads24);
 };
 
 class Door : public IGameObject {
