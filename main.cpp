@@ -230,7 +230,6 @@ void initialiseLevel6() {
 }
 
 
-
 void initialiseLevel7() {
     int nPlats = 10;
     Platform plats[nPlats] = {
@@ -259,6 +258,37 @@ void initialiseLevel7() {
 }
 
 
+void initialiseLevel8() {
+    int nPlats = 16;
+    Platform plats[nPlats] = {
+        Platform(2, 3, 1, 1, true, dir_right),
+        Platform(5, 2, 1, 1, true, dir_right),
+        Platform(5, 4, 1, 1, false, dir_up),
+        Platform(7, 4, 0, 3, true, dir_up),
+        Platform(13, 2, 1, 1, true, dir_down),
+        Platform(15, 4, 1, 1, true, dir_right),
+        Platform(18, 8, 1, 1, true, dir_right),
+        Platform(13, 9, 1, 1, true, dir_up),
+        Platform(11, 12, 1, 1, true, dir_up),
+        Platform(7, 13, 1, 1, true, dir_left),
+        Platform(6, 6, 2, 2, false, dir_right),
+        Platform(2, 14, 1, 1, true, dir_up),
+        Platform(3, 12, 1, 1, true, dir_down),
+        Platform(5, 10, 1, 1, true, dir_down),
+        Platform(4, 6, 1, 1, false, dir_right),
+        Platform(4, 8, 0, 1, true, dir_down)
+    };
+    
+    game.nTilesX = 20;
+    game.nTilesY = 17;
+    game.player = Player();
+    gridToActual(8, 2, &game.player.x, &game.player.y);
+    game.platforms.assign(plats, plats + (size_t) nPlats);
+    
+    game.zoom = 0.7;
+    Door door = Door(5, 6, dir_right);
+    game.door = door;
+}
 
 
 void initialiseLevel9() {
@@ -297,15 +327,6 @@ void initialiseLevel9() {
 
 
 
-
-
-
-
-
-
-
-
-
 /* ======================== *
  *   REGION - LEVELS - END  *
  * ======================== */
@@ -332,6 +353,7 @@ void initialiseGame(int stage) {
         case 5: initialiseLevel5(); break;
         case 6: initialiseLevel6(); break;
         case 7: initialiseLevel7(); break;
+        case 8: initialiseLevel8(); break;
         case 9: initialiseLevel9(); break;
     }
 
