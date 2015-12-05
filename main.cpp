@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string>
+#include <sstream>
 #include "keyboard.h"
 #include "gameobjects.h"
 #include "globals.h"
@@ -412,6 +414,9 @@ void drawMenuFrame() {
     float itemWidth = itemSpacing*0.5f;
     float halfItemWidth = itemWidth/2;
 
+    sf::Font comicsans;
+    if (!comicsans.loadFromFile("comicbd.ttf")) std::cout << "Oops\n";
+    
     for (int i=0;i<menu.nItems;++i) {
         int col = i%menu.cols;
         int row = i/menu.cols;
@@ -435,6 +440,16 @@ void drawMenuFrame() {
         shape2.setSize(sf::Vector2f(itemWidth,itemWidth));
         shape2.setPosition(itemSpacing*(col+0.5f)-halfItemWidth, itemSpacing*(row+0.5f)-halfItemWidth);
         window.draw(shape2);
+        
+        std::ostringstream ss;
+        ss << i + 1;
+        sf::Text numbering;
+        numbering.setFont(comicsans);
+        numbering.setString(ss.str());
+        numbering.setCharacterSize(60);
+        numbering.setColor(sf::Color::Blue);
+        numbering.setPosition(itemSpacing*(col+0.5f)-halfItemWidth, itemSpacing*(row+0.5f)-halfItemWidth);
+        window.draw(numbering);
     }
 }
 
