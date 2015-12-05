@@ -421,7 +421,7 @@ bool Platform::sweep(bool right) {
     int leftQuad;
     int rightQuad;
     if ((right && (orientation == dir_up || orientation == dir_down))
-        || (!right && (orientation == dir_right || orientation == dir_left))) { // quads24
+        || ((!right) && (orientation == dir_right || orientation == dir_left))) { // quads24
         switch(orientation) {
             case dir_up:
             case dir_right:
@@ -434,10 +434,11 @@ bool Platform::sweep(bool right) {
                 rightQuad = TILE_WIDTH * leftTiles;
                 break;
         }
+        std::cout << "right " << right << " orientation " << orientation;
         for (int i=0;i<game.platforms.size();++i) {
             if (game.platforms[i].cx == cx && game.platforms[i].cy == cy) continue;
             std::cout << "i = " << i << "\n";
-            if (!platCheck(leftQuad, rightQuad, false, game.platforms[i])) return false;
+            if (!platCheck(leftQuad, rightQuad, true, game.platforms[i])) return false;
         }
     } else { // quads13
         switch(orientation) {
@@ -452,10 +453,11 @@ bool Platform::sweep(bool right) {
                 rightQuad = TILE_WIDTH * leftTiles;
                 break;
         }
+        std::cout << "rightQuad " << rightQuad << "\n";
         for (int i=0;i<game.platforms.size();++i) {
             if (game.platforms[i].cx == cx && game.platforms[i].cy == cy) continue;
             std::cout << "i = " << i << "\n";
-            if (!platCheck(leftQuad, rightQuad, true, game.platforms[i])) return false;
+            if (!platCheck(leftQuad, rightQuad, false, game.platforms[i])) return false;
         }
     }
     return true;
@@ -560,6 +562,10 @@ bool Platform::twoPointsTwoDistances(Point center, int p1x, int p1y, int p2x, in
         }
         if (p2x > center.x && p2y < center.y && two.distance(center) < rQuad) {
             std::cout << "g p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            std::cout << "First condition " << (p2x > center.x) << "\n";
+            std::cout << "Second condition " << (p2y < center.y) << "\n";
+            std::cout << "Distance from center " << two.distance(center) << "\n";
+            std::cout << "Spin radius " << rQuad << "\n";
             return false; // quad1
         }
     }

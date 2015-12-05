@@ -10,7 +10,7 @@ void initialiseGame(int stage);
 void initialiseMenu();
 
 void rotateRight() {
-    if (!game.player.canRotate(false)) return;
+    if (!game.player.canRotate(true)) return;
     int orientation = game.player.orientation;
     orientation += 1;
     if (orientation >= 4) orientation = 0;
@@ -23,7 +23,7 @@ void rotateRight() {
 }
 
 void rotateLeft() {
-    if (!game.player.canRotate(true)) return;
+    if (!game.player.canRotate(false)) return;
     int orientation = game.player.orientation;
     orientation -= 1;
     if (orientation < 0) orientation = 3;
