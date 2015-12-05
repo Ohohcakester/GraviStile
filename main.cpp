@@ -207,11 +207,31 @@ void initialiseLevel5() {
     game.door = door;
 }
 
+void initialiseLevel6() {
+    int nPlats = 5;
+    Platform plats[nPlats] = {
+        Platform(3, 2, 1, 1, true, dir_up),
+        Platform(0, 4, 1, 1, true, dir_right),
+        Platform(4, 3, 0, 3, true, dir_up),
+        Platform(3, 6, 0, 2, true, dir_left),
+        Platform(6, 6, 0, 1, true, dir_up),
+    };
+    
+    game.nTilesX = 8;
+    game.nTilesY = 8;
+    game.player = Player();
+    gridToActual(3, 0, &game.player.x, &game.player.y);
+    // game.player.setOrientation(dir_right);
+    game.platforms.assign(plats, plats + (size_t) nPlats);
+    
+    game.zoom = 0.9;
+    Door door = Door(5, 7, dir_left);
+    game.door = door;
+}
 
 
 
-
-void initialiseLevel13() {
+void initialiseLevel7() {
     int nPlats = 10;
     Platform plats[nPlats] = {
         Platform(2, 2, 1, 1, true, dir_up),
@@ -238,6 +258,41 @@ void initialiseLevel13() {
     game.door = door;
 }
 
+
+
+
+void initialiseLevel9() {
+    int nPlats = 16;
+    Platform plats[nPlats] = {
+        Platform(2, 1, 0, 0, true, dir_down),
+        Platform(3, 2, 1, 1, true, dir_right),
+        Platform(5, 1, 1, 1, true, dir_up),
+        Platform(1, 5, 2, 0, true, dir_down),
+        Platform(5, 4, 1, 1, true, dir_left),
+        Platform(7, 3, 1, 1, true, dir_up),
+        Platform(9, 2, 0, 2, true, dir_right),
+        Platform(11, 5, 0, 2, true, dir_left),
+        Platform(12, 6, 0, 0, false, dir_left),
+        Platform(9, 6, 2, 0, true, dir_up),
+        Platform(1, 8, 0, 1, true, dir_left),
+        Platform(5, 7, 1, 1, true, dir_up),
+        Platform(3, 9, 1, 1, true, dir_down),
+        Platform(6, 10, 2, 0, true, dir_right),
+        Platform(8, 10, 0, 0, true, dir_left),
+        Platform(10, 1, 0, 0, true, dir_up),
+    };
+    
+    game.nTilesX = 13;
+    game.nTilesY = 12;
+    game.player = Player();
+    gridToActual(5, 0, &game.player.x, &game.player.y);
+    // game.player.setOrientation(dir_right);
+    game.platforms.assign(plats, plats + (size_t) nPlats);
+    
+    game.zoom = 0.9;
+    Door door = Door(11, 1, dir_up);
+    game.door = door;
+}
 
 
 
@@ -275,7 +330,9 @@ void initialiseGame(int stage) {
         case 3: initialiseLevel3(); break;
         case 4: initialiseLevel4(); break;
         case 5: initialiseLevel5(); break;
-        case 13: initialiseLevel13(); break;
+        case 6: initialiseLevel6(); break;
+        case 7: initialiseLevel7(); break;
+        case 9: initialiseLevel9(); break;
     }
 
     game.camera = Camera(&game.player);

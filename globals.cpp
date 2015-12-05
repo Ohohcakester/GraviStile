@@ -34,7 +34,7 @@ Textures::Textures() {
 
 Menu::Menu() {
     cols = 5;
-    nItems = 15;
+    nItems = 10;
     selection = 0;
 }
 
