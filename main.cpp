@@ -92,11 +92,15 @@ void initialiseLevel1() {
     gridToActual(3, 4, &game.player.x, &game.player.y);
     // game.player.setOrientation(dir_right);
     game.platforms.assign(plats, plats + (size_t) nPlats);
+    
     game.zoom = 0.7;
+    Door door = Door(6, 12, dir_right);
+    game.door = door;
 }
 
 void initialiseGame() {
     game = GameGlobals();
+    game.puzzleComplete = false;
     game.zoom = 0.4;
 
     initialiseLevel1();
@@ -107,6 +111,8 @@ void initialiseGame() {
 }
 
 void updateGame() {
+    if (game.puzzleComplete) return;
+
     game.key.update();
     game.player.update(game.key);
     game.camera.update(game.key);
@@ -117,12 +123,12 @@ void updateGame() {
 }
 
 void drawGameFrame() {
-    game.player.draw();
     game.camera.draw();
     for (int i=0;i<game.platforms.size();++i) {
         game.platforms[i].draw();
     }
     game.door.draw();
+    game.player.draw();
 }
 
 int main() {

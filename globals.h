@@ -16,6 +16,8 @@ public:
     int height;
 
     float zoom;
+
+    bool puzzleComplete;
     
     std::vector<Platform> platforms;
 };

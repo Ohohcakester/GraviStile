@@ -58,6 +58,8 @@ public:
 
 class Door : public IGameObject {
 public:
+    sf::RectangleShape shape;
+    
     bool isNull;
     int cx;
     int cy;

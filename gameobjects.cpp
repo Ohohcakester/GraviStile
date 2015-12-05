@@ -360,14 +360,57 @@ Door::Door(int cx, int cy, int orientation) {
     this->cy = cy;
     gridToActual(cx, cy, &this->x, &this->y);
     this->orientation = orientation;
+
+    shape = sf::RectangleShape();
+    shape.setFillColor(sf::Color::Yellow);
 }
 
 void Door::draw() {
+    float width = TILE_WIDTH*1/3;
+    float height_top = TILE_WIDTH*1/3;
+    float height_bottom = TILE_WIDTH*1/2;
 
+    float x1,y1,x2,y2;
+    switch(orientation) {
+        case dir_up:
+            x1 = x-width;
+            x2 = x+width;
+            y1 = y-height_top;
+            y2 = y+height_bottom;
+            break;
+        case dir_right:
+            y1 = y-width;
+            y2 = y+width;
+            x1 = x-height_bottom;
+            x2 = x+height_top;
+            break;
+        case dir_down:
+            x1 = x-width;
+            x2 = x+width;
+            y1 = y-height_bottom;
+            y2 = y+height_top;
+            break;
+        case dir_left:
+            y1 = y-width;
+            y2 = y+width;
+            x1 = x-height_top;
+            x2 = x+height_bottom;
+            break;
+    }
+
+    drawRectangle(&shape,x1,y1,x1,y2,x2,y2);
 }
 
 void Door::update(Keyboard k) {
-
+    if (game.puzzleComplete) return;
+    if (game.camera.rotating) return;
+    if (game.player.currentPlatform->isNull) return;
+    if (game.player.orientation != orientation) return;
+    int playerX, playerY;
+    game.player.getGridCoordinates(&playerX, &playerY);
+    if (playerX == cx && playerY == cy) {
+        game.puzzleComplete = true;
+    }
 }
 
 
