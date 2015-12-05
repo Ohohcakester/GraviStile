@@ -7,6 +7,7 @@
 bool inMenu = true;
 
 void initialiseGame(int stage);
+void initialiseMenu();
 
 void rotateRight() {
     if (!game.player.canRotate(false)) return;
@@ -46,7 +47,8 @@ void keyPress(sf::Keyboard::Key keyCode) {
         if (keyCode == sf::Keyboard::Space) game.player.jump();
         if (keyCode == sf::Keyboard::A) rotateLeft();
         if (keyCode == sf::Keyboard::D) rotateRight();
-        if (keyCode == sf::Keyboard::Escape) initialiseGame(game.currentStage);
+        if (keyCode == sf::Keyboard::R) initialiseGame(game.currentStage);
+        if (keyCode == sf::Keyboard::Escape) initialiseMenu();
     }
 }
 
@@ -63,26 +65,150 @@ void processEvent(sf::Event event) {
     }
 }
 
+
+
+/* ======================== *
+ *     REGION - LEVELS      *
+ * ======================== */
+
+
 void initialiseLevel0() {
-    int nPlats = 5;
+    int nPlats = 2;
     Platform plats[nPlats] = {
-        Platform(8, 7, 3, 4, true, dir_up),
-        Platform(1, 6, 1, 2, false, dir_down),
-        Platform(8, 10, 5, 6, true, dir_up),
-        Platform(16, 11, 1, 6, true, dir_right),
-        Platform(1, 10, 2, 2, true, dir_right)
+        Platform(1, 1, 1, 1, false, dir_up),
+        Platform(5, 1, 1, 1, false, dir_up),
     };
     
-    game.nTilesX = 10;
-    game.nTilesY = 10;
+    game.nTilesX = 7;
+    game.nTilesY = 3;
     game.player = Player();
-    gridToActual(8, 3, &game.player.x, &game.player.y);
+    gridToActual(0, 0, &game.player.x, &game.player.y);
     // game.player.setOrientation(dir_right);
     game.platforms.assign(plats, plats + (size_t) nPlats);
+    
+    game.zoom = 1.2;
+    Door door = Door(6, 0, dir_left);
+    game.door = door;
 }
 
 
 void initialiseLevel1() {
+    int nPlats = 4;
+    Platform plats[nPlats] = {
+        Platform(1, 2, 1, 2, false, dir_up),
+        Platform(2, 4, 0, 1, false, dir_up),
+        Platform(5, 1, 1, 1, true, dir_up),
+        Platform(5, 4, 1, 1, true, dir_left),
+    };
+    
+    game.nTilesX = 7;
+    game.nTilesY = 6;
+    game.player = Player();
+    gridToActual(0, 0, &game.player.x, &game.player.y);
+    // game.player.setOrientation(dir_right);
+    game.platforms.assign(plats, plats + (size_t) nPlats);
+    
+    game.zoom = 1.0;
+    Door door = Door(2, 3, dir_up);
+    game.door = door;
+}
+
+
+void initialiseLevel2() {
+    int nPlats = 4;
+    Platform plats[nPlats] = {
+        Platform(1, 2, 1, 2, true, dir_up),
+        Platform(4, 2, 1, 2, true, dir_left),
+        Platform(5, 0, 0, 0, true, dir_up),
+        Platform(7, 2, 1, 0, true, dir_down),
+    };
+    
+    game.nTilesX = 9;
+    game.nTilesY = 4;
+    game.player = Player();
+    gridToActual(0, 1, &game.player.x, &game.player.y);
+    // game.player.setOrientation(dir_right);
+    game.platforms.assign(plats, plats + (size_t) nPlats);
+    
+    game.zoom = 0.9;
+    Door door = Door(7, 1, dir_up);
+    game.door = door;
+}
+
+
+void initialiseLevel3() {
+    int nPlats = 4;
+    Platform plats[nPlats] = {
+        Platform(2, 0, 1, 1, false, dir_up),
+        Platform(2, 2, 1, 1, true, dir_up),
+        Platform(0, 4, 1, 1, true, dir_right),
+        Platform(4, 4, 1, 1, true, dir_left),
+    };
+    
+    game.nTilesX = 5;
+    game.nTilesY = 6;
+    game.player = Player();
+    gridToActual(1, 1, &game.player.x, &game.player.y);
+    // game.player.setOrientation(dir_right);
+    game.platforms.assign(plats, plats + (size_t) nPlats);
+    
+    game.zoom = 1.0;
+    Door door = Door(2, 1, dir_down);
+    game.door = door;
+}
+
+
+
+void initialiseLevel4() {
+    int nPlats = 4;
+    Platform plats[nPlats] = {
+        Platform(1, 3, 0, 2, true, dir_up),
+        Platform(2, 6, 1, 0, true, dir_up),
+        Platform(2, 8, 0, 0, true, dir_right),
+        Platform(4, 1, 1, 0, true, dir_left),
+    };
+    
+    game.nTilesX = 5;
+    game.nTilesY = 9;
+    game.player = Player();
+    gridToActual(2, 2, &game.player.x, &game.player.y);
+    // game.player.setOrientation(dir_right);
+    game.platforms.assign(plats, plats + (size_t) nPlats);
+    
+    game.zoom = 0.8;
+    Door door = Door(3, 0, dir_up);
+    game.door = door;
+}
+
+
+void initialiseLevel5() {
+    int nPlats = 6;
+    Platform plats[nPlats] = {
+        Platform(0, 0, 0, 0, true, dir_up),
+        Platform(1, 1, 0, 0, true, dir_down),
+        Platform(2, 0, 0, 0, true, dir_up),
+        Platform(0, 2, 0, 0, true, dir_up),
+        Platform(2, 2, 0, 0, true, dir_up),
+        Platform(1, 4, 1, 0, true, dir_right),
+    };
+    
+    game.nTilesX = 3;
+    game.nTilesY = 5;
+    game.player = Player();
+    gridToActual(1, 0, &game.player.x, &game.player.y);
+    // game.player.setOrientation(dir_right);
+    game.platforms.assign(plats, plats + (size_t) nPlats);
+    
+    game.zoom = 1.0;
+    Door door = Door(2, 3, dir_up);
+    game.door = door;
+}
+
+
+
+
+
+void initialiseLevel13() {
     int nPlats = 10;
     Platform plats[nPlats] = {
         Platform(2, 2, 1, 1, true, dir_up),
@@ -109,6 +235,29 @@ void initialiseLevel1() {
     game.door = door;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ======================== *
+ *   REGION - LEVELS - END  *
+ * ======================== */
+
+
+
+
+
+
+
 void initialiseGame(int stage) {
     inMenu = false;
     game = GameGlobals();
@@ -119,6 +268,11 @@ void initialiseGame(int stage) {
     switch(stage) {
         case 0: initialiseLevel0(); break;
         case 1: initialiseLevel1(); break;
+        case 2: initialiseLevel2(); break;
+        case 3: initialiseLevel3(); break;
+        case 4: initialiseLevel4(); break;
+        case 5: initialiseLevel5(); break;
+        case 13: initialiseLevel13(); break;
     }
 
     game.camera = Camera(&game.player);
