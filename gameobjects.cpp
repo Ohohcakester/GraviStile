@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#define _USE_MATH_DEFINES
 #include <math.h>
 #include "gameobjects.h"
 #include "keyboard.h"
@@ -12,7 +13,7 @@ void IGameObject::drawCircle(sf::CircleShape* shape, float px, float py) {
 
         shape->setOrigin(-px+shape->getRadius(),-py+shape->getRadius());
     }
-    window.draw(*shape);
+    window->draw(*shape);
 }
 
 void IGameObject::drawRectangle(sf::RectangleShape* shape, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y) {
@@ -33,7 +34,7 @@ void IGameObject::drawRectangle(sf::RectangleShape* shape, float tl_x, float tl_
         shape->setPosition(tl_x,tl_y);
         shape->setRotation(angle);
     }
-    window.draw(*shape);
+    window->draw(*shape);
 }
 
 void IGameObject::drawPlayerSprite(sf::Sprite* sprite, float x1, float y1, float x2, float y2, bool facingRight) {
@@ -56,7 +57,7 @@ void IGameObject::drawPlayerSprite(sf::Sprite* sprite, float x1, float y1, float
             sprite->setPosition(std::max(x1,x2),std::min(y1,y2));
         }
     }
-    window.draw(*sprite);
+    window->draw(*sprite);
 }
 
 void IGameObject::drawSprite(sf::Sprite* sprite, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y) {
@@ -84,13 +85,17 @@ void IGameObject::drawSprite(sf::Sprite* sprite, float tl_x, float tl_y, float b
         sprite->setPosition(tl_x,tl_y);
         sprite->setRotation(angle);
     }
-    window.draw(*sprite);
+    window->draw(*sprite);
 }
 
-Player::Player() {
+Player::Player(){}
+
+Player::Player(int cx, int cy) {
     freeze = false;
-    
+
     x = 0; y = 0;
+    gridToActual(cx, cy, &x, &y);
+    vx = 0; vy = 0;
     speed = 5;
     jumpSpeed = 11;
     gravity = 0.7f;
@@ -101,9 +106,12 @@ Player::Player() {
     facingRight = true;
     setOrientation(dir_up);
 
-    sprite.setTexture(textures.player);
+    sprite.setTexture(textures->player);
     shape = sf::RectangleShape();
     shape.setFillColor(sf::Color::Blue);
+
+    currentPlatform = &nullPlatform;
+    frozenPlatform = &nullPlatform;
 }
 
 bool Player::canRotate(bool right) {
@@ -167,17 +175,18 @@ void Player::update(Keyboard k) {
     if (freeze) return;
 
     updateBoundaries();
-
     // Fall off the sides
     switch(this->orientation) {
         case dir_up:
         case dir_down:
-            if (x1 >= currentPlatform->x2 || x2 <= currentPlatform->x1) currentPlatform = new Platform(); // Note: Memory leak?
+            if (!currentPlatform->isNull)
+                if (x1 >= currentPlatform->x2 || x2 <= currentPlatform->x1) currentPlatform = &nullPlatform;
             vx = 0; // also sneak in speed control
             break;
         case dir_left:
         case dir_right:
-            if (y1 >= currentPlatform->y2 || y2 <= currentPlatform->y1) currentPlatform = new Platform();
+            if (!currentPlatform->isNull)
+                if (y1 >= currentPlatform->y2 || y2 <= currentPlatform->y1) currentPlatform = &nullPlatform;
             vy = 0;
             break;
         default:
@@ -185,19 +194,21 @@ void Player::update(Keyboard k) {
     }
     
     // Do not fly off
-    switch(this->orientation) {
-        case dir_up: if (y2 != currentPlatform->y1) currentPlatform = new Platform(); break;
-        case dir_down: if (y1 != currentPlatform->y2) currentPlatform = new Platform(); break;
-        case dir_left: if (x2 != currentPlatform->x1) currentPlatform = new Platform(); break;
-        case dir_right: if (x1 != currentPlatform->x2) currentPlatform = new Platform(); break;
-        default: std::cout << "Wut\n";
+    if (!currentPlatform->isNull) {
+        switch (this->orientation) {
+            case dir_up: if (y2 != currentPlatform->y1) currentPlatform = &nullPlatform; break;
+            case dir_down: if (y1 != currentPlatform->y2) currentPlatform = &nullPlatform; break;
+            case dir_left: if (x2 != currentPlatform->x1) currentPlatform = &nullPlatform; break;
+            case dir_right: if (x1 != currentPlatform->x2) currentPlatform = &nullPlatform; break;
+            default: std::cout << "Wut\n";
+        }
     }
-    
+
     if (currentPlatform->isNull) {
         vx += gravityX;
         vy += gravityY;
     }
-    
+
     // What do left and right do
     switch(this->orientation) {
         case dir_up:         
@@ -241,7 +252,7 @@ void Player::getGridCoordinates(int* gridX, int* gridY) {
 
 void Player::jump() {
     if (!currentPlatform->isNull) {
-        currentPlatform = new Platform(); // isNull
+        currentPlatform = &nullPlatform; // isNull
         switch(orientation) {
             case dir_up: vy = (-1) * jumpSpeed; break;
             case dir_down: vy = jumpSpeed; break;
@@ -347,11 +358,11 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
     this->rotatable = rotatable;
     setOrientation(orientation);
 
-    sprite.setTexture(textures.pivot);
+    sprite.setTexture(textures->pivot);
     shape = sf::RectangleShape();
-    shape.setFillColor(textures.platformColor);
+    shape.setFillColor(textures->platformColor);
     extraLineShape = sf::RectangleShape();
-    extraLineShape.setFillColor(textures.platformSurfaceColor);
+    extraLineShape.setFillColor(textures->platformSurfaceColor);
     pivotShape = sf::CircleShape(game.zoom*TILE_WIDTH/3);
     pivotShape.setFillColor(sf::Color::Magenta);
 }
@@ -417,6 +428,20 @@ void Platform::setOrientation(int orientation) {
     }
 }
 
+bool Platform::isUnderDoor(int doorX, int doorY) {
+    switch(orientation) {
+    case dir_up:
+        return (cx - leftTiles <= doorX && doorX <= cx + rightTiles);
+    case dir_down:
+        return (cx - rightTiles <= doorX && doorX <= cx + leftTiles);
+    case dir_left:
+        return (cy - rightTiles <= doorY && doorY <= cy + leftTiles);
+    case dir_right:
+        return (cy - leftTiles <= doorY && doorY <= cy + rightTiles);
+    }
+    return false;
+}
+
 bool Platform::sweep(bool right) {
     int leftQuad;
     int rightQuad;
@@ -434,10 +459,10 @@ bool Platform::sweep(bool right) {
                 rightQuad = TILE_WIDTH * leftTiles;
                 break;
         }
-        std::cout << "right " << right << " orientation " << orientation;
+        //std::cout << "right " << right << " orientation " << orientation;
         for (int i=0;i<game.platforms.size();++i) {
             if (game.platforms[i].cx == cx && game.platforms[i].cy == cy) continue;
-            std::cout << "i = " << i << "\n";
+            //std::cout << "i = " << i << "\n";
             if (!platCheck(leftQuad, rightQuad, true, game.platforms[i])) return false;
         }
     } else { // quads13
@@ -453,10 +478,10 @@ bool Platform::sweep(bool right) {
                 rightQuad = TILE_WIDTH * leftTiles;
                 break;
         }
-        std::cout << "rightQuad " << rightQuad << "\n";
+        //std::cout << "rightQuad " << rightQuad << "\n";
         for (int i=0;i<game.platforms.size();++i) {
             if (game.platforms[i].cx == cx && game.platforms[i].cy == cy) continue;
-            std::cout << "i = " << i << "\n";
+            //std::cout << "i = " << i << "\n";
             if (!platCheck(leftQuad, rightQuad, false, game.platforms[i])) return false;
         }
     }
@@ -532,40 +557,40 @@ bool Platform::twoPointsTwoDistances(Point center, int p1x, int p1y, int p2x, in
     Point two(p2x, p2y);
     if (quads24) {
         if (p1x < center.x && p1y < center.y && one.distance(center) < lQuad) {
-            std::cout << "a p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            //std::cout << "a p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
             return false; // quad2
         }
         if (p1x > center.x && p1y > center.y && one.distance(center) < rQuad) {
-            std::cout << "b p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            //std::cout << "b p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
             return false; // quad4
         }
         if (p2x < center.x && p2y < center.y && two.distance(center) < lQuad) {
-            std::cout << "c p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            //std::cout << "c p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
             return false; // quad2
         }
         if (p2x > center.x && p2y > center.y && two.distance(center) < rQuad) {
-            std::cout << "d p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            //std::cout << "d p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
             return false; // quad4
         }
     } else {
         if (p1x < center.x && p1y > center.y && one.distance(center) < lQuad) {
-            std::cout << "d p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            //std::cout << "d p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
             return false; // quad3
         }
         if (p1x > center.x && p1y < center.y && one.distance(center) < rQuad) {
-            std::cout << "e p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            //std::cout << "e p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
             return false; // quad1
         }
         if (p2x < center.x && p2y > center.y && two.distance(center) < lQuad) {
-            std::cout << "f p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            //std::cout << "f p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
             return false; // quad3
         }
         if (p2x > center.x && p2y < center.y && two.distance(center) < rQuad) {
-            std::cout << "g p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
-            std::cout << "First condition " << (p2x > center.x) << "\n";
-            std::cout << "Second condition " << (p2y < center.y) << "\n";
-            std::cout << "Distance from center " << two.distance(center) << "\n";
-            std::cout << "Spin radius " << rQuad << "\n";
+            //std::cout << "g p1x = " << p1x << " p1y = " << p1y << " p2x = " << p2x << " p2y = " << p2y << "\n";
+            //std::cout << "First condition " << (p2x > center.x) << "\n";
+            //std::cout << "Second condition " << (p2y < center.y) << "\n";
+            //std::cout << "Distance from center " << two.distance(center) << "\n";
+            //std::cout << "Spin radius " << rQuad << "\n";
             return false; // quad1
         }
     }
@@ -630,7 +655,7 @@ Door::Door(int cx, int cy, int orientation) {
     gridToActual(cx, cy, &this->x, &this->y);
     this->orientation = orientation;
 
-    sprite.setTexture(textures.door);
+    sprite.setTexture(textures->door);
 
     shape = sf::RectangleShape();
     shape.setFillColor(sf::Color::Yellow);
@@ -664,6 +689,7 @@ void Door::draw() {
 void Door::update(Keyboard k) {
     if (game.player.freeze) return;
     if (game.player.currentPlatform->isNull) return;
+    if (!game.player.currentPlatform->isUnderDoor(cx, cy)) return;
     if (game.player.orientation != orientation) return;
     int playerX, playerY;
     game.player.getGridCoordinates(&playerX, &playerY);
@@ -699,7 +725,7 @@ void Camera::rotateTo(int newOrientation, int pivotX, int pivotY) {
     if (diff >= 3) diff -= 4;
     if (diff < -1) diff += 4;
     orientation = newOrientation;
-    std::cout << diff;
+    //std::cout << diff;
     targetAngle += M_PI/2 * diff;
     setIsRotating(true);
 }
@@ -713,7 +739,7 @@ void Camera::toRel(float* _x, float* _y) {
     float dx = *_x - px;
     float dy = *_y - py;
     float theta = angle - atan2(dy,dx);
-    float length = sqrt(dx*dx+dy*dy);
+    float length = sqrt(dx*dx + dy*dy);
 
     *_x = game.zoom*length*cos(theta) + RES_X/2;
     *_y = RES_Y/2 - game.zoom*length*sin(theta);
@@ -732,18 +758,6 @@ void Camera::update(Keyboard k) {
         return;
     }
 
-    float dx = player->x - cx;
-    float dy = player->y - cy;
-    float remAng = targetAngle - angle;
-    float tx = dx*cos(remAng) + dy*sin(remAng) + cx;
-    float ty = -dx*sin(remAng) + dy*cos(remAng) + cy;
-    dx = tx - px;
-    dy = ty - py;
-
-    px += dx*snapSpeedRotating;
-    py += dy*snapSpeedRotating;
-
-    if (!rotating) return;
     //std::cout << angle << " " << targetAngle << "\n";
     if (angle < targetAngle) {
         angle += rotateSpeed;
@@ -756,6 +770,17 @@ void Camera::update(Keyboard k) {
             onReach();
         }
     }
+
+    float dx = player->x - cx;
+    float dy = player->y - cy;
+    float remAng = targetAngle - angle;
+    float tx = dx*cos(remAng) + dy*sin(remAng) + cx;
+    float ty = -dx*sin(remAng) + dy*cos(remAng) + cy;
+    dx = tx - px;
+    dy = ty - py;
+
+    px += dx*snapSpeedRotating;
+    py += dy*snapSpeedRotating;
 }
 
 void Camera::onReach() {
@@ -765,11 +790,14 @@ void Camera::onReach() {
     setIsRotating(false);
 }
 
-Background::Background() {
-    gridToActual(game.nTilesX/2, game.nTilesY/2, &this->x, &this->y);
-    this->width = game.nTilesX*TILE_WIDTH*3;
-    this->height = game.nTilesY*TILE_WIDTH*3;
-    sprite.setTexture(textures.background);
+Background::Background() {}
+
+Background::Background(int x, int y) {
+    gridToActual(x, y, &this->x, &this->y);
+    int nTiles = std::max(game.nTilesX, game.nTilesY);
+    this->width = nTiles*TILE_WIDTH*2;
+    this->height = nTiles*TILE_WIDTH*3/2;
+    sprite.setTexture(textures->background);
 }
 
 void Background::draw() {

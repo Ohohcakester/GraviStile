@@ -2,15 +2,15 @@
 #include <iostream>
 #include "globals.h"
 
-GameGlobals game;
-Textures textures;
-Menu menu;
-
-int RES_X = 800;
-int RES_Y = 600;
-int TILE_WIDTH = 50;
-
-sf::RenderWindow window(sf::VideoMode(RES_X, RES_Y), "Maze of Dat");
+GameGlobals::GameGlobals() {
+    currentStage = -1;
+    nTilesX = 0;
+    nTilesY = 0;
+    width = 0;
+    height = 0;
+    zoom = 1;
+    puzzleComplete = false;
+}
 
 Textures::Textures() {
     if (!background.loadFromFile("img/bg.jpg")) {
@@ -30,7 +30,6 @@ Textures::Textures() {
     platformSurfaceColor = sf::Color(255,191,196,255);
     //std::cout << platformColor.r << " " << platformColor.g << " " << platformColor.b << std::endl;
 }
-
 
 Menu::Menu() {
     cols = 5;
@@ -83,3 +82,14 @@ void rotateAboutPivotActual(int oldOrientation, int newOrientation, int gridcx, 
 void rotateAboutPivotGrid(int oldOrientation, int newOrientation, int gridcx, int gridcy, int* x, int* y) {
     rotateAboutPivot(oldOrientation, newOrientation, gridcx, gridcy, x, y);
 }
+
+
+GameGlobals game;
+Textures* textures;
+Menu menu;
+
+int RES_X = 800;
+int RES_Y = 600;
+int TILE_WIDTH = 50;
+
+sf::RenderWindow* window;

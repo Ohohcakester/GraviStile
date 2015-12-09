@@ -1,3 +1,4 @@
+#include <tchar.h>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
@@ -38,7 +39,7 @@ void rotateLeft() {
 }
 
 void keyPress(sf::Keyboard::Key keyCode) {
-    std::cout << "Press " << keyCode << std::endl;
+    //std::cout << "Press " << keyCode << std::endl;
     if (inMenu) {
         if (keyCode == sf::Keyboard::Space) initialiseGame(menu.selection);
         if (keyCode == sf::Keyboard::Left) menu.previous();
@@ -58,7 +59,7 @@ void keyPress(sf::Keyboard::Key keyCode) {
 void processEvent(sf::Event event) {
     switch(event.type) {
         case sf::Event::Closed: {
-            window.close();
+            window->close();
             break;
         }
         case sf::Event::KeyPressed: {
@@ -75,7 +76,7 @@ void processEvent(sf::Event event) {
 
 
 void initialiseLevel0() {
-    int nPlats = 2;
+    const int nPlats = 2;
     Platform plats[nPlats] = {
         Platform(1, 1, 1, 1, false, dir_up),
         Platform(5, 1, 1, 1, false, dir_up),
@@ -83,8 +84,7 @@ void initialiseLevel0() {
     
     game.nTilesX = 7;
     game.nTilesY = 3;
-    game.player = Player();
-    gridToActual(0, 0, &game.player.x, &game.player.y);
+    game.player = Player(0, 0);
     // game.player.setOrientation(dir_right);
     game.platforms.assign(plats, plats + (size_t) nPlats);
     
@@ -95,7 +95,7 @@ void initialiseLevel0() {
 
 
 void initialiseLevel1() {
-    int nPlats = 4;
+    const int nPlats = 4;
     Platform plats[nPlats] = {
         Platform(1, 2, 1, 2, false, dir_up),
         Platform(2, 4, 0, 1, false, dir_up),
@@ -105,8 +105,7 @@ void initialiseLevel1() {
     
     game.nTilesX = 7;
     game.nTilesY = 6;
-    game.player = Player();
-    gridToActual(0, 0, &game.player.x, &game.player.y);
+    game.player = Player(0, 0);
     // game.player.setOrientation(dir_right);
     game.platforms.assign(plats, plats + (size_t) nPlats);
     
@@ -117,7 +116,7 @@ void initialiseLevel1() {
 
 
 void initialiseLevel2() {
-    int nPlats = 4;
+    const int nPlats = 4;
     Platform plats[nPlats] = {
         Platform(1, 2, 1, 2, true, dir_up),
         Platform(4, 2, 1, 2, true, dir_left),
@@ -127,8 +126,7 @@ void initialiseLevel2() {
     
     game.nTilesX = 9;
     game.nTilesY = 4;
-    game.player = Player();
-    gridToActual(0, 1, &game.player.x, &game.player.y);
+    game.player = Player(0, 1);
     // game.player.setOrientation(dir_right);
     game.platforms.assign(plats, plats + (size_t) nPlats);
     
@@ -139,7 +137,7 @@ void initialiseLevel2() {
 
 
 void initialiseLevel3() {
-    int nPlats = 6;
+    const int nPlats = 6;
     Platform plats[nPlats] = {
         Platform(2, 0, 1, 1, false, dir_up),
         Platform(2, 2, 1, 1, true, dir_up),
@@ -151,8 +149,7 @@ void initialiseLevel3() {
     
     game.nTilesX = 5;
     game.nTilesY = 6;
-    game.player = Player();
-    gridToActual(1, 1, &game.player.x, &game.player.y);
+    game.player = Player(1, 1);
     // game.player.setOrientation(dir_right);
     game.platforms.assign(plats, plats + (size_t) nPlats);
     
@@ -164,7 +161,7 @@ void initialiseLevel3() {
 
 
 void initialiseLevel4() {
-    int nPlats = 4;
+    const int nPlats = 4;
     Platform plats[nPlats] = {
         Platform(1, 3, 0, 2, true, dir_up),
         Platform(2, 6, 1, 0, true, dir_up),
@@ -174,8 +171,7 @@ void initialiseLevel4() {
     
     game.nTilesX = 5;
     game.nTilesY = 9;
-    game.player = Player();
-    gridToActual(2, 2, &game.player.x, &game.player.y);
+    game.player = Player(2, 2);
     // game.player.setOrientation(dir_right);
     game.platforms.assign(plats, plats + (size_t) nPlats);
     
@@ -186,7 +182,7 @@ void initialiseLevel4() {
 
 
 void initialiseLevel5() {
-    int nPlats = 7;
+    const int nPlats = 7;
     Platform plats[nPlats] = {
         Platform(3, 1, 0, 0, true, dir_right),
         Platform(3, 4, 0, 0, true, dir_up),
@@ -199,8 +195,7 @@ void initialiseLevel5() {
     
     game.nTilesX = 8;
     game.nTilesY = 9;
-    game.player = Player();
-    gridToActual(3, 0, &game.player.x, &game.player.y);
+    game.player = Player(3, 0);
     // game.player.setOrientation(dir_right);
     game.platforms.assign(plats, plats + (size_t) nPlats);
     
@@ -210,7 +205,7 @@ void initialiseLevel5() {
 }
 
 void initialiseLevel6() {
-    int nPlats = 5;
+    const int nPlats = 5;
     Platform plats[nPlats] = {
         Platform(3, 2, 1, 1, true, dir_up),
         Platform(0, 4, 1, 1, true, dir_right),
@@ -221,8 +216,7 @@ void initialiseLevel6() {
     
     game.nTilesX = 8;
     game.nTilesY = 8;
-    game.player = Player();
-    gridToActual(3, 0, &game.player.x, &game.player.y);
+    game.player = Player(3, 0);
     // game.player.setOrientation(dir_right);
     game.platforms.assign(plats, plats + (size_t) nPlats);
     
@@ -233,7 +227,7 @@ void initialiseLevel6() {
 
 
 void initialiseLevel7() {
-    int nPlats = 10;
+    const int nPlats = 10;
     Platform plats[nPlats] = {
         Platform(2, 2, 1, 1, true, dir_up),
         Platform(4, 1, 0, 0, true, dir_right),
@@ -249,8 +243,7 @@ void initialiseLevel7() {
     
     game.nTilesX = 12;
     game.nTilesY = 12;
-    game.player = Player();
-    gridToActual(3, 4, &game.player.x, &game.player.y);
+    game.player = Player(3, 4);
     // game.player.setOrientation(dir_right);
     game.platforms.assign(plats, plats + (size_t) nPlats);
     
@@ -261,7 +254,7 @@ void initialiseLevel7() {
 
 
 void initialiseLevel8() {
-    int nPlats = 16;
+    const int nPlats = 16;
     Platform plats[nPlats] = {
         Platform(2, 3, 1, 1, true, dir_right),
         Platform(5, 2, 1, 1, true, dir_right),
@@ -283,8 +276,7 @@ void initialiseLevel8() {
     
     game.nTilesX = 20;
     game.nTilesY = 17;
-    game.player = Player();
-    gridToActual(8, 2, &game.player.x, &game.player.y);
+    game.player = Player(8, 2);
     game.platforms.assign(plats, plats + (size_t) nPlats);
     
     game.zoom = 0.7;
@@ -294,7 +286,7 @@ void initialiseLevel8() {
 
 
 void initialiseLevel9() {
-    int nPlats = 16;
+    const int nPlats = 16;
     Platform plats[nPlats] = {
         Platform(2, 1, 0, 0, true, dir_down),
         Platform(3, 2, 1, 1, true, dir_right),
@@ -316,8 +308,7 @@ void initialiseLevel9() {
     
     game.nTilesX = 13;
     game.nTilesY = 12;
-    game.player = Player();
-    gridToActual(5, 0, &game.player.x, &game.player.y);
+    game.player = Player(5, 0);
     // game.player.setOrientation(dir_right);
     game.platforms.assign(plats, plats + (size_t) nPlats);
     
@@ -362,7 +353,7 @@ void initialiseGame(int stage) {
     game.camera = Camera(&game.player);
     game.width = game.nTilesX*TILE_WIDTH;
     game.height = game.nTilesY*TILE_WIDTH;
-    Background bg = Background();
+    Background bg = Background(game.nTilesX / 2, game.nTilesY / 2);
     game.background = bg;
 }
 
@@ -415,7 +406,7 @@ void drawMenuFrame() {
     float halfItemWidth = itemWidth/2;
 
     sf::Font comicsans;
-    if (!comicsans.loadFromFile("comicbd.ttf")) std::cout << "Oops\n";
+    if (!comicsans.loadFromFile("comicbd.ttf")) std::cout << "ERROR\n";
     
     for (int i=0;i<menu.nItems;++i) {
         int col = i%menu.cols;
@@ -423,23 +414,23 @@ void drawMenuFrame() {
 
         if (i == menu.selection) {
             sf::RectangleShape shape3;
-            shape3.setFillColor(sf::Color::Yellow);
+            shape3.setFillColor(sf::Color::White);
             shape3.setSize(sf::Vector2f(itemGlowWidth,itemGlowWidth));
             shape3.setPosition(itemSpacing*(col+0.5f)-halfItemGlowWidth, itemSpacing*(row+0.5f)-halfItemGlowWidth);
-            window.draw(shape3);
+            window->draw(shape3);
         }
 
         sf::RectangleShape shape;
-        shape.setFillColor(sf::Color::Magenta);
+        shape.setFillColor(textures->platformColor);
         shape.setSize(sf::Vector2f(itemOutlineWidth,itemOutlineWidth));
         shape.setPosition(itemSpacing*(col+0.5f)-halfItemOutlineWidth, itemSpacing*(row+0.5f)-halfItemOutlineWidth);
-        window.draw(shape);
+        window->draw(shape);
 
         sf::RectangleShape shape2;
-        shape.setFillColor(sf::Color::Blue);
+        shape2.setFillColor(textures->platformSurfaceColor);
         shape2.setSize(sf::Vector2f(itemWidth,itemWidth));
         shape2.setPosition(itemSpacing*(col+0.5f)-halfItemWidth, itemSpacing*(row+0.5f)-halfItemWidth);
-        window.draw(shape2);
+        window->draw(shape2);
         
         std::ostringstream ss;
         ss << i + 1;
@@ -447,13 +438,18 @@ void drawMenuFrame() {
         numbering.setFont(comicsans);
         numbering.setString(ss.str());
         numbering.setCharacterSize(60);
-        numbering.setColor(sf::Color::Blue);
+        numbering.setColor(textures->platformColor);
         numbering.setPosition(itemSpacing*(col+0.5f)-halfItemWidth, itemSpacing*(row+0.5f)-halfItemWidth);
-        window.draw(numbering);
+        window->draw(numbering);
     }
 }
 
-int main() {
+int main(int argc, TCHAR *argv[]) {
+    sf::RenderWindow w(sf::VideoMode(RES_X, RES_Y), "Maze of Dat");
+    window = &w;
+    Textures t;
+    textures = &t;
+
     sf::Clock clock;
 
     float frameTime = 1/60.f;
@@ -461,9 +457,9 @@ int main() {
 
     initialiseMenu();
     
-    while (window.isOpen()) {
+    while (window->isOpen()) {
         sf::Event event;
-        while (window.pollEvent(event)) {
+        while (window->pollEvent(event)) {
             processEvent(event);
         }
         dTime += clock.getElapsedTime().asSeconds();
@@ -477,10 +473,10 @@ int main() {
 
             if (dTime < frameTime) {
                 // frame skip if lagging
-                window.clear();
+                window->clear();
                 if (inMenu) drawMenuFrame();
                 else drawGameFrame();
-                window.display();
+                window->display();
             }
         }
     }

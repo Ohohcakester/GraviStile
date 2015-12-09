@@ -69,6 +69,8 @@ public:
     virtual void update(Keyboard k);
     
     virtual void setOrientation(int orientation);
+
+    bool isUnderDoor(int cx, int cy);
     
     virtual bool sweep(bool right);
     
@@ -106,8 +108,6 @@ public:
     sf::RectangleShape shape;
     float vx;
     float vy;
-    float ax;
-    float ay;
     int speed;
     int jumpSpeed;
     float gravity;
@@ -118,6 +118,7 @@ public:
     int pheight;
     Platform* currentPlatform;
     Platform* frozenPlatform;
+    Platform nullPlatform;
     bool facingRight;
     
     // rect
@@ -125,8 +126,10 @@ public:
     int y1;
     int x2;
     int y2;
-    
+
     Player();
+
+    Player(int cx, int cy);
 
     virtual void draw();
 
@@ -188,6 +191,8 @@ public:
     float height;
 
     Background();
+
+    Background(int x, int y);
 
     virtual void draw();
 
