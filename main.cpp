@@ -445,7 +445,7 @@ void drawMenuFrame() {
 }
 
 int main(int argc, TCHAR *argv[]) {
-    sf::RenderWindow w(sf::VideoMode(RES_X, RES_Y), "Maze of Dat");
+    sf::RenderWindow w(sf::VideoMode(RES_X, RES_Y), "GraviStile");
     window = &w;
     Textures t;
     textures = &t;
