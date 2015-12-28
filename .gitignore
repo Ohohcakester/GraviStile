@@ -1,7 +1,11 @@
 Test
+Debug
 ddd
 sfml
 *.bat
 *.exe
 *.o
 
+*.user
+*.vcxproj
+*.filters
