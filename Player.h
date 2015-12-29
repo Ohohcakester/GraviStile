@@ -24,14 +24,18 @@ public:
     Platform nullPlatform;
     
     float angle;
-    bool facingRight;
     bool isRotating;
+
+    bool facingRight;
 
     // rect
     int x1;
     int y1;
     int x2;
     int y2;
+
+    float rotatingBaseDX;
+    float rotatingBaseDY;
 
     Player();
 
@@ -49,9 +53,9 @@ public:
 
     void updateBoundaries();
 
-    void getGridCoordinates(int* gridX, int* gridY);
+    void Player::getSpriteCoordinates(float* sx, float* sy);
 
-    void setIsRotating(bool value);
+    void getGridCoordinates(int* gridX, int* gridY);
 
     void collision(Platform* plat);
 

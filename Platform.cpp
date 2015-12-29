@@ -11,8 +11,6 @@ Platform::Platform() {
 Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable, int orientation) {
     rotateSpeed = 0.1f;
 
-    freeze = false;
-
     this->isNull = false;
     this->cx = cx;
     this->cy = cy;

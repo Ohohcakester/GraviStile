@@ -6,8 +6,6 @@
 Player::Player(){}
 
 Player::Player(int cx, int cy) {
-    freeze = false;
-
     x = 0; y = 0;
     gridToActual(cx, cy, &x, &y);
     vx = 0; vy = 0;
@@ -19,6 +17,7 @@ Player::Player(int cx, int cy) {
     pwidth = 30;
     pheight = 50;
     facingRight = true;
+    isRotating = false;
     setOrientation(dir_up);
 
     sprite.setTexture(textures->player);
@@ -30,7 +29,7 @@ Player::Player(int cx, int cy) {
 }
 
 bool Player::canRotate(bool right) {
-    if (freeze) return false;
+    if (isRotating) return false;
     if (currentPlatform->isNull) return false;
     if (!currentPlatform->rotatable) return false;
     if (!currentPlatform->sweep(right)) return false;
@@ -38,6 +37,11 @@ bool Player::canRotate(bool right) {
 }
 
 void Player::rotateTo(int newOrientation) {
+    this->isRotating = true;
+    this->rotatingBaseDX = this->x - currentPlatform->x;
+    this->rotatingBaseDY = this->y - currentPlatform->y;
+    rotateVector(&rotatingBaseDX, &rotatingBaseDY, -orientationToAngle(orientation));
+
     vx = 0; vy = 0;
     rotateAboutPivotActual(orientation, newOrientation, currentPlatform->cx, currentPlatform->cy, &x, &y);
     setOrientation(newOrientation);
@@ -45,23 +49,31 @@ void Player::rotateTo(int newOrientation) {
     updateBoundaries();
 }
 
-void Player::setIsRotating(bool value) {
-    freeze = value;
-    if (value == true) {
-        currentPlatform->freeze = value;
-        frozenPlatform = currentPlatform;
-    }
-    else {
-        frozenPlatform->freeze = value;
-    }
+void Player::getSpriteCoordinates(float* sx, float* sy) {
+    float dx = this->rotatingBaseDX;
+    float dy = this->rotatingBaseDY;
+    rotateVector(&dx, &dy, angle);
+    *sx = dx + currentPlatform->x;
+    *sy = dy + currentPlatform->y;
 }
 
 void Player::draw() {
     float w = pheight * 1 / 2;
-
     float tlx, tly, blx, bly, brx, bry;
-    generateRotatedCorners(-w, -w, w, w, &tlx, &tly, &blx, &bly, &brx, &bry, angle);
-    drawSprite(&sprite, x + tlx, y + tly, x + blx, y + bly, x + brx, y + bry, !facingRight);
+
+    if (isRotating) {
+        float platX = currentPlatform->x;
+        float platY = currentPlatform->y;
+        float dx = this->rotatingBaseDX;
+        float dy = this->rotatingBaseDY;
+
+        generateRotatedCorners(dx-w, dy-w, dx+w, dy+w, &tlx, &tly, &blx, &bly, &brx, &bry, currentPlatform->angle);
+        drawSprite(&sprite, platX + tlx, platY + tly, platX + blx, platY + bly, platX + brx, platY + bry, !facingRight);
+    }
+    else {
+        generateRotatedCorners(-w, -w, w, w, &tlx, &tly, &blx, &bly, &brx, &bry, angle);
+        drawSprite(&sprite, x + tlx, y + tly, x + blx, y + bly, x + brx, y + bry, !facingRight);
+    }
 }
 
 void Player::updateBoundaries() {
@@ -91,7 +103,14 @@ void Player::updateBoundaries() {
 }
 
 void Player::update(Keyboard k) {
-    if (freeze) return;
+    if (isRotating) {
+        this->angle = currentPlatform->angle;
+        if (currentPlatform->isRotating) return;
+
+        // platform has stopped rotating.
+        this->angle = orientationToAngle(currentPlatform->orientation);
+        isRotating = false;
+    }
 
     updateBoundaries();
     // Fall off the sides
@@ -170,6 +189,7 @@ void Player::getGridCoordinates(int* gridX, int* gridY) {
 }
 
 void Player::jump() {
+    if (isRotating) return;
     if (!currentPlatform->isNull) {
         currentPlatform = &nullPlatform; // isNull
         switch (orientation) {
@@ -207,7 +227,7 @@ void Player::setOrientation(int orientation) {
     }
     }
 
-    angle = orientationToAngle(orientation);
+    this->angle = orientationToAngle(orientation);
 }
 
 void Player::collision(Platform* plat) {

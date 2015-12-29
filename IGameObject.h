@@ -8,7 +8,6 @@ class IGameObject {
 public:
     int x;
     int y;
-    bool freeze;
 
     virtual ~IGameObject() {}
     virtual void draw() = 0;

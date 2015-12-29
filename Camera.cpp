@@ -6,8 +6,6 @@
 Camera::Camera() {}
 
 Camera::Camera(Player* player) {
-    freeze = false;
-
     zoom = 0.4;
     rotateSpeed = 0.1f;
     snapSpeed = 0.2f;
@@ -37,8 +35,14 @@ void Camera::draw() {
 
 void Camera::update(Keyboard k) {
     angle = player->angle;
-    float dx = player->x - px;
-    float dy = player->y - py;
+    float targetX = player->x;
+    float targetY = player->y;
+    if (player->isRotating) {
+        player->getSpriteCoordinates(&targetX, &targetY);
+    }
+
+    float dx = targetX - px;
+    float dy = targetY - py;
     px += dx*snapSpeed;
     py += dy*snapSpeed;
 }

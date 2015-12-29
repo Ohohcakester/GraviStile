@@ -6,8 +6,6 @@ Door::Door() {
 }
 
 Door::Door(int cx, int cy, int orientation) {
-    freeze = false;
-
     this->isNull = false;
     this->cx = cx;
     this->cy = cy;
@@ -46,7 +44,7 @@ void Door::draw() {
 }
 
 void Door::update(Keyboard k) {
-    if (game.player.freeze) return;
+    if (game.player.isRotating) return;
     if (game.player.currentPlatform->isNull) return;
     if (!game.player.currentPlatform->isUnderDoor(cx, cy)) return;
     if (game.player.orientation != orientation) return;
