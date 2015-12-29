@@ -21,7 +21,6 @@ void rotateRight() {
     int pivotX, pivotY;
     gridToActual(game.player.currentPlatform->cx, game.player.currentPlatform->cy, &pivotX, &pivotY);
 
-    game.camera.rotateTo(orientation, pivotX, pivotY);
     game.player.rotateTo(orientation);
 }
 
@@ -34,7 +33,6 @@ void rotateLeft() {
     int pivotX, pivotY;
     gridToActual(game.player.currentPlatform->cx, game.player.currentPlatform->cy, &pivotX, &pivotY);
 
-    game.camera.rotateTo(orientation, pivotX, pivotY);
     game.player.rotateTo(orientation);
 }
 

@@ -26,15 +26,9 @@ public:
 
     void toRel(float* _x, float* _y);
 
-    void rotateTo(int newOrientation, int pivotX, int pivotY);
-
-    void setIsRotating(bool value);
-
     virtual void draw();
 
     virtual void update(Keyboard k);
-
-    void onReach();
 };
 
 #endif

@@ -58,7 +58,6 @@ void Player::setIsRotating(bool value) {
 
 void Player::draw() {
     float w = pheight * 1 / 2;
-    float angle = orientationToAngle(orientation);
 
     float tlx, tly, blx, bly, brx, bry;
     generateRotatedCorners(-w, -w, w, w, &tlx, &tly, &blx, &bly, &brx, &bry, angle);
@@ -207,6 +206,8 @@ void Player::setOrientation(int orientation) {
         break;
     }
     }
+
+    angle = orientationToAngle(orientation);
 }
 
 void Player::collision(Platform* plat) {

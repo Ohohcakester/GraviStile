@@ -23,6 +23,7 @@ public:
     Platform* frozenPlatform;
     Platform nullPlatform;
     
+    float angle;
     bool facingRight;
     bool isRotating;
 
