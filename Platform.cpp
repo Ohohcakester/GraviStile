@@ -1,12 +1,16 @@
+#include <iostream>
 #include "globals.h"
 #include "Point.h"
 #include "Platform.h"
+#include "gamemath.h"
 
 Platform::Platform() {
     this->isNull = true;
 }
 
 Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable, int orientation) {
+    rotateSpeed = 0.1f;
+
     freeze = false;
 
     this->isNull = false;
@@ -16,7 +20,9 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
     this->leftTiles = leftTiles;
     this->rightTiles = rightTiles;
     this->rotatable = rotatable;
+
     setOrientation(orientation);
+    onReach();
 
     sprite.setTexture(textures->pivot);
     shape = sf::RectangleShape();
@@ -28,36 +34,51 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
 }
 
 void Platform::draw() {
-    drawRectangle(&shape, x1, y1, x1, y2, x2, y2);
+    float _x1 = - TILE_WIDTH * (leftTiles + 0.5);
+    float _x2 = TILE_WIDTH * (rightTiles + 0.5);
+    float _y1 = - TILE_WIDTH / 2;
+    float _y2 = TILE_WIDTH / 2;
+
+    float tlx, tly, blx, bly, brx, bry;
+    generateRotatedCorners(_x1, _y1, _x2, _y2, &tlx, &tly, &blx, &bly, &brx, &bry, angle);
+    drawRectangle(&shape, x+tlx, y+tly, x+blx, y+bly, x+brx, y+bry);
 
     if (this->rotatable) {
         int fraction = 5;
-        int e_x1 = x1; int e_x2 = x2; int e_y1 = y1; int e_y2 = y2;
-        switch (this->orientation) {
-        case dir_up:
-            e_y2 = (y2 - y1) / fraction + y1;
-            break;
-        case dir_down:
-            e_y1 = (y1 - y2) / fraction + y2;
-            break;
-        case dir_left:
-            e_x2 = (x2 - x1) / fraction + x1;
-            break;
-        case dir_right:
-            e_x1 = (x1 - x2) / fraction + x2;
-            break;
-        }
-        drawRectangle(&extraLineShape, e_x1, e_y1, e_x1, e_y2, e_x2, e_y2);
-
-        drawCircle(&pivotShape, x, y);
+        int _ey2 = _y1 + (_y2 - _y1) / fraction;
+        generateRotatedCorners(_x1, _y1, _x2, _ey2, &tlx, &tly, &blx, &bly, &brx, &bry, angle);
+        drawRectangle(&extraLineShape, x+tlx, y+tly, x+blx, y+bly, x+brx, y+bry);
 
         float radius = game.zoom*TILE_WIDTH / 3;
-        drawSprite(&sprite, x - radius, y - radius, x - radius, y + radius, x + radius, y + radius);
+        generateRotatedCorners(-radius, -radius, radius, radius, &tlx, &tly, &blx, &bly, &brx, &bry, angle);
+        drawSprite(&sprite, x+tlx, y+tly, x+blx, y+bly, x+brx, y+bry);
     }
 }
 
 void Platform::update(Keyboard k) {
+    if (isRotating) {
+        float diff = clampedAngularDifference(angle, targetAngle);
+        if (diff < 0) {
+            angle -= rotateSpeed;
+            diff = clampedAngularDifference(angle, targetAngle);
+            if (diff >= 0) {
+                onReach();
+            }
+        } else {
+            angle += rotateSpeed;
+            diff = clampedAngularDifference(angle, targetAngle);
+            if (diff < 0) {
+                onReach();
+            }
+        }
+    }
 }
+
+void Platform::onReach() {
+    angle = targetAngle;
+    isRotating = false;
+}
+
 
 void Platform::setOrientation(int orientation) {
     this->orientation = orientation;
@@ -86,6 +107,9 @@ void Platform::setOrientation(int orientation) {
         this->y1 -= TILE_WIDTH * rightTiles;
         this->y2 += TILE_WIDTH * leftTiles;
     }
+
+    this->targetAngle = orientationToAngle(orientation);
+    this->isRotating = true;
 }
 
 bool Platform::isUnderDoor(int doorX, int doorY) {

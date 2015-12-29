@@ -22,7 +22,9 @@ public:
     Platform* currentPlatform;
     Platform* frozenPlatform;
     Platform nullPlatform;
+    
     bool facingRight;
+    bool isRotating;
 
     // rect
     int x1;

@@ -20,6 +20,11 @@ public:
     bool rotatable;
     int orientation;
 
+    float rotateSpeed;
+    float angle;
+    float targetAngle;
+    bool isRotating;
+
     // rect
     int x1;
     int y1;
@@ -33,6 +38,8 @@ public:
     virtual void draw();
 
     virtual void update(Keyboard k);
+
+    void onReach();
 
     virtual void setOrientation(int orientation);
 
