@@ -56,8 +56,25 @@ void Player::setIsRotating(bool value) {
 }
 
 void Player::draw() {
+    float w = TILE_WIDTH * 1 / 2;
+
+    float x1, y1, x2, y2;
+    switch (orientation) {
+    case dir_up:
+        drawSprite(&sprite, x - w, y - w, x - w, y + w, x + w, y + w, !facingRight);
+        break;
+    case dir_right:
+        drawSprite(&sprite, x + w, y - w, x - w, y - w, x - w, y + w, !facingRight);
+        break;
+    case dir_down:
+        drawSprite(&sprite, x + w, y + w, x + w, y - w, x - w, y - w, !facingRight);
+        break;
+    case dir_left:
+        drawSprite(&sprite, x - w, y + w, x + w, y + w, x + w, y - w, !facingRight);
+        break;
+    }
     //drawRectangle(&shape,x1,y1,x1,y2,x2,y2);
-    drawPlayerSprite(&sprite, x1, y1, x2, y2, facingRight);
+    //drawPlayerSprite(&sprite, x1, y1, x2, y2, facingRight);
 }
 
 void Player::updateBoundaries() {
