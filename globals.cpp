@@ -47,6 +47,21 @@ void Menu::previous() {
     if (selection < 0) selection = nItems - 1;
 }
 
+void Menu::down() {
+    selection += cols;
+    if (selection >= nItems) {
+        selection %= cols;
+    }
+}
+
+void Menu::up() {
+    selection -= cols;
+    if (selection < 0) {
+        selection += nItems / cols * cols + cols;
+        if (selection >= nItems) selection -= cols;
+    }
+}
+
 
 void gridToActual(int gridX, int gridY, int* actualX, int* actualY) {
     *actualX = gridX*TILE_WIDTH + TILE_WIDTH/2;

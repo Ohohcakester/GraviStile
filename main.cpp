@@ -42,8 +42,8 @@ void keyPress(sf::Keyboard::Key keyCode) {
         if (keyCode == sf::Keyboard::Space) initialiseGame(menu.selection);
         if (keyCode == sf::Keyboard::Left) menu.previous();
         if (keyCode == sf::Keyboard::Right) menu.next();
-        if (keyCode == sf::Keyboard::Up) {for (int i=0;i<menu.cols;++i) menu.previous();}
-        if (keyCode == sf::Keyboard::Down) {for (int i=0;i<menu.cols;++i) menu.next();}
+        if (keyCode == sf::Keyboard::Up) menu.up();
+        if (keyCode == sf::Keyboard::Down) menu.down();
     } else {
         if (keyCode == sf::Keyboard::Space) game.player.jump();
         if (keyCode == sf::Keyboard::A) rotateLeft();

@@ -39,6 +39,8 @@ public:
     Menu();
     void next();
     void previous();
+    void down();
+    void up();
 };
 
 class Textures {
