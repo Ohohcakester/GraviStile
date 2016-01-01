@@ -33,7 +33,51 @@ bool Player::canRotate(bool right) {
     if (currentPlatform->isNull) return false;
     if (!currentPlatform->rotatable) return false;
     if (!currentPlatform->sweep(right)) return false;
+    if (rotatesIntoPlatform(right)) return false;
     return orientation == currentPlatform->orientation;
+}
+
+bool Player::rotatesIntoPlatform(bool rotateRight) {
+    int newOrientation = orientation;
+    if (rotateRight) newOrientation = (newOrientation + 1) % 4;
+    else newOrientation = (newOrientation + 3) % 4;
+
+    int _x = x;
+    int _y = y;
+    rotateAboutPivotActual(orientation, newOrientation, currentPlatform->cx, currentPlatform->cy, &_x, &_y);
+    
+    int halfWidth = pwidth / 2;
+    int halfHeight = pheight / 2;
+
+    int _x1 = _x;
+    int _x2 = _x;
+    int _y1 = _y;
+    int _y2 = _y;
+    switch (newOrientation) {
+    case dir_up:
+    case dir_down:
+        _x1 -= halfWidth;
+        _x2 += halfWidth;
+        _y1 -= halfHeight;
+        _y2 += halfHeight;
+        break;
+    case dir_left:
+    case dir_right:
+        _x1 -= halfHeight;
+        _x2 += halfHeight;
+        _y1 -= halfWidth;
+        _y2 += halfWidth;
+    }
+
+    for (int i = 0; i<game.platforms.size(); ++i) {
+        if (&game.platforms[i] == currentPlatform) continue; // Exception: can collide with the current platform.
+        if (collidesWith(_x1, _y1, _x2, _y2, &game.platforms[i])) return true;
+    }
+    return false;
+}
+
+bool Player::collidesWith(float _x1, float _y1, float _x2, float _y2, Platform* plat) {
+    return (_x2 > plat->x1 && _x1 < plat->x2 && _y2 > plat->y1 && _y1 < plat->y2);
 }
 
 void Player::rotateTo(int newOrientation) {
