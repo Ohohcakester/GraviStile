@@ -8,16 +8,16 @@ Platform::Platform() {
     this->isNull = true;
 }
 
-Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable, int orientation) {
+Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable, int orientation, bool isDisabled, bool isRotationDisabled) :
+    cx(cx), cy(cy), leftTiles(leftTiles), rightTiles(rightTiles), rotatable(rotatable), orientation(orientation), isRotationDisabled(isRotationDisabled)
+{
     rotateSpeed = 0.1f;
 
+    if (isDisabled) this->disabledStatus = platformStatus_disabled;
+    else this->disabledStatus = platformStatus_enabled;
+
     this->isNull = false;
-    this->cx = cx;
-    this->cy = cy;
     gridToActual(cx, cy, &this->x, &this->y);
-    this->leftTiles = leftTiles;
-    this->rightTiles = rightTiles;
-    this->rotatable = rotatable;
 
     setOrientation(orientation);
     onReach();
@@ -47,9 +47,11 @@ void Platform::draw() {
         generateRotatedCorners(_x1, _y1, _x2, _ey2, &tlx, &tly, &blx, &bly, &brx, &bry, angle);
         drawRectangle(&extraLineShape, x+tlx, y+tly, x+blx, y+bly, x+brx, y+bry);
 
-        float radius = game.zoom*TILE_WIDTH / 3;
-        generateRotatedCorners(-radius, -radius, radius, radius, &tlx, &tly, &blx, &bly, &brx, &bry, angle);
-        drawSprite(&sprite, x+tlx, y+tly, x+blx, y+bly, x+brx, y+bry);
+        if (!this->isRotationDisabled) {
+            float radius = game.zoom*TILE_WIDTH / 3;
+            generateRotatedCorners(-radius, -radius, radius, radius, &tlx, &tly, &blx, &bly, &brx, &bry, angle);
+            drawSprite(&sprite, x + tlx, y + tly, x + blx, y + bly, x + brx, y + bry);
+        }
     }
 }
 
@@ -77,6 +79,17 @@ void Platform::onReach() {
     isRotating = false;
 }
 
+void Platform::disable() {
+    disabledStatus = platformStatus_disabled;
+}
+
+void Platform::enable() {
+    disabledStatus = platformStatus_waitingForEnable;
+}
+
+bool Platform::isDisabled() {
+    return disabledStatus != platformStatus_enabled;
+}
 
 void Platform::setOrientation(int orientation) {
     this->orientation = orientation;
@@ -143,6 +156,7 @@ bool Platform::sweep(bool right) {
         }
         //std::cout << "right " << right << " orientation " << orientation;
         for (int i = 0; i<game.platforms.size(); ++i) {
+            if (game.platforms[i].isDisabled()) continue;
             if (game.platforms[i].cx == cx && game.platforms[i].cy == cy) continue;
             //std::cout << "i = " << i << "\n";
             if (!platCheck(leftQuad, rightQuad, true, game.platforms[i])) return false;
@@ -163,6 +177,7 @@ bool Platform::sweep(bool right) {
         }
         //std::cout << "rightQuad " << rightQuad << "\n";
         for (int i = 0; i<game.platforms.size(); ++i) {
+            if (game.platforms[i].isDisabled()) continue;
             if (game.platforms[i].cx == cx && game.platforms[i].cy == cy) continue;
             //std::cout << "i = " << i << "\n";
             if (!platCheck(leftQuad, rightQuad, false, game.platforms[i])) return false;

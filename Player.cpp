@@ -32,6 +32,7 @@ bool Player::canRotate(bool right) {
     if (isRotating) return false;
     if (currentPlatform->isNull) return false;
     if (!currentPlatform->rotatable) return false;
+    if (currentPlatform->isRotationDisabled) return false;
     if (!currentPlatform->sweep(right)) return false;
     if (rotatesIntoPlatform(right)) return false;
     return orientation == currentPlatform->orientation;
@@ -71,6 +72,7 @@ bool Player::rotatesIntoPlatform(bool rotateRight) {
 
     for (int i = 0; i<game.platforms.size(); ++i) {
         if (&game.platforms[i] == currentPlatform) continue; // Exception: can collide with the current platform.
+        if (game.platforms[i].isDisabled()) continue;
         if (collidesWith(_x1, _y1, _x2, _y2, &game.platforms[i])) return true;
     }
     return false;
@@ -156,6 +158,10 @@ void Player::update(Keyboard k) {
         isRotating = false;
     }
 
+    if (!currentPlatform->isNull && currentPlatform->isDisabled()) {
+        currentPlatform = &nullPlatform;
+    }
+
     updateBoundaries();
     // Fall off the sides
     switch (this->orientation) {
@@ -221,6 +227,7 @@ void Player::update(Keyboard k) {
     // std::cout << "x = " << x << " y = " << y << "\n";
 
     for (int i = 0; i<game.platforms.size(); ++i) {
+        if (game.platforms[i].isDisabled()) continue;
         collision(&game.platforms[i]);
     }
     /*for (std::vector<Platform>::iterator it = game.platforms.begin(); it != game.platforms.end(); ++it) {
@@ -234,7 +241,7 @@ void Player::getGridCoordinates(int* gridX, int* gridY) {
 
 void Player::jump() {
     if (isRotating) return;
-    if (!currentPlatform->isNull) {
+    if (!currentPlatform->isNull && !currentPlatform->isDisabled()) {
         currentPlatform = &nullPlatform; // isNull
         switch (orientation) {
         case dir_up: vy = (-1) * jumpSpeed; break;

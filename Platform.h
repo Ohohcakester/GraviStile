@@ -5,12 +5,21 @@
 class Point;
 #include "IGameObject.h"
 
+enum platformDisabledStatus {
+    platformStatus_enabled,
+    platformStatus_disabled,
+    platformStatus_waitingForEnable,
+};
+
 class Platform : public IGameObject {
 public:
     sf::RectangleShape shape;
     sf::CircleShape pivotShape;
     sf::Sprite sprite;
     sf::RectangleShape extraLineShape;
+
+    int disabledStatus;
+    bool isRotationDisabled;
 
     bool isNull;
     int cx;
@@ -33,7 +42,7 @@ public:
 
     Platform();
 
-    Platform(int pivotX, int pivotY, int leftTiles, int rightTiles, bool rotatable, int orientation);
+    Platform(int pivotX, int pivotY, int leftTiles, int rightTiles, bool rotatable, int orientation, bool isDisabled = false, bool isRotationDisabled = false);
 
     virtual void draw();
 
@@ -50,6 +59,12 @@ public:
     virtual bool platCheck(int leftQuad, int rightQuad, bool vertFlip, Platform other);
 
     virtual bool twoPointsTwoDistances(Point center, int p1x, int p1y, int p2x, int p2y, int lQuad, int rQuad, bool quads24);
+
+    bool isDisabled();
+
+    void enable();
+
+    void disable();
 };
 
 

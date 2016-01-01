@@ -51,6 +51,7 @@ void keyPress(sf::Keyboard::Key keyCode) {
         if (keyCode == sf::Keyboard::D) rotateRight();
         if (keyCode == sf::Keyboard::R) initialiseGame(game.currentStage);
         if (keyCode == sf::Keyboard::Escape) initialiseMenu();
+        //if (keyCode == sf::Keyboard::T) game.player.currentPlatform->disable(); for debugging.
     }
 }
 
