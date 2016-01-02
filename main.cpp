@@ -69,7 +69,7 @@ void initialiseGame(int stage) {
     inMenu = false;
     game = GameGlobals();
     game.puzzleComplete = false;
-    game.zoom = 0.4;
+    game.zoom = 0.4f;
 
     initialiseStage(stage);
 
@@ -97,7 +97,7 @@ void updateGame() {
     game.background.update(game.key);
     game.player.update(game.key);
     game.camera.update(game.key);
-    for (int i=0;i<game.platforms.size();++i) {
+    for (size_t i = 0; i<game.platforms.size(); ++i) {
         game.platforms[i]->update(game.key);
     }
     game.door.update(game.key);
@@ -110,7 +110,7 @@ void updateMenu() {
 void drawGameFrame() {
     game.background.draw();
     game.camera.draw();
-    for (int i=0;i<game.platforms.size();++i) {
+    for (size_t i = 0; i<game.platforms.size(); ++i) {
         game.platforms[i]->draw();
     }
     game.door.draw();

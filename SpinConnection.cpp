@@ -16,7 +16,7 @@ bool SpinConnection::isNull() {
 
 void SpinConnection::rotateBy(int oldOrientation, int newOrientation) {
     int difference = newOrientation - oldOrientation + 4;
-    for (int i = 0; i < platforms.size(); ++i) {
+    for (size_t i = 0; i < platforms.size(); ++i) {
         int newOrientation = (platforms[i]->orientation + difference) % 4;
         platforms[i]->setOrientation(newOrientation);
     }
@@ -25,7 +25,7 @@ void SpinConnection::rotateBy(int oldOrientation, int newOrientation) {
 // Creates a new spin connection. Must be deleted later on.
 SpinConnection* createSpinConnection(std::vector<Platform*> platforms) {
     SpinConnection* connection = new SpinConnection(platforms);
-    for (int i = 0; i < platforms.size(); ++i) {
+    for (size_t i = 0; i < platforms.size(); ++i) {
         platforms[i]->spinConnection = connection;
     }
     return connection;

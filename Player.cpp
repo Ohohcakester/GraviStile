@@ -68,7 +68,7 @@ bool Player::rotatesIntoPlatform(bool rotateRight) {
         _y2 += halfWidth;
     }
 
-    for (int i = 0; i<game.platforms.size(); ++i) {
+    for (size_t i = 0; i<game.platforms.size(); ++i) {
         if (currentPlatform->samePosition(game.platforms[i])) continue; // Exception: can collide with the current platform.
         if (game.platforms[i]->isDisabled()) continue;
         if (collidesWith(_x1, _y1, _x2, _y2, game.platforms[i])) return true;
@@ -224,7 +224,7 @@ void Player::update(Keyboard k) {
 
     // std::cout << "x = " << x << " y = " << y << "\n";
 
-    for (int i = 0; i<game.platforms.size(); ++i) {
+    for (size_t i = 0; i<game.platforms.size(); ++i) {
         if (game.platforms[i]->isDisabled()) continue;
         collision(game.platforms[i]);
     }

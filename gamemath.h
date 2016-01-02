@@ -4,7 +4,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-const float M_2PI = 2 * M_PI;
+const double M_2PI = 2 * M_PI;
 
 void rotateVector(float* dx, float* dy, float angle);
 

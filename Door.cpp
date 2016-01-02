@@ -23,7 +23,6 @@ Door::Door(int cx, int cy, int orientation) {
 void Door::draw() {
     float w = TILE_WIDTH * 1 / 2;
 
-    float x1, y1, x2, y2;
     switch (orientation) {
     case dir_up:
         drawSprite(&sprite, x - w, y - w, x - w, y + w, x + w, y + w);

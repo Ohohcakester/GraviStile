@@ -6,7 +6,7 @@
 Camera::Camera() {}
 
 Camera::Camera(Player* player) {
-    zoom = 0.4;
+    zoom = 0.4f;
     rotateSpeed = 0.1f;
     snapSpeed = 0.2f;
     snapSpeedRotating = 0.6f;

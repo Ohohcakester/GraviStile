@@ -13,11 +13,11 @@ GameGlobals::GameGlobals() {
 }
 
 void GameGlobals::cleanup() {
-    for (int i = 0; i < spinConnections.size(); ++i) {
+    for (size_t i = 0; i < spinConnections.size(); ++i) {
         delete spinConnections[i];
         spinConnections.clear();
     }
-    for (int i = 0; i < platforms.size(); ++i) {
+    for (size_t i = 0; i < platforms.size(); ++i) {
         delete platforms[i];
         spinConnections.clear();
     }

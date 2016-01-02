@@ -42,7 +42,7 @@ void initialiseFromStageObject(GameStage gameStage) {
     game.nTilesY = gameStage.nTilesY;
     game.player = Player(gameStage.player.x, gameStage.player.y);
     game.player.setOrientation(game.player.orientation);
-    game.zoom = gameStage.zoom;
+    game.zoom = (float)(gameStage.zoom);
     Door door = Door(gameStage.door.x, gameStage.door.y, gameStage.door.orientation);
     game.door = door;
 
@@ -287,6 +287,8 @@ GameStage getStage(int stage) {
     case 9: return level9();
     case 10: return level10();
     }
+
+    return level1();
 }
 
 

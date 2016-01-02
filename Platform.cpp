@@ -45,7 +45,7 @@ void Platform::draw() {
 
     if (this->rotatable) {
         int fraction = 5;
-        int _ey2 = _y1 + (_y2 - _y1) / fraction;
+        float _ey2 = _y1 + (_y2 - _y1) / fraction;
         generateRotatedCorners(_x1, _y1, _x2, _ey2, &tlx, &tly, &blx, &bly, &brx, &bry, angle);
         drawRectangle(&extraLineShape, x+tlx, y+tly, x+blx, y+bly, x+brx, y+bry);
 
@@ -166,7 +166,7 @@ bool Platform::sweep(bool right) {
             break;
         }
         //std::cout << "right " << right << " orientation " << orientation;
-        for (int i = 0; i<game.platforms.size(); ++i) {
+        for (size_t i = 0; i<game.platforms.size(); ++i) {
             if (game.platforms[i]->isDisabled()) continue;
             if (samePosition(game.platforms[i])) continue;
             //std::cout << "i = " << i << "\n";
@@ -187,7 +187,7 @@ bool Platform::sweep(bool right) {
             break;
         }
         //std::cout << "rightQuad " << rightQuad << "\n";
-        for (int i = 0; i<game.platforms.size(); ++i) {
+        for (size_t i = 0; i<game.platforms.size(); ++i) {
             if (game.platforms[i]->isDisabled()) continue;
             if (samePosition(game.platforms[i])) continue;
             //std::cout << "i = " << i << "\n";
