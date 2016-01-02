@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 class Point;
+class SpinConnection;
 #include "IGameObject.h"
 
 enum platformDisabledStatus {
@@ -20,6 +21,8 @@ public:
 
     int disabledStatus;
     bool isRotationDisabled;
+
+    SpinConnection* spinConnection;
 
     bool isNull;
     int cx;
@@ -50,13 +53,15 @@ public:
 
     void onReach();
 
+    void rotateTo(int newOrientation);
+
     virtual void setOrientation(int orientation);
 
     bool isUnderDoor(int cx, int cy);
 
     virtual bool sweep(bool right);
 
-    virtual bool platCheck(int leftQuad, int rightQuad, bool vertFlip, Platform other);
+    virtual bool platCheck(int leftQuad, int rightQuad, bool vertFlip, Platform* other);
 
     virtual bool twoPointsTwoDistances(Point center, int p1x, int p1y, int p2x, int p2y, int lQuad, int rQuad, bool quads24);
 
@@ -65,6 +70,8 @@ public:
     void enable();
 
     void disable();
+
+    bool samePosition(Platform* other);
 };
 
 

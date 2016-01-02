@@ -1,14 +1,40 @@
 #include <iostream>
 #include "globals.h"
 #include "Stage.h"
+#include "SpinConnection.h"
 
+void linkPlatforms(GameStage* gameStage, std::vector<Platform*>* _platforms, std::vector<SpinConnection*>* spinConnections) {
+    std::vector<Platform*>& platforms = *_platforms;
+
+    std::map<int, std::vector<Platform*>> platformGroups;
+    int nPlatforms = gameStage->platforms.size();
+    for (int i = 0; i < nPlatforms; ++i) {
+        int index = gameStage->platforms[i].spinConnectionIndex;
+        if (index == -1) continue;
+        auto vec = platformGroups.find(index);
+        if (vec == platformGroups.end()) {
+            platformGroups.emplace(index, std::vector<Platform*> {platforms[i]});
+        }
+        else {
+            vec->second.push_back(platforms[i]);
+        }
+    }
+
+    // link.
+    for (auto itr = platformGroups.begin(); itr != platformGroups.end(); ++itr) {
+        spinConnections->push_back(createSpinConnection(itr->second));
+    }
+}
 
 void initialiseFromStageObject(GameStage gameStage) {
+    game.cleanup();
+
     int nPlatforms = gameStage.platforms.size();
-    std::vector<Platform> platforms(nPlatforms);
+    std::vector<Platform*> platforms(nPlatforms);
     for (int i = 0; i < nPlatforms; ++i) {
         PlatformTemplate* t = &gameStage.platforms[i];
-        platforms.push_back(Platform(t->pivotX, t->pivotY, t->leftTiles, t->rightTiles, t->rotatable, t->orientation));
+        Platform* platform = new Platform(t->pivotX, t->pivotY, t->leftTiles, t->rightTiles, t->rotatable, t->orientation);
+        platforms[i] = platform;
     }
     game.platforms.swap(platforms);
 
@@ -19,6 +45,8 @@ void initialiseFromStageObject(GameStage gameStage) {
     game.zoom = gameStage.zoom;
     Door door = Door(gameStage.door.x, gameStage.door.y, gameStage.door.orientation);
     game.door = door;
+
+    linkPlatforms(&gameStage, &game.platforms, &game.spinConnections);
 }
 
 
@@ -64,9 +92,9 @@ GameStage level2() {
 GameStage level3() {
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(1, 2, 1, 2, true, dir_up),
-        PlatformTemplate(4, 2, 1, 2, true, dir_left),
-        PlatformTemplate(5, 0, 0, 0, true, dir_up),
-        PlatformTemplate(7, 2, 1, 0, true, dir_down),
+        PlatformTemplate(4, 2, 1, 2, true, dir_left,1),
+        PlatformTemplate(5, 0, 0, 0, true, dir_up,1),
+        PlatformTemplate(7, 2, 1, 0, true, dir_down,2),
     };
 
     PlayerTemplate player(0, 1, dir_up);

@@ -12,6 +12,17 @@ GameGlobals::GameGlobals() {
     puzzleComplete = false;
 }
 
+void GameGlobals::cleanup() {
+    for (int i = 0; i < spinConnections.size(); ++i) {
+        delete spinConnections[i];
+        spinConnections.clear();
+    }
+    for (int i = 0; i < platforms.size(); ++i) {
+        delete platforms[i];
+        spinConnections.clear();
+    }
+}
+
 Textures::Textures() {
     if (!background.loadFromFile("img/bg.jpg")) {
         std::cout << "Unable to load background!";

@@ -3,6 +3,7 @@
 #include "Point.h"
 #include "Platform.h"
 #include "gamemath.h"
+#include "SpinConnection.h"
 
 Platform::Platform() {
     this->isNull = true;
@@ -16,6 +17,7 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
     if (isDisabled) this->disabledStatus = platformStatus_disabled;
     else this->disabledStatus = platformStatus_enabled;
 
+    spinConnection = NULL_SPIN_CONNECTION;
     this->isNull = false;
     gridToActual(cx, cy, &this->x, &this->y);
 
@@ -91,6 +93,15 @@ bool Platform::isDisabled() {
     return disabledStatus != platformStatus_enabled;
 }
 
+void Platform::rotateTo(int newOrientation) {
+    if (spinConnection->isNull()) {
+        setOrientation(newOrientation);
+    }
+    else {
+        spinConnection->rotateBy(orientation, newOrientation);
+    }
+}
+
 void Platform::setOrientation(int orientation) {
     this->orientation = orientation;
 
@@ -156,8 +167,8 @@ bool Platform::sweep(bool right) {
         }
         //std::cout << "right " << right << " orientation " << orientation;
         for (int i = 0; i<game.platforms.size(); ++i) {
-            if (game.platforms[i].isDisabled()) continue;
-            if (game.platforms[i].cx == cx && game.platforms[i].cy == cy) continue;
+            if (game.platforms[i]->isDisabled()) continue;
+            if (samePosition(game.platforms[i])) continue;
             //std::cout << "i = " << i << "\n";
             if (!platCheck(leftQuad, rightQuad, true, game.platforms[i])) return false;
         }
@@ -177,8 +188,8 @@ bool Platform::sweep(bool right) {
         }
         //std::cout << "rightQuad " << rightQuad << "\n";
         for (int i = 0; i<game.platforms.size(); ++i) {
-            if (game.platforms[i].isDisabled()) continue;
-            if (game.platforms[i].cx == cx && game.platforms[i].cy == cy) continue;
+            if (game.platforms[i]->isDisabled()) continue;
+            if (samePosition(game.platforms[i])) continue;
             //std::cout << "i = " << i << "\n";
             if (!platCheck(leftQuad, rightQuad, false, game.platforms[i])) return false;
         }
@@ -186,21 +197,21 @@ bool Platform::sweep(bool right) {
     return true;
 }
 
-bool Platform::platCheck(int leftQuad, int rightQuad, bool quads24, Platform other) { // quads24 ? quads 2-4 : quads 1-3
+bool Platform::platCheck(int leftQuad, int rightQuad, bool quads24, Platform* other) { // quads24 ? quads 2-4 : quads 1-3
     Point centerPivot(x, y);
-    int centerx1 = other.x - TILE_WIDTH / 2;
-    int centerx2 = other.x + TILE_WIDTH / 2;
-    int centery1 = other.y - TILE_WIDTH / 2;
-    int centery2 = other.y + TILE_WIDTH / 2;
+    int centerx1 = other->x - TILE_WIDTH / 2;
+    int centerx2 = other->x + TILE_WIDTH / 2;
+    int centery1 = other->y - TILE_WIDTH / 2;
+    int centery2 = other->y + TILE_WIDTH / 2;
 
-    switch (other.orientation) {
+    switch (other->orientation) {
     case dir_up: {
-        for (int i = 0; i < other.leftTiles + 1; ++i) {
+        for (int i = 0; i < other->leftTiles + 1; ++i) {
             if (!twoPointsTwoDistances(centerPivot, centerx1 - TILE_WIDTH * i, centery1,
                 centerx1 - TILE_WIDTH * i, centery2,
                 leftQuad, rightQuad, quads24)) return false;
         }
-        for (int i = 0; i < other.rightTiles + 1; ++i) {
+        for (int i = 0; i < other->rightTiles + 1; ++i) {
             if (!twoPointsTwoDistances(centerPivot, centerx2 + TILE_WIDTH * i, centery1,
                 centerx2 + TILE_WIDTH * i, centery2,
                 leftQuad, rightQuad, quads24)) return false;
@@ -208,12 +219,12 @@ bool Platform::platCheck(int leftQuad, int rightQuad, bool quads24, Platform oth
         break;
     }
     case dir_down: {
-        for (int i = 0; i < other.leftTiles + 1; ++i) {
+        for (int i = 0; i < other->leftTiles + 1; ++i) {
             if (!twoPointsTwoDistances(centerPivot, centerx2 + TILE_WIDTH * i, centery1,
                 centerx2 + TILE_WIDTH * i, centery2,
                 leftQuad, rightQuad, quads24)) return false;
         }
-        for (int i = 0; i < other.rightTiles + 1; ++i) {
+        for (int i = 0; i < other->rightTiles + 1; ++i) {
             if (!twoPointsTwoDistances(centerPivot, centerx1 - TILE_WIDTH * i, centery1,
                 centerx1 - TILE_WIDTH * i, centery2,
                 leftQuad, rightQuad, quads24)) return false;
@@ -221,12 +232,12 @@ bool Platform::platCheck(int leftQuad, int rightQuad, bool quads24, Platform oth
         break;
     }
     case dir_right: {
-        for (int i = 0; i < other.leftTiles + 1; ++i) {
+        for (int i = 0; i < other->leftTiles + 1; ++i) {
             if (!twoPointsTwoDistances(centerPivot, centerx1, centery1 - TILE_WIDTH * i,
                 centerx2, centery1 - TILE_WIDTH * i,
                 leftQuad, rightQuad, quads24)) return false;
         }
-        for (int i = 0; i < other.rightTiles + 1; ++i) {
+        for (int i = 0; i < other->rightTiles + 1; ++i) {
             if (!twoPointsTwoDistances(centerPivot, centerx1, centery2 + TILE_WIDTH * i,
                 centerx2, centery2 + TILE_WIDTH * i,
                 leftQuad, rightQuad, quads24)) return false;
@@ -234,12 +245,12 @@ bool Platform::platCheck(int leftQuad, int rightQuad, bool quads24, Platform oth
         break;
     }
     case dir_left: {
-        for (int i = 0; i < other.leftTiles + 1; ++i) {
+        for (int i = 0; i < other->leftTiles + 1; ++i) {
             if (!twoPointsTwoDistances(centerPivot, centerx1, centery2 + TILE_WIDTH * i,
                 centerx2, centery2 + TILE_WIDTH * i,
                 leftQuad, rightQuad, quads24)) return false;
         }
-        for (int i = 0; i < other.rightTiles + 1; ++i) {
+        for (int i = 0; i < other->rightTiles + 1; ++i) {
             if (!twoPointsTwoDistances(centerPivot, centerx1, centery1 - TILE_WIDTH * i,
                 centerx2, centery1 - TILE_WIDTH * i,
                 leftQuad, rightQuad, quads24)) return false;
@@ -330,4 +341,9 @@ bool Platform::twoPointsTwoDistances(Point center, int p1x, int p1y, int p2x, in
     }
     }*/
     return true;
+}
+
+
+bool Platform::samePosition(Platform* other) {
+    return cx == other->cx && cy == other->cy;
 }

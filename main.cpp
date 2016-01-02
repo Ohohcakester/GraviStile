@@ -15,9 +15,7 @@ void initialiseMenu();
 
 void rotateRight() {
     if (!game.player.canRotate(true)) return;
-    int orientation = game.player.orientation;
-    orientation += 1;
-    if (orientation >= 4) orientation = 0;
+    int orientation = orientationRotateRight(game.player.orientation);
 
     int pivotX, pivotY;
     gridToActual(game.player.currentPlatform->cx, game.player.currentPlatform->cy, &pivotX, &pivotY);
@@ -27,9 +25,7 @@ void rotateRight() {
 
 void rotateLeft() {
     if (!game.player.canRotate(false)) return;
-    int orientation = game.player.orientation;
-    orientation -= 1;
-    if (orientation < 0) orientation = 3;
+    int orientation = orientationRotateLeft(game.player.orientation);
 
     int pivotX, pivotY;
     gridToActual(game.player.currentPlatform->cx, game.player.currentPlatform->cy, &pivotX, &pivotY);
@@ -102,7 +98,7 @@ void updateGame() {
     game.player.update(game.key);
     game.camera.update(game.key);
     for (int i=0;i<game.platforms.size();++i) {
-        game.platforms[i].update(game.key);
+        game.platforms[i]->update(game.key);
     }
     game.door.update(game.key);
 }
@@ -115,7 +111,7 @@ void drawGameFrame() {
     game.background.draw();
     game.camera.draw();
     for (int i=0;i<game.platforms.size();++i) {
-        game.platforms[i].draw();
+        game.platforms[i]->draw();
     }
     game.door.draw();
     game.player.draw();

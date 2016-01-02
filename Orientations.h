@@ -8,4 +8,10 @@ enum {
     dir_left
 };
 
+int orientationRotateRight(int orientation);
+
+int orientationRotateLeft(int orientation);
+
+int orientationRotate(int orientation, bool right);
+
 #endif

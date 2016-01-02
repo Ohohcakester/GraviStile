@@ -25,9 +25,12 @@ public:
 
     bool puzzleComplete;
     
-    std::vector<Platform> platforms;
+    std::vector<Platform*> platforms;
+    std::vector<SpinConnection*> spinConnections;
 
     GameGlobals();
+
+    void cleanup();
 };
 
 class Menu {

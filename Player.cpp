@@ -39,9 +39,7 @@ bool Player::canRotate(bool right) {
 }
 
 bool Player::rotatesIntoPlatform(bool rotateRight) {
-    int newOrientation = orientation;
-    if (rotateRight) newOrientation = (newOrientation + 1) % 4;
-    else newOrientation = (newOrientation + 3) % 4;
+    int newOrientation = orientationRotate(orientation, rotateRight);
 
     int _x = x;
     int _y = y;
@@ -71,9 +69,9 @@ bool Player::rotatesIntoPlatform(bool rotateRight) {
     }
 
     for (int i = 0; i<game.platforms.size(); ++i) {
-        if (&game.platforms[i] == currentPlatform) continue; // Exception: can collide with the current platform.
-        if (game.platforms[i].isDisabled()) continue;
-        if (collidesWith(_x1, _y1, _x2, _y2, &game.platforms[i])) return true;
+        if (currentPlatform->samePosition(game.platforms[i])) continue; // Exception: can collide with the current platform.
+        if (game.platforms[i]->isDisabled()) continue;
+        if (collidesWith(_x1, _y1, _x2, _y2, game.platforms[i])) return true;
     }
     return false;
 }
@@ -91,7 +89,7 @@ void Player::rotateTo(int newOrientation) {
     vx = 0; vy = 0;
     rotateAboutPivotActual(orientation, newOrientation, currentPlatform->cx, currentPlatform->cy, &x, &y);
     setOrientation(newOrientation);
-    currentPlatform->setOrientation(newOrientation);
+    currentPlatform->rotateTo(newOrientation);
     updateBoundaries();
 }
 
@@ -227,8 +225,8 @@ void Player::update(Keyboard k) {
     // std::cout << "x = " << x << " y = " << y << "\n";
 
     for (int i = 0; i<game.platforms.size(); ++i) {
-        if (game.platforms[i].isDisabled()) continue;
-        collision(&game.platforms[i]);
+        if (game.platforms[i]->isDisabled()) continue;
+        collision(game.platforms[i]);
     }
     /*for (std::vector<Platform>::iterator it = game.platforms.begin(); it != game.platforms.end(); ++it) {
     collision(it);

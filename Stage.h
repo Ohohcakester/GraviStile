@@ -10,9 +10,10 @@ struct PlatformTemplate {
     int rightTiles;
     bool rotatable;
     int orientation;
+    int spinConnectionIndex;
 
-    PlatformTemplate(int pivotX, int pivotY, int leftTiles, int rightTiles, bool rotatable, int orientation) :
-        pivotX(pivotX), pivotY(pivotY), leftTiles(leftTiles), rightTiles(rightTiles), rotatable(rotatable), orientation(orientation) {
+    PlatformTemplate(int pivotX, int pivotY, int leftTiles, int rightTiles, bool rotatable, int orientation, int spinConnectionIndex = -1) :
+        pivotX(pivotX), pivotY(pivotY), leftTiles(leftTiles), rightTiles(rightTiles), rotatable(rotatable), orientation(orientation), spinConnectionIndex(spinConnectionIndex) {
     }
 };
 
