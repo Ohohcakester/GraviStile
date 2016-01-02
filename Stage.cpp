@@ -35,7 +35,7 @@ void initialiseGrid(std::vector<Platform*>* platforms) {
 
     for (size_t i = 0, n = platforms->size(); i < n; ++i) {
         Platform* platform = (*platforms)[i];
-        int length = std::max(platform->leftTiles, platform->rightTiles);
+        int length = std::max(platform->leftTiles, platform->rightTiles) + 1;
         int x1 = platform->cx - length;
         int x2 = platform->cx + length;
         int y1 = platform->cy - length;
@@ -85,11 +85,9 @@ GameStage level1() {
 
     PlayerTemplate player(0, 0, dir_up);
     DoorTemplate door(6, 0, dir_up);
-    int nTilesX = 7;
-    int nTilesY = 3;
     double zoom = 1.2;
 
-    return GameStage(nTilesX, nTilesY, platforms, player, door, zoom);
+    return GameStage(platforms, player, door, zoom);
 }
 
 
@@ -103,11 +101,9 @@ GameStage level2() {
 
     PlayerTemplate player(0, 0, dir_up);
     DoorTemplate door(2, 3, dir_up);
-    int nTilesX = 7;
-    int nTilesY = 6;
     double zoom = 1.0;
 
-    return GameStage(nTilesX, nTilesY, platforms, player, door, zoom);
+    return GameStage(platforms, player, door, zoom);
 }
 
 
@@ -121,11 +117,9 @@ GameStage level3() {
 
     PlayerTemplate player(0, 1, dir_up);
     DoorTemplate door(7, 1, dir_up);
-    int nTilesX = 9;
-    int nTilesY = 4;
     double zoom = 0.9;
 
-    return GameStage(nTilesX, nTilesY, platforms, player, door, zoom);
+    return GameStage(platforms, player, door, zoom);
 }
 
 
@@ -141,11 +135,9 @@ GameStage level4() {
 
     PlayerTemplate player(1, 1, dir_up);
     DoorTemplate door(2, 1, dir_down);
-    int nTilesX = 5;
-    int nTilesY = 6;
     double zoom = 1.0;
     
-    return GameStage(nTilesX, nTilesY, platforms, player, door, zoom);
+    return GameStage(platforms, player, door, zoom);
 }
 
 
@@ -160,11 +152,9 @@ GameStage level5() {
 
     PlayerTemplate player(2, 2, dir_up);
     DoorTemplate door(3, 0, dir_up);
-    int nTilesX = 5;
-    int nTilesY = 9;
     double zoom = 0.8;
 
-    return GameStage(nTilesX, nTilesY, platforms, player, door, zoom);
+    return GameStage(platforms, player, door, zoom);
 }
 
 
@@ -181,11 +171,9 @@ GameStage level6() {
 
     PlayerTemplate player(3, 0, dir_up);
     DoorTemplate door(3, 7, dir_down);
-    int nTilesX = 8;
-    int nTilesY = 9;
     double zoom = 0.9;
     
-    return GameStage(nTilesX, nTilesY, platforms, player, door, zoom);
+    return GameStage(platforms, player, door, zoom);
 }
 
 GameStage level7() {
@@ -199,11 +187,9 @@ GameStage level7() {
 
     PlayerTemplate player(3, 0, dir_up);
     DoorTemplate door(5, 7, dir_left);
-    int nTilesX = 8;
-    int nTilesY = 8;
     double zoom = 0.9;
 
-    return GameStage(nTilesX, nTilesY, platforms, player, door, zoom);
+    return GameStage(platforms, player, door, zoom);
 }
 
 
@@ -223,11 +209,9 @@ GameStage level8() {
 
     PlayerTemplate player(3, 4, dir_up);
     DoorTemplate door(6, 12, dir_right);
-    int nTilesX = 12;
-    int nTilesY = 12;
     double zoom = 0.7;
     
-    return GameStage(nTilesX, nTilesY, platforms, player, door, zoom);
+    return GameStage(platforms, player, door, zoom);
 }
 
 
@@ -253,11 +237,9 @@ GameStage level9() {
 
     PlayerTemplate player(8, 2, dir_up);
     DoorTemplate door(5, 6, dir_right);
-    int nTilesX = 20;
-    int nTilesY = 17;
     double zoom = 0.7;
     
-    return GameStage(nTilesX, nTilesY, platforms, player, door, zoom);
+    return GameStage(platforms, player, door, zoom);
 }
 
 
@@ -283,11 +265,9 @@ GameStage level10() {
 
     PlayerTemplate player(5, 0, dir_up);
     DoorTemplate door(11, 1, dir_up);
-    int nTilesX = 13;
-    int nTilesY = 12;
     double zoom = 0.9;
 
-    return GameStage(nTilesX, nTilesY, platforms, player, door, zoom);
+    return GameStage(platforms, player, door, zoom);
 }
 
 

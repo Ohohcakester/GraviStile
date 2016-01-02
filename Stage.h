@@ -34,16 +34,14 @@ struct PlayerTemplate {
 };
 
 struct GameStage {
-    int nTilesX;
-    int nTilesY;
     std::vector<PlatformTemplate> platforms;
     PlayerTemplate player;
     DoorTemplate door;
 
     double zoom;
 
-    GameStage(int nTilesX, int nTilesY, std::vector<PlatformTemplate> platforms, PlayerTemplate player, DoorTemplate door, double zoom) : 
-        nTilesX(nTilesX), nTilesY(nTilesY), platforms(platforms), player(player), door(door), zoom(zoom) {
+    GameStage(std::vector<PlatformTemplate> platforms, PlayerTemplate player, DoorTemplate door, double zoom) : 
+        platforms(platforms), player(player), door(door), zoom(zoom) {
     }
 };
 
