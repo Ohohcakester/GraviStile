@@ -1,6 +1,7 @@
 #ifndef I_GAME_OBJECT_H_
 #define I_GAME_OBJECT_H_
 
+#include <SFML/Graphics.hpp>
 #include "Orientations.h"
 #include "keyboard.h"
 
