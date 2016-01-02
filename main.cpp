@@ -74,9 +74,10 @@ void initialiseGame(int stage) {
     initialiseStage(stage);
 
     game.camera = Camera(&game.player);
-    game.width = game.nTilesX*TILE_WIDTH;
-    game.height = game.nTilesY*TILE_WIDTH;
-    Background bg = Background(game.nTilesX / 2, game.nTilesY / 2);
+    Grid* grid = &game.grid;
+    game.width = grid->sizeX*TILE_WIDTH;
+    game.height = grid->sizeY*TILE_WIDTH;
+    Background bg = Background((grid->minX + grid->maxX) / 2, (grid->minY + grid->maxY) / 2);
     game.background = bg;
 }
 

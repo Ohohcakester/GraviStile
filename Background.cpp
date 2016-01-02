@@ -6,7 +6,7 @@ Background::Background() {}
 
 Background::Background(int x, int y) {
     gridToActual(x, y, &this->x, &this->y);
-    int nTiles = std::max(game.nTilesX, game.nTilesY);
+    int nTiles = std::max(game.grid.sizeX, game.grid.sizeY);
     this->width = nTiles*TILE_WIDTH * 2;
     this->height = nTiles*TILE_WIDTH * 3 / 2;
     sprite.setTexture(textures->background);

@@ -1,11 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "globals.h"
+#include "Grid.h"
 
 GameGlobals::GameGlobals() {
     currentStage = -1;
-    nTilesX = 0;
-    nTilesY = 0;
     width = 0;
     height = 0;
     zoom = 1;
@@ -21,6 +20,11 @@ void GameGlobals::cleanup() {
         delete platforms[i];
         spinConnections.clear();
     }
+}
+
+void GameGlobals::refreshMapState() {
+    grid.reset();
+    grid.addPlatforms(&this->platforms);
 }
 
 Textures::Textures() {

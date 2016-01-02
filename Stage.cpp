@@ -26,6 +26,29 @@ void linkPlatforms(GameStage* gameStage, std::vector<Platform*>* _platforms, std
     }
 }
 
+void initialiseGrid(std::vector<Platform*>* platforms) {
+
+    int minX = std::numeric_limits<int>::max();
+    int minY = std::numeric_limits<int>::max();
+    int maxX = std::numeric_limits<int>::min();
+    int maxY = std::numeric_limits<int>::min();
+
+    for (size_t i = 0, n = platforms->size(); i < n; ++i) {
+        Platform* platform = (*platforms)[i];
+        int length = std::max(platform->leftTiles, platform->rightTiles);
+        int x1 = platform->cx - length;
+        int x2 = platform->cx + length;
+        int y1 = platform->cy - length;
+        int y2 = platform->cy + length;
+        if (x1 < minX) minX = x1;
+        if (y1 < minY) minY = y1;
+        if (x2 > maxX) maxX = x2;
+        if (y2 > maxY) maxY = y2;
+    }
+
+    game.grid = Grid(minX, minY, maxX, maxY);
+}
+
 void initialiseFromStageObject(GameStage gameStage) {
     game.cleanup();
 
@@ -38,8 +61,7 @@ void initialiseFromStageObject(GameStage gameStage) {
     }
     game.platforms.swap(platforms);
 
-    game.nTilesX = gameStage.nTilesX;
-    game.nTilesY = gameStage.nTilesY;
+    initialiseGrid(&game.platforms);
     game.player = Player(gameStage.player.x, gameStage.player.y);
     game.player.setOrientation(game.player.orientation);
     game.zoom = (float)(gameStage.zoom);

@@ -1,5 +1,6 @@
 #ifndef GAMEOBJECTS_H
 #define GAMEOBJECTS_H
+
 #include <SFML/Graphics.hpp>
 #include "IGameObject.h"
 #include "keyboard.h"
@@ -11,7 +12,11 @@
 #include "Camera.h"
 #include "Background.h"
 #include "SpinConnection.h"
-
+#include "AbstractAttachedObject.h"
+#include "Laser.h"
+#include "LaserSource.h"
+#include "LaserTarget.h"
+#include "SwitchConnection.h"
 
 
 #endif

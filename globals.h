@@ -5,6 +5,7 @@
 #include <math.h>
 #include "gameobjects.h"
 #include "keyboard.h"
+#include "Grid.h"
 
 class GameGlobals {
 public:
@@ -16,8 +17,6 @@ public:
     Camera camera;
     Background background;
 
-    int nTilesX;
-    int nTilesY;
     int width;
     int height;
 
@@ -25,12 +24,20 @@ public:
 
     bool puzzleComplete;
     
+    Grid grid;
+
     std::vector<Platform*> platforms;
     std::vector<SpinConnection*> spinConnections;
+    std::vector<SwitchConnection*> switchConnections;
+    std::vector<Laser*> lasers;
+    std::vector<LaserSource*> laserSources;
+    std::vector<LaserTarget*> laserTargets;
+    
 
     GameGlobals();
 
     void cleanup();
+    void refreshMapState();
 };
 
 class Menu {
