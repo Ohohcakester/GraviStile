@@ -19,6 +19,4 @@ public:
 
 SpinConnection* createSpinConnection(std::vector<Platform*> platforms);
 
-extern SpinConnection* NULL_SPIN_CONNECTION;
-
 #endif

@@ -17,7 +17,7 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
     if (isDisabled) this->disabledStatus = platformStatus_disabled;
     else this->disabledStatus = platformStatus_enabled;
 
-    spinConnection = NULL_SPIN_CONNECTION;
+    spinConnection = NULL;
     this->isNull = false;
     gridToActual(cx, cy, &this->x, &this->y);
 
@@ -94,7 +94,7 @@ bool Platform::isDisabled() {
 }
 
 void Platform::rotateTo(int newOrientation) {
-    if (spinConnection->isNull()) {
+    if (spinConnection == NULL) {
         setOrientation(newOrientation);
     }
     else {

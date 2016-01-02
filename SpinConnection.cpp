@@ -30,5 +30,3 @@ SpinConnection* createSpinConnection(std::vector<Platform*> platforms) {
     }
     return connection;
 }
-
-SpinConnection* NULL_SPIN_CONNECTION = new SpinConnection();

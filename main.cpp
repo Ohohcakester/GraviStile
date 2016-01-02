@@ -60,6 +60,7 @@ void processEvent(sf::Event event) {
         }
         case sf::Event::KeyPressed: {
             keyPress(event.key.code);
+            break;
         }
     }
 }

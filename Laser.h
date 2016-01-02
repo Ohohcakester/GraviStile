@@ -7,8 +7,6 @@ class LaserTarget;
 
 class Laser : IGameObject {
 public:
-    bool _isNull;
-
     int x1, y1, x2, y2;
     bool active;
     int endX;
@@ -19,13 +17,8 @@ public:
     Laser();
     Laser(LaserSource* source);
 
-    bool isNull();
-
     void draw();
     void update(Keyboard k);
 };
-
-extern Laser* NULL_LASER;
-
 
 #endif
