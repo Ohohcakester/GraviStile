@@ -50,8 +50,6 @@ void initialiseGrid(std::vector<Platform*>* platforms) {
 }
 
 void initialiseFromStageObject(GameStage gameStage) {
-    game.cleanup();
-
     int nPlatforms = gameStage.platforms.size();
     std::vector<Platform*> platforms(nPlatforms);
     for (int i = 0; i < nPlatforms; ++i) {

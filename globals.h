@@ -35,8 +35,8 @@ public:
     
 
     GameGlobals();
+    ~GameGlobals();
 
-    void cleanup();
     void refreshMapState();
 };
 

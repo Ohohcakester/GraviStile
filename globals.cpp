@@ -11,14 +11,29 @@ GameGlobals::GameGlobals() {
     puzzleComplete = false;
 }
 
-void GameGlobals::cleanup() {
-    for (size_t i = 0; i < spinConnections.size(); ++i) {
+GameGlobals::~GameGlobals() {
+    for (size_t i = 0, n = spinConnections.size(); i < n; ++i) {
         delete spinConnections[i];
-        spinConnections.clear();
     }
-    for (size_t i = 0; i < platforms.size(); ++i) {
+
+    for (size_t i = 0, n = platforms.size(); i < n; ++i) {
         delete platforms[i];
-        spinConnections.clear();
+    }
+
+    for (size_t i = 0, n = switchConnections.size(); i < n; ++i) {
+        delete switchConnections[i];
+    }
+
+    for (size_t i = 0, n = lasers.size(); i < n; ++i) {
+        delete lasers[i];
+    }
+
+    for (size_t i = 0, n = laserSources.size(); i < n; ++i) {
+        delete laserSources[i];
+    }
+
+    for (size_t i = 0, n = laserTargets.size(); i < n; ++i) {
+        delete laserTargets[i];
     }
 }
 
