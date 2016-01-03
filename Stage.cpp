@@ -48,7 +48,7 @@ void setupLasers(GameStage* gameStage, std::map<int, Platform*>* _platformsById)
 
     std::map<int, std::vector<Platform*>> switchPivotGroups;
     std::map<int, std::vector<Platform*>> switchPlatformGroups;
-    for (size_t i = 0, n = game.platforms.size(); i < n; ++i) {
+    for (size_t i = 0, n = gameStage->platforms.size(); i < n; ++i) {
         Platform* platform = game.platforms[i];
         int index;
 
@@ -162,6 +162,35 @@ void initialiseFromStageObject(GameStage gameStage) {
 * ======================== */
 
 
+
+GameStage level11() {
+    std::vector<PlatformTemplate> platforms{
+        PlatformTemplate(1, 2, 1, 2, true, dir_up, -1, 1),
+        PlatformTemplate(4, 2, 1, 2, true, dir_left, 1),
+        PlatformTemplate(5, 0, 0, 0, true, dir_up, 1),
+        PlatformTemplate(7, 2, 1, 0, true, dir_down, 2),
+        PlatformTemplate(2, 6, 2, 2, true, dir_up, 2, 2),
+        PlatformTemplate(1, -2, 1, 1, true, dir_left, -1, -1, 1),
+        PlatformTemplate(1, -6, 1, 1, true, dir_left, -1, -1, -1, 1),
+    };
+
+    std::vector<LaserSourceTemplate> laserSources {
+        LaserSourceTemplate(0, dir_right, 1),
+        LaserSourceTemplate(-1, dir_down, 1),
+    };
+
+    std::vector<LaserTargetTemplate> laserTargets {
+        LaserTargetTemplate(-1, dir_up, 2, 1),
+    };
+
+    PlayerTemplate player(0, 1, dir_up);
+    DoorTemplate door(7, 1, dir_up);
+    double zoom = 0.9;
+
+    return GameStage(platforms, player, door, zoom, laserSources, laserTargets);
+}
+
+
 GameStage level1() {
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(1, 1, 1, 1, false, dir_up),
@@ -194,23 +223,18 @@ GameStage level2() {
 
 GameStage level3() {
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate(1, 2, 1, 2, true, dir_up, -1, 1),
-        PlatformTemplate(4, 2, 1, 2, true, dir_left,1),
-        PlatformTemplate(5, 0, 0, 0, true, dir_up,1),
-        PlatformTemplate(7, 2, 1, 0, true, dir_down,2),
-    };
-
-    std::vector<LaserSourceTemplate> laserSources{
-        LaserSourceTemplate(-2,dir_left,1)
+        PlatformTemplate(1, 2, 1, 2, true, dir_up),
+        PlatformTemplate(4, 2, 1, 2, true, dir_left),
+        PlatformTemplate(5, 0, 0, 0, true, dir_up),
+        PlatformTemplate(7, 2, 1, 0, true, dir_down),
     };
 
     PlayerTemplate player(0, 1, dir_up);
     DoorTemplate door(7, 1, dir_up);
     double zoom = 0.9;
 
-    return GameStage(platforms, player, door, zoom, laserSources);
+    return GameStage(platforms, player, door, zoom);
 }
-
 
 GameStage level4() {
     std::vector<PlatformTemplate> platforms{
@@ -377,6 +401,7 @@ GameStage getStage(int stage) {
     case 8: return level8();
     case 9: return level9();
     case 10: return level10();
+    case 11: return level11();
     }
 
     return level1();
