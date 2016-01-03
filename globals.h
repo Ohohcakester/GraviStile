@@ -6,6 +6,7 @@
 #include "gameobjects.h"
 #include "keyboard.h"
 #include "Grid.h"
+#include "Menu.h"
 
 class GameGlobals {
 public:
@@ -38,19 +39,6 @@ public:
     ~GameGlobals();
 
     void refreshMapState();
-};
-
-class Menu {
-public:
-    int cols;
-    int nItems;
-    int selection;
-
-    Menu();
-    void next();
-    void previous();
-    void down();
-    void up();
 };
 
 class Textures {

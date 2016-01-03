@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="keyboard.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="gameobjects.cpp">
+      <Filter>gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="IGameObject.cpp">
+      <Filter>gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Point.cpp">
+      <Filter>gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="gamemath.cpp" />
+    <ClCompile Include="Stage.cpp">
+      <Filter>stages</Filter>
+    </ClCompile>
+    <ClCompile Include="SpinConnection.cpp">
+      <Filter>gameobjects\connections</Filter>
+    </ClCompile>
+    <ClCompile Include="Orientations.cpp">
+      <Filter>gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserSource.cpp">
+      <Filter>gameobjects\connections</Filter>
+    </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>gameobjects\connections</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserTarget.cpp">
+      <Filter>gameobjects\connections</Filter>
+    </ClCompile>
+    <ClCompile Include="SwitchConnection.cpp">
+      <Filter>gameobjects\connections</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractAttachedObject.cpp">
+      <Filter>gameobjects\connections</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>stages</Filter>
+    </ClCompile>
+    <ClCompile Include="globals.cpp">
+      <Filter>globals</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>globals</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="keyboard.h" />
+    <ClInclude Include="gameobjects.h">
+      <Filter>gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameObject.h">
+      <Filter>gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Orientations.h">
+      <Filter>gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="gamemath.h" />
+    <ClInclude Include="Stage.h">
+      <Filter>stages</Filter>
+    </ClInclude>
+    <ClInclude Include="SpinConnection.h">
+      <Filter>gameobjects\connections</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserSource.h">
+      <Filter>gameobjects\connections</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.h">
+      <Filter>gameobjects\connections</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserTarget.h">
+      <Filter>gameobjects\connections</Filter>
+    </ClInclude>
+    <ClInclude Include="SwitchConnection.h">
+      <Filter>gameobjects\connections</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractAttachedObject.h">
+      <Filter>gameobjects\connections</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>stages</Filter>
+    </ClInclude>
+    <ClInclude Include="globals.h">
+      <Filter>globals</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>globals</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="gameobjects">
+      <UniqueIdentifier>{5bf36bd4-5aad-4152-ad7e-e75e01f09f25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stages">
+      <UniqueIdentifier>{a4c3ec89-3e5f-46db-a3f0-2f1209e9068e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameobjects\connections">
+      <UniqueIdentifier>{616d3be2-32b9-44f6-bbdf-a5a4696a4896}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="globals">
+      <UniqueIdentifier>{c67e4deb-eba4-4db7-aac1-8076a3ca5a1c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
