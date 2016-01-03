@@ -1,6 +1,7 @@
 #include "globals.h"
 #include "IGameObject.h"
 #include "Camera.h"
+#include "GameGlobals.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>

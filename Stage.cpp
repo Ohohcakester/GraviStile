@@ -1,7 +1,11 @@
 #include <iostream>
+#include <vector>
+#include <map>
 #include "globals.h"
 #include "Stage.h"
 #include "SpinConnection.h"
+#include "GameGlobals.h"
+#include "gameobjects.h"
 
 void linkPlatforms(GameStage* gameStage, std::vector<Platform*>* _platforms, std::vector<SpinConnection*>* spinConnections) {
     std::vector<Platform*>& platforms = *_platforms;

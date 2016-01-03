@@ -1,4 +1,6 @@
 #include "globals.h"
+#include "GameGlobals.h"
+#include "Textures.h"
 #include "Door.h"
 
 Door::Door() {

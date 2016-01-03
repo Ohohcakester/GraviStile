@@ -3,10 +3,13 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include "keyboard.h"
 #include "gameobjects.h"
-#include "globals.h"
+#include "GameGlobals.h"
+#include "Menu.h"
+#include "Textures.h"
 #include "Stage.h"
+#include "keyboard.h"
+#include "globals.h"
 
 bool inMenu = true;
 

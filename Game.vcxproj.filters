@@ -61,6 +61,12 @@
     <ClCompile Include="Menu.cpp">
       <Filter>globals</Filter>
     </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>globals</Filter>
+    </ClCompile>
+    <ClCompile Include="GameGlobals.cpp">
+      <Filter>globals</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="keyboard.h" />
@@ -120,6 +126,12 @@
       <Filter>globals</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
+      <Filter>globals</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
+      <Filter>globals</Filter>
+    </ClInclude>
+    <ClInclude Include="GameGlobals.h">
       <Filter>globals</Filter>
     </ClInclude>
   </ItemGroup>

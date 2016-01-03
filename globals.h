@@ -1,57 +1,14 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
+#include <SFML/Graphics.hpp>
 #define _USE_MATH_DEFINES
 #include <math.h>
-#include "gameobjects.h"
-#include "keyboard.h"
-#include "Grid.h"
-#include "Menu.h"
+class GameGlobals;
+class Menu;
+class Textures;
 
-class GameGlobals {
-public:
-    int currentStage;
 
-    Player player;
-    Keyboard key;
-    Door door;
-    Camera camera;
-    Background background;
-
-    int width;
-    int height;
-
-    float zoom;
-
-    bool puzzleComplete;
-    
-    Grid grid;
-
-    std::vector<Platform*> platforms;
-    std::vector<SpinConnection*> spinConnections;
-    std::vector<SwitchConnection*> switchConnections;
-    std::vector<Laser*> lasers;
-    std::vector<LaserSource*> laserSources;
-    std::vector<LaserTarget*> laserTargets;
-    
-
-    GameGlobals();
-    ~GameGlobals();
-
-    void refreshMapState();
-};
-
-class Textures {
-public:
-    sf::Texture background;
-    sf::Texture player;
-    sf::Texture door;
-    sf::Texture pivot;
-    sf::Color platformColor;
-    sf::Color platformSurfaceColor;
-
-    Textures();
-};
 
 extern GameGlobals game;
 extern Textures* textures;
@@ -68,8 +25,6 @@ void actualToGrid(int actualX, int actualY, int* gridX, int* gridY);
 
 void rotateAboutPivotActual(int oldOrientation, int newOrientation, int gridcx, int gridcy, int* x, int* y);
 void rotateAboutPivotGrid(int oldOrientation, int newOrientation, int gridcx, int gridcy, int* x, int* y);
-
-
 
 
 #endif

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "globals.h"
+#include "GameGlobals.h"
 #include "Player.h"
 #include "Camera.h"
 

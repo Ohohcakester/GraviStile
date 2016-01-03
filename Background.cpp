@@ -1,5 +1,7 @@
 
 #include "globals.h"
+#include "GameGlobals.h"
+#include "Textures.h"
 #include "Background.h"
 
 Background::Background() {}

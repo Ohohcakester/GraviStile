@@ -1,5 +1,7 @@
 #include <iostream>
 #include "globals.h"
+#include "GameGlobals.h"
+#include "Textures.h"
 #include "Point.h"
 #include "Platform.h"
 #include "gamemath.h"

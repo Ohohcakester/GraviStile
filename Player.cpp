@@ -2,6 +2,8 @@
 #include "globals.h"
 #include "Player.h"
 #include "gamemath.h"
+#include "GameGlobals.h"
+#include "Textures.h"
 
 Player::Player(){}
 

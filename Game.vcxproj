@@ -89,6 +89,7 @@
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="GameGlobals.cpp" />
     <ClCompile Include="gamemath.cpp" />
     <ClCompile Include="gameobjects.cpp" />
     <ClCompile Include="globals.cpp" />
@@ -119,6 +120,7 @@
     <ClCompile Include="SwitchConnection.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Textures.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractAttachedObject.h">
@@ -126,6 +128,7 @@
     </ClInclude>
     <ClInclude Include="Background.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="GameGlobals.h" />
     <ClInclude Include="gamemath.h" />
     <ClInclude Include="Grid.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -156,6 +159,7 @@
     <ClInclude Include="SwitchConnection.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Textures.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

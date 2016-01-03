@@ -1,65 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "globals.h"
-#include "Grid.h"
-
-GameGlobals::GameGlobals() {
-    currentStage = -1;
-    width = 0;
-    height = 0;
-    zoom = 1;
-    puzzleComplete = false;
-}
-
-GameGlobals::~GameGlobals() {
-    for (size_t i = 0, n = spinConnections.size(); i < n; ++i) {
-        delete spinConnections[i];
-    }
-
-    for (size_t i = 0, n = platforms.size(); i < n; ++i) {
-        delete platforms[i];
-    }
-
-    for (size_t i = 0, n = switchConnections.size(); i < n; ++i) {
-        delete switchConnections[i];
-    }
-
-    for (size_t i = 0, n = lasers.size(); i < n; ++i) {
-        delete lasers[i];
-    }
-
-    for (size_t i = 0, n = laserSources.size(); i < n; ++i) {
-        delete laserSources[i];
-    }
-
-    for (size_t i = 0, n = laserTargets.size(); i < n; ++i) {
-        delete laserTargets[i];
-    }
-}
-
-void GameGlobals::refreshMapState() {
-    grid.reset();
-    grid.addPlatforms(&this->platforms);
-}
-
-Textures::Textures() {
-    if (!background.loadFromFile("img/bg.jpg")) {
-        std::cout << "Unable to load background!";
-    }
-    if (!player.loadFromFile("img/player.png")) {
-        std::cout << "Unable to load player!";
-    }
-    if (!door.loadFromFile("img/door.png")) {
-        std::cout << "Unable to load door!";
-    }
-    if (!pivot.loadFromFile("img/pivot.png")) {
-        std::cout << "Unable to load pivot!";
-    }
-
-    platformColor = sf::Color(110,63,75,255);
-    platformSurfaceColor = sf::Color(255,191,196,255);
-    //std::cout << platformColor.r << " " << platformColor.g << " " << platformColor.b << std::endl;
-}
+#include "GameGlobals.h"
+#include "Textures.h"
+#include "Menu.h"
 
 void gridToActual(int gridX, int gridY, int* actualX, int* actualY) {
     *actualX = gridX*TILE_WIDTH + TILE_WIDTH/2;
