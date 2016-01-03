@@ -11,8 +11,8 @@ Grid::Grid() {
 Grid::Grid(int minX, int minY, int maxX, int maxY) :
         minX(minX), minY(minY), maxX(maxX), maxY(maxY) {
     this->_isNull = false;
-    this->sizeX = maxX - minX;
-    this->sizeY = maxY - minY;
+    this->sizeX = maxX - minX + 1;
+    this->sizeY = maxY - minY + 1;
     this->size = sizeX*sizeY;
     this->blocked.resize(size);
 }
@@ -24,7 +24,7 @@ bool Grid::isBlocked(int x, int y) {
 }
 
 void Grid::setBlocked(int x, int y, bool value) {
-    toActualCoordinates(&x, &y);
+    toGridCoordinates(&x, &y);
     if (x < 0 || y < 0 || x >= sizeX || y >= sizeY) std::cout << "ERROR: SETTING GRID OUT OF RANGE: (" << x << ", " << y << ")\n";
     blocked[y*sizeX + x] = value;
 }
@@ -77,13 +77,13 @@ void Grid::addPlatform(Platform* platform) {
 }
 
 void Grid::toGridCoordinates(int* x, int* y) {
-    x -= minX;
-    y -= minY;
+    *x -= minX;
+    *y -= minY;
 }
 
 void Grid::toActualCoordinates(int* x, int* y) {
-    x += minX;
-    y += minY;
+    *x += minX;
+    *y += minY;
 }
 
 
