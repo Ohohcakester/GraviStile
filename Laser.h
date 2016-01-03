@@ -1,12 +1,15 @@
 #ifndef LASER_H_
 #define LASER_H_
 
+#include <SFML/Graphics.hpp>
 class LaserSource;
 class LaserTarget;
 #include "IGameObject.h"
 
 class Laser : IGameObject {
 public:
+    sf::RectangleShape shape;
+
     int x1, y1, x2, y2;
     int orientation;
     bool active;

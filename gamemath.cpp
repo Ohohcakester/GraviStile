@@ -16,7 +16,7 @@ float orientationToAngle(int orientation) {
     return orientation * M_PI_2;
 }
 
-
+// x1,y1 is the top left, x2,y2 is the bottom right.
 void generateRotatedCorners(float x1, float y1, float x2, float y2, float* tlx, float* tly, float* blx, float* bly, float* brx, float* bry, float angle) {
     *tlx = x1;
     *tly = y1;

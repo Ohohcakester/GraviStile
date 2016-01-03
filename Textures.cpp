@@ -17,5 +17,8 @@ Textures::Textures() {
 
     platformColor = sf::Color(110, 63, 75, 255);
     platformSurfaceColor = sf::Color(255, 191, 196, 255);
+    laserSourceColor = sf::Color(191, 160, 224, 255);
+    laserTargetColor = sf::Color(127, 127, 127, 255);
+    laserColor = sf::Color(255, 0, 0, 255);
     //std::cout << platformColor.r << " " << platformColor.g << " " << platformColor.b << std::endl;
 }

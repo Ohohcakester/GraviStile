@@ -7,9 +7,12 @@
 #include "globals.h"
 #include "GameGlobals.h"
 #include "Grid.h"
+#include "Textures.h"
+#include "globals.h"
 
 void LaserSource::initialise() {
-
+    shape = sf::RectangleShape();
+    shape.setFillColor(textures->laserSourceColor);
 }
 
 
@@ -46,7 +49,14 @@ void LaserSource::fireLaser() {
 }
 
 void LaserSource::draw() {
+    int x1 = -40;
+    int x2 = 40;
+    int y1 = -5;
+    int y2 = 0;
 
+    float tlx, tly, blx, bly, brx, bry;
+    this->generateActualCorners(x1, y1, x2, y2, &tlx, &tly, &blx, &bly, &brx, &bry);
+    drawRectangle(&shape, x + tlx, y + tly, x + blx, y + bly, x + brx, y + bry);
 }
 void LaserSource::update(Keyboard k) {
 

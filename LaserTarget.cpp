@@ -1,8 +1,10 @@
 #include "LaserTarget.h"
-
+#include "Textures.h"
+#include "globals.h"
 
 void LaserTarget::initialise() {
-
+    shape = sf::RectangleShape();
+    shape.setFillColor(textures->laserTargetColor);
 }
 
 void LaserTarget::resetTargetOnStatus() {
@@ -16,7 +18,14 @@ void LaserTarget::laserConnect(Laser* laser) {
 }
 
 void LaserTarget::draw() {
+    int x1 = -20;
+    int x2 = 20;
+    int y1 = -5;
+    int y2 = 10;
 
+    float tlx, tly, blx, bly, brx, bry;
+    this->generateActualCorners(x1, y1, x2, y2, &tlx, &tly, &blx, &bly, &brx, &bry);
+    drawRectangle(&shape, x + tlx, y + tly, x + blx, y + bly, x + brx, y + bry);
 }
 void LaserTarget::update(Keyboard k) {
 
