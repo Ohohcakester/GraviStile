@@ -52,8 +52,8 @@ void Grid::addPlatform(Platform* platform) {
         break;
     }
     case dir_right: {
-        int minY = platform->cy - platform->rightTiles;
-        int maxY = platform->cy + platform->leftTiles;
+        int minY = platform->cy - platform->leftTiles;
+        int maxY = platform->cy + platform->rightTiles;
         int x = platform->cx;
         for (int y = minY; y <= maxY; ++y) setBlocked(x, y, true);
         break;
@@ -66,8 +66,8 @@ void Grid::addPlatform(Platform* platform) {
         break;
     }
     case dir_left: {
-        int minY = platform->cy - platform->leftTiles;
-        int maxY = platform->cy + platform->rightTiles;
+        int minY = platform->cy - platform->rightTiles;
+        int maxY = platform->cy + platform->leftTiles;
         int x = platform->cx;
         for (int y = minY; y <= maxY; ++y) setBlocked(x, y, true);
         break;

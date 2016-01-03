@@ -83,6 +83,8 @@ void initialiseGame(int stage) {
     game.height = grid->sizeY*TILE_WIDTH;
     Background bg = Background((grid->minX + grid->maxX) / 2, (grid->minY + grid->maxY) / 2);
     game.background = bg;
+
+    game.onStart();
 }
 
 void initialiseMenu() {
@@ -115,10 +117,19 @@ void updateMenu() {
 void drawGameFrame() {
     game.background.draw();
     game.camera.draw();
-    for (size_t i = 0; i<game.platforms.size(); ++i) {
+    for (size_t i = 0, n = game.platforms.size(); i < n; ++i) {
         game.platforms[i]->draw();
     }
     game.door.draw();
+    for (size_t i = 0, n = game.lasers.size(); i < n; ++i) {
+        game.lasers[i]->draw();
+    }
+    for (size_t i = 0, n = game.laserSources.size(); i < n; ++i) {
+        game.laserSources[i]->draw();
+    }
+    for (size_t i = 0, n = game.laserTargets.size(); i < n; ++i) {
+        game.laserTargets[i]->draw();
+    }
     game.player.draw();
 }
 

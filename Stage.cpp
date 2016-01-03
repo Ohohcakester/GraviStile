@@ -30,6 +30,82 @@ void linkPlatforms(GameStage* gameStage, std::vector<Platform*>* _platforms, std
     }
 }
 
+void setupLasers(GameStage* gameStage, std::map<int, Platform*>* _platformsById) {
+    std::map<int, Platform*>& platformsById = *_platformsById;
+
+    for (size_t i = 0, n = gameStage->laserSources.size(); i < n; ++i) {
+        LaserSourceTemplate* laserSourceTemplate = &gameStage->laserSources[i];
+        Platform* platform = platformsById[laserSourceTemplate->platformId];
+        LaserSource* laserSource = new LaserSource(platform, laserSourceTemplate->orientation, laserSourceTemplate->position);
+        Laser* laser = new Laser(laserSource);
+
+        laserSource->setupLaser(laser);
+        platform->addLaserSource(laserSource);
+
+        game.laserSources.push_back(laserSource);
+        game.lasers.push_back(laser);
+    }
+
+    std::map<int, std::vector<Platform*>> switchPivotGroups;
+    std::map<int, std::vector<Platform*>> switchPlatformGroups;
+    for (size_t i = 0, n = game.platforms.size(); i < n; ++i) {
+        Platform* platform = game.platforms[i];
+        int index;
+
+        // organise into switch pivot groups
+        index = gameStage->platforms[i].pivotSwitchConnectionIndex;
+        if (index != -1) {
+            auto vec = switchPivotGroups.find(index);
+            if (vec == switchPivotGroups.end()) {
+                switchPivotGroups.emplace(index, std::vector < Platform* > {platform});
+            }
+            else {
+                vec->second.push_back(platform);
+            }
+        }
+
+        // organise into switch platform groups
+        index = gameStage->platforms[i].platformSwitchConnectionIndex;
+        if (index != -1) {
+            auto vec = switchPlatformGroups.find(index);
+            if (vec == switchPlatformGroups.end()) {
+                switchPlatformGroups.emplace(index, std::vector < Platform* > {platform});
+            }
+            else {
+                vec->second.push_back(platform);
+            }
+        }
+    }
+
+
+    for (size_t i = 0, n = gameStage->laserTargets.size(); i < n; ++i) {
+        LaserTargetTemplate* laserTargetTemplate = &gameStage->laserTargets[i];
+        Platform* platform = platformsById[laserTargetTemplate->platformId];
+        LaserTarget* laserTarget = new LaserTarget(platform, laserTargetTemplate->orientation, laserTargetTemplate->position);
+        platform->addLaserTarget(laserTarget);
+        game.laserTargets.push_back(laserTarget);
+
+        // Create Switch Connection.
+        int index = laserTargetTemplate->switchConnectionIndex;
+        std::vector<Platform*> switchPlatforms;
+        std::vector<Platform*> switchPivots;
+        {
+            auto vec = switchPlatformGroups.find(index);
+            if (vec != switchPlatformGroups.end()) {
+                switchPlatforms.swap(vec->second);
+            }
+        }
+        {
+            auto vec = switchPivotGroups.find(index);
+            if (vec != switchPivotGroups.end()) {
+                switchPivots.swap(vec->second);
+            }
+        }
+
+        game.switchConnections.push_back(createSwitchConnection(laserTarget, switchPlatforms, switchPivots));
+    }
+}
+
 void initialiseGrid(std::vector<Platform*>* platforms) {
 
     int minX = std::numeric_limits<int>::max();
@@ -55,11 +131,17 @@ void initialiseGrid(std::vector<Platform*>* platforms) {
 
 void initialiseFromStageObject(GameStage gameStage) {
     int nPlatforms = gameStage.platforms.size();
+
+    std::map<int, Platform*> platformsById;
     std::vector<Platform*> platforms(nPlatforms);
     for (int i = 0; i < nPlatforms; ++i) {
         PlatformTemplate* t = &gameStage.platforms[i];
         Platform* platform = new Platform(t->pivotX, t->pivotY, t->leftTiles, t->rightTiles, t->rotatable, t->orientation);
         platforms[i] = platform;
+
+        if (t->id != -1) {
+            platformsById.emplace(t->id, platform);
+        }
     }
     game.platforms.swap(platforms);
 
@@ -71,6 +153,7 @@ void initialiseFromStageObject(GameStage gameStage) {
     game.door = door;
 
     linkPlatforms(&gameStage, &game.platforms, &game.spinConnections);
+    setupLasers(&gameStage, &platformsById);
 }
 
 
@@ -111,17 +194,21 @@ GameStage level2() {
 
 GameStage level3() {
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate(1, 2, 1, 2, true, dir_up),
+        PlatformTemplate(1, 2, 1, 2, true, dir_up, -1, 1),
         PlatformTemplate(4, 2, 1, 2, true, dir_left,1),
         PlatformTemplate(5, 0, 0, 0, true, dir_up,1),
         PlatformTemplate(7, 2, 1, 0, true, dir_down,2),
+    };
+
+    std::vector<LaserSourceTemplate> laserSources{
+        LaserSourceTemplate(-2,dir_left,1)
     };
 
     PlayerTemplate player(0, 1, dir_up);
     DoorTemplate door(7, 1, dir_up);
     double zoom = 0.9;
 
-    return GameStage(platforms, player, door, zoom);
+    return GameStage(platforms, player, door, zoom, laserSources);
 }
 
 

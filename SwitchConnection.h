@@ -16,10 +16,12 @@ public:
 
     bool isOn;
 
+    SwitchConnection(LaserTarget* laserTarget, std::vector<Platform*> platforms, std::vector<Platform*> pivots);
+
     void refresh();
 
 };
 
-
+SwitchConnection* createSwitchConnection(LaserTarget* laserTarget, std::vector<Platform*> platforms, std::vector<Platform*> pivots);
 
 #endif

@@ -14,6 +14,9 @@ public:
     Laser* currentLaser;
     bool isOn;
 
+    LaserTarget(Platform* platform, int orientation) : AbstractAttachedObject(platform, orientation) {}
+    LaserTarget(Platform* platform, int relativeOrientation, int position) : AbstractAttachedObject(platform, relativeOrientation, position) {}
+
     void initialise();
 
     void resetTargetOnStatus();

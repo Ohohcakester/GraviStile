@@ -83,6 +83,7 @@ void Platform::update(Keyboard k) {
 void Platform::onReach() {
     angle = targetAngle;
     isRotating = false;
+    this->repositionAttachedObjects();
 }
 
 bool Platform::isDisabled() {
@@ -147,6 +148,7 @@ void Platform::setOrientation(int orientation) {
 
     this->targetAngle = orientationToAngle(orientation);
     this->isRotating = true;
+    this->temporarilyDisableLaserSources();
 }
 
 bool Platform::isUnderDoor(int doorX, int doorY) {

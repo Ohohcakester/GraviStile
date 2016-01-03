@@ -9,12 +9,16 @@
 #include "Grid.h"
 #include "Textures.h"
 #include "globals.h"
+#include <iostream>
 
 void LaserSource::initialise() {
     shape = sf::RectangleShape();
     shape.setFillColor(textures->laserSourceColor);
 }
 
+void LaserSource::setupLaser(Laser* laser) {
+    this->laser = laser;
+}
 
 void LaserSource::temporarilyTurnOffLaser() {
     this->laser->active = false;
@@ -34,7 +38,7 @@ void LaserSource::fireLaser() {
         --range;
     }
 
-    laser->setup(orientation, this->cx, this->cy, currX, currY);
+    laser->setup(this->orientation, this->cx, this->cy, currX, currY);
 
     for (size_t i = 0, n = game.laserTargets.size(); i < n; ++i) {
         LaserTarget* target = game.laserTargets[i];
@@ -49,8 +53,8 @@ void LaserSource::fireLaser() {
 }
 
 void LaserSource::draw() {
-    int x1 = -40;
-    int x2 = 40;
+    int x1 = -20;
+    int x2 = 20;
     int y1 = -5;
     int y2 = 0;
 
@@ -58,6 +62,7 @@ void LaserSource::draw() {
     this->generateActualCorners(x1, y1, x2, y2, &tlx, &tly, &blx, &bly, &brx, &bry);
     drawRectangle(&shape, x + tlx, y + tly, x + blx, y + bly, x + brx, y + bry);
 }
+
 void LaserSource::update(Keyboard k) {
 
 }

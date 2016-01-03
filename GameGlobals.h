@@ -34,6 +34,7 @@ public:
     GameGlobals();
     ~GameGlobals();
 
+    void onStart();
     void refreshMapState();
     void finishRotatingTrigger();
 };

@@ -50,6 +50,7 @@ void Laser::setup(int orientation, int sx, int sy, int ex, int ey) {
 }
 
 void Laser::draw() {
+    if (!this->active) return;
     drawRectangle(&shape, x1, y1, x1, y2, x2, y2);
 }
 

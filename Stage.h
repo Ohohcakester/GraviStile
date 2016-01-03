@@ -11,9 +11,15 @@ struct PlatformTemplate {
     bool rotatable;
     int orientation;
     int spinConnectionIndex;
+    int id;
+    int pivotSwitchConnectionIndex;
+    int platformSwitchConnectionIndex;
 
-    PlatformTemplate(int pivotX, int pivotY, int leftTiles, int rightTiles, bool rotatable, int orientation, int spinConnectionIndex = -1) :
-        pivotX(pivotX), pivotY(pivotY), leftTiles(leftTiles), rightTiles(rightTiles), rotatable(rotatable), orientation(orientation), spinConnectionIndex(spinConnectionIndex) {
+    PlatformTemplate(int pivotX, int pivotY, int leftTiles, int rightTiles, bool rotatable, int orientation,
+        int spinConnectionIndex = -1, int id = -1, int pivotSwitchConnectionIndex = -1, int platformSwitchConnectionIndex = -1) :
+        pivotX(pivotX), pivotY(pivotY), leftTiles(leftTiles), rightTiles(rightTiles), rotatable(rotatable), orientation(orientation),
+        spinConnectionIndex(spinConnectionIndex), id(id), pivotSwitchConnectionIndex(pivotSwitchConnectionIndex), 
+        platformSwitchConnectionIndex(platformSwitchConnectionIndex) {
     }
 };
 
@@ -33,15 +39,37 @@ struct PlayerTemplate {
     PlayerTemplate(int x, int y, int orientation) : x(x), y(y), orientation(orientation) {}
 };
 
+struct LaserSourceTemplate {
+    int position;
+    int orientation;
+    int platformId;
+
+    LaserSourceTemplate(int position, int orientation, int platformId) :
+        position(position), orientation(orientation), platformId(platformId) {}
+};
+
+struct LaserTargetTemplate {
+    int position;
+    int orientation;
+    int platformId;
+    int switchConnectionIndex;
+
+    LaserTargetTemplate(int position, int orientation, int platformId, int switchConnectionIndex) :
+        position(position), orientation(orientation), platformId(platformId), switchConnectionIndex(switchConnectionIndex) {}
+};
+
 struct GameStage {
     std::vector<PlatformTemplate> platforms;
+    std::vector<LaserSourceTemplate> laserSources;
+    std::vector<LaserTargetTemplate> laserTargets;
     PlayerTemplate player;
     DoorTemplate door;
 
     double zoom;
 
-    GameStage(std::vector<PlatformTemplate> platforms, PlayerTemplate player, DoorTemplate door, double zoom) : 
-        platforms(platforms), player(player), door(door), zoom(zoom) {
+    GameStage(std::vector<PlatformTemplate> platforms, PlayerTemplate player, DoorTemplate door, double zoom,
+        std::vector<LaserSourceTemplate> laserSources = {}, std::vector<LaserTargetTemplate> laserTargets = {}) :
+        platforms(platforms), player(player), door(door), zoom(zoom), laserSources(laserSources), laserTargets(laserTargets) {
     }
 };
 

@@ -10,6 +10,8 @@ AbstractAttachedObject::AbstractAttachedObject(Platform* platform, int relativeO
 platform(platform), relativeOrientation(relativeOrientation), position(position) {
     adjustPosition();
     initialise();
+
+    gridToActual(platform->cx, platform->cy, &this->x, &this->y);
 }
 
 void AbstractAttachedObject::initialise() {}
@@ -69,6 +71,8 @@ void AbstractAttachedObject::updateActualPosition() {
 
     this->cx = platform->cx + rx;
     this->cy = platform->cy + ry;
+    //std::cout << platform->cx << " " << platform->cy << " " << " << PLAT \n";
+    //std::cout << this->cx << " " << this->cy << " " << this->orientation << "\n";
 }
 
 

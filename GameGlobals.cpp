@@ -35,6 +35,14 @@ GameGlobals::~GameGlobals() {
     }
 }
 
+void GameGlobals::onStart() {
+    for (size_t i = 0, n = platforms.size(); i < n; ++i) {
+        platforms[i]->repositionAttachedObjects();
+    }
+
+    refreshMapState();
+}
+
 void GameGlobals::finishRotatingTrigger() {
     refreshMapState();
 }
