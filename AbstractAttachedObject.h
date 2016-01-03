@@ -23,8 +23,6 @@ public:
 
     void updateActualPosition();
 
-    virtual void initialise();
-
     void toActualCoordindates(float* dx, float* dy);
 
     void generateActualCorners(float x1, float y1, float x2, float y2, float* tlx, float* tly, float* blx, float* bly, float* brx, float* bry);

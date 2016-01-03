@@ -22,6 +22,7 @@ void LaserTarget::draw() {
     int x2 = 20;
     int y1 = -5;
     int y2 = 10;
+    if (isOn) y2 = 30;
 
     float tlx, tly, blx, bly, brx, bry;
     this->generateActualCorners(x1, y1, x2, y2, &tlx, &tly, &blx, &bly, &brx, &bry);

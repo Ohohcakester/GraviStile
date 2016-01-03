@@ -12,11 +12,15 @@ public:
 
     Laser* laser;
 
-    LaserSource(Platform* platform, int orientation) : AbstractAttachedObject(platform, orientation) {}
-    LaserSource(Platform* platform, int relativeOrientation, int position) : AbstractAttachedObject(platform, relativeOrientation, position) {}
-
-    // override
     void initialise();
+    
+    LaserSource(Platform* platform, int orientation) : AbstractAttachedObject(platform, orientation) {
+        initialise();
+    }
+    LaserSource(Platform* platform, int relativeOrientation, int position) : AbstractAttachedObject(platform, relativeOrientation, position) {
+        initialise();
+    }
+
     void setupLaser(Laser* laser);
 
     void temporarilyTurnOffLaser();

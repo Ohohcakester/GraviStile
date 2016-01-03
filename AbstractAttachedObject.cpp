@@ -9,12 +9,8 @@ AbstractAttachedObject::AbstractAttachedObject(Platform* platform, int orientati
 AbstractAttachedObject::AbstractAttachedObject(Platform* platform, int relativeOrientation, int position) :
 platform(platform), relativeOrientation(relativeOrientation), position(position) {
     adjustPosition();
-    initialise();
-
     gridToActual(platform->cx, platform->cy, &this->x, &this->y);
 }
-
-void AbstractAttachedObject::initialise() {}
 
 void AbstractAttachedObject::adjustPosition() {
     switch (relativeOrientation) {
