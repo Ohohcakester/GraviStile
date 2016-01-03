@@ -10,13 +10,12 @@ public:
     int sizeY;
     int sizeX;
     int size;
-    bool* blocked;
+    std::vector<bool> blocked;
 
     int minX, minY, maxX, maxY;
 
     Grid();
     Grid(int minX, int minY, int maxX, int maxY);
-    ~Grid();
     bool isBlocked(int x, int y);
     void setBlocked(int x, int y, bool value);
     void toGridCoordinates(int* x, int* y);

@@ -6,7 +6,6 @@
 
 Grid::Grid() {
     _isNull = true;
-    this->blocked = NULL;
 }
 
 Grid::Grid(int minX, int minY, int maxX, int maxY) :
@@ -15,11 +14,7 @@ Grid::Grid(int minX, int minY, int maxX, int maxY) :
     this->sizeX = maxX - minX;
     this->sizeY = maxY - minY;
     this->size = sizeX*sizeY;
-    this->blocked = new bool[size];
-}
-
-Grid::~Grid() {
-    delete blocked;
+    this->blocked.resize(size);
 }
 
 bool Grid::isBlocked(int x, int y) {
