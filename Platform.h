@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 class Point;
 class SpinConnection;
+class LaserSource;
+class LaserTarget;
 #include "IGameObject.h"
 
 enum platformDisabledStatus {
@@ -23,6 +25,8 @@ public:
     bool isRotationDisabled;
 
     SpinConnection* spinConnection;
+    std::vector<LaserSource*> laserSources;
+    std::vector<LaserTarget*> laserTargets;
 
     bool isNull;
     int cx;
@@ -71,6 +75,12 @@ public:
 
     void toggleDisabledStatus();
     void toggleRotationDisabledStatus();
+
+    void temporarilyDisableLaserSources();
+    void repositionAttachedObjects();
+
+    void addLaserSource(LaserSource* laserSource);
+    void addLaserTarget(LaserTarget* laserTarget);
 };
 
 

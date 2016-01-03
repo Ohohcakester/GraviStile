@@ -6,6 +6,8 @@
 #include "Platform.h"
 #include "gamemath.h"
 #include "SpinConnection.h"
+#include "LaserSource.h"
+#include "LaserTarget.h"
 
 Platform::Platform() {
     this->isNull = true;
@@ -359,4 +361,29 @@ bool Platform::twoPointsTwoDistances(Point center, int p1x, int p1y, int p2x, in
 
 bool Platform::samePosition(Platform* other) {
     return cx == other->cx && cy == other->cy;
+}
+
+
+void Platform::temporarilyDisableLaserSources() {
+    for (size_t i = 0, n = laserSources.size(); i < n; ++i) {
+        laserSources[i]->temporarilyTurnOffLaser();
+    }
+}
+
+void Platform::repositionAttachedObjects() {
+    for (size_t i = 0, n = laserSources.size(); i < n; ++i){
+        laserSources[i]->updateActualPosition();
+    }
+
+    for (size_t i = 0, n = laserTargets.size(); i < n; ++i) {
+        laserTargets[i]->updateActualPosition();
+    }
+}
+
+void Platform::addLaserSource(LaserSource* laserSource) {
+    this->laserSources.push_back(laserSource);
+}
+
+void Platform::addLaserTarget(LaserTarget* laserTarget) {
+    this->laserTargets.push_back(laserTarget);
 }

@@ -5,7 +5,7 @@ class Laser;
 class Keyboard;
 #include "AbstractAttachedObject.h"
 
-class LaserSource : AbstractAttachedObject {
+class LaserSource : public AbstractAttachedObject {
 public:
     Laser* laser;
 

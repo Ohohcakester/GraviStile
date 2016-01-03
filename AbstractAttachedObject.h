@@ -23,7 +23,6 @@ public:
 
     void updateActualPosition();
 
-
     virtual void initialise();
 };
 
