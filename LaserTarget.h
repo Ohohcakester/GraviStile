@@ -5,7 +5,7 @@ class SwitchConnection;
 class Laser;
 #include "AbstractAttachedObject.h"
 
-class LaserTarget : AbstractAttachedObject {
+class LaserTarget : public AbstractAttachedObject {
 public:
     SwitchConnection* connection;
     Laser* currentLaser;
@@ -14,6 +14,7 @@ public:
     void initialise();
 
     void resetTargetOnStatus();
+    void laserConnect(Laser* laser);
 
     void draw();
     void update(Keyboard k);

@@ -83,16 +83,27 @@ void Platform::onReach() {
     isRotating = false;
 }
 
-void Platform::disable() {
-    disabledStatus = platformStatus_disabled;
-}
-
-void Platform::enable() {
-    disabledStatus = platformStatus_waitingForEnable;
-}
-
 bool Platform::isDisabled() {
     return disabledStatus != platformStatus_enabled;
+}
+
+
+void Platform::toggleDisabledStatus() {
+    switch (disabledStatus) {
+    case platformStatus_disabled:
+        disabledStatus = platformStatus_waitingForEnable;
+        break;
+    case platformStatus_waitingForEnable:
+        disabledStatus = platformStatus_disabled;
+        break;
+    case platformStatus_enabled:
+        disabledStatus = platformStatus_disabled;
+        break;
+    }
+}
+
+void Platform::toggleRotationDisabledStatus() {
+    isRotationDisabled = !isRotationDisabled;
 }
 
 void Platform::rotateTo(int newOrientation) {

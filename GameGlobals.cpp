@@ -35,7 +35,23 @@ GameGlobals::~GameGlobals() {
     }
 }
 
+void GameGlobals::finishRotatingTrigger() {
+    refreshMapState();
+}
+
 void GameGlobals::refreshMapState() {
     grid.reset();
     grid.addPlatforms(&this->platforms);
+
+    for (size_t i = 0, n = laserTargets.size(); i < n; ++i) {
+        laserTargets[i]->resetTargetOnStatus();
+    }
+
+    for (size_t i = 0, n = laserSources.size(); i < n; ++i) {
+        laserSources[i]->fireLaser();
+    }
+
+    for (size_t i = 0, n = switchConnections.size(); i < n; ++i) {
+        switchConnections[i]->refresh();
+    }
 }

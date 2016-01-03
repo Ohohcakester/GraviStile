@@ -67,11 +67,10 @@ public:
 
     bool isDisabled();
 
-    void enable();
-
-    void disable();
-
     bool samePosition(Platform* other);
+
+    void toggleDisabledStatus();
+    void toggleRotationDisabledStatus();
 };
 
 

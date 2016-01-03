@@ -14,4 +14,8 @@ int orientationRotateLeft(int orientation);
 
 int orientationRotate(int orientation, bool right);
 
+void orientationToMoveDirection(int orientation, int* dx, int* dy);
+
+bool areComplementaryOrientations(int orientation1, int orientation2);
+
 #endif

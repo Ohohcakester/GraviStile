@@ -2,7 +2,7 @@
 #define SWITCH_CONNECTION_H
 
 #include <vector>
-class LaserSource;
+class LaserTarget;
 class Platform;
 
 class SwitchConnection {
@@ -10,7 +10,7 @@ private:
     void flip();
 
 public:
-    LaserSource* laserSource;
+    LaserTarget* laserTarget;
     std::vector<Platform*> connectedPivots;
     std::vector<Platform*> connectedPlatforms;
 

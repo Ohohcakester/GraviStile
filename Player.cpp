@@ -156,6 +156,7 @@ void Player::update(Keyboard k) {
         // platform has stopped rotating.
         this->angle = orientationToAngle(currentPlatform->orientation);
         isRotating = false;
+        game.finishRotatingTrigger();
     }
 
     if (!currentPlatform->isNull && currentPlatform->isDisabled()) {

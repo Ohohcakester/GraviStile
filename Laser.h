@@ -8,6 +8,7 @@ class LaserTarget;
 class Laser : IGameObject {
 public:
     int x1, y1, x2, y2;
+    int orientation;
     bool active;
     int endX;
     int endY;
@@ -19,6 +20,7 @@ public:
 
     void draw();
     void update(Keyboard k);
+    void setup(int orientation, int sx, int sy, int ex, int ey);
 };
 
 #endif
