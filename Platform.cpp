@@ -35,9 +35,26 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
     extraLineShape.setFillColor(textures->platformSurfaceColor);
     pivotShape = sf::CircleShape(game.zoom*TILE_WIDTH / 3);
     pivotShape.setFillColor(sf::Color::Magenta);
+    isUsingDisabledGraphic = false;
+}
+
+void Platform::updateUsingDisabledGraphic() {
+    bool isDisabled = this->isDisabled();
+    if (isDisabled != isUsingDisabledGraphic) {
+        isUsingDisabledGraphic = isDisabled;
+        if (isDisabled) {
+            shape.setFillColor(textures->platformDisabledColor);
+            extraLineShape.setFillColor(textures->platformDisabledSurfaceColor);
+        } else {
+            shape.setFillColor(textures->platformColor);
+            extraLineShape.setFillColor(textures->platformSurfaceColor);
+        }
+    }
 }
 
 void Platform::draw() {
+    updateUsingDisabledGraphic();
+
     float _x1 = - TILE_WIDTH * (leftTiles + 0.5);
     float _x2 = TILE_WIDTH * (rightTiles + 0.5);
     float _y1 = - TILE_WIDTH / 2;
@@ -53,7 +70,7 @@ void Platform::draw() {
         generateRotatedCorners(_x1, _y1, _x2, _ey2, &tlx, &tly, &blx, &bly, &brx, &bry, angle);
         drawRectangle(&extraLineShape, x+tlx, y+tly, x+blx, y+bly, x+brx, y+bry);
 
-        if (!this->isRotationDisabled) {
+        if (!this->isRotationDisabled && !this->isDisabled()) {
             float radius = game.zoom*TILE_WIDTH / 3;
             generateRotatedCorners(-radius, -radius, radius, radius, &tlx, &tly, &blx, &bly, &brx, &bry, angle);
             drawSprite(&sprite, x + tlx, y + tly, x + blx, y + bly, x + brx, y + bry);

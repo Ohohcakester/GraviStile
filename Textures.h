@@ -11,6 +11,8 @@ public:
     sf::Texture pivot;
     sf::Color platformColor;
     sf::Color platformSurfaceColor;
+    sf::Color platformDisabledColor;
+    sf::Color platformDisabledSurfaceColor;
     sf::Color laserSourceColor;
     sf::Color laserTargetColor;
     sf::Color laserColor;

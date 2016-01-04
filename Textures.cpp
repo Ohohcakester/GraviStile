@@ -17,6 +17,8 @@ Textures::Textures() {
 
     platformColor = sf::Color(110, 63, 75, 255);
     platformSurfaceColor = sf::Color(255, 191, 196, 255);
+    platformDisabledColor = sf::Color(110, 63, 75, 64);
+    platformDisabledSurfaceColor = sf::Color(255, 191, 196, 64);
     laserSourceColor = sf::Color(191, 160, 224, 255);
     laserTargetColor = sf::Color(127, 127, 127, 255);
     laserColor = sf::Color(255, 0, 0, 255);

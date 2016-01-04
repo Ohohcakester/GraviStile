@@ -15,12 +15,15 @@ enum platformDisabledStatus {
 };
 
 class Platform : public IGameObject {
+    void Platform::updateUsingDisabledGraphic();
+
 public:
     sf::RectangleShape shape;
     sf::CircleShape pivotShape;
     sf::Sprite sprite;
     sf::RectangleShape extraLineShape;
 
+    bool isUsingDisabledGraphic;
     int disabledStatus;
     bool isRotationDisabled;
 
