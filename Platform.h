@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 class Point;
+class Player;
+class Grid;
 class SpinConnection;
 class LaserSource;
 class LaserTarget;
@@ -74,6 +76,9 @@ public:
 
     bool isDisabled();
 
+    bool isBlockedFromUndisabling(Grid* grid, Player* player);
+    bool tryUnblockFromDisabled(Grid* grid, Player* player);
+
     bool samePosition(Platform* other);
 
     void toggleDisabledStatus();
@@ -85,7 +90,6 @@ public:
     void addLaserSource(LaserSource* laserSource);
     void addLaserTarget(LaserTarget* laserTarget);
 
-    bool isBlockedFromUndisabling();
 };
 
 

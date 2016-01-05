@@ -8,6 +8,8 @@
 #include "SpinConnection.h"
 #include "LaserSource.h"
 #include "LaserTarget.h"
+#include "Player.h"
+#include "Grid.h"
 
 Platform::Platform() {
     this->isNull = true;
@@ -95,10 +97,6 @@ void Platform::update(Keyboard k) {
             }
         }
     }
-
-    if (disabledStatus == platformStatus_waitingForEnable && !isBlockedFromUndisabling()) {
-        disabledStatus = platformStatus_enabled;
-    }
 }
 
 void Platform::onReach() {
@@ -109,6 +107,53 @@ void Platform::onReach() {
 
 bool Platform::isDisabled() {
     return disabledStatus != platformStatus_enabled;
+}
+
+bool Platform::isBlockedFromUndisabling(Grid* grid, Player* player) {
+    // Collides with another platform.
+    switch (orientation) {
+    case dir_up: {
+        int minX = cx - leftTiles;
+        int maxX = cx + rightTiles;
+        int y = cy;
+        for (int x = minX; x <= maxX; ++x) if (grid->isBlocked(x, y)) return true;
+        break;
+    }
+    case dir_right: {
+        int minY = cy - leftTiles;
+        int maxY = cy + rightTiles;
+        int x = cx;
+        for (int y = minY; y <= maxY; ++y) if (grid->isBlocked(x, y)) return true;
+        break;
+    }
+    case dir_down: {
+        int minX = cx - rightTiles;
+        int maxX = cx + leftTiles;
+        int y = cy;
+        for (int x = minX; x <= maxX; ++x) if (grid->isBlocked(x, y)) return true;
+        break;
+    }
+    case dir_left: {
+        int minY = cy - rightTiles;
+        int maxY = cy + leftTiles;
+        int x = cx;
+        for (int y = minY; y <= maxY; ++y) if (grid->isBlocked(x, y)) return true;
+        break;
+    }
+    }
+
+    // Collides with player
+    if (player->x2 > x1 && player->x1 < x2 && player->y2 > y1 && player->y1 < y2) return true;
+
+    return false;
+}
+
+bool Platform::tryUnblockFromDisabled(Grid* grid, Player* player) {
+    if (disabledStatus == platformStatus_waitingForEnable && !isBlockedFromUndisabling(grid, player)) {
+        disabledStatus = platformStatus_enabled;
+        return true;
+    }
+    return false;
 }
 
 
@@ -409,8 +454,4 @@ void Platform::addLaserSource(LaserSource* laserSource) {
 
 void Platform::addLaserTarget(LaserTarget* laserTarget) {
     this->laserTargets.push_back(laserTarget);
-}
-
-bool Platform::isBlockedFromUndisabling() {
-    return false;
 }

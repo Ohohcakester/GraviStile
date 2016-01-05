@@ -77,4 +77,11 @@ void GameGlobals::refreshMapState() {
     for (size_t i = 0, n = switchConnections.size(); i < n; ++i) {
         switchConnections[i]->refresh();
     }
+
+    for (size_t i = 0, n = platforms.size(); i < n; ++i) {
+        bool unblock = platforms[i]->tryUnblockFromDisabled(&grid, &player);
+        if (unblock) {
+            grid.addPlatform(platforms[i]);
+        }
+    }
 }

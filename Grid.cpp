@@ -36,8 +36,7 @@ void Grid::reset() {
 }
 
 void Grid::addPlatforms(std::vector<Platform*>* platforms) {
-    int len = platforms->size();
-    for (int i = 0; i < len; ++i) {
+    for (size_t i = 0, n = platforms->size(); i < n; ++i) {
         addPlatform((*platforms)[i]);
     }
 }

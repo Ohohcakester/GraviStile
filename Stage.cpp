@@ -169,12 +169,12 @@ GameStage level11() {
         PlatformTemplate(4, 2, 1, 2, true, dir_left, 1),
         PlatformTemplate(5, 0, 0, 0, true, dir_up, 1),
         PlatformTemplate(7, 2, 1, 0, true, dir_down, 2),
-        PlatformTemplate(2, 6, 2, 2, true, dir_up, 2, 2),
+        PlatformTemplate(0, 6, 2, 1, true, dir_right, 2, 2),
         PlatformTemplate(1, -2, 1, 1, true, dir_left, -1, -1, 1),
         PlatformTemplate(1, -6, 1, 1, true, dir_left, -1, -1, -1, 1),
-        PlatformTemplate(-2, 0, 1, 1, true, dir_left, -1, -1, -1, 1, true),
+        PlatformTemplate(-2, 0, 1, 1, true, dir_right, -1, -1, -1, 1, true),
         PlatformTemplate(-4, 2, 1, 1, true, dir_left, -1, 3, -1, -1),
-        PlatformTemplate(-2, 4, 1, 1, false, dir_left, -1, -1, -1, 2),
+        PlatformTemplate(-2, 4, 1, 3, false, dir_right, -1, -1, -1, 2),
     };
 
     std::vector<LaserSourceTemplate> laserSources {
