@@ -6,6 +6,8 @@
 
 class GameGlobals {
 public:
+    int refreshCounter;
+
     int currentStage;
 
     Player player;
@@ -35,6 +37,7 @@ public:
     ~GameGlobals();
 
     void onStart();
+    void update();
     void refreshMapState();
     void finishRotatingTrigger();
 };

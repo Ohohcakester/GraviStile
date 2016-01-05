@@ -1,7 +1,10 @@
-
+#include <iostream>
 #include "GameGlobals.h"
 
+int REFRESH_FRAMES = 15;
+
 GameGlobals::GameGlobals() {
+    refreshCounter = 0;
     currentStage = -1;
     width = 0;
     height = 0;
@@ -35,16 +38,26 @@ GameGlobals::~GameGlobals() {
     }
 }
 
+void GameGlobals::update() {
+    refreshCounter++;
+    while (refreshCounter >= REFRESH_FRAMES) {
+        refreshCounter -= REFRESH_FRAMES;
+        refreshMapState();
+    }
+}
+
 void GameGlobals::onStart() {
     for (size_t i = 0, n = platforms.size(); i < n; ++i) {
         platforms[i]->repositionAttachedObjects();
     }
 
     refreshMapState();
+    refreshCounter += REFRESH_FRAMES * 5;
 }
 
 void GameGlobals::finishRotatingTrigger() {
     refreshMapState();
+    refreshCounter += REFRESH_FRAMES * 5;
 }
 
 void GameGlobals::refreshMapState() {

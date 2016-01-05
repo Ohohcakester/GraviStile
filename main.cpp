@@ -108,6 +108,8 @@ void updateGame() {
         game.platforms[i]->update(game.key);
     }
     game.door.update(game.key);
+
+    game.update();
 }
 
 void updateMenu() {
