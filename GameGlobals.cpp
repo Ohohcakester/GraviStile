@@ -1,7 +1,7 @@
 #include <iostream>
 #include "GameGlobals.h"
 
-int REFRESH_FRAMES = 15;
+int REFRESH_FRAMES = 5;
 
 GameGlobals::GameGlobals() {
     refreshCounter = 0;
