@@ -14,12 +14,15 @@ struct PlatformTemplate {
     int id;
     int pivotSwitchConnectionIndex;
     int platformSwitchConnectionIndex;
+    bool isDisabled;
+    bool isRotationDisabled;
 
     PlatformTemplate(int pivotX, int pivotY, int leftTiles, int rightTiles, bool rotatable, int orientation,
-        int spinConnectionIndex = -1, int id = -1, int pivotSwitchConnectionIndex = -1, int platformSwitchConnectionIndex = -1) :
+        int spinConnectionIndex = -1, int id = -1, int pivotSwitchConnectionIndex = -1, int platformSwitchConnectionIndex = -1,
+        bool isDisabled = false, bool isRotationDisabled = false) :
         pivotX(pivotX), pivotY(pivotY), leftTiles(leftTiles), rightTiles(rightTiles), rotatable(rotatable), orientation(orientation),
         spinConnectionIndex(spinConnectionIndex), id(id), pivotSwitchConnectionIndex(pivotSwitchConnectionIndex), 
-        platformSwitchConnectionIndex(platformSwitchConnectionIndex) {
+        platformSwitchConnectionIndex(platformSwitchConnectionIndex), isDisabled(isDisabled), isRotationDisabled(isRotationDisabled) {
     }
 };
 
