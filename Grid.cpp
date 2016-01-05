@@ -43,6 +43,7 @@ void Grid::addPlatforms(std::vector<Platform*>* platforms) {
 }
 
 void Grid::addPlatform(Platform* platform) {
+    if (platform->isDisabled()) return;
     switch (platform->orientation) {
     case dir_up: {
         int minX = platform->cx - platform->leftTiles;

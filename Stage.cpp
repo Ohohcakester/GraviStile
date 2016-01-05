@@ -164,7 +164,7 @@ void initialiseFromStageObject(GameStage gameStage) {
 
 
 GameStage level11() {
-    std::vector<PlatformTemplate> platforms{
+    std::vector<PlatformTemplate> platforms {
         PlatformTemplate(1, 2, 1, 2, true, dir_up, -1, 1),
         PlatformTemplate(4, 2, 1, 2, true, dir_left, 1),
         PlatformTemplate(5, 0, 0, 0, true, dir_up, 1),
@@ -172,15 +172,20 @@ GameStage level11() {
         PlatformTemplate(2, 6, 2, 2, true, dir_up, 2, 2),
         PlatformTemplate(1, -2, 1, 1, true, dir_left, -1, -1, 1),
         PlatformTemplate(1, -6, 1, 1, true, dir_left, -1, -1, -1, 1),
+        PlatformTemplate(-3, 0, 1, 1, true, dir_left, -1, -1, -1, 1),
+        PlatformTemplate(-5, 2, 1, 1, true, dir_left, -1, 3, -1, -1),
+        PlatformTemplate(-3, 4, 1, 1, false, dir_left, -1, -1, -1, 2),
     };
 
     std::vector<LaserSourceTemplate> laserSources {
         LaserSourceTemplate(0, dir_right, 1),
         LaserSourceTemplate(-1, dir_down, 1),
+        LaserSourceTemplate(-1, dir_down, 3),
     };
 
-    std::vector<LaserTargetTemplate> laserTargets {
+    std::vector<LaserTargetTemplate> laserTargets{
         LaserTargetTemplate(-1, dir_up, 2, 1),
+        LaserTargetTemplate(1, dir_down, 3, 2),
     };
 
     PlayerTemplate player(0, 1, dir_up);
