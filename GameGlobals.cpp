@@ -39,10 +39,12 @@ GameGlobals::~GameGlobals() {
 }
 
 void GameGlobals::update() {
-    refreshCounter++;
-    while (refreshCounter >= REFRESH_FRAMES) {
-        refreshCounter -= REFRESH_FRAMES;
-        refreshMapState();
+    if (!player.isRotating) {
+        refreshCounter++;
+        while (refreshCounter >= REFRESH_FRAMES) {
+            refreshCounter -= REFRESH_FRAMES;
+            refreshMapState();
+        }
     }
 }
 

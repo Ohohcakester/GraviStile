@@ -95,6 +95,10 @@ void Platform::update(Keyboard k) {
             }
         }
     }
+
+    if (disabledStatus == platformStatus_waitingForEnable && !isBlockedFromUndisabling()) {
+        disabledStatus = platformStatus_enabled;
+    }
 }
 
 void Platform::onReach() {
@@ -405,4 +409,8 @@ void Platform::addLaserSource(LaserSource* laserSource) {
 
 void Platform::addLaserTarget(LaserTarget* laserTarget) {
     this->laserTargets.push_back(laserTarget);
+}
+
+bool Platform::isBlockedFromUndisabling() {
+    return false;
 }

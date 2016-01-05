@@ -84,6 +84,8 @@ public:
 
     void addLaserSource(LaserSource* laserSource);
     void addLaserTarget(LaserTarget* laserTarget);
+
+    bool isBlockedFromUndisabling();
 };
 
 
