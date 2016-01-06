@@ -17,6 +17,7 @@ extern Menu menu;
 extern int RES_X;
 extern int RES_Y;
 extern int TILE_WIDTH;
+extern const int OUT_OF_BOUNDS_TILES;
 
 extern sf::RenderWindow* window;
 

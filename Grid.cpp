@@ -3,6 +3,7 @@
 #include "Orientations.h"
 #include "Grid.h"
 #include "Platform.h"
+#include "globals.h"
 
 Grid::Grid() {
     _isNull = true;
@@ -15,6 +16,13 @@ Grid::Grid(int minX, int minY, int maxX, int maxY) :
     this->sizeY = maxY - minY + 1;
     this->size = sizeX*sizeY;
     this->blocked.resize(size);
+
+    gridToActual(maxX, maxY, &this->boundMaxX, &this->boundMaxY);
+    gridToActual(minX, minY, &this->boundMinX, &this->boundMinY);
+    this->boundMaxX += OUT_OF_BOUNDS_TILES * TILE_WIDTH;
+    this->boundMaxY += OUT_OF_BOUNDS_TILES * TILE_WIDTH;
+    this->boundMinX -= OUT_OF_BOUNDS_TILES * TILE_WIDTH;
+    this->boundMinY -= OUT_OF_BOUNDS_TILES * TILE_WIDTH;
 }
 
 bool Grid::isBlocked(int x, int y) {
@@ -86,4 +94,7 @@ void Grid::toActualCoordinates(int* x, int* y) {
     *y += minY;
 }
 
+bool Grid::isOutOfBounds(int x, int y) {
+    return x > boundMaxX || y > boundMaxY || x < boundMinX || y < boundMinY;
+}
 

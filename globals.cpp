@@ -48,5 +48,6 @@ Menu menu;
 int RES_X = 800;
 int RES_Y = 600;
 int TILE_WIDTH = 50;
+const int OUT_OF_BOUNDS_TILES = 10;
 
 sf::RenderWindow* window;

@@ -173,6 +173,10 @@ void Player::update(Keyboard k) {
         die();
     }
 
+    if (game.grid.isOutOfBounds(x, y)) {
+        die();
+    }
+
 
     // Fall off the sides
     switch (this->orientation) {

@@ -13,6 +13,7 @@ public:
     std::vector<bool> blocked;
 
     int minX, minY, maxX, maxY;
+    int boundMinX, boundMinY, boundMaxX, boundMaxY;
 
     Grid();
     Grid(int minX, int minY, int maxX, int maxY);
@@ -24,6 +25,8 @@ public:
     void reset();
     void addPlatform(Platform* platform);
     void addPlatforms(std::vector<Platform*>* platforms);
+
+    bool isOutOfBounds(int x, int y);
 };
 
 
