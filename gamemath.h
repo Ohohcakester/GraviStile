@@ -14,4 +14,13 @@ void generateRotatedCorners(float x1, float y1, float x2, float y2, float* tlx, 
 
 float clampedAngularDifference(float fromAngle, float toAngle);
 
+void swap(int* a, int* b);
+
+bool rectsIntersectSafe(int x1a, int y1a, int x2a, int y2a, int x1b, int y1b, int x2b, int y2b);
+
+bool rectsIntersect(int x1a, int y1a, int x2a, int y2a, int x1b, int y1b, int x2b, int y2b);
+
+
+
+
 #endif

@@ -7,6 +7,8 @@
 
 class Player : public IGameObject {
 public:
+    bool isActive;
+
     sf::Sprite sprite;
     sf::RectangleShape shape;
     float vx;
@@ -64,6 +66,10 @@ public:
 
     bool rotatesIntoPlatform(bool rotateRight);
     bool collidesWith(float _x1, float _y1, float _x2, float _y2, Platform* plat);
+
+    bool isControlsDisabled();
+    void die();
+    bool isTouchingLaser();
 };
 
 

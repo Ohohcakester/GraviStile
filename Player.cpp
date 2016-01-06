@@ -8,6 +8,7 @@
 Player::Player(){}
 
 Player::Player(int cx, int cy) {
+    isActive = true;
     x = 0; y = 0;
     gridToActual(cx, cy, &x, &y);
     vx = 0; vy = 0;
@@ -31,7 +32,7 @@ Player::Player(int cx, int cy) {
 }
 
 bool Player::canRotate(bool right) {
-    if (isRotating) return false;
+    if (isControlsDisabled()) return false;
     if (currentPlatform->isNull) return false;
     if (!currentPlatform->rotatable) return false;
     if (currentPlatform->isRotationDisabled) return false;
@@ -104,6 +105,8 @@ void Player::getSpriteCoordinates(float* sx, float* sy) {
 }
 
 void Player::draw() {
+    if (!isActive) return;
+
     float w = pheight * 1 / 2;
     float tlx, tly, blx, bly, brx, bry;
 
@@ -149,6 +152,8 @@ void Player::updateBoundaries() {
 }
 
 void Player::update(Keyboard k) {
+    if (!isActive) return;
+
     if (isRotating) {
         this->angle = currentPlatform->angle;
         if (currentPlatform->isRotating) return;
@@ -164,6 +169,11 @@ void Player::update(Keyboard k) {
     }
 
     updateBoundaries();
+    if (isTouchingLaser()) {
+        die();
+    }
+
+
     // Fall off the sides
     switch (this->orientation) {
     case dir_up:
@@ -241,7 +251,8 @@ void Player::getGridCoordinates(int* gridX, int* gridY) {
 }
 
 void Player::jump() {
-    if (isRotating) return;
+    if (isControlsDisabled()) return;
+
     if (!currentPlatform->isNull && !currentPlatform->isDisabled()) {
         currentPlatform = &nullPlatform; // isNull
         switch (orientation) {
@@ -333,4 +344,20 @@ void Player::collision(Platform* plat) {
         }
         }
     }
+}
+
+bool Player::isControlsDisabled() {
+    return (!isActive || isRotating);
+}
+
+void Player::die() {
+    this->isActive = false;
+}
+
+bool Player::isTouchingLaser() {
+    for (size_t i = 0, n = game.lasers.size(); i < n; ++i){
+        Laser* l = game.lasers[i];
+        if (rectsIntersect(x1, y1, x2, y2, l->x1, l->y1, l->x2, l->y2)) return true;
+    }
+    return false;
 }

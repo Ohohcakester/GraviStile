@@ -37,3 +37,21 @@ float clampedAngularDifference(float fromAngle, float toAngle) {
     while (diff > M_PI) diff -= M_2PI;
     return diff;
 }
+
+void swap(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+#include <iostream>
+bool rectsIntersectSafe(int x1a, int y1a, int x2a, int y2a, int x1b, int y1b, int x2b, int y2b) {
+    if (x2a < x1a) swap(&x1a, &x2a);
+    if (y2a < y1a) swap(&y1a, &y2a);
+    if (x2b < x1b) swap(&x1b, &x2b);
+    if (y2b < y1b) swap(&y1b, &y2b);
+    return (x2a > x1b && x2b > x1a && y2a > y1b && y2b > y1a);
+}
+
+bool rectsIntersect(int x1a, int y1a, int x2a, int y2a, int x1b, int y1b, int x2b, int y2b) {
+    return (x2a > x1b && x2b > x1a && y2a > y1b && y2b > y1a);
+}
