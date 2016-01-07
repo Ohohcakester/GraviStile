@@ -129,12 +129,20 @@ bool Platform::isObstructedWhileRotating() {
     return false;
 }
 
-void Platform::onReach() {
+void Platform::finishRotation() {
     angle = targetAngle;
     isRotating = false;
     isRotationSuccessful = !isRevertingToPreviousRotation;
     isRevertingToPreviousRotation = false;
     this->repositionAttachedObjects();
+}
+
+void Platform::onReach() {
+    if (spinConnection != NULL) {
+        spinConnection->finishRotation();
+    } else {
+        this->finishRotation();
+    }
 }
 
 bool Platform::isDisabled() {

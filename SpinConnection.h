@@ -16,6 +16,7 @@ public:
     bool isNull();
     void rotateBy(int oldOrientation, int newOrientation);
     void revertToPreviousOrientation();
+    void finishRotation();
 };
 
 SpinConnection* createSpinConnection(std::vector<Platform*> platforms);

@@ -30,6 +30,13 @@ void SpinConnection::rotateBy(int oldOrientation, int newOrientation) {
     }
 }
 
+void SpinConnection::finishRotation() {
+    for (size_t i = 0, n = platforms.size(); i < n; ++i) {
+        platforms[i]->finishRotation();
+    }
+}
+
+
 // Creates a new spin connection. Must be deleted later on.
 SpinConnection* createSpinConnection(std::vector<Platform*> platforms) {
     SpinConnection* connection = new SpinConnection(platforms);
