@@ -3,6 +3,7 @@
 #include <math.h>
 
 #include "gamemath.h"
+#include "Point.h"
 
 /// Angle in radians.
 void rotateVector(float* dx, float* dy, float angle) {
@@ -30,6 +31,22 @@ void generateRotatedCorners(float x1, float y1, float x2, float y2, float* tlx, 
     rotateVector(brx, bry, angle);
 }
 
+void generateRotatedCorners(float x1, float y1, float x2, float y2, float* tlx, float* tly, float* blx, float* bly, float* brx, float* bry, float* tr_x, float* tr_y, float angle) {
+    *tlx = x1;
+    *tly = y1;
+    *blx = x1;
+    *bly = y2;
+    *brx = x2;
+    *bry = y2;
+    *tr_x = x2;
+    *tr_y = y1;
+
+    rotateVector(tlx, tly, angle);
+    rotateVector(blx, bly, angle);
+    rotateVector(brx, bry, angle);
+    rotateVector(tr_x, tr_y, angle);
+}
+
 // clamped between -180 and 180.
 float clampedAngularDifference(float fromAngle, float toAngle) {
     float diff = toAngle - fromAngle;
@@ -43,7 +60,7 @@ void swap(int* a, int* b) {
     *a = *b;
     *b = temp;
 }
-#include <iostream>
+
 bool rectsIntersectSafe(int x1a, int y1a, int x2a, int y2a, int x1b, int y1b, int x2b, int y2b) {
     if (x2a < x1a) swap(&x1a, &x2a);
     if (y2a < y1a) swap(&y1a, &y2a);
@@ -54,4 +71,8 @@ bool rectsIntersectSafe(int x1a, int y1a, int x2a, int y2a, int x1b, int y1b, in
 
 bool rectsIntersect(int x1a, int y1a, int x2a, int y2a, int x1b, int y1b, int x2b, int y2b) {
     return (x2a > x1b && x2b > x1a && y2a > y1b && y2b > y1a);
+}
+
+float dotProduct(float dx1, float dy1, float dx2, float dy2) {
+    return dx1*dx2 + dy1*dy2;
 }

@@ -17,7 +17,8 @@ enum platformDisabledStatus {
 };
 
 class Platform : public IGameObject {
-    void Platform::updateUsingDisabledGraphic();
+    void updateUsingDisabledGraphic();
+    bool oneSidedCollidesWith(Platform* o);
 
 public:
     sf::RectangleShape shape;
@@ -90,6 +91,7 @@ public:
     void addLaserSource(LaserSource* laserSource);
     void addLaserTarget(LaserTarget* laserTarget);
 
+    bool collidesWith(Platform* o);
 };
 
 

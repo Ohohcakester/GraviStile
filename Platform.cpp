@@ -55,7 +55,16 @@ void Platform::updateUsingDisabledGraphic() {
 }
 
 void Platform::draw() {
+    //isUsingDisabledGraphic = !isDisabled(); // DEBUG CODE
     updateUsingDisabledGraphic();
+
+    /*std::vector<Platform*>* ot = &game.platforms;  // DEBUG CODE
+    for (size_t i = 0, n = ot->size(); i < n; ++i) {  // DEBUG CODE
+        Platform* p = (*ot)[i];
+        if (this->samePosition(p)) continue;
+        if (this->collidesWith(p)) shape.setFillColor(textures->laserColor);
+    }*/
+
 
     float _x1 = - TILE_WIDTH * (leftTiles + 0.5);
     float _x2 = TILE_WIDTH * (rightTiles + 0.5);
@@ -454,4 +463,50 @@ void Platform::addLaserSource(LaserSource* laserSource) {
 
 void Platform::addLaserTarget(LaserTarget* laserTarget) {
     this->laserTargets.push_back(laserTarget);
+}
+
+bool Platform::collidesWith(Platform* o) {
+    return this->oneSidedCollidesWith(o) && o->oneSidedCollidesWith(this);
+}
+
+bool Platform::oneSidedCollidesWith(Platform* o) {
+    float left = -TILE_WIDTH * (leftTiles); // don't add 0.5
+    float right = TILE_WIDTH * (rightTiles);
+
+    float _x1b = -TILE_WIDTH * (o->leftTiles); // don't add 0.5
+    float _x2b = TILE_WIDTH * (o->rightTiles);
+
+    float minY = -TILE_WIDTH * 0.4f;
+    float maxY = TILE_WIDTH * 0.4f;
+
+    float tlx2, tly2, blx2, bly2, brx2, bry2, trx2, try2;
+    generateRotatedCorners(_x1b, minY, _x2b, maxY, &tlx2, &tly2, &blx2, &bly2, &brx2, &bry2, &trx2, &try2, o->angle - angle);
+
+    float dx = o->x - x;
+    float dy = o->y - y;
+    rotateVector(&dx, &dy, -angle);
+
+    tlx2 += dx;
+    blx2 += dx;
+    trx2 += dx;
+    brx2 += dx;
+    tly2 += dy;
+    bly2 += dy;
+    try2 += dy;
+    bry2 += dy;
+
+    /*{ // Debugging code
+        sf::RectangleShape s;
+        s.setFillColor(textures->laserTargetColor);
+        drawRectangle(&s, left, minY, left, maxY, right, maxY);
+        sf::RectangleShape s2;
+        s2.setFillColor(textures->laserSourceColor);
+        drawRectangle(&s2, tlx2, tly2, blx2, bly2, brx2, bry2);
+    }*/
+
+    if (tlx2 > right && blx2 > right && trx2 > right && brx2 > right) return false;
+    if (tlx2 < left && blx2 < left && trx2 < left && brx2 < left) return false;
+    if (tly2 > maxY && bly2 > maxY && try2 > maxY && bry2 > maxY) return false;
+    if (tly2 < minY && bly2 < minY && try2 < minY && bry2 < minY) return false;
+    return true;
 }

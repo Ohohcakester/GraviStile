@@ -192,7 +192,7 @@ int main(int argc, TCHAR *argv[]) {
     textures = &t;
 
     sf::Clock clock;
-
+    
     float frameTime = 1/60.f;
     float dTime = 0;
 

@@ -2,7 +2,7 @@
 
 Menu::Menu() {
     cols = 5;
-    nItems = 11;
+    nItems = 12;
     selection = 0;
 }
 
