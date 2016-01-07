@@ -200,7 +200,7 @@ GameStage level12() {
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(1, 2, 1, 3, true, dir_up, 1, 2),
         PlatformTemplate(5, -1, 3, 1, true, dir_up, 1, 1),
-        PlatformTemplate(3, 2, 0, 0, true, dir_up, 1, 1),
+        PlatformTemplate(5, 2, 0, 0, true, dir_up, 1, 1),
         PlatformTemplate(-2, 4, 3, 3, true, dir_up, 1, 1),
     };
 

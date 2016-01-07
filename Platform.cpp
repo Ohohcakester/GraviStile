@@ -18,8 +18,6 @@ Platform::Platform() {
 Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable, int orientation, bool isDisabled, bool isRotationDisabled) :
     cx(cx), cy(cy), leftTiles(leftTiles), rightTiles(rightTiles), rotatable(rotatable), orientation(orientation), isRotationDisabled(isRotationDisabled)
 {
-    rotateSpeed = 0.1f;
-
     if (isDisabled) this->disabledStatus = platformStatus_disabled;
     else this->disabledStatus = platformStatus_enabled;
 
@@ -91,15 +89,25 @@ void Platform::draw() {
 
 void Platform::update(Keyboard k) {
     if (isRotating) {
+        if (!isRevertingToPreviousRotation && isObstructedWhileRotating()) {
+            if (spinConnection == NULL) {
+                revertToPreviousOrientation();
+            }
+            else {
+                spinConnection->revertToPreviousOrientation();
+            }
+            return;
+        }
+
         float diff = clampedAngularDifference(angle, targetAngle);
         if (diff < 0) {
-            angle -= rotateSpeed;
+            angle -= ROTATE_SPEED;
             diff = clampedAngularDifference(angle, targetAngle);
             if (diff >= 0) {
                 onReach();
             }
         } else {
-            angle += rotateSpeed;
+            angle += ROTATE_SPEED;
             diff = clampedAngularDifference(angle, targetAngle);
             if (diff < 0) {
                 onReach();
@@ -108,9 +116,24 @@ void Platform::update(Keyboard k) {
     }
 }
 
+bool Platform::isObstructedWhileRotating() {
+    if (this->isDisabled()) return false;
+
+    std::vector<Platform*>* platforms = &game.platforms;
+    for (size_t i = 0, n = platforms->size(); i < n; ++i) {
+        Platform* p = (*platforms)[i];
+        if (this->samePosition(p)) continue;
+        if (p->isDisabled()) continue;
+        if (this->collidesWith(p)) return true;
+    }
+    return false;
+}
+
 void Platform::onReach() {
     angle = targetAngle;
     isRotating = false;
+    isRotationSuccessful = !isRevertingToPreviousRotation;
+    isRevertingToPreviousRotation = false;
     this->repositionAttachedObjects();
 }
 
@@ -186,11 +209,22 @@ void Platform::toggleRotationDisabledStatus() {
 
 void Platform::rotateTo(int newOrientation) {
     if (spinConnection == NULL) {
+        saveCurrentOrientation();
         setOrientation(newOrientation);
     }
     else {
         spinConnection->rotateBy(orientation, newOrientation);
     }
+}
+
+
+void Platform::saveCurrentOrientation() {
+    previousOrientation = orientation;
+}
+
+void Platform::revertToPreviousOrientation() {
+    isRevertingToPreviousRotation = true;
+    setOrientation(previousOrientation);
 }
 
 void Platform::setOrientation(int orientation) {
@@ -470,11 +504,11 @@ bool Platform::collidesWith(Platform* o) {
 }
 
 bool Platform::oneSidedCollidesWith(Platform* o) {
-    float left = -TILE_WIDTH * (leftTiles); // don't add 0.5
-    float right = TILE_WIDTH * (rightTiles);
+    float left = -TILE_WIDTH * (leftTiles + 0.25); // don't add 0.5
+    float right = TILE_WIDTH * (rightTiles + 0.25);
 
-    float _x1b = -TILE_WIDTH * (o->leftTiles); // don't add 0.5
-    float _x2b = TILE_WIDTH * (o->rightTiles);
+    float _x1b = -TILE_WIDTH * (o->leftTiles + 0.25); // don't add 0.5
+    float _x2b = TILE_WIDTH * (o->rightTiles + 0.25);
 
     float minY = -TILE_WIDTH * 0.4f;
     float maxY = TILE_WIDTH * 0.4f;

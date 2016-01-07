@@ -36,8 +36,8 @@ bool Player::canRotate(bool right) {
     if (currentPlatform->isNull) return false;
     if (!currentPlatform->rotatable) return false;
     if (currentPlatform->isRotationDisabled) return false;
-    if (!currentPlatform->sweep(right)) return false;
-    if (rotatesIntoPlatform(right)) return false;
+    //if (!currentPlatform->sweep(right)) return false;
+    //if (rotatesIntoPlatform(right)) return false;
     return orientation == currentPlatform->orientation;
 }
 
@@ -83,6 +83,17 @@ bool Player::collidesWith(float _x1, float _y1, float _x2, float _y2, Platform* 
     return (_x2 > plat->x1 && _x1 < plat->x2 && _y2 > plat->y1 && _y1 < plat->y2);
 }
 
+void Player::finishRotating(bool success) {
+    isRotating = false;
+    this->angle = orientationToAngle(currentPlatform->orientation);
+
+    if (success) {
+        rotateAboutPivotActual(orientation, targetOrientation, currentPlatform->cx, currentPlatform->cy, &x, &y);
+        setOrientation(targetOrientation);
+        updateBoundaries();
+    }
+}
+
 void Player::rotateTo(int newOrientation) {
     this->isRotating = true;
     this->rotatingBaseDX = this->x - currentPlatform->x;
@@ -90,10 +101,8 @@ void Player::rotateTo(int newOrientation) {
     rotateVector(&rotatingBaseDX, &rotatingBaseDY, -orientationToAngle(orientation));
 
     vx = 0; vy = 0;
-    rotateAboutPivotActual(orientation, newOrientation, currentPlatform->cx, currentPlatform->cy, &x, &y);
-    setOrientation(newOrientation);
-    currentPlatform->rotateTo(newOrientation);
-    updateBoundaries();
+    targetOrientation = newOrientation;
+    currentPlatform->rotateTo(targetOrientation);
 }
 
 void Player::getSpriteCoordinates(float* sx, float* sy) {
@@ -159,8 +168,7 @@ void Player::update(Keyboard k) {
         if (currentPlatform->isRotating) return;
 
         // platform has stopped rotating.
-        this->angle = orientationToAngle(currentPlatform->orientation);
-        isRotating = false;
+        this->finishRotating(currentPlatform->isRotationSuccessful);
         game.finishRotatingTrigger();
     }
 

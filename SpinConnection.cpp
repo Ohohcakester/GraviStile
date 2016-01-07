@@ -14,9 +14,17 @@ bool SpinConnection::isNull() {
     return _isNull;
 }
 
+void SpinConnection::revertToPreviousOrientation() {
+    for (size_t i = 0, n = platforms.size(); i < n; ++i) {
+        platforms[i]->revertToPreviousOrientation();
+    }
+}
+
 void SpinConnection::rotateBy(int oldOrientation, int newOrientation) {
     int difference = newOrientation - oldOrientation + 4;
-    for (size_t i = 0; i < platforms.size(); ++i) {
+    for (size_t i = 0, n = platforms.size(); i < n; ++i) {
+        platforms[i]->saveCurrentOrientation();
+
         int newOrientation = (platforms[i]->orientation + difference) % 4;
         platforms[i]->setOrientation(newOrientation);
     }

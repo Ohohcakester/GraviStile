@@ -19,6 +19,7 @@ public:
     float gravityX;
     float gravityY;
     int orientation;
+    int targetOrientation;
     int pwidth;
     int pheight;
     Platform* currentPlatform;
@@ -50,6 +51,8 @@ public:
     virtual void jump();
 
     bool canRotate(bool right);
+
+    void finishRotating(bool success);
 
     void rotateTo(int orientation);
 

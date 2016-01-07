@@ -50,4 +50,6 @@ int RES_Y = 600;
 int TILE_WIDTH = 50;
 const int OUT_OF_BOUNDS_TILES = 10;
 
+const float ROTATE_SPEED = 0.1f;
+
 sf::RenderWindow* window;

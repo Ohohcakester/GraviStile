@@ -19,6 +19,8 @@ extern int RES_Y;
 extern int TILE_WIDTH;
 extern const int OUT_OF_BOUNDS_TILES;
 
+extern const float ROTATE_SPEED;
+
 extern sf::RenderWindow* window;
 
 void gridToActual(int gridX, int gridY, int* actualX, int* actualY);

@@ -40,12 +40,14 @@ public:
     int leftTiles;
     int rightTiles;
     bool rotatable;
+    int previousOrientation;
     int orientation;
 
-    float rotateSpeed;
     float angle;
     float targetAngle;
     bool isRotating;
+    bool isRevertingToPreviousRotation;
+    bool isRotationSuccessful;
 
     // rect
     int x1;
@@ -61,9 +63,14 @@ public:
 
     virtual void update(Keyboard k);
 
+    bool isObstructedWhileRotating();
+
     void onReach();
 
     void rotateTo(int newOrientation);
+
+    void saveCurrentOrientation();
+    void revertToPreviousOrientation();
 
     virtual void setOrientation(int orientation);
 

@@ -14,7 +14,8 @@ public:
     SpinConnection(std::vector<Platform*> platforms);
 
     bool isNull();
-    void SpinConnection::rotateBy(int oldOrientation, int newOrientation);
+    void rotateBy(int oldOrientation, int newOrientation);
+    void revertToPreviousOrientation();
 };
 
 SpinConnection* createSpinConnection(std::vector<Platform*> platforms);
