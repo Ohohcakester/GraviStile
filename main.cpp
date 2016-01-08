@@ -133,6 +133,11 @@ void drawGameFrame() {
         game.laserTargets[i]->draw();
     }
     game.player.draw();
+
+
+    for (size_t i = 0, n = game.spinConnections.size(); i < n; ++i) {
+        game.spinConnections[i]->draw();
+    }
 }
 
 void drawMenuFrame() {

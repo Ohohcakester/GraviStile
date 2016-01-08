@@ -7,16 +7,14 @@
 #include <math.h>
 
 void IGameObject::drawCircle(sf::CircleShape* shape, float px, float py) {
-    //if (!freeze) {
     game.camera.toRel(&px, &py);
 
     shape->setOrigin(-px + shape->getRadius(), -py + shape->getRadius());
-    //}
+
     window->draw(*shape);
 }
 
 void IGameObject::drawRectangle(sf::RectangleShape* shape, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y) {
-    //if (!freeze) {
     game.camera.toRel(&tl_x, &tl_y);
     game.camera.toRel(&bl_x, &bl_y);
     game.camera.toRel(&br_x, &br_y);
@@ -32,12 +30,10 @@ void IGameObject::drawRectangle(sf::RectangleShape* shape, float tl_x, float tl_
     shape->setSize(sf::Vector2f(width, height));
     shape->setPosition(tl_x, tl_y);
     shape->setRotation(angle);
-    //}
     window->draw(*shape);
 }
 
 void IGameObject::drawSprite(sf::Sprite* sprite, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y, bool xFlipped) {
-    //if (!freeze) {
     game.camera.toRel(&tl_x, &tl_y);
     game.camera.toRel(&bl_x, &bl_y);
     game.camera.toRel(&br_x, &br_y);
@@ -64,6 +60,24 @@ void IGameObject::drawSprite(sf::Sprite* sprite, float tl_x, float tl_y, float b
         sprite->setPosition(tl_x + dx2*0.5f*(1 - newWidthRatio), tl_y + dy2*0.5f*(1 - newWidthRatio));
     }
     sprite->setRotation(angle);
-    //}
+
     window->draw(*sprite);
+}
+
+
+void IGameObject::drawLine(sf::RectangleShape* shape, float sx, float sy, float ex, float ey, float thickness) {
+    float dx = ex - sx;
+    float dy = ey - sy;
+    float len = sqrt(dx*dx + dy*dy);
+    float vdx = dy * thickness / len;
+    float vdy = -dx * thickness / len;
+
+    float tlx = sx + vdx;
+    float tly = sy + vdy;
+    float blx = sx - vdx;
+    float bly = sy - vdy;
+    float brx = ex - vdx;
+    float bry = ey - vdy;
+
+    drawRectangle(shape, tlx, tly, blx, bly, brx, bry);
 }

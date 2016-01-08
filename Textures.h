@@ -17,6 +17,9 @@ public:
     sf::Color laserTargetColor;
     sf::Color laserColor;
 
+    sf::Color spinConnectionWireColor;
+    sf::Color switchConnectionWireColor;
+
     Textures();
 };
 
