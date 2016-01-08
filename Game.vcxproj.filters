@@ -67,6 +67,9 @@
     <ClCompile Include="GameGlobals.cpp">
       <Filter>globals</Filter>
     </ClCompile>
+    <ClCompile Include="Levels.cpp">
+      <Filter>stages</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="keyboard.h" />

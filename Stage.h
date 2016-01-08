@@ -1,6 +1,7 @@
 #ifndef STAGE_H_
 #define STAGE_H_
 
+#include <vector>
 #include "Orientations.h"
 
 struct PlatformTemplate {
