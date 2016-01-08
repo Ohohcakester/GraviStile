@@ -165,16 +165,16 @@ void initialiseFromStageObject(GameStage gameStage) {
 
 GameStage level11() {
     std::vector<PlatformTemplate> platforms {
-        PlatformTemplate(1, 2, 1, 2, true, dir_up, -1, 1),
-        PlatformTemplate(4, 2, 1, 2, true, dir_left, 1),
-        PlatformTemplate(5, 0, 0, 0, true, dir_up, 1),
-        PlatformTemplate(7, 2, 1, 0, true, dir_down, 2),
-        PlatformTemplate(0, 6, 2, 1, true, dir_right, 2, 2),
-        PlatformTemplate(1, -2, 1, 1, true, dir_left, -1, -1, 1),
-        PlatformTemplate(1, -6, 1, 1, true, dir_left, -1, -1, -1, 1),
-        PlatformTemplate(-2, 0, 1, 1, true, dir_right, -1, -1, -1, 1, true),
-        PlatformTemplate(-4, 2, 1, 1, true, dir_left, -1, 3, -1, -1),
-        PlatformTemplate(-2, 4, 1, 3, false, dir_right, -1, -1, -1, 2),
+        PlatformTemplate::create(1, 2, 1, 2, true, dir_up)._id(1),
+        PlatformTemplate::create(4, 2, 1, 2, true, dir_left)._spinConnectionIndex(1),
+        PlatformTemplate::create(5, 0, 0, 0, true, dir_up)._spinConnectionIndex(1),
+        PlatformTemplate::create(7, 2, 1, 0, true, dir_down)._spinConnectionIndex(2),
+        PlatformTemplate::create(0, 6, 2, 1, true, dir_right)._spinConnectionIndex(2)._id(2),
+        PlatformTemplate::create(1, -2, 1, 1, true, dir_left)._pivotSwitchConnectionIndex(1),
+        PlatformTemplate::create(1, -6, 1, 1, true, dir_left)._platformSwitchConnectionIndex(1),
+        PlatformTemplate::create(-2, 0, 1, 1, true, dir_right)._platformSwitchConnectionIndex(1)._isDisabled(true),
+        PlatformTemplate::create(-4, 2, 1, 1, true, dir_left)._id(3),
+        PlatformTemplate::create(-2, 4, 1, 3, false, dir_right)._platformSwitchConnectionIndex(2),
     };
 
     std::vector<LaserSourceTemplate> laserSources {

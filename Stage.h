@@ -24,6 +24,17 @@ struct PlatformTemplate {
         spinConnectionIndex(spinConnectionIndex), id(id), pivotSwitchConnectionIndex(pivotSwitchConnectionIndex), 
         platformSwitchConnectionIndex(platformSwitchConnectionIndex), isDisabled(isDisabled), isRotationDisabled(isRotationDisabled) {
     }
+
+    PlatformTemplate &_spinConnectionIndex(int v) { spinConnectionIndex = v; return *this; }
+    PlatformTemplate &_id(int v) { id = v; return *this; }
+    PlatformTemplate &_pivotSwitchConnectionIndex(int v) { pivotSwitchConnectionIndex = v; return *this; }
+    PlatformTemplate &_platformSwitchConnectionIndex(int v) { platformSwitchConnectionIndex = v; return *this; }
+    PlatformTemplate &_isDisabled(bool v) { isDisabled = v; return *this; }
+    PlatformTemplate &_isRotationDisabled(bool v) { isRotationDisabled = v; return *this; }
+
+    static PlatformTemplate create(int pivotX, int pivotY, int leftTiles, int rightTiles, bool rotatable, int orientation) {
+        return PlatformTemplate(pivotX, pivotY, leftTiles, rightTiles, rotatable, orientation);
+    }
 };
 
 struct DoorTemplate {
