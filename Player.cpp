@@ -36,8 +36,6 @@ bool Player::canRotate(bool right) {
     if (currentPlatform->isNull) return false;
     if (!currentPlatform->rotatable) return false;
     if (currentPlatform->isRotationDisabled) return false;
-    //if (!currentPlatform->sweep(right)) return false;
-    //if (rotatesIntoPlatform(right)) return false;
     return orientation == currentPlatform->orientation;
 }
 

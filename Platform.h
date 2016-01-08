@@ -79,12 +79,6 @@ public:
 
     bool isUnderDoor(int cx, int cy);
 
-    virtual bool sweep(bool right);
-
-    virtual bool platCheck(int leftQuad, int rightQuad, bool vertFlip, Platform* other);
-
-    virtual bool twoPointsTwoDistances(Point center, int p1x, int p1y, int p2x, int p2y, int lQuad, int rQuad, bool quads24);
-
     bool isDisabled();
 
     bool isBlockedFromUndisabling(Grid* grid, Player* player);
