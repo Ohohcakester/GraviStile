@@ -65,8 +65,10 @@ public:
 
     bool isObstructedWhileRotating();
 
-    void onReach();
     void finishRotation();
+    void onReach();
+
+    void cancelRotation();
 
     void rotateTo(int newOrientation);
 

@@ -67,8 +67,8 @@ public:
     void setOrientation(int orientation);
 
 
-    bool rotatesIntoPlatform(bool rotateRight);
-    bool collidesWith(float _x1, float _y1, float _x2, float _y2, Platform* plat);
+    bool rotatesIntoPlatform();
+    bool collidesWithTargetOrientation(float _x1, float _y1, float _x2, float _y2, Platform* plat);
 
     bool isControlsDisabled();
     void die();

@@ -23,10 +23,11 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
 
     spinConnection = NULL;
     this->isNull = false;
+    this->isRevertingToPreviousRotation = true;
     gridToActual(cx, cy, &this->x, &this->y);
 
     setOrientation(orientation);
-    onReach();
+    finishRotation();
 
     sprite.setTexture(textures->pivot);
     shape = sf::RectangleShape();
@@ -90,12 +91,7 @@ void Platform::draw() {
 void Platform::update(Keyboard k) {
     if (isRotating) {
         if (!isRevertingToPreviousRotation && isObstructedWhileRotating()) {
-            if (spinConnection == NULL) {
-                revertToPreviousOrientation();
-            }
-            else {
-                spinConnection->revertToPreviousOrientation();
-            }
+            cancelRotation();
             return;
         }
 
@@ -138,10 +134,24 @@ void Platform::finishRotation() {
 }
 
 void Platform::onReach() {
+    if (!isRevertingToPreviousRotation && game.player.rotatesIntoPlatform()) {
+        cancelRotation();
+        return;
+    }
+
     if (spinConnection != NULL) {
         spinConnection->finishRotation();
     } else {
         this->finishRotation();
+    }
+}
+
+void Platform::cancelRotation() {
+    if (spinConnection == NULL) {
+        revertToPreviousOrientation();
+    }
+    else {
+        spinConnection->revertToPreviousOrientation();
     }
 }
 

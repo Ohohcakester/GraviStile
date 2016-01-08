@@ -41,12 +41,10 @@ bool Player::canRotate(bool right) {
     return orientation == currentPlatform->orientation;
 }
 
-bool Player::rotatesIntoPlatform(bool rotateRight) {
-    int newOrientation = orientationRotate(orientation, rotateRight);
-
+bool Player::rotatesIntoPlatform() {
     int _x = x;
     int _y = y;
-    rotateAboutPivotActual(orientation, newOrientation, currentPlatform->cx, currentPlatform->cy, &_x, &_y);
+    rotateAboutPivotActual(orientation, targetOrientation, currentPlatform->cx, currentPlatform->cy, &_x, &_y);
     
     int halfWidth = pwidth / 2;
     int halfHeight = pheight / 2;
@@ -55,7 +53,7 @@ bool Player::rotatesIntoPlatform(bool rotateRight) {
     int _x2 = _x;
     int _y1 = _y;
     int _y2 = _y;
-    switch (newOrientation) {
+    switch (targetOrientation) {
     case dir_up:
     case dir_down:
         _x1 -= halfWidth;
@@ -71,15 +69,16 @@ bool Player::rotatesIntoPlatform(bool rotateRight) {
         _y2 += halfWidth;
     }
 
-    for (size_t i = 0; i<game.platforms.size(); ++i) {
-        if (currentPlatform->samePosition(game.platforms[i])) continue; // Exception: can collide with the current platform.
-        if (game.platforms[i]->isDisabled()) continue;
-        if (collidesWith(_x1, _y1, _x2, _y2, game.platforms[i])) return true;
+    for (size_t i = 0, n = game.platforms.size(); i < n; ++i) {
+        Platform* platform = game.platforms[i];
+        if (currentPlatform->samePosition(platform)) continue; // Exception: can collide with the current platform.
+        if (platform->isDisabled()) continue;
+        if (collidesWithTargetOrientation(_x1, _y1, _x2, _y2, platform)) return true;
     }
     return false;
 }
 
-bool Player::collidesWith(float _x1, float _y1, float _x2, float _y2, Platform* plat) {
+bool Player::collidesWithTargetOrientation(float _x1, float _y1, float _x2, float _y2, Platform* plat) {
     return (_x2 > plat->x1 && _x1 < plat->x2 && _y2 > plat->y1 && _y1 < plat->y2);
 }
 
