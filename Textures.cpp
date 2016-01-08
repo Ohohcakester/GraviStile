@@ -25,7 +25,7 @@ Textures::Textures() {
     laserColor = sf::Color(255, 0, 0, 255);
 
     spinConnectionWireColor = sf::Color(255, 255, 0, 255);
-    switchConnectionWireColor = sf::Color(127, 255, 0, 255);
+    switchConnectionWireColor = sf::Color(96, 127, 0, 160);
 
     //std::cout << platformColor.r << " " << platformColor.g << " " << platformColor.b << std::endl;
 }

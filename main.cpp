@@ -119,6 +119,7 @@ void updateMenu() {
 void drawGameFrame() {
     game.background.draw();
     game.camera.draw();
+
     for (size_t i = 0, n = game.platforms.size(); i < n; ++i) {
         game.platforms[i]->draw();
     }
@@ -138,6 +139,12 @@ void drawGameFrame() {
     for (size_t i = 0, n = game.spinConnections.size(); i < n; ++i) {
         game.spinConnections[i]->draw();
     }
+
+
+    for (size_t i = 0, n = game.switchConnections.size(); i < n; ++i) {
+        game.switchConnections[i]->draw();
+    }
+
 }
 
 void drawMenuFrame() {
