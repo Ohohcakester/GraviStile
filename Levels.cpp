@@ -133,6 +133,30 @@ GameStage level8() {
     return GameStage(platforms, player, door, zoom);
 }
 
+GameStage level9() {
+    std::vector<PlatformTemplate> platforms{
+        PlatformTemplate::create(-1, -1, 0, 0, false, dir_up)._id(1),
+        PlatformTemplate::create(10, 0, 0, 0, false, dir_up),
+        PlatformTemplate::create(0, 2, 1, 3, true, dir_up),
+        PlatformTemplate::create(6, 1, 1, 3, true, dir_down),
+        PlatformTemplate::create(6, 3, 1, 0, true, dir_up),
+        PlatformTemplate::create(9, 2, 0, 1, true, dir_up),
+        PlatformTemplate::create(9, 4, 1, 1, true, dir_down),
+        PlatformTemplate::create(7, 5, 1, 0, true, dir_left),
+    };
+
+
+    std::vector<LaserSourceTemplate> laserSources{
+        LaserSourceTemplate(0, dir_right, 1),
+    };
+
+    PlayerTemplate player(0, 1, dir_up);
+    DoorTemplate door(10, -1, dir_up);
+    double zoom = 1;
+
+    return GameStage(platforms, player, door, zoom, laserSources);
+}
+
 GameStage level_t0() {
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(3, 2, 1, 1, true, dir_up),
@@ -304,7 +328,7 @@ GameStage getStage(int stage) {
     case 6: return level6();
     case 7: return level7();
     case 8: return level8();
-    //case 9: return level9();
+    case 9: return level9();
     //case 10: return level10();
     case 11: return testStage1();
     case 12: return testStage2();

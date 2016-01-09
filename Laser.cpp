@@ -5,7 +5,7 @@
 #include "Textures.h"
 #include "globals.h"
 
-int halfWidth = 30/2;
+int halfWidth = 20 / 2;
 
 Laser::Laser() {
 }

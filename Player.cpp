@@ -17,8 +17,8 @@ Player::Player(int cx, int cy) {
     gravity = 0.7f;
     gravityX = 0;
     gravityY = 0;
-    pwidth = 30;
-    pheight = 50;
+    pwidth = 20;
+    pheight = 40;
     facingRight = true;
     isRotating = false;
     setOrientation(dir_up);
@@ -366,7 +366,7 @@ void Player::die() {
 bool Player::isTouchingLaser() {
     for (size_t i = 0, n = game.lasers.size(); i < n; ++i){
         Laser* l = game.lasers[i];
-        if (rectsIntersect(x1, y1, x2, y2, l->x1, l->y1, l->x2, l->y2)) return true;
+        if (rectsIntersect(x-5, y-5, x+5, y+5, l->x1, l->y1, l->x2, l->y2)) return true;
     }
     return false;
 }
