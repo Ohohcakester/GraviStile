@@ -76,3 +76,10 @@ bool rectsIntersect(int x1a, int y1a, int x2a, int y2a, int x1b, int y1b, int x2
 float dotProduct(float dx1, float dy1, float dx2, float dy2) {
     return dx1*dx2 + dy1*dy2;
 }
+
+int div_floor(int n, int d) {
+    int q = n / d;
+    int r = n%d;
+    if ((r != 0) && ((r < 0) != (d < 0)))--q;
+    return q;
+}

@@ -77,7 +77,7 @@ public:
 
     virtual void setOrientation(int orientation);
 
-    bool isUnderDoor(int cx, int cy);
+    bool isUnderDoor(int cx, int cy, int doorOrientation);
 
     bool isDisabled();
 

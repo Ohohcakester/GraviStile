@@ -4,6 +4,7 @@
 #include "GameGlobals.h"
 #include "Textures.h"
 #include "Menu.h"
+#include "gamemath.h"
 
 void gridToActual(int gridX, int gridY, int* actualX, int* actualY) {
     *actualX = gridX*TILE_WIDTH + TILE_WIDTH/2;
@@ -11,8 +12,8 @@ void gridToActual(int gridX, int gridY, int* actualX, int* actualY) {
 }
 
 void actualToGrid(int actualX, int actualY, int* gridX, int* gridY) {
-    *gridX = (actualX-TILE_WIDTH/2)/TILE_WIDTH;
-    *gridY = (actualY-TILE_WIDTH/2)/TILE_WIDTH;
+    *gridX = div_floor(actualX,TILE_WIDTH);
+    *gridY = div_floor(actualY,TILE_WIDTH);
 }
 
 void rotateClockwise(int cx, int cy, int* x, int* y) {

@@ -278,16 +278,27 @@ void Platform::setOrientation(int orientation) {
     this->temporarilyDisableLaserSources();
 }
 
-bool Platform::isUnderDoor(int doorX, int doorY) {
+bool Platform::isUnderDoor(int doorX, int doorY, int doorOrientation) {
+    switch (doorOrientation) {
+    case dir_up:
+        doorY++; break;
+    case dir_right:
+        doorX--; break;
+    case dir_down:
+        doorY--; break;
+    case dir_left:
+        doorX++; break;
+    }
+
     switch (orientation) {
     case dir_up:
-        return (cx - leftTiles <= doorX && doorX <= cx + rightTiles);
+        return (cy == doorY) && (cx - leftTiles <= doorX && doorX <= cx + rightTiles);
     case dir_down:
-        return (cx - rightTiles <= doorX && doorX <= cx + leftTiles);
+        return (cy == doorY) && (cx - rightTiles <= doorX && doorX <= cx + leftTiles);
     case dir_left:
-        return (cy - rightTiles <= doorY && doorY <= cy + leftTiles);
+        return (cx == doorX) && (cy - rightTiles <= doorY && doorY <= cy + leftTiles);
     case dir_right:
-        return (cy - leftTiles <= doorY && doorY <= cy + rightTiles);
+        return (cx == doorX) && (cy - leftTiles <= doorY && doorY <= cy + rightTiles);
     }
     return false;
 }

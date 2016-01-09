@@ -256,7 +256,7 @@ void Player::update(Keyboard k) {
 }
 
 void Player::getGridCoordinates(int* gridX, int* gridY) {
-    actualToGrid(x + TILE_WIDTH / 2, y + TILE_WIDTH / 2, gridX, gridY);
+    actualToGrid(x, y, gridX, gridY);
 }
 
 void Player::jump() {
