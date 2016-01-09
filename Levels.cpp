@@ -128,7 +128,7 @@ GameStage level8() {
 
     PlayerTemplate player(4, 1, dir_up);
     DoorTemplate door(11, -3, dir_right);
-    double zoom = 0.7;
+    double zoom = 1;
 
     return GameStage(platforms, player, door, zoom);
 }
