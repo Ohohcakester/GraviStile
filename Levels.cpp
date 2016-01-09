@@ -67,13 +67,27 @@ GameStage level4() {
 }
 
 
-
 GameStage level5() {
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate(1, 3, 0, 2, true, dir_up),
+        PlatformTemplate(2, 2, 1, 1, true, dir_up)._spinConnectionIndex(1),
+        PlatformTemplate(4, 1, 1, 1, true, dir_left),
+        PlatformTemplate(6, 2, 1, 1, true, dir_up)._spinConnectionIndex(1),
+    };
+
+    PlayerTemplate player(5, 1, dir_up);
+    DoorTemplate door(2, 0, dir_up);
+    double zoom = 1.0;
+
+    return GameStage(platforms, player, door, zoom);
+}
+
+
+GameStage level6() {
+    std::vector<PlatformTemplate> platforms{
+        PlatformTemplate::create(1, 3, 0, 2, true, dir_up)._spinConnectionIndex(1),
         PlatformTemplate(2, 6, 1, 0, true, dir_up),
         PlatformTemplate(2, 8, 0, 0, true, dir_right),
-        PlatformTemplate(4, 1, 1, 0, true, dir_left),
+        PlatformTemplate::create(4, 1, 1, 0, true, dir_left)._spinConnectionIndex(1),
     };
 
     PlayerTemplate player(2, 2, dir_up);
@@ -84,7 +98,7 @@ GameStage level5() {
 }
 
 
-GameStage level6() {
+GameStage level7() {
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(3, 1, 0, 0, true, dir_right),
         PlatformTemplate(3, 4, 0, 0, true, dir_up),
@@ -102,7 +116,24 @@ GameStage level6() {
     return GameStage(platforms, player, door, zoom);
 }
 
-GameStage level7() {
+GameStage level8() {
+    std::vector<PlatformTemplate> platforms{
+        PlatformTemplate::create(3, 2, 2, 1, true, dir_down)._spinConnectionIndex(2),
+        PlatformTemplate::create(7, 1, 1, 2, true, dir_up)._spinConnectionIndex(1),
+        PlatformTemplate::create(8, 4, 1, 2, true, dir_down)._spinConnectionIndex(1),
+        PlatformTemplate::create(10, -1, 1, 1, true, dir_right)._spinConnectionIndex(2),
+        PlatformTemplate::create(7, -2, 0, 1, false, dir_left),
+        PlatformTemplate::create(10, -3, 0, 0, false, dir_right),
+    };
+
+    PlayerTemplate player(4, 1, dir_up);
+    DoorTemplate door(11, -3, dir_right);
+    double zoom = 0.7;
+
+    return GameStage(platforms, player, door, zoom);
+}
+
+GameStage level_t0() {
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(3, 2, 1, 1, true, dir_up),
         PlatformTemplate(0, 4, 1, 1, true, dir_right),
@@ -118,8 +149,7 @@ GameStage level7() {
     return GameStage(platforms, player, door, zoom);
 }
 
-
-GameStage level8() {
+GameStage level_t1() {
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(2, 2, 1, 1, true, dir_up),
         PlatformTemplate(4, 1, 0, 0, true, dir_right),
@@ -141,7 +171,7 @@ GameStage level8() {
 }
 
 
-GameStage level9() {
+GameStage level_t2() {
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(2, 3, 1, 1, true, dir_right),
         PlatformTemplate(5, 2, 1, 1, true, dir_right),
@@ -169,7 +199,7 @@ GameStage level9() {
 }
 
 
-GameStage level10() {
+GameStage level_t3() {
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(2, 1, 0, 0, true, dir_down),
         PlatformTemplate(3, 2, 1, 1, true, dir_right),
@@ -274,8 +304,8 @@ GameStage getStage(int stage) {
     case 6: return level6();
     case 7: return level7();
     case 8: return level8();
-    case 9: return level9();
-    case 10: return level10();
+    //case 9: return level9();
+    //case 10: return level10();
     case 11: return testStage1();
     case 12: return testStage2();
     }
