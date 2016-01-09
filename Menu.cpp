@@ -1,8 +1,9 @@
 #include "Menu.h"
+#include "globals.h"
 
 Menu::Menu() {
     cols = 5;
-    nItems = 12;
+    nItems = NUMBER_OF_STAGES;
     selection = 0;
 }
 

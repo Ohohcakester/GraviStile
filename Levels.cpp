@@ -157,7 +157,7 @@ GameStage level9() {
     return GameStage(platforms, player, door, zoom, laserSources);
 }
 
-GameStage level_t0() {
+GameStage level10() {
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(3, 2, 1, 1, true, dir_up),
         PlatformTemplate(0, 4, 1, 1, true, dir_right),
@@ -171,6 +171,38 @@ GameStage level_t0() {
     double zoom = 0.9;
 
     return GameStage(platforms, player, door, zoom);
+}
+
+GameStage level11() {
+    std::vector<PlatformTemplate> platforms{
+        PlatformTemplate::create(4, 0, 1, 1, true, dir_up)._id(5),
+        PlatformTemplate::create(6, 0, 0, 1, true, dir_right),
+        PlatformTemplate::create(9, 0, 1, 1, true, dir_up),
+        PlatformTemplate::create(5, 4, 1, 1, true, dir_up)._id(1),
+        PlatformTemplate::create(1, 4, 1, 1, true, dir_down)._id(2),
+        PlatformTemplate::create(9, 4, 1, 1, true, dir_up)._id(6),
+        PlatformTemplate::create(0, 1, 1, 1, true, dir_right)._id(3),
+        PlatformTemplate::create(0, -3, 1, 0, true, dir_left)._id(4),
+    };
+
+
+    std::vector<LaserSourceTemplate> laserSources{
+        LaserSourceTemplate(0, dir_up, 1),
+        LaserSourceTemplate(0, dir_left, 2),
+        LaserSourceTemplate(0, dir_right, 2),
+        LaserSourceTemplate(0, dir_up, 3),
+        LaserSourceTemplate(0, dir_down, 3),
+        LaserSourceTemplate(0, dir_down, 4),
+        LaserSourceTemplate(1, dir_down, 5),
+        LaserSourceTemplate(0, dir_left, 6),
+        LaserSourceTemplate(0, dir_right, 6),
+    };
+
+    PlayerTemplate player(4, -1, dir_up);
+    DoorTemplate door(-1, -3, dir_left);
+    double zoom = 0.9;
+
+    return GameStage(platforms, player, door, zoom, laserSources);
 }
 
 GameStage level_t1() {
@@ -314,10 +346,6 @@ GameStage testStage2() {
  *  REGION - TEST STAGES - END  *
  * ============================ */
 
-
-
-
-
 GameStage getStage(int stage) {
     switch (stage) {
     case 1: return level1();
@@ -329,9 +357,10 @@ GameStage getStage(int stage) {
     case 7: return level7();
     case 8: return level8();
     case 9: return level9();
-    //case 10: return level10();
-    case 11: return testStage1();
-    case 12: return testStage2();
+    case 10: return level10();
+    case 11: return level11();
+    case 12: return testStage1();
+    case 13: return testStage2();
     }
 
     return level1();

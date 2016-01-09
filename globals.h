@@ -20,6 +20,7 @@ extern int TILE_WIDTH;
 extern const int OUT_OF_BOUNDS_TILES;
 
 extern const float ROTATE_SPEED;
+extern const int NUMBER_OF_STAGES;
 
 extern sf::RenderWindow* window;
 
