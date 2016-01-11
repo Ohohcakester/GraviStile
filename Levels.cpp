@@ -441,35 +441,48 @@ GameStage level18() {
 }
 
 
-GameStage level_t2() {
+GameStage level19() {
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate(2, 3, 1, 1, true, dir_right),
+        PlatformTemplate(3, 0, 0, 4, false, dir_up),
+        PlatformTemplate(3, 3, 2, 0, true, dir_right),
         PlatformTemplate(5, 2, 1, 1, true, dir_right),
-        PlatformTemplate(5, 4, 1, 1, false, dir_up),
-        PlatformTemplate(7, 4, 0, 3, true, dir_up),
-        PlatformTemplate(13, 2, 1, 1, true, dir_down),
-        PlatformTemplate(15, 4, 1, 1, true, dir_right),
-        PlatformTemplate(18, 8, 1, 1, true, dir_right),
+        PlatformTemplate(5, 4, 2, 1, false, dir_up)._id(1),
+        PlatformTemplate(7, 4, 0, 3, true, dir_up)._id(2),
+        //PlatformTemplate(13, 2, 1, 1, true, dir_down),
+        PlatformTemplate(15, 5, 1, 1, true, dir_right),
+        PlatformTemplate(18, 8, 1, 1, true, dir_left),
         PlatformTemplate(13, 9, 1, 1, true, dir_up),
         PlatformTemplate(11, 12, 1, 1, true, dir_up),
-        PlatformTemplate(7, 13, 1, 1, true, dir_left),
-        PlatformTemplate(6, 6, 2, 2, false, dir_right),
+        //PlatformTemplate(7, 13, 1, 1, true, dir_right),
+        PlatformTemplate(6, 6, 1, 2, false, dir_right)._id(3),
         PlatformTemplate(2, 14, 1, 1, true, dir_up),
         PlatformTemplate(3, 12, 1, 1, true, dir_down),
         PlatformTemplate(5, 10, 1, 1, true, dir_down),
         PlatformTemplate(4, 6, 1, 1, false, dir_right),
-        PlatformTemplate(4, 8, 0, 1, true, dir_down)
+        PlatformTemplate(4, 8, 0, 1, true, dir_down),
+
+        PlatformTemplate(5, 5, 0, 0, false, dir_down)._platformSwitchConnectionIndex(1),
     };
+
+    std::vector<LaserSourceTemplate> laserSources{
+        LaserSourceTemplate(0, dir_down, 1),
+        LaserSourceTemplate(2, dir_down, 2),
+    };
+
+    std::vector<LaserTargetTemplate> laserTargets{
+        LaserTargetTemplate(0, dir_up, 3, 1),
+    };
+
 
     PlayerTemplate player(8, 2, dir_up);
     DoorTemplate door(5, 6, dir_right);
     double zoom = 0.7;
 
-    return GameStage(platforms, player, door, zoom);
+    return GameStage(platforms, player, door, zoom, laserSources, laserTargets);
 }
 
 
-GameStage level_t3() {
+GameStage level20() {
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(2, 1, 0, 0, true, dir_down),
         PlatformTemplate(3, 2, 1, 1, true, dir_right),
@@ -580,8 +593,10 @@ GameStage getStage(int stage) {
     case 16: return level16();
     case 17: return level17();
     case 18: return level18();
-    case 20: return testStage1();
-    case 21: return testStage2();
+    case 19: return level19();
+    case 20: return level20();
+    case 21: return testStage1();
+    case 22: return testStage2();
     }
 
     return level1();
