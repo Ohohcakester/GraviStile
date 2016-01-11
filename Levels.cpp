@@ -343,6 +343,68 @@ GameStage level16() {
 
 GameStage level17() {
     std::vector<PlatformTemplate> platforms{
+        // Starting Platform
+        PlatformTemplate::create(7, 5, 1, 1, true, dir_up)._id(1),
+
+        // Edge lasers
+        PlatformTemplate::create(7, -4, 2, 2, false, dir_up)._id(2),
+        PlatformTemplate::create(7, 14, 2, 2, false, dir_up)._id(3),
+        PlatformTemplate::create(5, 12, 0, 0, false, dir_up)._platformSwitchConnectionIndex(11),
+        PlatformTemplate::create(9, -2, 0, 0, false, dir_up)._platformSwitchConnectionIndex(12),
+        
+        // Targets
+        PlatformTemplate::create(3, 6, 1, 1, true, dir_up)._id(4),
+        PlatformTemplate::create(11, 4, 1, 1, true, dir_up)._id(5),
+
+        // Switch Platforms
+        PlatformTemplate::create(7, 0, 1, 1, true, dir_left)._id(6),
+        PlatformTemplate::create(7, 10, 1, 1, true, dir_right)._id(7),
+
+        // Other Platforms
+        PlatformTemplate::create(3, 3, 1, 1, true, dir_down),
+        PlatformTemplate::create(11, 0, 1, 1, true, dir_left),
+        PlatformTemplate::create(11, 8, 1, 1, true, dir_right),
+
+        // Goal Gate
+        PlatformTemplate::create(15, 4, 1, 1, true, dir_up),
+
+        PlatformTemplate::create(16, 1, 2, 1, false, dir_up),
+        PlatformTemplate::create(16, 7, 2, 1, false, dir_up),
+        PlatformTemplate::create(17, 4, 2, 2, false, dir_right),
+
+        PlatformTemplate::create(14, 2, 0, 1, false, dir_right)._platformSwitchConnectionIndex(20),
+        PlatformTemplate::create(14, 5, 0, 1, false, dir_right)._platformSwitchConnectionIndex(20),
+        PlatformTemplate::create(15, 3, 1, 0, false, dir_right)._platformSwitchConnectionIndex(21),
+        PlatformTemplate::create(15, 6, 1, 0, false, dir_right)._platformSwitchConnectionIndex(21),
+    };
+
+    std::vector<LaserSourceTemplate> laserSources{
+        LaserSourceTemplate(-1, dir_up, 1),
+        LaserSourceTemplate(1, dir_down, 1),
+        LaserSourceTemplate(2, dir_down, 2),
+        LaserSourceTemplate(-2, dir_up, 3),
+        LaserSourceTemplate(0, dir_up, 6),
+        LaserSourceTemplate(0, dir_up, 7),
+    };
+
+    std::vector<LaserTargetTemplate> laserTargets{
+        LaserTargetTemplate(0, dir_right, 4, 11),
+        LaserTargetTemplate(0, dir_left, 5, 12),
+
+        LaserTargetTemplate(0, dir_down, 2, 20),
+        LaserTargetTemplate(0, dir_up, 3, 21),
+    };
+
+    PlayerTemplate player(7, 4, dir_up);
+    DoorTemplate door(16, 5, dir_down);
+    double zoom = 0.7;
+
+    return GameStage(platforms, player, door, zoom, laserSources, laserTargets);
+}
+
+
+GameStage level18() {
+    std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(4, -4, 3, 2, false, dir_up)._id(1),
         PlatformTemplate::create(4, 8, 1, 2, false, dir_up)._id(2),
         PlatformTemplate::create(6, 6, 0, 0, false, dir_up)._platformSwitchConnectionIndex(1)._isDisabled(true),
@@ -517,8 +579,9 @@ GameStage getStage(int stage) {
     case 15: return level15();
     case 16: return level16();
     case 17: return level17();
-    case 18: return testStage1();
-    case 19: return testStage2();
+    case 18: return level18();
+    case 20: return testStage1();
+    case 21: return testStage2();
     }
 
     return level1();
