@@ -560,11 +560,17 @@ GameStage testStage2() {
         PlatformTemplate(5, -1, 3, 1, true, dir_up, 1, 1),
         PlatformTemplate(5, 2, 0, 0, true, dir_up, 1, 1),
         PlatformTemplate(-3, 5, 3, 3, true, dir_up, 1, 1),
+
+
+        PlatformTemplate::create(3, 12, 1, 1, true, dir_up),
+        PlatformTemplate::create(1, 10, 1, 1, true, dir_left),
+        PlatformTemplate::create(1, 7, 1, 1, true, dir_left),
+        PlatformTemplate::create(1, 4, 1, 1, true, dir_left),
     };
 
     PlayerTemplate player(0, 1, dir_up);
     DoorTemplate door(7, 1, dir_up);
-    double zoom = 0.9;
+    double zoom = 0.7;
 
     return GameStage(platforms, player, door, zoom);
 }
