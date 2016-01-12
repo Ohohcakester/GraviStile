@@ -510,7 +510,7 @@ GameStage level21() {
         PlatformTemplate(7, 3, 1, 1, true, dir_up),
         PlatformTemplate(9, 2, 0, 2, true, dir_right),
         PlatformTemplate(11, 5, 0, 2, true, dir_left),
-        PlatformTemplate(12, 6, 0, 0, false, dir_left),
+        PlatformTemplate(12, 6, 1, 0, false, dir_up),
         PlatformTemplate(9, 6, 2, 1, true, dir_up),
         PlatformTemplate(1, 8, 0, 2, true, dir_left),
         PlatformTemplate(4, 7, 1, 2, true, dir_up),
