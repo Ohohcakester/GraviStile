@@ -2,7 +2,7 @@
 #include "globals.h"
 
 Menu::Menu() {
-    cols = 5;
+    cols = 6;
     nItems = NUMBER_OF_STAGES;
     selection = 0;
 }

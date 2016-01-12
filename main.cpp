@@ -190,9 +190,11 @@ void drawMenuFrame() {
         sf::Text numbering;
         numbering.setFont(comicsans);
         numbering.setString(ss.str());
-        numbering.setCharacterSize(60);
+        numbering.setCharacterSize(40);
         numbering.setColor(textures->platformColor);
-        numbering.setPosition(itemSpacing*(col+0.5f)-halfItemWidth, itemSpacing*(row+0.5f)-halfItemWidth);
+        sf::FloatRect textRect = numbering.getLocalBounds();
+        numbering.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+        numbering.setPosition(itemSpacing*(col + 0.5f), itemSpacing*(row + 0.5f));
         window->draw(numbering);
     }
 }
