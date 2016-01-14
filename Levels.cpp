@@ -89,7 +89,7 @@ GameStage level6() {
         PlatformTemplate::create(1, 6, 1, 1, true, dir_up),
         PlatformTemplate::create(2, 4, 1, 1, true, dir_right),
         PlatformTemplate::create(3, 3, 0, 0, true, dir_up),
-        PlatformTemplate::create(4, 1, 1, 1, true, dir_right),
+        PlatformTemplate::create(4, 1, 1, 1, false, dir_right),
     };
 
     PlayerTemplate player(0, 5, dir_up);
@@ -159,7 +159,7 @@ GameStage level10() {
         PlatformTemplate::create(6, 1, 1, 3, true, dir_down),
         PlatformTemplate::create(6, 3, 1, 0, true, dir_up),
         PlatformTemplate::create(9, 2, 0, 1, true, dir_up),
-        PlatformTemplate::create(9, 4, 1, 1, true, dir_down),
+        PlatformTemplate::create(9, 4, 1, 1, false, dir_down),
         PlatformTemplate::create(7, 5, 1, 0, true, dir_left),
     };
 
