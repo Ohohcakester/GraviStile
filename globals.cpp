@@ -53,6 +53,6 @@ const int OUT_OF_BOUNDS_TILES = 10;
 
 const float ROTATE_SPEED = 0.1f;
 
-const int NUMBER_OF_STAGES = 23;
+const int NUMBER_OF_STAGES = 24;
 
 sf::RenderWindow* window;
