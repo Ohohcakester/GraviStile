@@ -81,8 +81,24 @@ GameStage level5() {
     return GameStage(platforms, player, door, zoom);
 }
 
-
 GameStage level6() {
+    std::vector<PlatformTemplate> platforms{
+        PlatformTemplate::create(0, 1, 1, 1, true, dir_right),
+        PlatformTemplate::create(0, 4, 1, 1, true, dir_right),
+        PlatformTemplate::create(1, 5, 0, 3, true, dir_up),
+        PlatformTemplate::create(3, 4, 1, 0, false, dir_right),
+        PlatformTemplate::create(6, 4, 1, 1, true, dir_up),
+        PlatformTemplate::create(6, 6, 1, 1, false, dir_up),
+    };
+
+    PlayerTemplate player(1, 4, dir_up);
+    DoorTemplate door(6, 7, dir_down);
+    double zoom = 1.0;
+
+    return GameStage(platforms, player, door, zoom);
+}
+
+GameStage level6_a() {
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(1, 11, 1, 1, true, dir_up),
         PlatformTemplate::create(0, 8, 1, 2, true, dir_right),
