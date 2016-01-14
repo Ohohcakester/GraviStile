@@ -103,7 +103,7 @@ GameStage level6() {
 GameStage level7() {
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(1, 3, 0, 2, true, dir_up)._spinConnectionIndex(1),
-        PlatformTemplate(2, 6, 1, 0, true, dir_up),
+        PlatformTemplate(2, 6, 1, 1, true, dir_up),
         PlatformTemplate(2, 8, 0, 0, true, dir_right),
         PlatformTemplate::create(4, 1, 1, 0, true, dir_left)._spinConnectionIndex(1),
     };
