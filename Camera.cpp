@@ -5,6 +5,8 @@
 #include "Camera.h"
 #include "gamemath.h"
 
+const float ROTATE_SNAP_SPEED = 0.15f;
+
 Camera::Camera() {}
 
 Camera::Camera(Player* player) {
@@ -52,5 +54,5 @@ void Camera::update(Keyboard k) {
 
 void Camera::updateAngle() {
     float diff = clampedAngle(player->angle - angle);
-    angle = clampedAngle(angle + diff*snapSpeed);
+    angle = clampedAngle(angle + diff*ROTATE_SNAP_SPEED);
 }
