@@ -47,12 +47,19 @@ void generateRotatedCorners(float x1, float y1, float x2, float y2, float* tlx, 
     rotateVector(tr_x, tr_y, angle);
 }
 
-// clamped between -180 and 180.
+// clamped between -PI and PI.
 float clampedAngularDifference(float fromAngle, float toAngle) {
     float diff = toAngle - fromAngle;
     while (diff <= -M_PI) diff += M_2PI;
     while (diff > M_PI) diff -= M_2PI;
     return diff;
+}
+
+// clamped between -PI and PI.
+float clampedAngle(float angle) {
+    while (angle <= -M_PI) angle += M_2PI;
+    while (angle > M_PI) angle -= M_2PI;
+    return angle;
 }
 
 void swap(int* a, int* b) {

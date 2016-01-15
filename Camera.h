@@ -26,9 +26,11 @@ public:
 
     void toRel(float* _x, float* _y);
 
-    virtual void draw();
+    void draw();
 
-    virtual void update(Keyboard k);
+    void update(Keyboard k);
+
+    void updateAngle();
 };
 
 #endif

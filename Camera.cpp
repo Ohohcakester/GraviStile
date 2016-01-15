@@ -3,6 +3,7 @@
 #include "GameGlobals.h"
 #include "Player.h"
 #include "Camera.h"
+#include "gamemath.h"
 
 Camera::Camera() {}
 
@@ -35,7 +36,6 @@ void Camera::draw() {
 }
 
 void Camera::update(Keyboard k) {
-    angle = player->angle;
     float targetX = player->x;
     float targetY = player->y;
     if (player->isRotating) {
@@ -46,4 +46,11 @@ void Camera::update(Keyboard k) {
     float dy = targetY - py;
     px += dx*snapSpeed;
     py += dy*snapSpeed;
+
+    updateAngle();
+}
+
+void Camera::updateAngle() {
+    float diff = clampedAngle(player->angle - angle);
+    angle = clampedAngle(angle + diff*snapSpeed);
 }
