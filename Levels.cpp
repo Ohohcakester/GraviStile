@@ -43,9 +43,10 @@ GameStage level3() {
 
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(1, 2, 1, 2, true, dir_up),
+        PlatformTemplate(-1, 2, 0, 0, false, dir_up),
         PlatformTemplate(4, 2, 1, 2, true, dir_left),
         PlatformTemplate(5, 0, 0, 0, true, dir_up),
-        PlatformTemplate(7, 2, 1, 0, true, dir_down),
+        PlatformTemplate(7, 2, 0, 1, true, dir_down),
     };
 
     PlayerTemplate player(0, 1, dir_up);
