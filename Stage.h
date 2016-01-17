@@ -79,12 +79,13 @@ struct GameStage {
     std::vector<LaserTargetTemplate> laserTargets;
     PlayerTemplate player;
     DoorTemplate door;
+    std::string name;
 
     double zoom;
 
-    GameStage(std::vector<PlatformTemplate> platforms, PlayerTemplate player, DoorTemplate door, double zoom,
+    GameStage(std::string name, std::vector<PlatformTemplate> platforms, PlayerTemplate player, DoorTemplate door, double zoom,
         std::vector<LaserSourceTemplate> laserSources = {}, std::vector<LaserTargetTemplate> laserTargets = {}) :
-        platforms(platforms), player(player), door(door), zoom(zoom), laserSources(laserSources), laserTargets(laserTargets) {
+        name(name), platforms(platforms), player(player), door(door), zoom(zoom), laserSources(laserSources), laserTargets(laserTargets) {
     }
 };
 

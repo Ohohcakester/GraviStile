@@ -5,6 +5,8 @@
  * ======================== */
 
 GameStage level1() {
+    std::string name = "Gap";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(1, 1, 1, 1, false, dir_up),
         PlatformTemplate(5, 1, 1, 1, false, dir_up),
@@ -14,11 +16,13 @@ GameStage level1() {
     DoorTemplate door(6, 0, dir_up);
     double zoom = 1.2;
 
-    return GameStage(platforms, player, door, zoom);
+    return GameStage(name, platforms, player, door, zoom);
 }
 
 
 GameStage level2() {
+    std::string name = "Roundabout Route";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(1, 2, 1, 2, false, dir_up),
         PlatformTemplate(2, 4, 0, 1, false, dir_up),
@@ -30,11 +34,13 @@ GameStage level2() {
     DoorTemplate door(2, 3, dir_up);
     double zoom = 1.0;
 
-    return GameStage(platforms, player, door, zoom);
+    return GameStage(name, platforms, player, door, zoom);
 }
 
 
 GameStage level3() {
+    std::string name = "Obstruction";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(1, 2, 1, 2, true, dir_up),
         PlatformTemplate(4, 2, 1, 2, true, dir_left),
@@ -46,10 +52,12 @@ GameStage level3() {
     DoorTemplate door(7, 1, dir_up);
     double zoom = 0.9;
 
-    return GameStage(platforms, player, door, zoom);
+    return GameStage(name, platforms, player, door, zoom);
 }
 
 GameStage level4() {
+    std::string name = "Upside-Down Cage";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(2, 0, 1, 1, false, dir_up),
         PlatformTemplate(2, 2, 1, 1, true, dir_up),
@@ -63,11 +71,13 @@ GameStage level4() {
     DoorTemplate door(2, 1, dir_down);
     double zoom = 1.0;
 
-    return GameStage(platforms, player, door, zoom);
+    return GameStage(name, platforms, player, door, zoom);
 }
 
 
 GameStage level5() {
+    std::string name = "Synchronized";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(2, 2, 1, 1, true, dir_up)._spinConnectionIndex(1),
         PlatformTemplate(4, 1, 1, 1, true, dir_left),
@@ -78,10 +88,12 @@ GameStage level5() {
     DoorTemplate door(2, 0, dir_up);
     double zoom = 1.0;
 
-    return GameStage(platforms, player, door, zoom);
+    return GameStage(name, platforms, player, door, zoom);
 }
 
 GameStage level6() {
+    std::string name = "Positioning";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(0, 1, 1, 1, true, dir_right),
         PlatformTemplate::create(0, 4, 1, 1, true, dir_right),
@@ -95,10 +107,12 @@ GameStage level6() {
     DoorTemplate door(6, 7, dir_down);
     double zoom = 1.0;
 
-    return GameStage(platforms, player, door, zoom);
+    return GameStage(name, platforms, player, door, zoom);
 }
 
 GameStage level7() {
+    std::string name = "Uncooperative";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(1, 3, 0, 2, true, dir_up)._spinConnectionIndex(1),
         PlatformTemplate(2, 6, 1, 1, true, dir_up),
@@ -110,11 +124,13 @@ GameStage level7() {
     DoorTemplate door(3, 0, dir_up);
     double zoom = 0.8;
 
-    return GameStage(platforms, player, door, zoom);
+    return GameStage(name, platforms, player, door, zoom);
 }
 
 
 GameStage level8() {
+    std::string name = "Pivots";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(3, 1, 0, 0, true, dir_right),
         PlatformTemplate(3, 4, 0, 0, true, dir_up),
@@ -129,10 +145,12 @@ GameStage level8() {
     DoorTemplate door(3, 7, dir_down);
     double zoom = 0.9;
 
-    return GameStage(platforms, player, door, zoom);
+    return GameStage(name, platforms, player, door, zoom);
 }
 
 GameStage level9() {
+    std::string name = "Bumpers";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(3, 2, 2, 1, true, dir_down)._spinConnectionIndex(2),
         PlatformTemplate::create(7, 1, 1, 2, true, dir_up)._spinConnectionIndex(1),
@@ -146,10 +164,12 @@ GameStage level9() {
     DoorTemplate door(11, -3, dir_right);
     double zoom = 1;
 
-    return GameStage(platforms, player, door, zoom);
+    return GameStage(name, platforms, player, door, zoom);
 }
 
 GameStage level10() {
+    std::string name = "Laser Barrier";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(-1, -1, 0, 0, false, dir_up)._id(1),
         PlatformTemplate::create(10, 0, 0, 0, false, dir_up),
@@ -170,10 +190,12 @@ GameStage level10() {
     DoorTemplate door(10, -1, dir_up);
     double zoom = 1;
 
-    return GameStage(platforms, player, door, zoom, laserSources);
+    return GameStage(name, platforms, player, door, zoom, laserSources);
 }
 
 GameStage level11() {
+    std::string name = "Leap of Faith";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(3, 2, 1, 1, true, dir_up),
         PlatformTemplate(0, 4, 1, 1, true, dir_right),
@@ -186,10 +208,12 @@ GameStage level11() {
     DoorTemplate door(5, 7, dir_left);
     double zoom = 0.9;
 
-    return GameStage(platforms, player, door, zoom);
+    return GameStage(name, platforms, player, door, zoom);
 }
 
 GameStage level12() {
+    std::string name = "Laser Grid";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(3, 3, 3, 3, true, dir_up),
         PlatformTemplate::create(2, -3, 0, 0, false, dir_up)._id(1),
@@ -215,11 +239,13 @@ GameStage level12() {
     DoorTemplate door(6, 2, dir_up);
     double zoom = 0.8;
 
-    return GameStage(platforms, player, door, zoom, laserSources);
+    return GameStage(name, platforms, player, door, zoom, laserSources);
 }
 
 
 GameStage level13() {
+    std::string name = "Redirection";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(3, 4, 2, 1, true, dir_up),
         PlatformTemplate::create(5, -1, 1, 1, true, dir_down)._id(1),
@@ -238,10 +264,12 @@ GameStage level13() {
     DoorTemplate door(8, 2, dir_up);
     double zoom = 0.8;
 
-    return GameStage(platforms, player, door, zoom, laserSources);
+    return GameStage(name, platforms, player, door, zoom, laserSources);
 }
 
 GameStage level14() {
+    std::string name = "Criss-Cross";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(4, 0, 1, 1, true, dir_up)._id(5),
         PlatformTemplate::create(6, 0, 0, 1, true, dir_right),
@@ -270,11 +298,13 @@ GameStage level14() {
     DoorTemplate door(-1, -3, dir_left);
     double zoom = 0.9;
 
-    return GameStage(platforms, player, door, zoom, laserSources);
+    return GameStage(name, platforms, player, door, zoom, laserSources);
 }
 
 
 GameStage level15() {
+    std::string name = "Stoppered";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(4, 3, 1, 1, true, dir_up)._spinConnectionIndex(1),
         PlatformTemplate::create(1, 0, 2, 0, true, dir_right)._spinConnectionIndex(1),
@@ -297,10 +327,12 @@ GameStage level15() {
     DoorTemplate door(4, 4, dir_down);
     double zoom = 0.9;
 
-    return GameStage(platforms, player, door, zoom, laserSources);
+    return GameStage(name, platforms, player, door, zoom, laserSources);
 }
 
 GameStage level16() {
+    std::string name = "Mechanical Lock";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(2, 2, 1, 1, true, dir_up),
         PlatformTemplate(4, 1, 0, 0, true, dir_right),
@@ -324,11 +356,13 @@ GameStage level16() {
     DoorTemplate door(6, 12, dir_right);
     double zoom = 0.7;
 
-    return GameStage(platforms, player, door, zoom, laserSources);
+    return GameStage(name, platforms, player, door, zoom, laserSources);
 }
 
 
 GameStage level17() {
+    std::string name = "Laser Switch";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(3, 0, 1, 1, true, dir_up)._platformSwitchConnectionIndex(1),
         PlatformTemplate::create(1, 2, 1, 2, false, dir_left)._id(1),
@@ -353,11 +387,13 @@ GameStage level17() {
     DoorTemplate door(3, 1, dir_up);
     double zoom = 0.9;
 
-    return GameStage(platforms, player, door, zoom, laserSources, laserTargets);
+    return GameStage(name, platforms, player, door, zoom, laserSources, laserTargets);
 }
 
 
 GameStage level18() {
+    std::string name = "Puzzle Box";
+
     std::vector<PlatformTemplate> platforms{
         // Starting Platform
         PlatformTemplate::create(7, 5, 1, 1, true, dir_up)._id(1),
@@ -415,11 +451,13 @@ GameStage level18() {
     DoorTemplate door(16, 5, dir_down);
     double zoom = 0.7;
 
-    return GameStage(platforms, player, door, zoom, laserSources, laserTargets);
+    return GameStage(name, platforms, player, door, zoom, laserSources, laserTargets);
 }
 
 
 GameStage level19() {
+    std::string name = "Twist and Turn";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(1, 11, 1, 1, true, dir_up),
         PlatformTemplate::create(0, 8, 1, 2, true, dir_right),
@@ -431,13 +469,15 @@ GameStage level19() {
 
     PlayerTemplate player(0, 5, dir_up);
     DoorTemplate door(1, 7, dir_down);
-    double zoom = 1.0;
+    double zoom = 0.9;
 
-    return GameStage(platforms, player, door, zoom);
+    return GameStage(name, platforms, player, door, zoom);
 }
 
 
 GameStage level20() {
+    std::string name = "Coupled";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(4, -4, 3, 2, false, dir_up)._id(1),
         PlatformTemplate::create(4, 8, 1, 2, false, dir_up)._id(2),
@@ -471,11 +511,13 @@ GameStage level20() {
     DoorTemplate door(7, 5, dir_down);
     double zoom = 0.7;
 
-    return GameStage(platforms, player, door, zoom, laserSources, laserTargets);
+    return GameStage(name, platforms, player, door, zoom, laserSources, laserTargets);
 }
 
 
 GameStage level21() {
+    std::string name = "Disarm";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(3, 0, 0, 4, false, dir_up),
         PlatformTemplate(3, 3, 2, 0, true, dir_right),
@@ -512,11 +554,13 @@ GameStage level21() {
     DoorTemplate door(5, 6, dir_right);
     double zoom = 0.7;
 
-    return GameStage(platforms, player, door, zoom, laserSources, laserTargets);
+    return GameStage(name, platforms, player, door, zoom, laserSources, laserTargets);
 }
 
 
 GameStage level22() {
+    std::string name = "Deadlock";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(2, 1, 0, 0, false, dir_down),
         PlatformTemplate(3, 2, 1, 2, true, dir_right),
@@ -540,12 +584,14 @@ GameStage level22() {
     DoorTemplate door(11, 1, dir_up);
     double zoom = 0.9;
 
-    return GameStage(platforms, player, door, zoom);
+    return GameStage(name, platforms, player, door, zoom);
 }
 
 
 
 GameStage level23() {
+    std::string name = "Reconfigure";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(3, 2, 2, 1, true, dir_up)._id(11),
         PlatformTemplate::create(7, 2, 2, 1, true, dir_down)._id(10),
@@ -578,8 +624,42 @@ GameStage level23() {
     DoorTemplate door(11, 1, dir_up);
     double zoom = 0.7;
 
-    return GameStage(platforms, player, door, zoom, laserSources);
+    return GameStage(name, platforms, player, door, zoom, laserSources);
 }
+
+
+
+GameStage level24() {
+    std::string name = "Cipher Machine";
+
+    std::vector<PlatformTemplate> platforms{
+        PlatformTemplate::create(3, 3, 1, 1, true, dir_down)._spinConnectionIndex(1),
+        PlatformTemplate::create(6, 3, 1, 1, true, dir_up)._spinConnectionIndex(1),
+        PlatformTemplate::create(3, 6, 1, 1, true, dir_up)._spinConnectionIndex(1),
+        PlatformTemplate::create(6, 6, 1, 1, true, dir_down)._spinConnectionIndex(1),
+
+        PlatformTemplate::create(9, 1, 1, 1, true, dir_down),
+        PlatformTemplate::create(10, 3, 1, 1, true, dir_up)._id(1),
+        PlatformTemplate::create(10, 6, 1, 1, true, dir_down)._id(10),
+    };
+
+    std::vector<LaserSourceTemplate> laserSources{
+        LaserSourceTemplate(0, dir_up, 1),
+    };
+
+    std::vector<LaserTargetTemplate> laserTargets{
+        LaserTargetTemplate(0, dir_up, 10, 1),
+    };
+
+
+    PlayerTemplate player(3, 2, dir_up);
+    DoorTemplate door(11, 1, dir_up);
+    double zoom = 0.7;
+
+    return GameStage(name, platforms, player, door, zoom, laserSources, laserTargets);
+}
+
+
 
 /* ======================= *
  *  REGION - LEVELS - END  *
@@ -594,6 +674,8 @@ GameStage level23() {
 
 
 GameStage testStage1() {
+    std::string name = "Test 1";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(1, 2, 1, 2, true, dir_up)._id(1),
         PlatformTemplate::create(4, 2, 1, 2, true, dir_left)._spinConnectionIndex(1),
@@ -622,11 +704,13 @@ GameStage testStage1() {
     DoorTemplate door(7, 1, dir_up);
     double zoom = 0.9;
 
-    return GameStage(platforms, player, door, zoom, laserSources, laserTargets);
+    return GameStage(name, platforms, player, door, zoom, laserSources, laserTargets);
 }
 
 
 GameStage testStage2() {
+    std::string name = "Test 2";
+
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(-2, 2, 1, 3, true, dir_up, 1, 2),
         PlatformTemplate(5, -1, 3, 1, true, dir_up, 1, 1),
@@ -644,7 +728,7 @@ GameStage testStage2() {
     DoorTemplate door(7, 1, dir_up);
     double zoom = 0.7;
 
-    return GameStage(platforms, player, door, zoom);
+    return GameStage(name, platforms, player, door, zoom);
 }
 
 /* ============================ *
@@ -676,8 +760,9 @@ GameStage getStage(int stage) {
     case 21: return level21();
     case 22: return level22();
     case 23: return level23();
-    case 24: return testStage1();
-    case 25: return testStage2();
+    case 24: return level24();
+    case 25: return testStage1();
+    case 26: return testStage2();
     }
 
     return level1();
