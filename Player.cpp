@@ -13,11 +13,11 @@ Player::Player(int cx, int cy) {
     gridToActual(cx, cy, &x, &y);
     vx = 0; vy = 0;
     speed = 5;
-    jumpSpeed = 11;
-    gravity = 0.7f;
+    jumpSpeed = 9;
+    gravity = 0.6f;
     gravityX = 0;
     gravityY = 0;
-    pwidth = 20;
+    pwidth = 35;
     pheight = 40;
     facingRight = true;
     isRotating = false;
