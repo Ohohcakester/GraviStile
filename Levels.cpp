@@ -762,8 +762,8 @@ GameStage getStage(int stage) {
     case 22: return level22();
     case 23: return level23();
     case 24: return level24();
-    case 25: return testStage1();
-    case 26: return testStage2();
+    case 100: return testStage1();
+    case 101: return testStage2();
     }
 
     return level1();
