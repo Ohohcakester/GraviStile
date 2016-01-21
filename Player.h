@@ -66,6 +66,9 @@ public:
 
     void setOrientation(int orientation);
 
+    void setCurrentPlatform(Platform* platform);
+
+    void snapToCurrentPlatformHeight();
 
     bool rotatesIntoPlatform();
     bool collidesWithTargetOrientation(float _x1, float _y1, float _x2, float _y2, Platform* plat);

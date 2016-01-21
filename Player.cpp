@@ -189,13 +189,11 @@ void Player::update(Keyboard k) {
     case dir_down:
         if (!currentPlatform->isNull)
             if (x1 >= currentPlatform->x2 || x2 <= currentPlatform->x1) currentPlatform = &nullPlatform;
-        vx = 0; // also sneak in speed control
         break;
     case dir_left:
     case dir_right:
         if (!currentPlatform->isNull)
             if (y1 >= currentPlatform->y2 || y2 <= currentPlatform->y1) currentPlatform = &nullPlatform;
-        vy = 0;
         break;
     default:
         std::cout << "Wat\n";
@@ -217,42 +215,44 @@ void Player::update(Keyboard k) {
         vy += gravityY;
     }
 
-    // What do left and right do
+    // Speed Control + What do left and right do
     switch (this->orientation) {
     case dir_up:
+        vx = 0;
         if (k.left) vx -= speed;
         if (k.right) vx += speed;
         break;
     case dir_down:
+        vx = 0;
         if (k.left) vx += speed;
         if (k.right) vx -= speed;
         break;
     case dir_left:
+        vy = 0;
         if (k.left) vy += speed;
         if (k.right) vy -= speed;
         break;
     case dir_right:
+        vy = 0;
         if (k.left) vy -= speed;
         if (k.right) vy += speed;
         break;
     default:
         std::cout << "Whyyy\n";
     }
-    if (k.left) facingRight = false;
-    if (k.right) facingRight = true;
 
+    if (k.left && !k.right) facingRight = false;
+    if (k.right && !k.left) facingRight = true;
+
+
+    // Move Player
     x += vx;
     y += vy;
-
-    // std::cout << "x = " << x << " y = " << y << "\n";
 
     for (size_t i = 0; i<game.platforms.size(); ++i) {
         if (game.platforms[i]->isDisabled()) continue;
         collision(game.platforms[i]);
     }
-    /*for (std::vector<Platform>::iterator it = game.platforms.begin(); it != game.platforms.end(); ++it) {
-    collision(it);
-    }*/
 }
 
 void Player::getGridCoordinates(int* gridX, int* gridY) {
@@ -327,25 +327,25 @@ void Player::collision(Platform* plat) {
         case dir_left: {
             x -= closestDist;
             if (vx > 0) vx = 0;
-            if (this->orientation == dir_left) currentPlatform = plat;
+            if (this->orientation == dir_left) setCurrentPlatform(plat);
             break;
         }
         case dir_right: {
             x += closestDist;
             if (vx < 0) vx = 0;
-            if (this->orientation == dir_right) currentPlatform = plat;
+            if (this->orientation == dir_right) setCurrentPlatform(plat);
             break;
         }
         case dir_up: {
             y -= closestDist;
             if (vy > 0) vy = 0;
-            if (this->orientation == dir_up) currentPlatform = plat;
+            if (this->orientation == dir_up) setCurrentPlatform(plat);
             break;
         }
         case dir_down: {
             y += closestDist;
             if (vy < 0) vy = 0;
-            if (this->orientation == dir_down) currentPlatform = plat;
+            if (this->orientation == dir_down) setCurrentPlatform(plat);
             break;
         }
         default: {
@@ -353,6 +353,20 @@ void Player::collision(Platform* plat) {
         }
         }
     }
+}
+
+void Player::snapToCurrentPlatformHeight() {
+    switch (this->orientation) {
+    case dir_up: this->y = currentPlatform->y1 - pheight / 2; break;
+    case dir_down: this->y = currentPlatform->y2 + pheight / 2; break;
+    case dir_left: this->x = currentPlatform->x1 - pheight / 2; break;
+    case dir_right: this->x = currentPlatform->x2 + pheight / 2; break;
+    }
+}
+
+void Player::setCurrentPlatform(Platform* plat) {
+    this->currentPlatform = plat;
+    this->snapToCurrentPlatformHeight();
 }
 
 bool Player::isControlsDisabled() {
