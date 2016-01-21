@@ -274,7 +274,7 @@ GameStage level14() {
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate::create(4, 0, 1, 1, true, dir_up)._id(5),
         PlatformTemplate::create(6, 0, 0, 1, true, dir_right),
-        PlatformTemplate::create(9, 0, 1, 1, true, dir_up),
+        PlatformTemplate::create(9, -1, 0, 2, true, dir_up),
         PlatformTemplate::create(5, 4, 1, 1, true, dir_up)._id(1),
         PlatformTemplate::create(1, 4, 1, 1, true, dir_down)._id(2),
         PlatformTemplate::create(9, 4, 1, 1, true, dir_up)._id(6),
