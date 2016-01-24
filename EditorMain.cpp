@@ -78,6 +78,16 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
             selection->clear();
             refreshEditorGameDisplay();
         }
+        else if (selection->type == selection_laserSource) {
+            editorState.levelTemplate.remove(selection->selectedLaserSource);
+            selection->clear();
+            refreshEditorGameDisplay();
+        }
+        else if (selection->type == selection_switch) {
+            editorState.levelTemplate.remove(selection->selectedSwitch);
+            selection->clear();
+            refreshEditorGameDisplay();
+        }
     }
 
     if (keyCode == sf::Keyboard::Z) {
