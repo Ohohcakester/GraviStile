@@ -7,10 +7,14 @@
 class GameGlobals;
 class Menu;
 class Textures;
+namespace editor {
+    class EditorState;
+}
 
 
 
 extern GameGlobals game;
+extern editor::EditorState editorState;
 extern Textures* textures;
 extern Menu menu;
 

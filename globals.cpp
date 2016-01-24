@@ -5,6 +5,7 @@
 #include "Textures.h"
 #include "Menu.h"
 #include "gamemath.h"
+#include "EditorState.h"
 
 void gridToActual(int gridX, int gridY, int* actualX, int* actualY) {
     *actualX = gridX*TILE_WIDTH + TILE_WIDTH/2;
@@ -43,6 +44,7 @@ void rotateAboutPivotGrid(int oldOrientation, int newOrientation, int gridcx, in
 
 
 GameGlobals game;
+editor::EditorState editorState;
 Textures* textures;
 Menu menu;
 

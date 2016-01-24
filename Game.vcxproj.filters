@@ -70,6 +70,30 @@
     <ClCompile Include="Levels.cpp">
       <Filter>stages</Filter>
     </ClCompile>
+    <ClCompile Include="EditorState.cpp">
+      <Filter>editor</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectionState.cpp">
+      <Filter>editor</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolState.cpp">
+      <Filter>editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditableLevelTemplate.cpp">
+      <Filter>editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorMain.cpp">
+      <Filter>editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorCamera.cpp">
+      <Filter>editor</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractCamera.cpp">
+      <Filter>gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="tests.cpp">
+      <Filter>unittest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="keyboard.h" />
@@ -137,6 +161,34 @@
     <ClInclude Include="GameGlobals.h">
       <Filter>globals</Filter>
     </ClInclude>
+    <ClInclude Include="SelectionState.h">
+      <Filter>editor</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolState.h">
+      <Filter>editor</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorState.h">
+      <Filter>editor</Filter>
+    </ClInclude>
+    <ClInclude Include="EditableLevelTemplate.h">
+      <Filter>editor</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorMain.h">
+      <Filter>editor</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h" />
+    <ClInclude Include="EditorCamera.h">
+      <Filter>editor</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractCamera.h">
+      <Filter>gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="tests.h">
+      <Filter>unittest</Filter>
+    </ClInclude>
+    <ClInclude Include="teststubs.h">
+      <Filter>unittest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="gameobjects">
@@ -150,6 +202,12 @@
     </Filter>
     <Filter Include="globals">
       <UniqueIdentifier>{c67e4deb-eba4-4db7-aac1-8076a3ca5a1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="editor">
+      <UniqueIdentifier>{c605a95b-40f6-49da-ac36-930d912e851c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="unittest">
+      <UniqueIdentifier>{a2618b3a-a1b8-41b8-b967-4e0ff98b02b8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

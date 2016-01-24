@@ -17,6 +17,7 @@
 #include "LaserSource.h"
 #include "LaserTarget.h"
 #include "SwitchConnection.h"
+#include "AbstractCamera.h"
 
 
 #endif

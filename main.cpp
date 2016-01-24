@@ -10,11 +10,10 @@
 #include "Stage.h"
 #include "keyboard.h"
 #include "globals.h"
+#include "main.h"
+#include "tests.h";
 
-bool inMenu = true;
-
-void initialiseGame(int stage);
-void initialiseMenu();
+int gameStatus = gamestatus_menu;
 
 void rotateRight() {
     if (!game.player.canRotate(true)) return;
@@ -36,28 +35,56 @@ void rotateLeft() {
     game.player.rotateTo(orientation);
 }
 
+void inGameKeyPress(sf::Keyboard::Key keyCode) {
+    if (keyCode == sf::Keyboard::Space) game.player.jump();
+    if (keyCode == sf::Keyboard::A) rotateLeft();
+    if (keyCode == sf::Keyboard::D) rotateRight();
+    if (keyCode == sf::Keyboard::R) initialiseGame(game.currentStage);
+    if (keyCode == sf::Keyboard::Escape) initialiseMenu();
+    //if (keyCode == sf::Keyboard::T) game.player.currentPlatform->disable(); for debugging.
+}
+
+void menuKeyPress(sf::Keyboard::Key keyCode) {
+    if (keyCode == sf::Keyboard::Space) initialiseGame(menu.selection + 1);
+    if (keyCode == sf::Keyboard::Left) menu.previous();
+    if (keyCode == sf::Keyboard::Right) menu.next();
+    if (keyCode == sf::Keyboard::Up) menu.up();
+    if (keyCode == sf::Keyboard::Down) menu.down();
+
+    if (keyCode == sf::Keyboard::Num1) initialiseGame(100);
+    if (keyCode == sf::Keyboard::Num2) initialiseGame(101);
+    if (keyCode == sf::Keyboard::Num3) initialiseGame(102);
+
+    if (keyCode == sf::Keyboard::BackSpace) initialiseEditor();
+}
+
 void keyPress(sf::Keyboard::Key keyCode) {
     //std::cout << "Press " << keyCode << std::endl;
-    if (inMenu) {
-        if (keyCode == sf::Keyboard::Space) initialiseGame(menu.selection + 1);
-        if (keyCode == sf::Keyboard::Left) menu.previous();
-        if (keyCode == sf::Keyboard::Right) menu.next();
-        if (keyCode == sf::Keyboard::Up) menu.up();
-        if (keyCode == sf::Keyboard::Down) menu.down();
-
-        if (keyCode == sf::Keyboard::Num1) initialiseGame(100);
-        if (keyCode == sf::Keyboard::Num2) initialiseGame(101);
-        if (keyCode == sf::Keyboard::Num3) initialiseGame(102);
-    } else {
-        if (keyCode == sf::Keyboard::Space) game.player.jump();
-        if (keyCode == sf::Keyboard::A) rotateLeft();
-        if (keyCode == sf::Keyboard::D) rotateRight();
-        if (keyCode == sf::Keyboard::R) initialiseGame(game.currentStage);
-        if (keyCode == sf::Keyboard::Escape) initialiseMenu();
-        //if (keyCode == sf::Keyboard::T) game.player.currentPlatform->disable(); for debugging.
+    switch (gameStatus) {
+    case gamestatus_inGame:
+        inGameKeyPress(keyCode);
+        break;
+    case gamestatus_menu:
+        menuKeyPress(keyCode);
+        break;
+    case gamestatus_editor:
+        editorKeyPress(keyCode);
+        break;
     }
 }
 
+void mouseClick(int x, int y, bool leftClick) {
+    //std::cout << (leftClick ? "Left" : "Right") << " click " << x << ", " << y << "\n";
+    switch (gameStatus) {
+    case gamestatus_inGame:
+        break;
+    case gamestatus_menu:
+        break;
+    case gamestatus_editor:
+        editorMouseClick(x, y, leftClick);
+        break;
+    }
+}
 
 void processEvent(sf::Event event) {
     switch(event.type) {
@@ -69,19 +96,27 @@ void processEvent(sf::Event event) {
             keyPress(event.key.code);
             break;
         }
+        case sf::Event::MouseButtonReleased: {
+            if (event.mouseButton.button == sf::Mouse::Left) {
+                mouseClick(event.mouseButton.x, event.mouseButton.y, true);
+            } else if (event.mouseButton.button == sf::Mouse::Right) {
+                mouseClick(event.mouseButton.x, event.mouseButton.y, false);
+            }
+            break;
+        }
     }
 }
 
 
 void initialiseGame(int stage) {
-    inMenu = false;
+    gameStatus = gamestatus_inGame;
     game = GameGlobals();
     game.puzzleComplete = false;
     game.zoom = 0.4f;
 
     initialiseStage(stage);
 
-    game.camera = Camera(&game.player);
+    game.assignNewCamera(new Camera(&game.player));
     Grid* grid = &game.grid;
     game.width = grid->sizeX*TILE_WIDTH;
     game.height = grid->sizeY*TILE_WIDTH;
@@ -92,7 +127,7 @@ void initialiseGame(int stage) {
 }
 
 void initialiseMenu() {
-    inMenu = true;
+    gameStatus = gamestatus_menu;
 }
 
 void updateGame() {
@@ -107,7 +142,7 @@ void updateGame() {
     game.key.update();
     game.background.update(game.key);
     game.player.update(game.key);
-    game.camera.update(game.key);
+    game.camera->update(game.key);
     for (size_t i = 0; i<game.platforms.size(); ++i) {
         game.platforms[i]->update(game.key);
     }
@@ -122,7 +157,7 @@ void updateMenu() {
 
 void drawGameFrame() {
     game.background.draw();
-    game.camera.draw();
+    game.camera->draw();
 
     for (size_t i = 0, n = game.platforms.size(); i < n; ++i) {
         game.platforms[i]->draw();
@@ -204,6 +239,8 @@ void drawMenuFrame() {
 }
 
 int main(int argc, TCHAR *argv[]) {
+    //test::runTests(); return 0; // Uncomment to run tests.
+
     sf::RenderWindow w(sf::VideoMode(RES_X, RES_Y), "GraviStile");
     window = &w;
     Textures t;
@@ -227,13 +264,18 @@ int main(int argc, TCHAR *argv[]) {
         if (dTime > frameTime) {
             dTime -= frameTime;
             
-            if (inMenu) updateMenu();
-            else updateGame();
+            if (gameStatus == gamestatus_inGame) updateGame();
+            else if (gameStatus == gamestatus_editor) updateEditor();
+            else if (gameStatus == gamestatus_menu) updateMenu();
 
             if (dTime < frameTime) {
                 // frame skip if lagging
                 window->clear();
-                if (inMenu) drawMenuFrame();
+
+                if (gameStatus == gamestatus_inGame) drawGameFrame();
+                else if (gameStatus == gamestatus_editor) drawEditorFrame();
+                else if (gameStatus == gamestatus_menu) drawMenuFrame();
+
                 else drawGameFrame();
                 window->display();
             }

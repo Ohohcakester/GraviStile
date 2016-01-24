@@ -7,7 +7,7 @@
 #include <math.h>
 
 void IGameObject::drawCircle(sf::CircleShape* shape, float px, float py) {
-    game.camera.toRel(&px, &py);
+    game.camera->toRel(&px, &py);
 
     shape->setOrigin(-px + shape->getRadius(), -py + shape->getRadius());
 
@@ -15,9 +15,9 @@ void IGameObject::drawCircle(sf::CircleShape* shape, float px, float py) {
 }
 
 void IGameObject::drawRectangle(sf::RectangleShape* shape, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y) {
-    game.camera.toRel(&tl_x, &tl_y);
-    game.camera.toRel(&bl_x, &bl_y);
-    game.camera.toRel(&br_x, &br_y);
+    game.camera->toRel(&tl_x, &tl_y);
+    game.camera->toRel(&bl_x, &bl_y);
+    game.camera->toRel(&br_x, &br_y);
 
     float dx1 = tl_x - bl_x;
     float dy1 = tl_y - bl_y;
@@ -34,9 +34,9 @@ void IGameObject::drawRectangle(sf::RectangleShape* shape, float tl_x, float tl_
 }
 
 void IGameObject::drawSprite(sf::Sprite* sprite, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y, bool xFlipped) {
-    game.camera.toRel(&tl_x, &tl_y);
-    game.camera.toRel(&bl_x, &bl_y);
-    game.camera.toRel(&br_x, &br_y);
+    game.camera->toRel(&tl_x, &tl_y);
+    game.camera->toRel(&bl_x, &bl_y);
+    game.camera->toRel(&br_x, &br_y);
 
     float dx1 = tl_x - bl_x;
     float dy1 = tl_y - bl_y;

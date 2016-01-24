@@ -4,6 +4,7 @@
 class Keyboard {
 public:
     bool up,down,left,right;
+    bool comma, period;
 
     Keyboard();
     void update();

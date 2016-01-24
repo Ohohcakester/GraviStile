@@ -10,4 +10,6 @@ void Keyboard::update() {
     down = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
     left = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
     right = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
+    comma = sf::Keyboard::isKeyPressed(sf::Keyboard::Comma);
+    period = sf::Keyboard::isKeyPressed(sf::Keyboard::Period);
 }

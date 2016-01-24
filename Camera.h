@@ -3,30 +3,19 @@
 
 class Player;
 class Keyboard;
-#include "IGameObject.h"
+#include "AbstractCamera.h"
 
-class Camera : public IGameObject {
+class Camera : public AbstractCamera {
 public:
-    float rotateSpeed;
     float snapSpeed;
     float snapSpeedRotating;
 
-    float zoom;
-    float px, py;
-    float cx, cy;
-    float angle;
     float targetAngle;
-    int orientation;
-    bool rotating;
     Player* player;
 
     Camera();
 
     Camera(Player* player);
-
-    void toRel(float* _x, float* _y);
-
-    void draw();
 
     void update(Keyboard k);
 

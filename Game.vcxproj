@@ -86,9 +86,15 @@
     <ClCompile Include="AbstractAttachedObject.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="AbstractCamera.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="EditableLevelTemplate.cpp" />
+    <ClCompile Include="EditorCamera.cpp" />
+    <ClCompile Include="EditorMain.cpp" />
+    <ClCompile Include="SelectionState.cpp" />
+    <ClCompile Include="EditorState.cpp" />
     <ClCompile Include="GameGlobals.cpp" />
     <ClCompile Include="gamemath.cpp" />
     <ClCompile Include="gameobjects.cpp" />
@@ -121,14 +127,21 @@
     <ClCompile Include="SwitchConnection.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="tests.cpp" />
     <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="ToolState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractAttachedObject.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="AbstractCamera.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="EditableLevelTemplate.h" />
+    <ClInclude Include="EditorCamera.h" />
+    <ClInclude Include="EditorMain.h" />
+    <ClInclude Include="EditorState.h" />
     <ClInclude Include="GameGlobals.h" />
     <ClInclude Include="gamemath.h" />
     <ClInclude Include="Grid.h">
@@ -143,7 +156,9 @@
     <ClInclude Include="LaserTarget.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="main.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="SelectionState.h" />
     <ClInclude Include="SpinConnection.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
@@ -160,7 +175,10 @@
     <ClInclude Include="SwitchConnection.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="tests.h" />
+    <ClInclude Include="teststubs.h" />
     <ClInclude Include="Textures.h" />
+    <ClInclude Include="ToolState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

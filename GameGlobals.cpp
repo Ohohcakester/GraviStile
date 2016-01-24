@@ -10,6 +10,11 @@ GameGlobals::GameGlobals() {
     height = 0;
     zoom = 1;
     puzzleComplete = false;
+    camera = nullptr;
+}
+
+void GameGlobals::assignNewCamera(AbstractCamera* camera) {
+    this->camera = camera;
 }
 
 GameGlobals::~GameGlobals() {
@@ -35,6 +40,10 @@ GameGlobals::~GameGlobals() {
 
     for (size_t i = 0, n = laserTargets.size(); i < n; ++i) {
         delete laserTargets[i];
+    }
+
+    if (camera != nullptr) {
+        delete camera;
     }
 }
 

@@ -13,8 +13,8 @@ public:
     Player player;
     Keyboard key;
     Door door;
-    Camera camera;
     Background background;
+    AbstractCamera* camera;
 
     int width;
     int height;
@@ -35,6 +35,8 @@ public:
 
     GameGlobals();
     ~GameGlobals();
+
+    void assignNewCamera(AbstractCamera* camera);
 
     void onStart();
     void update();
