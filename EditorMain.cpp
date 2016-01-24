@@ -339,6 +339,19 @@ void trySelect(double x, double y) {
         }
     }
 
+    if (game.player.isWithinClickHitbox(x, y)) {
+        selection->selectPlayer();
+        std::cout << "Select Player\n";
+        return;
+    }
+
+    if (game.door.isWithinClickHitbox(x, y)) {
+        selection->selectDoor();
+        std::cout << "Select Door\n";
+        return;
+    }
+
+
     selection->clear();
     std::cout << "Deselect\n";
 }

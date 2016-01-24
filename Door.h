@@ -4,8 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include "IGameObject.h"
 #include "keyboard.h"
+#include "IClickable.h"
 
-class Door : public IGameObject {
+class Door : public IGameObject, public IClickable {
 public:
     sf::RectangleShape shape;
     sf::Sprite sprite;
@@ -21,10 +22,11 @@ public:
 
     Door(int cx, int cy, int orientation);
 
-    virtual void draw();
+    void draw();
 
-    virtual void update(Keyboard k);
+    void update(Keyboard k);
 
+    bool isWithinClickHitbox(int x, int y);
 };
 
 

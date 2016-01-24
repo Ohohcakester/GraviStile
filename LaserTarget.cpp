@@ -55,7 +55,5 @@ bool LaserTarget::isWithinClickHitbox(int sx, int sy) {
     y1 += y;
     y2 += y;
 
-
-    std::cout << sx << ", " << sy << ", " << x1 << ", " << y1 << ", " << x2 << ", " << y2 << "\n";
     return isWithinRectSafe(sx, sy, x1, y1, x2, y2);
 }

@@ -3,6 +3,7 @@
 #include "GameGlobals.h"
 #include "Textures.h"
 #include "Door.h"
+#include "gamemath.h"
 
 Door::Door() {
     this->isNull = true;
@@ -55,4 +56,14 @@ void Door::update(Keyboard k) {
     if (playerX == cx && playerY == cy) {
         game.puzzleComplete = true;
     }
+}
+
+bool Door::isWithinClickHitbox(int sx, int sy) {
+    float w = TILE_WIDTH * 1 / 2;
+    int x1 = x - w;
+    int y1 = y - w;
+    int x2 = x + w;
+    int y2 = y + w;
+
+    return isWithinRect(sx, sy, x1, y1, x2, y2);
 }

@@ -522,3 +522,8 @@ bool Player::isTouchingLaser() {
     }
     return false;
 }
+
+bool Player::isWithinClickHitbox(int sx, int sy) {
+    updateBoundaries();
+    return isWithinRectSafe(sx, sy, x1, y1, x2, y2);
+}

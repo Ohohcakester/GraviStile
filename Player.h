@@ -4,8 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include "IGameObject.h"
 #include "Platform.h"
+#include "IClickable.h"
 
-class Player : public IGameObject {
+class Player : public IGameObject, public IClickable {
 public:
     bool isActive;
 
@@ -44,11 +45,13 @@ public:
 
     Player(int cx, int cy);
 
-    virtual void draw();
+    void draw();
 
-    virtual void update(Keyboard k);
+    void update(Keyboard k);
 
-    virtual void jump();
+    bool isWithinClickHitbox(int x, int y);
+
+    void jump();
 
     bool canRotate(bool right);
 
