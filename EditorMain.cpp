@@ -451,6 +451,26 @@ void placePlatform(int x, int y) {
     refreshEditorGameDisplay();
 }
 
+void placePlayer(int x, int y) {
+    int cx, cy;
+    actualToGrid(x, y, &cx, &cy);
+
+    editorState.levelTemplate.player.x = cx;
+    editorState.levelTemplate.player.y = cy;
+
+    refreshEditorGameDisplay();
+}
+
+void placeDoor(int x, int y) {
+    int cx, cy;
+    actualToGrid(x, y, &cx, &cy);
+
+    editorState.levelTemplate.door.x = cx;
+    editorState.levelTemplate.door.y = cy;
+
+    refreshEditorGameDisplay();
+}
+
 void editorMouseClick(int x, int y, bool leftClick) {
     float absX = x, absY = y;
     game.camera->toAbs(&absX, &absY);
@@ -461,6 +481,14 @@ void editorMouseClick(int x, int y, bool leftClick) {
     if (leftClick) {
         if (tools->state == tool_placePlatform) {
             placePlatform(absX, absY);
+            tools->state = tool_none;
+        }
+        if (tools->state == tool_placePlayer) {
+            placePlayer(absX, absY);
+            tools->state = tool_none;
+        }
+        if (tools->state == tool_placeDoor) {
+            placeDoor(absX, absY);
             tools->state = tool_none;
         }
         else {
