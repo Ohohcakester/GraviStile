@@ -256,7 +256,7 @@ void Player::tryMoveInDirection(int dx, int dy) {
     int moveX;
     int moveY;
     int minMoveDistance = -1;
-    Platform* targetPlatform = NULL;
+    Platform* targetPlatform = nullptr;
     int hitPlatformDirection = -1;
 
     // Find the closest colliding platform (moveDistance is used to judge the closeness)

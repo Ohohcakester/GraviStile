@@ -8,7 +8,7 @@ void LaserTarget::initialise() {
 }
 
 void LaserTarget::resetTargetOnStatus() {
-    currentLaser = NULL;
+    currentLaser = nullptr;
     isOn = false;
 }
 

@@ -21,7 +21,7 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
     if (isDisabled) this->disabledStatus = platformStatus_disabled;
     else this->disabledStatus = platformStatus_enabled;
 
-    spinConnection = NULL;
+    spinConnection = nullptr;
     this->isNull = false;
     this->isRevertingToPreviousRotation = true;
     gridToActual(cx, cy, &this->x, &this->y);
@@ -139,7 +139,7 @@ void Platform::onReach() {
         return;
     }
 
-    if (spinConnection != NULL) {
+    if (spinConnection != nullptr) {
         spinConnection->finishRotation();
     } else {
         this->finishRotation();
@@ -147,7 +147,7 @@ void Platform::onReach() {
 }
 
 void Platform::cancelRotation() {
-    if (spinConnection == NULL) {
+    if (spinConnection == nullptr) {
         revertToPreviousOrientation();
     }
     else {
@@ -226,7 +226,7 @@ void Platform::toggleRotationDisabledStatus() {
 }
 
 void Platform::rotateTo(int newOrientation) {
-    if (spinConnection == NULL) {
+    if (spinConnection == nullptr) {
         saveCurrentOrientation();
         setOrientation(newOrientation);
     }
