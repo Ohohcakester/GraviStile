@@ -26,6 +26,23 @@ void print(std::string message) {
     std::cout << message << "\n";
 }
 
+void printCurrentTool() {
+    std::string toolName = "???";
+    switch (editorState.toolState.state) {
+    case tool_none: toolName = "None"; break;
+    case tool_movePlatform: toolName = "Move"; break;
+    case tool_leftTiles: toolName = "Left Tiles"; break;
+    case tool_rightTiles: toolName = "Right Tiles"; break;
+    case tool_placeDoor: toolName = "Place Door"; break;
+    case tool_placePlatform: toolName = "Place Platform"; break;
+    case tool_placePlayer: toolName = "Place Player"; break;
+    case tool_spinConnection: toolName = "Spin Connection Index"; break;
+    case tool_switchConnection: toolName = "Platform Switch Connection Index"; break;
+    }
+
+    std::cout << "Tool: " << toolName << "\n";
+}
+
 void pressKey(int keyNum) {
     SelectionState* selection = &editorState.selectionState;
     ToolState* tools = &editorState.toolState;
@@ -37,6 +54,7 @@ void pressKey(int keyNum) {
             refreshEditorGameDisplay();
 
             tools->state = tool_none;
+            printCurrentTool();
         }
     }
 
@@ -47,6 +65,30 @@ void pressKey(int keyNum) {
             refreshEditorGameDisplay();
 
             tools->state = tool_none;
+            printCurrentTool();
+        }
+    }
+
+    if (tools->state == tool_spinConnection) {
+        if (selection->type == selection_platform) {
+            PlatformTemplate* plat = selection->selectedPlatform;
+            plat->spinConnectionIndex = keyNum;
+            refreshEditorGameDisplay();
+
+            tools->state = tool_none;
+            printCurrentTool();
+        }
+    }
+
+
+    if (tools->state == tool_switchConnection) {
+        if (selection->type == selection_platform) {
+            PlatformTemplate* plat = selection->selectedPlatform;
+            plat->platformSwitchConnectionIndex = keyNum;
+            refreshEditorGameDisplay();
+
+            tools->state = tool_none;
+            printCurrentTool();
         }
     }
 }
@@ -92,24 +134,42 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
 
     if (keyCode == sf::Keyboard::Z) {
         if (tools->state == tool_leftTiles) {
-            print("Tool: Left Tiles");
             tools->state = tool_none;
         }
         else {
-            print("Tool: Left Tiles");
             tools->state = tool_leftTiles;
         }
+        printCurrentTool();
     }
 
     if (keyCode == sf::Keyboard::X) {
         if (tools->state == tool_rightTiles) {
-            print("Tool: Right Tiles");
             tools->state = tool_none;
         }
         else {
-            print("Tool: Right Tiles");
             tools->state = tool_rightTiles;
         }
+        printCurrentTool();
+    }
+
+    if (keyCode == sf::Keyboard::S) {
+        if (tools->state == tool_spinConnection) {
+            tools->state = tool_none;
+        }
+        else {
+            tools->state = tool_spinConnection;
+        }
+        printCurrentTool();
+    }
+
+    if (keyCode == sf::Keyboard::Q) {
+        if (tools->state == tool_switchConnection) {
+            tools->state = tool_none;
+        }
+        else {
+            tools->state = tool_switchConnection;
+        }
+        printCurrentTool();
     }
 
     if (keyCode == sf::Keyboard::Num0) pressKey(0);
@@ -125,13 +185,12 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
 
     if (keyCode == sf::Keyboard::LShift) {
         if (tools->state == tool_movePlatform) {
-            print("Tool: None");
             tools->state = tool_none;
         }
         else {
-            print("Tool: Move");
             tools->state = tool_movePlatform;
         }
+        printCurrentTool();
     }
 
     if (keyCode == sf::Keyboard::Left) {
@@ -168,13 +227,12 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
 
     if (keyCode == sf::Keyboard::P) {
         if (tools->state == tool_placePlatform) {
-            print("Tool: None");
             tools->state = tool_none;
         }
         else {
-            print("Tool: Place Platform");
             tools->state = tool_placePlatform;
         }
+        printCurrentTool();
     }
 
     if (keyCode == sf::Keyboard::Escape) exitEditor();
