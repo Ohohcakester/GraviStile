@@ -19,13 +19,13 @@ void AbstractAttachedObject::adjustPosition() {
     {
         if (position < 0) {
             if (-position > platform->leftTiles) {
-                std::cout << "Attached Object position error: " << position << ", " << relativeOrientation << " at platform (" << platform->cx << ", " << platform->cy;
+                std::cout << "Attached Object position error: " << position << ", " << relativeOrientation << " at platform (" << platform->cx << ", " << platform->cy << ")\n";
                 position = -platform->leftTiles;
             }
         }
         else if (position > 0) {
             if (position > platform->rightTiles) {
-                std::cout << "Attached Object position error: " << position << ", " << relativeOrientation << " at platform (" << platform->cx << ", " << platform->cy;
+                std::cout << "Attached Object position error: " << position << ", " << relativeOrientation << " at platform (" << platform->cx << ", " << platform->cy << ")\n";
                 position = platform->rightTiles;
             }
         }
