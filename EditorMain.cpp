@@ -45,6 +45,7 @@ void printCurrentTool() {
     case tool_placePlayer: toolName = "Place Player"; break;
     case tool_spinConnection: toolName = "Spin Connection Index"; break;
     case tool_switchConnection: toolName = "Platform Switch Connection Index"; break;
+    case tool_quitConfirmation: toolName = "Quit"; break;
     }
 
     std::cout << "Tool: " << toolName << "\n";
@@ -378,8 +379,22 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
         }
     }
 
+    if (keyCode == sf::Keyboard::Y && tools->state == tool_quitConfirmation) {
+        exitEditor();
+        std::cout << "Exiting Editor\n";
+    }
+
+    if (keyCode == sf::Keyboard::N && tools->state == tool_quitConfirmation) {
+        tools->state = tool_none;
+        printCurrentTool();
+    }   
+
     if (keyCode == sf::Keyboard::F5) testStage();
-    if (keyCode == sf::Keyboard::Escape) exitEditor();
+    if (keyCode == sf::Keyboard::Escape) {
+        tools->state = tool_quitConfirmation;
+        std::cout << "Are you sure you want to quit? Y/N\n";
+        printCurrentTool();
+    }
     if (keyCode == sf::Keyboard::Return) {
         editorState.levelTemplate.generateCode();
         print("Code Generated");
@@ -562,6 +577,11 @@ void tryReturnToEditor() {
 }
 
 void testStage() {
+    gameStatus = gamestatus_inGame;
+    refreshEditorGameDisplay(true);
+}
+
+void editorRestartStage() {
     gameStatus = gamestatus_inGame;
     refreshEditorGameDisplay(true);
 }

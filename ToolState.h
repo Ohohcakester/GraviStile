@@ -12,6 +12,7 @@ namespace editor {
         tool_placePlatform,
         tool_placeDoor,
         tool_placePlayer,
+        tool_quitConfirmation,
     };
 
     class ToolState {

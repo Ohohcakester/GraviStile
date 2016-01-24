@@ -12,6 +12,7 @@
 #include "globals.h"
 #include "main.h"
 #include "tests.h";
+#include "EditorState.h"
 
 int gameStatus = gamestatus_menu;
 
@@ -35,12 +36,30 @@ void rotateLeft() {
     game.player.rotateTo(orientation);
 }
 
+void restartLevel() {
+    if (editorState.isActive) {
+        editorRestartStage();
+    }
+    else {
+        initialiseGame(game.currentStage);
+    }
+}
+
+void quitGame() {
+    if (editorState.isActive) {
+        tryReturnToEditor();
+    }
+    else {
+        initialiseMenu();
+    }
+}
+
 void inGameKeyPress(sf::Keyboard::Key keyCode) {
     if (keyCode == sf::Keyboard::Space) game.player.jump();
     if (keyCode == sf::Keyboard::A) rotateLeft();
     if (keyCode == sf::Keyboard::D) rotateRight();
-    if (keyCode == sf::Keyboard::R) initialiseGame(game.currentStage);
-    if (keyCode == sf::Keyboard::Escape) initialiseMenu();
+    if (keyCode == sf::Keyboard::R) restartLevel();
+    if (keyCode == sf::Keyboard::Escape) quitGame();
     if (keyCode == sf::Keyboard::F5) tryReturnToEditor();
     //if (keyCode == sf::Keyboard::T) game.player.currentPlatform->disable(); for debugging.
 }

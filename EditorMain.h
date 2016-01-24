@@ -16,6 +16,6 @@ void updateEditor();
 
 void tryReturnToEditor();
 
-
+void editorRestartStage();
 
 #endif
