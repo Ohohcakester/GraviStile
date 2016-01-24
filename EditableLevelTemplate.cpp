@@ -156,7 +156,7 @@ void EditableLevelTemplate::generateCode() {
     s << "double zoom = " << zoom << ";\n";
 
     s << "\n";
-    s << "return GameStage(name, platforms, player, door, zoom, laserSources);\n";
+    s << "return GameStage(name, platforms, player, door, zoom, laserSources, laserTargets);\n";
 
     fileIO.close();
 }
