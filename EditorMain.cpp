@@ -32,7 +32,7 @@ void printCurrentTool() {
     std::string toolName = "???";
     switch (editorState.toolState.state) {
     case tool_none: toolName = "None"; break;
-    case tool_movePlatform: toolName = "Move"; break;
+    case tool_move: toolName = "Move"; break;
     case tool_leftTiles: toolName = "Left Tiles"; break;
     case tool_rightTiles: toolName = "Right Tiles"; break;
     case tool_placeDoor: toolName = "Place Door"; break;
@@ -114,12 +114,32 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
             plat->orientation = orientationRotateLeft(plat->orientation);
             refreshEditorGameDisplay();
         }
+        else if (selection->type == selection_player) {
+            PlayerTemplate* play = &templ->player;
+            play->orientation = orientationRotateLeft(play->orientation);
+            refreshEditorGameDisplay();
+        }
+        else if (selection->type == selection_door) {
+            DoorTemplate* door = &templ->door;
+            door->orientation = orientationRotateLeft(door->orientation);
+            refreshEditorGameDisplay();
+        }
     }
 
     if (keyCode == sf::Keyboard::D) {
         if (selection->type == selection_platform) {
             PlatformTemplate* plat = selection->selectedPlatform;
             plat->orientation = orientationRotateRight(plat->orientation);
+            refreshEditorGameDisplay();
+        }
+        else if (selection->type == selection_player) {
+            PlayerTemplate* play = &templ->player;
+            play->orientation = orientationRotateRight(play->orientation);
+            refreshEditorGameDisplay();
+        }
+        else if (selection->type == selection_door) {
+            DoorTemplate* door = &templ->door;
+            door->orientation = orientationRotateRight(door->orientation);
             refreshEditorGameDisplay();
         }
     }
@@ -211,44 +231,92 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
     if (keyCode == sf::Keyboard::Num9) pressKey(9);
 
     if (keyCode == sf::Keyboard::LShift) {
-        if (tools->state == tool_movePlatform) {
+        if (tools->state == tool_move) {
             tools->state = tool_none;
         }
         else {
-            tools->state = tool_movePlatform;
+            tools->state = tool_move;
         }
         printCurrentTool();
     }
 
     if (keyCode == sf::Keyboard::Left) {
-        if (selection->type == selection_platform && tools->state == tool_movePlatform) {
-            PlatformTemplate* plat = selection->selectedPlatform;
-            plat->pivotX--;
-            refreshEditorGameDisplay();
+        if (tools->state == tool_move) {
+            if (selection->type == selection_platform) {
+                PlatformTemplate* plat = selection->selectedPlatform;
+                plat->pivotX--;
+                refreshEditorGameDisplay();
+            }
+            else if (selection->type == selection_player) {
+                PlayerTemplate* play = &templ->player;
+                play->x--;
+                refreshEditorGameDisplay();
+            }
+            else if (selection->type == selection_door) {
+                DoorTemplate* door = &templ->door;
+                door->x--;
+                refreshEditorGameDisplay();
+            }
         }
     }
 
     if (keyCode == sf::Keyboard::Right) {
-        if (selection->type == selection_platform && tools->state == tool_movePlatform) {
-            PlatformTemplate* plat = selection->selectedPlatform;
-            plat->pivotX++;
-            refreshEditorGameDisplay();
+        if (tools->state == tool_move) {
+            if (selection->type == selection_platform) {
+                PlatformTemplate* plat = selection->selectedPlatform;
+                plat->pivotX++;
+                refreshEditorGameDisplay();
+            }
+            else if (selection->type == selection_player) {
+                PlayerTemplate* play = &templ->player;
+                play->x++;
+                refreshEditorGameDisplay();
+            }
+            else if (selection->type == selection_door) {
+                DoorTemplate* door = &templ->door;
+                door->x++;
+                refreshEditorGameDisplay();
+            }
         }
     }
 
     if (keyCode == sf::Keyboard::Up) {
-        if (selection->type == selection_platform && tools->state == tool_movePlatform) {
-            PlatformTemplate* plat = selection->selectedPlatform;
-            plat->pivotY--;
-            refreshEditorGameDisplay();
+        if (tools->state == tool_move) {
+            if (selection->type == selection_platform) {
+                PlatformTemplate* plat = selection->selectedPlatform;
+                plat->pivotY--;
+                refreshEditorGameDisplay();
+            }
+            else if (selection->type == selection_player) {
+                PlayerTemplate* play = &templ->player;
+                play->y--;
+                refreshEditorGameDisplay();
+            }
+            else if (selection->type == selection_door) {
+                DoorTemplate* door = &templ->door;
+                door->y--;
+                refreshEditorGameDisplay();
+            }
         }
     }
 
     if (keyCode == sf::Keyboard::Down) {
-        if (selection->type == selection_platform && tools->state == tool_movePlatform) {
-            PlatformTemplate* plat = selection->selectedPlatform;
-            plat->pivotY++;
-            refreshEditorGameDisplay();
+        if (tools->state == tool_move) {
+            if (selection->type == selection_platform) {
+                PlatformTemplate* plat = selection->selectedPlatform;
+                plat->pivotY++;
+                refreshEditorGameDisplay();
+            }
+            else if (selection->type == selection_player) {
+                PlayerTemplate* play = &templ->player;
+                play->y++;
+                refreshEditorGameDisplay();
+            }
+            else if (selection->type == selection_door) {
+                DoorTemplate* door = &templ->door;
+                door->y++;
+                refreshEditorGameDisplay();
+            }
         }
     }
 

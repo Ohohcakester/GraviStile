@@ -8,7 +8,7 @@ namespace editor {
         tool_switchConnection,
         tool_leftTiles,
         tool_rightTiles,
-        tool_movePlatform,
+        tool_move,
         tool_placePlatform,
         tool_placeDoor,
         tool_placePlayer,
