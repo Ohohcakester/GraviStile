@@ -244,16 +244,154 @@ void Player::update(Keyboard k) {
     if (k.left && !k.right) facingRight = false;
     if (k.right && !k.left) facingRight = true;
 
+    // TODO: Possibly Add code to force players out of the nearest platform, just in case somehow the player gets stuck in a platform.
 
     // Move Player
-    x += vx;
-    y += vy;
+    tryMoveInDirection(vx, vy);
+}
 
+void Player::tryMoveInDirection(int dx, int dy) {
+    if (dx == 0 && dy == 0) return;
+
+    int moveX;
+    int moveY;
+    int minMoveDistance = -1;
+    Platform* targetPlatform = NULL;
+    int hitPlatformDirection = -1;
+
+    // Find the closest colliding platform (moveDistance is used to judge the closeness)
     for (size_t i = 0; i<game.platforms.size(); ++i) {
-        if (game.platforms[i]->isDisabled()) continue;
-        collision(game.platforms[i]);
+        Platform* platform = game.platforms[i];
+        if (platform->isDisabled()) continue;
+
+        int mx, my = 0;
+        int hitDirection = -1;
+        int moveDistance = getPlatformMoveDistance(x, y, dx, dy, platform, &mx, &my, &hitDirection);
+        if (moveDistance == -1) continue;
+
+        if (minMoveDistance == -1 || moveDistance < minMoveDistance) {
+            minMoveDistance = moveDistance;
+            targetPlatform = platform;
+            hitPlatformDirection = hitDirection;
+            moveX = mx;
+            moveY = my;
+        }
+    }
+
+    // Move the player.
+    if (minMoveDistance == -1) {
+        // No blocking platform
+        x += dx;
+        y += dy;
+    } else {
+        // blocked
+        x += moveX;
+        y += moveY;
+
+        if (hitPlatformDirection == this->orientation) setCurrentPlatform(targetPlatform);
+        switch (hitPlatformDirection) {
+        case dir_up:
+        case dir_down:
+            vy = 0;
+            dx -= moveX;
+            dy = 0;
+            break;
+        case dir_left:
+        case dir_right:
+            vx = 0;
+            dx = 0;
+            dy -= moveY;
+            break;
+        }
+
+        // Continue movement with the remaining dx,dy.
+        tryMoveInDirection(dx, dy);
     }
 }
+
+// Get the maximum distance the player can go before colliding with the platform.
+// Returns: moveDistance, moveX, moveY, hitDirection.
+int Player::getPlatformMoveDistance(int fromX, int fromY, int dx, int dy, Platform* plat, int* moveX, int* moveY, int* hitDirection) {
+    if (!(x2+dx > plat->x1 && x1+dx < plat->x2 && y2+dy > plat->y1 && y1+dy < plat->y2)) {
+        return -1;
+    }
+
+    int xWidth, yWidth;
+    switch (orientation) {
+    case dir_up:
+    case dir_down:
+        xWidth = pwidth / 2;
+        yWidth = pheight / 2;
+        break;
+    case dir_left:
+    case dir_right:
+        xWidth = pheight / 2;
+        yWidth = pwidth / 2;
+        break;
+    }
+
+    int signX = (dx > 0) ? 1 : -1;
+    int signY = (dy > 0) ? 1 : -1;
+
+    int moveDistance = std::numeric_limits<int>::min();
+    if (dx > 0) {
+        int maxX = plat->x1;
+        if (dx > maxX - fromX - xWidth) {
+            int mx = maxX - fromX - xWidth;
+            int my = mx * dy / dx;
+
+            moveDistance = mx / signX + my / signY;
+            *moveY = my;
+            *moveX = mx;
+            *hitDirection = dir_left;
+        }
+    } else if (dx < 0) {
+        int minX = plat->x2;
+        if (dx < minX - fromX + xWidth) {
+            int mx = minX - fromX + xWidth;
+            int my = mx * dy / dx;
+
+            moveDistance = mx / signX + my / signY;
+            *moveY = my;
+            *moveX = mx;
+            *hitDirection = dir_right;
+        }
+    }
+
+    if (dy > 0) {
+        int maxY = plat->y1;
+        if (dy > maxY - fromY - yWidth) {
+            int my = maxY - fromY - yWidth;
+            int mx = my * dx / dy;
+
+            int newMoveDistance = mx / signX + my / signY;
+            if (newMoveDistance > moveDistance) {
+                *moveY = my;
+                *moveX = mx;
+                moveDistance = newMoveDistance;
+                *hitDirection = dir_up;
+                std::cout << my << " " << mx << "\n";
+            }
+        }
+    } else if (dy < 0) {
+        int minY = plat->y2;
+        if (dy < minY - fromY + yWidth) {
+            int my = minY - fromY + yWidth;
+            int mx = my * dx / dy;
+
+            int newMoveDistance = mx / signX + my / signY;
+            if (newMoveDistance > moveDistance) {
+                *moveY = my;
+                *moveX = mx;
+                moveDistance = newMoveDistance;
+                *hitDirection = dir_down;
+            }
+        }
+    }
+
+    return moveDistance;
+}
+
 
 void Player::getGridCoordinates(int* gridX, int* gridY) {
     actualToGrid(x, y, gridX, gridY);
@@ -302,6 +440,7 @@ void Player::setOrientation(int orientation) {
     this->angle = orientationToAngle(orientation);
 }
 
+// Currently not in use.
 void Player::collision(Platform* plat) {
     if (x2 > plat->x1 && x1 < plat->x2 && y2 > plat->y1 && y1 < plat->y2) {
         int touchSide = -1;
