@@ -96,12 +96,12 @@ GameStage level6() {
     std::string name = "Positioning";
 
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate::create(0, 1, 1, 1, true, dir_right),
-        PlatformTemplate::create(0, 4, 1, 1, true, dir_right),
-        PlatformTemplate::create(1, 5, 0, 3, true, dir_up),
-        PlatformTemplate::create(3, 4, 1, 0, false, dir_right),
-        PlatformTemplate::create(6, 4, 1, 1, true, dir_up),
-        PlatformTemplate::create(6, 6, 1, 1, false, dir_up),
+        PlatformTemplate(0, 1, 1, 1, true, dir_right),
+        PlatformTemplate(0, 4, 1, 1, true, dir_right),
+        PlatformTemplate(1, 5, 0, 3, true, dir_up),
+        PlatformTemplate(3, 4, 1, 0, false, dir_right),
+        PlatformTemplate(6, 4, 1, 1, true, dir_up),
+        PlatformTemplate(6, 6, 1, 1, false, dir_up),
     };
 
     PlayerTemplate player(1, 4, dir_up);
@@ -115,10 +115,10 @@ GameStage level7() {
     std::string name = "Uncooperative";
 
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate::create(1, 3, 0, 2, true, dir_up)._spinConnectionIndex(1),
+        PlatformTemplate(1, 3, 0, 2, true, dir_up)._spinConnectionIndex(1),
         PlatformTemplate(2, 6, 2, 0, true, dir_up),
         PlatformTemplate(2, 8, 0, 0, true, dir_right),
-        PlatformTemplate::create(4, 1, 1, 0, true, dir_left)._spinConnectionIndex(1),
+        PlatformTemplate(4, 1, 1, 0, true, dir_left)._spinConnectionIndex(1),
     };
 
     PlayerTemplate player(2, 2, dir_up);
@@ -153,12 +153,12 @@ GameStage level9() {
     std::string name = "Bumpers";
 
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate::create(3, 2, 2, 1, true, dir_down)._spinConnectionIndex(2),
-        PlatformTemplate::create(7, 1, 1, 2, true, dir_up)._spinConnectionIndex(1),
-        PlatformTemplate::create(8, 4, 1, 2, true, dir_down)._spinConnectionIndex(1),
-        PlatformTemplate::create(10, -1, 1, 1, true, dir_right)._spinConnectionIndex(2),
-        PlatformTemplate::create(7, -2, 0, 1, false, dir_left),
-        PlatformTemplate::create(10, -3, 0, 0, false, dir_right),
+        PlatformTemplate(3, 2, 2, 1, true, dir_down)._spinConnectionIndex(2),
+        PlatformTemplate(7, 1, 1, 2, true, dir_up)._spinConnectionIndex(1),
+        PlatformTemplate(8, 4, 1, 2, true, dir_down)._spinConnectionIndex(1),
+        PlatformTemplate(10, -1, 1, 1, true, dir_right)._spinConnectionIndex(2),
+        PlatformTemplate(7, -2, 0, 1, false, dir_left),
+        PlatformTemplate(10, -3, 0, 0, false, dir_right),
     };
 
     PlayerTemplate player(4, 1, dir_up);
@@ -172,14 +172,14 @@ GameStage level10() {
     std::string name = "Laser Barrier";
 
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate::create(-1, -1, 0, 0, false, dir_up)._id(1),
-        PlatformTemplate::create(10, 0, 0, 0, false, dir_up),
-        PlatformTemplate::create(0, 2, 1, 3, true, dir_up),
-        PlatformTemplate::create(6, 1, 1, 3, true, dir_down),
-        PlatformTemplate::create(6, 3, 1, 0, true, dir_up),
-        PlatformTemplate::create(9, 2, 0, 1, true, dir_up),
-        PlatformTemplate::create(9, 4, 1, 1, false, dir_down),
-        PlatformTemplate::create(7, 5, 1, 0, true, dir_left),
+        PlatformTemplate(-1, -1, 0, 0, false, dir_up)._id(1),
+        PlatformTemplate(10, 0, 0, 0, false, dir_up),
+        PlatformTemplate(0, 2, 1, 3, true, dir_up),
+        PlatformTemplate(6, 1, 1, 3, true, dir_down),
+        PlatformTemplate(6, 3, 1, 0, true, dir_up),
+        PlatformTemplate(9, 2, 0, 1, true, dir_up),
+        PlatformTemplate(9, 4, 1, 1, false, dir_down),
+        PlatformTemplate(7, 5, 1, 0, true, dir_left),
     };
 
 
@@ -216,14 +216,14 @@ GameStage level12() {
     std::string name = "Laser Grid";
 
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate::create(3, 3, 3, 3, true, dir_up),
-        PlatformTemplate::create(2, -3, 0, 0, false, dir_up)._id(1),
-        PlatformTemplate::create(5, -3, 0, 0, false, dir_up)._id(2),
-        PlatformTemplate::create(-3, 0, 0, 0, false, dir_up)._id(3),
-        PlatformTemplate::create(-3, 6, 0, 0, false, dir_up)._id(4),
-        PlatformTemplate::create(1, 9, 0, 0, false, dir_up)._id(5),
-        PlatformTemplate::create(5, 9, 0, 0, false, dir_up)._id(6),
-        PlatformTemplate::create(9, 3, 0, 0, false, dir_up)._id(7),
+        PlatformTemplate(3, 3, 3, 3, true, dir_up),
+        PlatformTemplate(2, -3, 0, 0, false, dir_up)._id(1),
+        PlatformTemplate(5, -3, 0, 0, false, dir_up)._id(2),
+        PlatformTemplate(-3, 0, 0, 0, false, dir_up)._id(3),
+        PlatformTemplate(-3, 6, 0, 0, false, dir_up)._id(4),
+        PlatformTemplate(1, 9, 0, 0, false, dir_up)._id(5),
+        PlatformTemplate(5, 9, 0, 0, false, dir_up)._id(6),
+        PlatformTemplate(9, 3, 0, 0, false, dir_up)._id(7),
     };
 
     std::vector<LaserSourceTemplate> laserSources{
@@ -248,13 +248,13 @@ GameStage level13() {
     std::string name = "Redirection";
 
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate::create(3, 4, 2, 1, true, dir_up),
-        PlatformTemplate::create(5, -1, 1, 1, true, dir_down)._id(1),
-        PlatformTemplate::create(7, -2, 0, 1, false, dir_left),
-        PlatformTemplate::create(7, 3, 1, 3, false, dir_up),
-        PlatformTemplate::create(7, 5, 1, 0, true, dir_down),
-        PlatformTemplate::create(7, 7, 1, 1, true, dir_up)._spinConnectionIndex(1),
-        PlatformTemplate::create(2, 7, 1, 0, true, dir_left)._spinConnectionIndex(1),
+        PlatformTemplate(3, 4, 2, 1, true, dir_up),
+        PlatformTemplate(5, -1, 1, 1, true, dir_down)._id(1),
+        PlatformTemplate(7, -2, 0, 1, false, dir_left),
+        PlatformTemplate(7, 3, 1, 3, false, dir_up),
+        PlatformTemplate(7, 5, 1, 0, true, dir_down),
+        PlatformTemplate(7, 7, 1, 1, true, dir_up)._spinConnectionIndex(1),
+        PlatformTemplate(2, 7, 1, 0, true, dir_left)._spinConnectionIndex(1),
     };
 
     std::vector<LaserSourceTemplate> laserSources{
@@ -272,14 +272,14 @@ GameStage level14() {
     std::string name = "Criss-Cross";
 
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate::create(4, 0, 1, 1, true, dir_up)._id(5),
-        PlatformTemplate::create(6, 0, 0, 1, true, dir_right),
-        PlatformTemplate::create(9, -1, 0, 2, true, dir_up),
-        PlatformTemplate::create(5, 4, 1, 1, true, dir_up)._id(1),
-        PlatformTemplate::create(1, 4, 1, 1, true, dir_down)._id(2),
-        PlatformTemplate::create(9, 4, 1, 1, true, dir_up)._id(6),
-        PlatformTemplate::create(0, 1, 1, 1, true, dir_right)._id(3),
-        PlatformTemplate::create(0, -3, 1, 0, true, dir_left)._id(4),
+        PlatformTemplate(4, 0, 1, 1, true, dir_up)._id(5),
+        PlatformTemplate(6, 0, 0, 1, true, dir_right),
+        PlatformTemplate(9, -1, 0, 2, true, dir_up),
+        PlatformTemplate(5, 4, 1, 1, true, dir_up)._id(1),
+        PlatformTemplate(1, 4, 1, 1, true, dir_down)._id(2),
+        PlatformTemplate(9, 4, 1, 1, true, dir_up)._id(6),
+        PlatformTemplate(0, 1, 1, 1, true, dir_right)._id(3),
+        PlatformTemplate(0, -3, 1, 0, true, dir_left)._id(4),
     };
 
 
@@ -307,15 +307,15 @@ GameStage level15() {
     std::string name = "Stoppered";
 
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate::create(4, 3, 1, 1, true, dir_up)._spinConnectionIndex(1),
-        PlatformTemplate::create(1, 0, 2, 0, true, dir_right)._spinConnectionIndex(1),
-        PlatformTemplate::create(7, 0, 0, 2, true, dir_left)._spinConnectionIndex(1),
-        PlatformTemplate::create(0, 3, 1, 1, true, dir_right),
-        PlatformTemplate::create(8, 3, 1, 1, true, dir_left),
-        PlatformTemplate::create(-7, 5, 0, 0, false, dir_up)._id(1),
-        PlatformTemplate::create(15, 5, 0, 0, false, dir_up)._id(2),
-        PlatformTemplate::create(0, -3, 1, 0, true, dir_down),
-        PlatformTemplate::create(8, -3, 0, 1, true, dir_down),
+        PlatformTemplate(4, 3, 1, 1, true, dir_up)._spinConnectionIndex(1),
+        PlatformTemplate(1, 0, 2, 0, true, dir_right)._spinConnectionIndex(1),
+        PlatformTemplate(7, 0, 0, 2, true, dir_left)._spinConnectionIndex(1),
+        PlatformTemplate(0, 3, 1, 1, true, dir_right),
+        PlatformTemplate(8, 3, 1, 1, true, dir_left),
+        PlatformTemplate(-7, 5, 0, 0, false, dir_up)._id(1),
+        PlatformTemplate(15, 5, 0, 0, false, dir_up)._id(2),
+        PlatformTemplate(0, -3, 1, 0, true, dir_down),
+        PlatformTemplate(8, -3, 0, 1, true, dir_down),
     };
 
 
@@ -337,7 +337,7 @@ GameStage level16() {
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(2, 2, 1, 1, true, dir_up),
         PlatformTemplate(4, 1, 0, 0, true, dir_right),
-        PlatformTemplate::create(3, 5, 2, 2, true, dir_up)._id(1),
+        PlatformTemplate(3, 5, 2, 2, true, dir_up)._id(1),
         PlatformTemplate(6, 6, 1, 1, true, dir_right),
         PlatformTemplate(5, 8, 1, 1, true, dir_down),
         PlatformTemplate(8, 7, 1, 1, true, dir_up),
@@ -365,15 +365,15 @@ GameStage level17() {
     std::string name = "Laser Switch";
 
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate::create(3, 0, 1, 1, true, dir_up)._platformSwitchConnectionIndex(1),
-        PlatformTemplate::create(1, 2, 1, 2, false, dir_left)._id(1),
-        PlatformTemplate::create(5, 2, 1, 2, false, dir_left)._id(2),
-        PlatformTemplate::create(3, 2, 1, 1, false, dir_up),
-        PlatformTemplate::create(0, 0, 1, 0, true, dir_up),
-        PlatformTemplate::create(6, 0, 0, 1, true, dir_up),
-        PlatformTemplate::create(0, 3, 0, 1, true, dir_down),
-        PlatformTemplate::create(6, 3, 1, 0, true, dir_down),
-        PlatformTemplate::create(3, 4, 1, 1, true, dir_left),
+        PlatformTemplate(3, 0, 1, 1, true, dir_up)._platformSwitchConnectionIndex(1),
+        PlatformTemplate(1, 2, 1, 2, false, dir_left)._id(1),
+        PlatformTemplate(5, 2, 1, 2, false, dir_left)._id(2),
+        PlatformTemplate(3, 2, 1, 1, false, dir_up),
+        PlatformTemplate(0, 0, 1, 0, true, dir_up),
+        PlatformTemplate(6, 0, 0, 1, true, dir_up),
+        PlatformTemplate(0, 3, 0, 1, true, dir_down),
+        PlatformTemplate(6, 3, 1, 0, true, dir_down),
+        PlatformTemplate(3, 4, 1, 1, true, dir_left),
     };
 
     std::vector<LaserSourceTemplate> laserSources{
@@ -397,38 +397,38 @@ GameStage level18() {
 
     std::vector<PlatformTemplate> platforms{
         // Starting Platform
-        PlatformTemplate::create(7, 5, 1, 1, true, dir_up)._id(1),
+        PlatformTemplate(7, 5, 1, 1, true, dir_up)._id(1),
 
         // Edge lasers
-        PlatformTemplate::create(7, -4, 2, 2, false, dir_up)._id(2),
-        PlatformTemplate::create(7, 14, 2, 2, false, dir_up)._id(3),
-        PlatformTemplate::create(5, 12, 0, 0, false, dir_up)._platformSwitchConnectionIndex(11),
-        PlatformTemplate::create(9, -2, 0, 0, false, dir_up)._platformSwitchConnectionIndex(12),
+        PlatformTemplate(7, -4, 2, 2, false, dir_up)._id(2),
+        PlatformTemplate(7, 14, 2, 2, false, dir_up)._id(3),
+        PlatformTemplate(5, 12, 0, 0, false, dir_up)._platformSwitchConnectionIndex(11),
+        PlatformTemplate(9, -2, 0, 0, false, dir_up)._platformSwitchConnectionIndex(12),
         
         // Targets
-        PlatformTemplate::create(3, 6, 1, 1, true, dir_up)._id(4),
-        PlatformTemplate::create(11, 4, 1, 1, true, dir_up)._id(5),
+        PlatformTemplate(3, 6, 1, 1, true, dir_up)._id(4),
+        PlatformTemplate(11, 4, 1, 1, true, dir_up)._id(5),
 
         // Switch Platforms
-        PlatformTemplate::create(7, 0, 1, 1, true, dir_left)._id(6),
-        PlatformTemplate::create(7, 10, 1, 1, true, dir_right)._id(7),
+        PlatformTemplate(7, 0, 1, 1, true, dir_left)._id(6),
+        PlatformTemplate(7, 10, 1, 1, true, dir_right)._id(7),
 
         // Other Platforms
-        PlatformTemplate::create(3, 3, 1, 1, true, dir_down),
-        PlatformTemplate::create(11, 0, 1, 1, true, dir_left),
-        PlatformTemplate::create(11, 8, 1, 1, true, dir_right),
+        PlatformTemplate(3, 3, 1, 1, true, dir_down),
+        PlatformTemplate(11, 0, 1, 1, true, dir_left),
+        PlatformTemplate(11, 8, 1, 1, true, dir_right),
 
         // Goal Gate
-        PlatformTemplate::create(15, 4, 1, 1, true, dir_up),
+        PlatformTemplate(15, 4, 1, 1, true, dir_up),
 
-        PlatformTemplate::create(16, 1, 2, 1, false, dir_up),
-        PlatformTemplate::create(16, 7, 2, 1, false, dir_up),
-        PlatformTemplate::create(17, 4, 2, 2, false, dir_right),
+        PlatformTemplate(16, 1, 2, 1, false, dir_up),
+        PlatformTemplate(16, 7, 2, 1, false, dir_up),
+        PlatformTemplate(17, 4, 2, 2, false, dir_right),
 
-        PlatformTemplate::create(14, 2, 0, 1, false, dir_right)._platformSwitchConnectionIndex(20),
-        PlatformTemplate::create(14, 5, 0, 1, false, dir_right)._platformSwitchConnectionIndex(20),
-        PlatformTemplate::create(15, 3, 1, 0, false, dir_right)._platformSwitchConnectionIndex(21),
-        PlatformTemplate::create(15, 6, 1, 0, false, dir_right)._platformSwitchConnectionIndex(21),
+        PlatformTemplate(14, 2, 0, 1, false, dir_right)._platformSwitchConnectionIndex(20),
+        PlatformTemplate(14, 5, 0, 1, false, dir_right)._platformSwitchConnectionIndex(20),
+        PlatformTemplate(15, 3, 1, 0, false, dir_right)._platformSwitchConnectionIndex(21),
+        PlatformTemplate(15, 6, 1, 0, false, dir_right)._platformSwitchConnectionIndex(21),
     };
 
     std::vector<LaserSourceTemplate> laserSources{
@@ -460,12 +460,12 @@ GameStage level19() {
     std::string name = "Twist and Turn";
 
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate::create(1, 11, 1, 1, true, dir_up),
-        PlatformTemplate::create(0, 8, 1, 2, true, dir_right),
-        PlatformTemplate::create(1, 6, 1, 1, true, dir_up),
-        PlatformTemplate::create(2, 4, 1, 1, true, dir_right),
-        PlatformTemplate::create(3, 3, 0, 0, true, dir_up),
-        PlatformTemplate::create(4, 1, 1, 1, true, dir_right),
+        PlatformTemplate(1, 11, 1, 1, true, dir_up),
+        PlatformTemplate(0, 8, 1, 2, true, dir_right),
+        PlatformTemplate(1, 6, 1, 1, true, dir_up),
+        PlatformTemplate(2, 4, 1, 1, true, dir_right),
+        PlatformTemplate(3, 3, 0, 0, true, dir_up),
+        PlatformTemplate(4, 1, 1, 1, true, dir_right),
     };
 
     PlayerTemplate player(0, 5, dir_up);
@@ -480,20 +480,20 @@ GameStage level20() {
     std::string name = "Coupled";
 
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate::create(4, -4, 3, 2, false, dir_up)._id(1),
-        PlatformTemplate::create(4, 8, 1, 2, false, dir_up)._id(2),
-        PlatformTemplate::create(6, 6, 0, 0, false, dir_up)._platformSwitchConnectionIndex(1)._isDisabled(true),
-        PlatformTemplate::create(1, 1, 1, 1, true, dir_up),
-        PlatformTemplate::create(2, 4, 1, 1, true, dir_left),
-        PlatformTemplate::create(4, 1, 1, 1, true, dir_left),
-        PlatformTemplate::create(5, 4, 1, 1, true, dir_left),
-        PlatformTemplate::create(0, 4, 1, 0, true, dir_up),
-        PlatformTemplate::create(-2, 1, 1, 0, true, dir_up),
-        PlatformTemplate::create(7, 4, 1, 0, false, dir_right),
-        PlatformTemplate::create(1, -1, 0, 2, false, dir_left),
-        PlatformTemplate::create(5, -2, 1, 1, true, dir_right)._platformSwitchConnectionIndex(2)._isDisabled(true),
-        PlatformTemplate::create(8, 2, 1, 1, true, dir_right)._id(3),
-        PlatformTemplate::create(10, 1, 1, 1, true, dir_up)._id(4),
+        PlatformTemplate(4, -4, 3, 2, false, dir_up)._id(1),
+        PlatformTemplate(4, 8, 1, 2, false, dir_up)._id(2),
+        PlatformTemplate(6, 6, 0, 0, false, dir_up)._platformSwitchConnectionIndex(1)._isDisabled(true),
+        PlatformTemplate(1, 1, 1, 1, true, dir_up),
+        PlatformTemplate(2, 4, 1, 1, true, dir_left),
+        PlatformTemplate(4, 1, 1, 1, true, dir_left),
+        PlatformTemplate(5, 4, 1, 1, true, dir_left),
+        PlatformTemplate(0, 4, 1, 0, true, dir_up),
+        PlatformTemplate(-2, 1, 1, 0, true, dir_up),
+        PlatformTemplate(7, 4, 1, 0, false, dir_right),
+        PlatformTemplate(1, -1, 0, 2, false, dir_left),
+        PlatformTemplate(5, -2, 1, 1, true, dir_right)._platformSwitchConnectionIndex(2)._isDisabled(true),
+        PlatformTemplate(8, 2, 1, 1, true, dir_right)._id(3),
+        PlatformTemplate(10, 1, 1, 1, true, dir_up)._id(4),
 
     };
 
@@ -594,25 +594,25 @@ GameStage level23() {
     std::string name = "Reconfigure";
 
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate::create(3, 2, 2, 1, true, dir_up)._id(11),
-        PlatformTemplate::create(7, 2, 2, 1, true, dir_down)._id(10),
-        PlatformTemplate::create(4, 6, 1, 1, true, dir_left),
-        PlatformTemplate::create(7, 5, 1, 1, true, dir_up),
+        PlatformTemplate(3, 2, 2, 1, true, dir_up)._id(11),
+        PlatformTemplate(7, 2, 2, 1, true, dir_down)._id(10),
+        PlatformTemplate(4, 6, 1, 1, true, dir_left),
+        PlatformTemplate(7, 5, 1, 1, true, dir_up),
 
-        PlatformTemplate::create(6, 9, 1, 1, true, dir_right),
-        PlatformTemplate::create(8, 11, 0, 0, true, dir_up),
+        PlatformTemplate(6, 9, 1, 1, true, dir_right),
+        PlatformTemplate(8, 11, 0, 0, true, dir_up),
 
-        PlatformTemplate::create(2, 10, 1, 3, true, dir_right),
-        PlatformTemplate::create(0, 4, 1, 1, true, dir_right)._spinConnectionIndex(1),
-        PlatformTemplate::create(0, 7, 0, 1, true, dir_down)._spinConnectionIndex(1),
+        PlatformTemplate(2, 10, 1, 3, true, dir_right),
+        PlatformTemplate(0, 4, 1, 1, true, dir_right)._spinConnectionIndex(1),
+        PlatformTemplate(0, 7, 0, 1, true, dir_down)._spinConnectionIndex(1),
 
         // Goal Platform
-        PlatformTemplate::create(10, 2, 0, 1, false, dir_up),
+        PlatformTemplate(10, 2, 0, 1, false, dir_up),
 
         // Laser Platforms
-        PlatformTemplate::create(1, -6, 0, 0, false, dir_up)._id(1),
-        PlatformTemplate::create(5, 15, 0, 0, false, dir_up)._id(3),
-        PlatformTemplate::create(9, 15, 0, 0, false, dir_up)._id(4),
+        PlatformTemplate(1, -6, 0, 0, false, dir_up)._id(1),
+        PlatformTemplate(5, 15, 0, 0, false, dir_up)._id(3),
+        PlatformTemplate(9, 15, 0, 0, false, dir_up)._id(4),
     };
 
     std::vector<LaserSourceTemplate> laserSources{
@@ -634,14 +634,14 @@ GameStage level24() {
     std::string name = "Cipher Machine";
 
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate::create(3, 3, 1, 1, true, dir_down)._spinConnectionIndex(1),
-        PlatformTemplate::create(6, 3, 1, 1, true, dir_up)._spinConnectionIndex(1),
-        PlatformTemplate::create(3, 6, 1, 1, true, dir_up)._spinConnectionIndex(1),
-        PlatformTemplate::create(6, 6, 1, 1, true, dir_down)._spinConnectionIndex(1),
+        PlatformTemplate(3, 3, 1, 1, true, dir_down)._spinConnectionIndex(1),
+        PlatformTemplate(6, 3, 1, 1, true, dir_up)._spinConnectionIndex(1),
+        PlatformTemplate(3, 6, 1, 1, true, dir_up)._spinConnectionIndex(1),
+        PlatformTemplate(6, 6, 1, 1, true, dir_down)._spinConnectionIndex(1),
 
-        PlatformTemplate::create(9, 1, 1, 1, true, dir_down),
-        PlatformTemplate::create(10, 3, 1, 1, true, dir_up)._id(1),
-        PlatformTemplate::create(10, 6, 1, 1, true, dir_down)._id(10),
+        PlatformTemplate(9, 1, 1, 1, true, dir_down),
+        PlatformTemplate(10, 3, 1, 1, true, dir_up)._id(1),
+        PlatformTemplate(10, 6, 1, 1, true, dir_down)._id(10),
     };
 
     std::vector<LaserSourceTemplate> laserSources{
@@ -678,16 +678,16 @@ GameStage testStage1() {
     std::string name = "Test 1";
 
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate::create(1, 2, 1, 2, true, dir_up)._id(1),
-        PlatformTemplate::create(4, 2, 1, 2, true, dir_left)._spinConnectionIndex(1),
-        PlatformTemplate::create(5, 0, 0, 0, true, dir_up)._spinConnectionIndex(1),
-        PlatformTemplate::create(7, 2, 1, 0, true, dir_down)._spinConnectionIndex(2),
-        PlatformTemplate::create(0, 6, 2, 1, true, dir_right)._spinConnectionIndex(2)._id(2),
-        PlatformTemplate::create(1, -2, 1, 1, true, dir_left)._pivotSwitchConnectionIndex(1),
-        PlatformTemplate::create(1, -6, 1, 1, true, dir_left)._platformSwitchConnectionIndex(1),
-        PlatformTemplate::create(-2, 0, 1, 1, true, dir_right)._platformSwitchConnectionIndex(1)._isDisabled(true),
-        PlatformTemplate::create(-4, 2, 1, 1, true, dir_left)._id(3),
-        PlatformTemplate::create(-2, 4, 1, 3, false, dir_right)._platformSwitchConnectionIndex(2),
+        PlatformTemplate(1, 2, 1, 2, true, dir_up)._id(1),
+        PlatformTemplate(4, 2, 1, 2, true, dir_left)._spinConnectionIndex(1),
+        PlatformTemplate(5, 0, 0, 0, true, dir_up)._spinConnectionIndex(1),
+        PlatformTemplate(7, 2, 1, 0, true, dir_down)._spinConnectionIndex(2),
+        PlatformTemplate(0, 6, 2, 1, true, dir_right)._spinConnectionIndex(2)._id(2),
+        PlatformTemplate(1, -2, 1, 1, true, dir_left)._pivotSwitchConnectionIndex(1),
+        PlatformTemplate(1, -6, 1, 1, true, dir_left)._platformSwitchConnectionIndex(1),
+        PlatformTemplate(-2, 0, 1, 1, true, dir_right)._platformSwitchConnectionIndex(1)._isDisabled(true),
+        PlatformTemplate(-4, 2, 1, 1, true, dir_left)._id(3),
+        PlatformTemplate(-2, 4, 1, 3, false, dir_right)._platformSwitchConnectionIndex(2),
     };
 
     std::vector<LaserSourceTemplate> laserSources{
@@ -708,7 +708,6 @@ GameStage testStage1() {
     return GameStage(name, platforms, player, door, zoom, laserSources, laserTargets);
 }
 
-
 GameStage testStage2() {
     std::string name = "Test 2";
 
@@ -719,10 +718,10 @@ GameStage testStage2() {
         PlatformTemplate(-3, 5, 3, 3, true, dir_up, 1, 1),
 
 
-        PlatformTemplate::create(3, 12, 1, 1, true, dir_up),
-        PlatformTemplate::create(1, 10, 1, 1, true, dir_left),
-        PlatformTemplate::create(1, 7, 1, 1, true, dir_left),
-        PlatformTemplate::create(1, 4, 1, 1, true, dir_left),
+        PlatformTemplate(3, 12, 1, 1, true, dir_up),
+        PlatformTemplate(1, 10, 1, 1, true, dir_left),
+        PlatformTemplate(1, 7, 1, 1, true, dir_left),
+        PlatformTemplate(1, 4, 1, 1, true, dir_left),
     };
 
     PlayerTemplate player(0, 1, dir_up);
@@ -731,6 +730,41 @@ GameStage testStage2() {
 
     return GameStage(name, platforms, player, door, zoom);
 }
+
+GameStage testStage3() {
+    std::string name = "Test 3";
+
+    std::vector<PlatformTemplate> platforms{
+        PlatformTemplate(-2, 2, 1, 3, true, dir_up, 1, 2)._id(1),
+        PlatformTemplate(5, -1, 3, 1, true, dir_up, 1, 1),
+        PlatformTemplate(5, 2, 0, 0, true, dir_up, 1, 1),
+        PlatformTemplate(-3, 5, 3, 3, true, dir_up, 1, 1),
+
+
+        PlatformTemplate(3, 12, 1, 1, true, dir_up)._spinConnectionIndex(0),
+        PlatformTemplate(1, 10, 1, 1, true, dir_left)._platformSwitchConnectionIndex(3),
+        PlatformTemplate(1, 7, 1, 1, true, dir_left)._isDisabled(3),
+        PlatformTemplate(1, 4, 1, 1, true, dir_left)._id(5),
+    };
+
+    std::vector<LaserSourceTemplate> laserSources{
+        LaserSourceTemplate(-1, dir_down, 1),
+        LaserSourceTemplate(-1, dir_down, 1),
+        LaserSourceTemplate(-1, dir_down, 5),
+    };
+
+    std::vector<LaserTargetTemplate> laserTargets{
+        LaserTargetTemplate(1, dir_down, 1, 1),
+    };
+
+
+    PlayerTemplate player(0, 1, dir_up);
+    DoorTemplate door(7, 1, dir_up);
+    double zoom = 0.7;
+
+    return GameStage(name, platforms, player, door, zoom, laserSources, laserTargets);
+}
+
 
 /* ============================ *
  *  REGION - TEST STAGES - END  *
@@ -764,6 +798,7 @@ GameStage getStage(int stage) {
     case 24: return level24();
     case 100: return testStage1();
     case 101: return testStage2();
+    case 102: return testStage3();
     }
 
     return level1();

@@ -47,6 +47,7 @@ void keyPress(sf::Keyboard::Key keyCode) {
 
         if (keyCode == sf::Keyboard::Num1) initialiseGame(100);
         if (keyCode == sf::Keyboard::Num2) initialiseGame(101);
+        if (keyCode == sf::Keyboard::Num3) initialiseGame(102);
     } else {
         if (keyCode == sf::Keyboard::Space) game.player.jump();
         if (keyCode == sf::Keyboard::A) rotateLeft();
