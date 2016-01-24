@@ -154,7 +154,7 @@ void updateGame() {
     if (game.puzzleComplete) {
         game.door.endStageTimeout--;
         if (game.door.endStageTimeout <= 0) {
-            initialiseMenu();
+            quitGame();
         }
         return;
     }
