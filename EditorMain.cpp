@@ -183,7 +183,7 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
         }
     }
 
-    if (keyCode == sf::Keyboard::Z) {
+    if (keyCode == sf::Keyboard::G) {
         if (tools->state == tool_leftTiles) {
             tools->state = tool_none;
         }
@@ -193,7 +193,7 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
         printCurrentTool();
     }
 
-    if (keyCode == sf::Keyboard::X) {
+    if (keyCode == sf::Keyboard::H) {
         if (tools->state == tool_rightTiles) {
             tools->state = tool_none;
         }
@@ -201,6 +201,11 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
             tools->state = tool_rightTiles;
         }
         printCurrentTool();
+    }
+
+    if (keyCode == sf::Keyboard::Z) {
+        templ->zoom = game.camera->zoom;
+        std::cout << "Zoom set to current value of " << templ->zoom << "\n";
     }
 
     if (keyCode == sf::Keyboard::S) {
