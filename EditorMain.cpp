@@ -263,13 +263,35 @@ void trySelect(double x, double y) {
     SelectionState* selection = &editorState.selectionState;
     EditableLevelTemplate* templ = &editorState.levelTemplate;
 
-    for (size_t i = 0, n = game.platforms.size(); i < n; ++i) {
-        Platform* p = game.platforms[i];
-        if (isWithinRect(x, y, p->x1, p->y1, p->x2, p->y2)) {
-            selection->selectPlatform(&templ->platforms[i]);
+    for (size_t i = 0, n = game.laserSources.size(); i < n; ++i) {
+        LaserSource* l = game.laserSources[i];
+        if (l->isWithinClickHitbox(x, y)) {
+            selection->selectLaserSource(&templ->laserSources[i]);
+            std::cout << "Select Laser Source " << i << "\n";
             return;
         }
     }
+
+    for (size_t i = 0, n = game.laserTargets.size(); i < n; ++i) {
+        LaserTarget* l = game.laserTargets[i];
+        if (l->isWithinClickHitbox(x, y)) {
+            selection->selectSwitch(&templ->laserTargets[i]);
+            std::cout << "Select Laser Target " << i << "\n";
+            return;
+        }
+    }
+
+    for (size_t i = 0, n = game.platforms.size(); i < n; ++i) {
+        Platform* p = game.platforms[i];
+        if (p->isWithinClickHitbox(x, y)) {
+            selection->selectPlatform(&templ->platforms[i]);
+            std::cout << "Select Platform " << i << "\n";
+            return;
+        }
+    }
+
+    selection->clear();
+    std::cout << "Deselect\n";
 }
 
 void placePlatform(int x, int y) {

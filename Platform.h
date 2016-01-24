@@ -9,6 +9,7 @@ class SpinConnection;
 class LaserSource;
 class LaserTarget;
 #include "IGameObject.h"
+#include "IClickable.h"
 
 enum platformDisabledStatus {
     platformStatus_enabled,
@@ -16,7 +17,7 @@ enum platformDisabledStatus {
     platformStatus_waitingForEnable,
 };
 
-class Platform : public IGameObject {
+class Platform : public IGameObject, public IClickable {
     void updateUsingDisabledGraphic();
     bool oneSidedCollidesWith(Platform* o);
 
@@ -62,6 +63,8 @@ public:
     virtual void draw();
 
     virtual void update(Keyboard k);
+
+    bool isWithinClickHitbox(int x, int y);
 
     bool isObstructedWhileRotating();
 

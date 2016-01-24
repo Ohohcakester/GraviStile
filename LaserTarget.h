@@ -5,8 +5,9 @@
 class SwitchConnection;
 class Laser;
 #include "AbstractAttachedObject.h"
+#include "IClickable.h"
 
-class LaserTarget : public AbstractAttachedObject {
+class LaserTarget : public AbstractAttachedObject, public IClickable {
 public:
     sf::RectangleShape shape;
 
@@ -29,6 +30,7 @@ public:
 
     void draw();
     void update(Keyboard k);
+    bool isWithinClickHitbox(int x, int y);
 };
 
 

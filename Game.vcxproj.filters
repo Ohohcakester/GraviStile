@@ -195,6 +195,9 @@
     <ClInclude Include="FileIO.h">
       <Filter>editor</Filter>
     </ClInclude>
+    <ClInclude Include="IClickable.h">
+      <Filter>gameobjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="gameobjects">

@@ -377,3 +377,8 @@ bool Platform::oneSidedCollidesWith(Platform* o) {
     if (tly2 < minY && bly2 < minY && try2 < minY && bry2 < minY) return false;
     return true;
 }
+
+
+bool Platform::isWithinClickHitbox(int x, int y) {
+    return isWithinRect(x, y, x1, y1, x2, y2);
+}
