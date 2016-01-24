@@ -114,6 +114,22 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
         }
     }
 
+    if (keyCode == sf::Keyboard::R) {
+        if (selection->type == selection_platform) {
+            PlatformTemplate* plat = selection->selectedPlatform;
+            plat->rotatable = !plat->rotatable;
+            refreshEditorGameDisplay();
+        }
+    }
+
+    if (keyCode == sf::Keyboard::E) {
+        if (selection->type == selection_platform) {
+            PlatformTemplate* plat = selection->selectedPlatform;
+            plat->isDisabled = !plat->isDisabled;
+            refreshEditorGameDisplay();
+        }
+    }
+
     if (keyCode == sf::Keyboard::Delete) {
         if (selection->type == selection_platform) {
             editorState.levelTemplate.remove(selection->selectedPlatform);
