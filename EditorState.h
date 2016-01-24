@@ -6,7 +6,6 @@
 #include "EditableLevelTemplate.h"
 
 namespace editor {
-
     class EditorState {
     public:
         bool isActive = false;

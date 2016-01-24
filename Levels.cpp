@@ -735,34 +735,30 @@ GameStage testStage3() {
     std::string name = "Test 3";
 
     std::vector<PlatformTemplate> platforms{
-        PlatformTemplate(-2, 2, 1, 3, true, dir_up, 1, 2)._id(1),
-        PlatformTemplate(5, -1, 3, 1, true, dir_up, 1, 1),
-        PlatformTemplate(5, 2, 0, 0, true, dir_up, 1, 1),
-        PlatformTemplate(-3, 5, 3, 3, true, dir_up, 1, 1),
-
-
+        PlatformTemplate(-2, 2, 1, 3, true, dir_up)._id(1)._spinConnectionIndex(1),
+        PlatformTemplate(5, -1, 3, 1, true, dir_up)._id(1)._spinConnectionIndex(1),
+        PlatformTemplate(5, 2, 0, 0, true, dir_up)._id(1)._spinConnectionIndex(1),
+        PlatformTemplate(-3, 5, 3, 3, true, dir_up)._id(1)._spinConnectionIndex(1),
         PlatformTemplate(3, 12, 1, 1, true, dir_up)._spinConnectionIndex(0),
         PlatformTemplate(1, 10, 1, 1, true, dir_left)._platformSwitchConnectionIndex(3),
-        PlatformTemplate(1, 7, 1, 1, true, dir_left)._isDisabled(3),
+        PlatformTemplate(1, 7, 1, 1, true, dir_left)._isDisabled(true),
         PlatformTemplate(1, 4, 1, 1, true, dir_left)._id(5),
     };
 
-    std::vector<LaserSourceTemplate> laserSources{
-        LaserSourceTemplate(-1, dir_down, 1),
+    std::vector<LaserSourceTemplate> laserSources{ LaserSourceTemplate(-1, dir_down, 1),
         LaserSourceTemplate(-1, dir_down, 1),
         LaserSourceTemplate(-1, dir_down, 5),
     };
 
-    std::vector<LaserTargetTemplate> laserTargets{
-        LaserTargetTemplate(1, dir_down, 1, 1),
+    std::vector<LaserTargetTemplate> laserTargets{ LaserTargetTemplate(1, dir_down, 1, 1),
     };
-
 
     PlayerTemplate player(0, 1, dir_up);
     DoorTemplate door(7, 1, dir_up);
     double zoom = 0.7;
 
-    return GameStage(name, platforms, player, door, zoom, laserSources, laserTargets);
+    return GameStage(name, platforms, player, door, zoom, laserSources);
+
 }
 
 

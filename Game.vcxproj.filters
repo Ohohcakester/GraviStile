@@ -94,6 +94,9 @@
     <ClCompile Include="tests.cpp">
       <Filter>unittest</Filter>
     </ClCompile>
+    <ClCompile Include="FileIO.cpp">
+      <Filter>editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="keyboard.h" />
@@ -188,6 +191,9 @@
     </ClInclude>
     <ClInclude Include="teststubs.h">
       <Filter>unittest</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIO.h">
+      <Filter>editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

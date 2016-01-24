@@ -160,6 +160,10 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
     }
 
     if (keyCode == sf::Keyboard::Escape) exitEditor();
+    if (keyCode == sf::Keyboard::Return) {
+        editorState.levelTemplate.generateCode();
+        print("Code Generated");
+    }
 }
 
 

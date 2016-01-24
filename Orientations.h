@@ -1,6 +1,8 @@
 #ifndef ORIENTATIONS_H_
 #define ORIENTATIONS_H_
 
+#include <string>
+
 enum {
     dir_up,
     dir_right,
@@ -17,5 +19,7 @@ int orientationRotate(int orientation, bool right);
 void orientationToMoveDirection(int orientation, int* dx, int* dy);
 
 bool areComplementaryOrientations(int orientation1, int orientation2);
+
+std::string orientationName(int orientation);
 
 #endif

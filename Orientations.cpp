@@ -38,3 +38,12 @@ void orientationToMoveDirection(int orientation, int* dx, int* dy) {
 bool areComplementaryOrientations(int orientation1, int orientation2) {
     return (orientation2 - orientation1 + 4) % 4 == 2;
 }
+
+std::string orientationName(int orientation) {
+    switch (orientation) {
+    case dir_up: return "dir_up";
+    case dir_down: return "dir_down";
+    case dir_left: return "dir_left";
+    case dir_right: return "dir_right";
+    }
+}

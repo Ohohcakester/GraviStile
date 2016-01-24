@@ -4,7 +4,6 @@
 #include "Stage.h"
 class GameStage;
 
-
 namespace editor {
     class EditableLevelTemplate {
     public:
@@ -15,12 +14,13 @@ namespace editor {
         DoorTemplate door;
         std::string name;
         float zoom;
-
-
+        
         EditableLevelTemplate();
         EditableLevelTemplate(GameStage loadFrom);
 
         GameStage generateStage();
+
+        void generateCode();
     };
 }
 
