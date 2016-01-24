@@ -26,6 +26,31 @@ void print(std::string message) {
     std::cout << message << "\n";
 }
 
+void pressKey(int keyNum) {
+    SelectionState* selection = &editorState.selectionState;
+    ToolState* tools = &editorState.toolState;
+
+    if (tools->state == tool_leftTiles) {
+        if (selection->type == selection_platform) {
+            PlatformTemplate* plat = selection->selectedPlatform;
+            plat->leftTiles = keyNum;
+            refreshEditorGameDisplay();
+
+            tools->state = tool_none;
+        }
+    }
+
+    if (tools->state == tool_rightTiles) {
+        if (selection->type == selection_platform) {
+            PlatformTemplate* plat = selection->selectedPlatform;
+            plat->rightTiles = keyNum;
+            refreshEditorGameDisplay();
+
+            tools->state = tool_none;
+        }
+    }
+}
+
 
 void editorKeyPress(sf::Keyboard::Key keyCode) {
     SelectionState* selection = &editorState.selectionState;
@@ -46,6 +71,39 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
             refreshEditorGameDisplay();
         }
     }
+
+    if (keyCode == sf::Keyboard::Z) {
+        if (tools->state == tool_leftTiles) {
+            print("Tool: Left Tiles");
+            tools->state = tool_none;
+        }
+        else {
+            print("Tool: Left Tiles");
+            tools->state = tool_leftTiles;
+        }
+    }
+
+    if (keyCode == sf::Keyboard::X) {
+        if (tools->state == tool_rightTiles) {
+            print("Tool: Right Tiles");
+            tools->state = tool_none;
+        }
+        else {
+            print("Tool: Right Tiles");
+            tools->state = tool_rightTiles;
+        }
+    }
+
+    if (keyCode == sf::Keyboard::Num0) pressKey(0);
+    if (keyCode == sf::Keyboard::Num1) pressKey(1);
+    if (keyCode == sf::Keyboard::Num2) pressKey(2);
+    if (keyCode == sf::Keyboard::Num3) pressKey(3);
+    if (keyCode == sf::Keyboard::Num4) pressKey(4);
+    if (keyCode == sf::Keyboard::Num5) pressKey(5);
+    if (keyCode == sf::Keyboard::Num6) pressKey(6);
+    if (keyCode == sf::Keyboard::Num7) pressKey(7);
+    if (keyCode == sf::Keyboard::Num8) pressKey(8);
+    if (keyCode == sf::Keyboard::Num9) pressKey(9);
 
     if (keyCode == sf::Keyboard::LShift) {
         if (tools->state == tool_movePlatform) {
@@ -90,6 +148,16 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
         }
     }
 
+    if (keyCode == sf::Keyboard::P) {
+        if (tools->state == tool_placePlatform) {
+            print("Tool: None");
+            tools->state = tool_none;
+        }
+        else {
+            print("Tool: Place Platform");
+            tools->state = tool_placePlatform;
+        }
+    }
 
     if (keyCode == sf::Keyboard::Escape) exitEditor();
 }
@@ -108,13 +176,29 @@ void trySelect(double x, double y) {
     }
 }
 
+void placePlatform(int x, int y) {
+    int cx, cy;
+    actualToGrid(x, y, &cx, &cy);
+    editorState.levelTemplate.platforms.push_back(PlatformTemplate(cx, cy, 1, 1, true, dir_up));
+
+    refreshEditorGameDisplay();
+}
+
 void editorMouseClick(int x, int y, bool leftClick) {
     float absX = x, absY = y;
     game.camera->toAbs(&absX, &absY);
 
+    ToolState* tools = &editorState.toolState;
+
     //std::cout << "Absolute: " << absX << ", " << absY << "\n";
     if (leftClick) {
-        trySelect(absX, absY);
+        if (tools->state == tool_placePlatform) {
+            placePlatform(absX, absY);
+            tools->state = tool_none;
+        }
+        else {
+            trySelect(absX, absY);
+        }
     }
 }
 

@@ -9,6 +9,9 @@ namespace editor {
         tool_leftTiles,
         tool_rightTiles,
         tool_movePlatform,
+        tool_placePlatform,
+        tool_placeDoor,
+        tool_placePlayer,
     };
 
     class ToolState {
