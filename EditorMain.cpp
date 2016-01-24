@@ -11,11 +11,13 @@
 #include "Stage.h"
 #include "gamemath.h"
 #include "Orientations.h"
+#include <set>
 
 using namespace editor;
 void refreshEditorGameDisplay();
 
 GameStage getStage(int stageNo);
+int tryAssignId(PlatformTemplate* platformTemplate);
 
 void exitEditor() {
     editorState.uninitialise();
@@ -97,6 +99,7 @@ void pressKey(int keyNum) {
 void editorKeyPress(sf::Keyboard::Key keyCode) {
     SelectionState* selection = &editorState.selectionState;
     ToolState* tools = &editorState.toolState;
+    EditableLevelTemplate* templ = &editorState.levelTemplate;
 
     if (keyCode == sf::Keyboard::A) {
         if (selection->type == selection_platform) {
@@ -132,17 +135,17 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
 
     if (keyCode == sf::Keyboard::Delete) {
         if (selection->type == selection_platform) {
-            editorState.levelTemplate.remove(selection->selectedPlatform);
+            templ->remove(selection->selectedPlatform);
             selection->clear();
             refreshEditorGameDisplay();
         }
         else if (selection->type == selection_laserSource) {
-            editorState.levelTemplate.remove(selection->selectedLaserSource);
+            templ->remove(selection->selectedLaserSource);
             selection->clear();
             refreshEditorGameDisplay();
         }
         else if (selection->type == selection_switch) {
-            editorState.levelTemplate.remove(selection->selectedSwitch);
+            templ->remove(selection->selectedSwitch);
             selection->clear();
             refreshEditorGameDisplay();
         }
@@ -251,6 +254,44 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
         printCurrentTool();
     }
 
+    if (keyCode == sf::Keyboard::O) {
+        if (tools->state == tool_placeDoor) {
+            tools->state = tool_none;
+        }
+        else {
+            tools->state = tool_placeDoor;
+        }
+        printCurrentTool();
+    }
+
+    if (keyCode == sf::Keyboard::I) {
+        if (tools->state == tool_placePlayer) {
+            tools->state = tool_none;
+        }
+        else {
+            tools->state = tool_placePlayer;
+        }
+        printCurrentTool();
+    }
+
+    if (keyCode == sf::Keyboard::L) {
+        if (selection->type == selection_platform) {
+            PlatformTemplate* plat = selection->selectedPlatform;
+            int id = tryAssignId(plat);
+            templ->laserSources.push_back(LaserSourceTemplate(0, dir_up, id));
+            refreshEditorGameDisplay();
+        }
+    }
+
+    if (keyCode == sf::Keyboard::K) {
+        if (selection->type == selection_platform) {
+            PlatformTemplate* plat = selection->selectedPlatform;
+            int id = tryAssignId(plat);
+            templ->laserTargets.push_back(LaserTargetTemplate(0, dir_up, id, -1));
+            refreshEditorGameDisplay();
+        }
+    }
+
     if (keyCode == sf::Keyboard::Escape) exitEditor();
     if (keyCode == sf::Keyboard::Return) {
         editorState.levelTemplate.generateCode();
@@ -292,6 +333,25 @@ void trySelect(double x, double y) {
 
     selection->clear();
     std::cout << "Deselect\n";
+}
+
+int tryAssignId(PlatformTemplate* platform) {
+    if (platform->id != -1) return platform->id;
+
+    EditableLevelTemplate* templ = &editorState.levelTemplate;
+
+    std::set<int> takenIds;
+    for (size_t i = 0, n = templ->platforms.size(); i < n; ++i) {
+        PlatformTemplate* p = &templ->platforms[i];
+        if (p->id != -1) takenIds.insert(p->id);
+    }
+    int newId = 0;
+    while (takenIds.find(newId) != takenIds.end()) {
+        newId++;
+    }
+
+    platform->id = newId;
+    return platform->id;
 }
 
 void placePlatform(int x, int y) {
