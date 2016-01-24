@@ -130,6 +130,16 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
             door->orientation = orientationRotateLeft(door->orientation);
             refreshEditorGameDisplay();
         }
+        else if (selection->type == selection_laserSource) {
+            LaserSourceTemplate* laser = selection->selectedLaserSource;
+            laser->orientation = orientationRotateLeft(laser->orientation);
+            refreshEditorGameDisplay();
+        }
+        else if (selection->type == selection_switch) {
+            LaserTargetTemplate* swt = selection->selectedSwitch;
+            swt->orientation = orientationRotateLeft(swt->orientation);
+            refreshEditorGameDisplay();
+        }
     }
 
     if (keyCode == sf::Keyboard::D) {
@@ -146,6 +156,16 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
         else if (selection->type == selection_door) {
             DoorTemplate* door = &templ->door;
             door->orientation = orientationRotateRight(door->orientation);
+            refreshEditorGameDisplay();
+        }
+        else if (selection->type == selection_laserSource) {
+            LaserSourceTemplate* laser = selection->selectedLaserSource;
+            laser->orientation = orientationRotateRight(laser->orientation);
+            refreshEditorGameDisplay();
+        }
+        else if (selection->type == selection_switch) {
+            LaserTargetTemplate* swt = selection->selectedSwitch;
+            swt->orientation = orientationRotateRight(swt->orientation);
             refreshEditorGameDisplay();
         }
     }
