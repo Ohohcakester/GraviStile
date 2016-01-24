@@ -14,10 +14,15 @@
 #include <set>
 
 using namespace editor;
-void refreshEditorGameDisplay();
+
+// Function Prototypes - START
+void refreshEditorGameDisplay(bool playGame = false);
+void testStage();
 
 GameStage getStage(int stageNo);
 int tryAssignId(PlatformTemplate* platformTemplate);
+// Function Prototypes - END
+
 
 void exitEditor() {
     editorState.uninitialise();
@@ -368,6 +373,7 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
         }
     }
 
+    if (keyCode == sf::Keyboard::F5) testStage();
     if (keyCode == sf::Keyboard::Escape) exitEditor();
     if (keyCode == sf::Keyboard::Return) {
         editorState.levelTemplate.generateCode();
@@ -497,13 +503,18 @@ void editorMouseClick(int x, int y, bool leftClick) {
     }
 }
 
-void refreshEditorGameDisplay() {
+void refreshEditorGameDisplay(bool playMode) {
     game = GameGlobals();
     game.puzzleComplete = false;
 
     initialiseFromStageObject(editorState.levelTemplate.generateStage());
 
-    game.assignNewCamera(new EditorCamera(editorState.camX, editorState.camY, editorState.camZoom));
+    if (playMode) {
+        game.assignNewCamera(new Camera(&game.player));
+    }
+    else {
+        game.assignNewCamera(new EditorCamera(editorState.camX, editorState.camY, editorState.camZoom));
+    }
     Grid* grid = &game.grid;
     game.width = grid->sizeX*TILE_WIDTH;
     game.height = grid->sizeY*TILE_WIDTH;
@@ -535,4 +546,17 @@ void updateEditor() {
     editorState.camX = game.camera->px;
     editorState.camY = game.camera->py;
     editorState.camZoom = game.camera->zoom;
+}
+
+
+void tryReturnToEditor() {
+    if (!editorState.isActive) return;
+
+    gameStatus = gamestatus_editor;
+    refreshEditorGameDisplay();
+}
+
+void testStage() {
+    gameStatus = gamestatus_inGame;
+    refreshEditorGameDisplay(true);
 }

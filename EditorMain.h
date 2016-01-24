@@ -14,6 +14,7 @@ void drawEditorFrame();
 
 void updateEditor();
 
+void tryReturnToEditor();
 
 
 
