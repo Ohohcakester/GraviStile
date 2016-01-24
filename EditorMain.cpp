@@ -1,11 +1,16 @@
 #include <iostream>
 #include "EditorMain.h"
 #include "EditorState.h"
+#include "EditableLevelTemplate.h"
 #include "GameGlobals.h"
 #include "globals.h"
 #include "main.h"
 #include "EditorCamera.h"
 #include "Stage.h"
+
+using namespace editor;
+
+GameStage getStage(int stageNo);
 
 void exitEditor() {
     editorState.uninitialise();
@@ -34,16 +39,11 @@ void editorMouseClick(int x, int y, bool leftClick) {
     }
 }
 
-
-void initialiseEditor() {
-    gameStatus = gamestatus_editor;
-    editorState.initialise();
-
+void refreshEditorGameDisplay() {
     game = GameGlobals();
     game.puzzleComplete = false;
-    game.zoom = 0.9f;
 
-    initialiseStage(102);
+    initialiseFromStageObject(editorState.levelTemplate.generateStage());
 
     game.assignNewCamera(new EditorCamera());
     Grid* grid = &game.grid;
@@ -53,6 +53,14 @@ void initialiseEditor() {
     game.background = bg;
 
     game.onStart();
+}
+
+void initialiseEditor() {
+    gameStatus = gamestatus_editor;
+    editorState.initialise();
+    editorState.levelTemplate = EditableLevelTemplate(getStage(102));
+
+    refreshEditorGameDisplay();
 }
 
 

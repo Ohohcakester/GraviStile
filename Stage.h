@@ -89,6 +89,7 @@ struct GameStage {
     }
 };
 
+void initialiseFromStageObject(GameStage gameStage);
 void initialiseStage(int stage);
 
 #endif
