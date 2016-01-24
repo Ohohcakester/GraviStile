@@ -1,9 +1,7 @@
 #ifndef SELECTION_STATE_H_
 #define SELECTION_STATE_H_
 
-class Platform;
-class LaserSwitch;
-class LaserSource;
+#include "Stage.h"
 
 namespace editor {
     enum eSelectionType {
@@ -16,16 +14,17 @@ namespace editor {
     };
 
     class SelectionState {
+    public:
         int type;
 
-        Platform* selectedPlatform;
-        LaserSwitch* selectedSwitch;
-        LaserSource* selectedLaserSource;
+        PlatformTemplate* selectedPlatform;
+        LaserTargetTemplate* selectedSwitch;
+        LaserSourceTemplate* selectedLaserSource;
 
         void clear();
-        void selectPlatform(Platform* platform);
-        void selectSwitch(LaserSwitch* laserSwitch);
-        void selectLaserSource(LaserSource* laserSource);
+        void selectPlatform(PlatformTemplate* platform);
+        void selectSwitch(LaserTargetTemplate* laserSwitch);
+        void selectLaserSource(LaserSourceTemplate* laserSource);
         void selectPlayer();
         void selectDoor();
         

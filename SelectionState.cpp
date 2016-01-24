@@ -9,17 +9,17 @@ void SelectionState::clear() {
     selectedLaserSource = nullptr;
 }
 
-void SelectionState::selectPlatform(Platform* platform) {
+void SelectionState::selectPlatform(PlatformTemplate* platform) {
     type = selection_platform;
     selectedPlatform = platform;
 }
 
-void SelectionState::selectSwitch(LaserSwitch* laserSwitch) {
+void SelectionState::selectSwitch(LaserTargetTemplate* laserSwitch) {
     type = selection_switch;
     selectedSwitch = laserSwitch;
 }
 
-void SelectionState::selectLaserSource(LaserSource* laserSource) {
+void SelectionState::selectLaserSource(LaserSourceTemplate* laserSource) {
     type = selection_laserSource;
     selectedLaserSource = laserSource;
 }

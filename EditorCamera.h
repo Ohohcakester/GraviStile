@@ -6,7 +6,7 @@ class Keyboard;
 
 class EditorCamera : public AbstractCamera {
 public:
-    EditorCamera();
+    EditorCamera(int x, int y, float zoom);
 
     void update(Keyboard k);
 

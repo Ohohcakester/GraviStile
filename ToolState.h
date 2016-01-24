@@ -12,6 +12,7 @@ namespace editor {
     };
 
     class ToolState {
+    public:
         int state;
     };
 }

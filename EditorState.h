@@ -15,6 +15,10 @@ namespace editor {
         SelectionState selectionState;
         EditableLevelTemplate levelTemplate;
 
+        int camX, camY;
+        float camZoom;
+
+
         EditorState();
         void initialise();
         void uninitialise();

@@ -80,6 +80,10 @@ bool rectsIntersect(int x1a, int y1a, int x2a, int y2a, int x1b, int y1b, int x2
     return (x2a > x1b && x2b > x1a && y2a > y1b && y2b > y1a);
 }
 
+bool isWithinRect(int x, int y, int x1, int y1, int x2, int y2) {
+    return (x > x1 && y > y1 && x < x2 && y < y2);
+}
+
 float dotProduct(float dx1, float dy1, float dx2, float dy2) {
     return dx1*dx2 + dy1*dy2;
 }

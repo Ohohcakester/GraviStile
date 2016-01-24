@@ -2,7 +2,10 @@
 #include "keyboard.h"
 #include <iostream>
 
-EditorCamera::EditorCamera() {
+EditorCamera::EditorCamera(int x, int y, float zoom) {
+    this->px = x;
+    this->py = y;
+    this->zoom = zoom;
     this->moveSpeed = 5;
     this->zoomSpeed = 0.03f;
 }

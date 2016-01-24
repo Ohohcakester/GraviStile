@@ -24,6 +24,8 @@ bool rectsIntersectSafe(int x1a, int y1a, int x2a, int y2a, int x1b, int y1b, in
 
 bool rectsIntersect(int x1a, int y1a, int x2a, int y2a, int x1b, int y1b, int x2b, int y2b);
 
+bool isWithinRect(int x, int y, int x1, int y1, int x2, int y2);
+
 float dotProduct(float dx1, float dy1, float dx2, float dy2);
 
 int div_floor(int n, int d);
