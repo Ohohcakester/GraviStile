@@ -82,11 +82,18 @@ void pressKey(int keyNum) {
         }
     }
 
-
     if (tools->state == tool_switchConnection) {
         if (selection->type == selection_platform) {
             PlatformTemplate* plat = selection->selectedPlatform;
             plat->platformSwitchConnectionIndex = keyNum;
+            refreshEditorGameDisplay();
+
+            tools->state = tool_none;
+            printCurrentTool();
+        }
+        else if (selection->type == selection_switch) {
+            LaserTargetTemplate* lTarget = selection->selectedSwitch;
+            lTarget->switchConnectionIndex = keyNum;
             refreshEditorGameDisplay();
 
             tools->state = tool_none;
@@ -191,6 +198,7 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
         printCurrentTool();
     }
 
+    if (keyCode == sf::Keyboard::Dash) pressKey(-1);
     if (keyCode == sf::Keyboard::Num0) pressKey(0);
     if (keyCode == sf::Keyboard::Num1) pressKey(1);
     if (keyCode == sf::Keyboard::Num2) pressKey(2);
