@@ -72,6 +72,14 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
         }
     }
 
+    if (keyCode == sf::Keyboard::Delete) {
+        if (selection->type == selection_platform) {
+            editorState.levelTemplate.remove(selection->selectedPlatform);
+            selection->clear();
+            refreshEditorGameDisplay();
+        }
+    }
+
     if (keyCode == sf::Keyboard::Z) {
         if (tools->state == tool_leftTiles) {
             print("Tool: Left Tiles");
@@ -225,7 +233,7 @@ void refreshEditorGameDisplay() {
 void initialiseEditor() {
     gameStatus = gamestatus_editor;
     editorState.initialise();
-    editorState.levelTemplate = EditableLevelTemplate(getStage(102));
+    editorState.levelTemplate = EditableLevelTemplate(getStage(24));
 
     refreshEditorGameDisplay();
 }

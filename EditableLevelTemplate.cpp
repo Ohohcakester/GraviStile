@@ -27,6 +27,63 @@ EditableLevelTemplate::EditableLevelTemplate(GameStage loadFrom) :
 
 }
 
+void EditableLevelTemplate::remove(PlatformTemplate* platform) {
+    size_t index = -1;
+    for (size_t i = 0, n = platforms.size(); i < n; ++i) {
+        if (&platforms[i] == platform) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1) return; // not present.
+    removeAttached(platform->id);
+    platforms.erase(platforms.begin() + index);
+}
+
+void EditableLevelTemplate::remove(LaserSourceTemplate* laserSource) {
+    size_t index = -1;
+    for (size_t i = 0, n = laserSources.size(); i < n; ++i) {
+        if (&laserSources[i] == laserSource) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1) return; // not present.
+    laserSources.erase(laserSources.begin() + index);
+}
+
+void EditableLevelTemplate::remove(LaserTargetTemplate* laserTarget) {
+    size_t index = -1;
+    for (size_t i = 0, n = laserTargets.size(); i < n; ++i) {
+        if (&laserTargets[i] == laserTarget) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1) return; // not present.
+    laserTargets.erase(laserTargets.begin() + index);
+}
+
+void EditableLevelTemplate::removeAttached(int platformId) {
+    if (platformId == -1) return;
+
+    for (size_t i = 0; i < laserSources.size(); ++i) {
+        if (laserSources[i].platformId == platformId) {
+            laserSources.erase(laserSources.begin() + i);
+            i--;
+        }
+    }
+
+    for (size_t i = 0; i < laserTargets.size(); ++i) {
+        if (laserTargets[i].platformId == platformId) {
+            laserTargets.erase(laserTargets.begin() + i);
+            i--;
+        }
+    }
+}
 
 GameStage EditableLevelTemplate::generateStage() {
     return GameStage(name, platforms, player, door, zoom, laserSources, laserTargets);

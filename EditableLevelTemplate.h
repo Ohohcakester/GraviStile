@@ -18,6 +18,12 @@ namespace editor {
         EditableLevelTemplate();
         EditableLevelTemplate(GameStage loadFrom);
 
+        void remove(PlatformTemplate* platform);
+        void remove(LaserSourceTemplate* laserSource);
+        void remove(LaserTargetTemplate* laserTarget);
+
+        void removeAttached(int platformId);
+
         GameStage generateStage();
 
         void generateCode();
