@@ -370,7 +370,6 @@ int Player::getPlatformMoveDistance(int fromX, int fromY, int dx, int dy, Platfo
                 *moveX = mx;
                 moveDistance = newMoveDistance;
                 *hitDirection = dir_up;
-                std::cout << my << " " << mx << "\n";
             }
         }
     } else if (dy < 0) {
