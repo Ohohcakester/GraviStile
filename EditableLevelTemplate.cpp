@@ -130,7 +130,7 @@ void EditableLevelTemplate::generateCode() {
 
     s << "\n";
 
-    s << "std::vector<LaserSourceTemplate> laserSources{";
+    s << "std::vector<LaserSourceTemplate> laserSources{\n";
     for (size_t i = 0, n = laserSources.size(); i < n; ++i) {
         LaserSourceTemplate& l = laserSources[i];
         s << "    LaserSourceTemplate(" << l.position << ", " <<
@@ -140,7 +140,7 @@ void EditableLevelTemplate::generateCode() {
 
     s << "\n";
 
-    s << "std::vector<LaserTargetTemplate> laserTargets{";
+    s << "std::vector<LaserTargetTemplate> laserTargets{\n";
     for (size_t i = 0, n = laserTargets.size(); i < n; ++i) {
         LaserTargetTemplate& l = laserTargets[i];
         s << "    LaserTargetTemplate(" << l.position << ", " <<
