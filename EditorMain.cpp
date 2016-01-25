@@ -582,6 +582,7 @@ void refreshEditorGameDisplay(bool playMode) {
     game.background = bg;
 
     game.onStart();
+    for (int i=0;i<5;++i) game.refreshMapState();
 }
 
 void initialiseEditor() {
