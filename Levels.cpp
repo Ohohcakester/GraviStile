@@ -657,8 +657,9 @@ GameStage level24() {
         PlatformTemplate(-5, 6, 1, 1, true, dir_up)._id(4),
         PlatformTemplate(12, -6, 1, 1, true, dir_down)._id(0),
         PlatformTemplate(-7, -2, 1, 1, true, dir_right)._id(2),
-        PlatformTemplate(-1, 0, 1, 1, true, dir_up)._isDisabled(true)._platformSwitchConnectionIndex(2),
+        PlatformTemplate(-2, 0, 1, 1, true, dir_up)._isDisabled(true)._platformSwitchConnectionIndex(2),
         PlatformTemplate(19, 6, 2, 2, false, dir_up),
+        PlatformTemplate(-3, -6, 1, 1, true, dir_down)._id(7),
     };
 
     std::vector<LaserSourceTemplate> laserSources{ LaserSourceTemplate(0, dir_up, 1),
@@ -667,6 +668,7 @@ GameStage level24() {
         LaserSourceTemplate(0, dir_up, 4),
         LaserSourceTemplate(0, dir_up, 5),
         LaserSourceTemplate(0, dir_up, 6),
+        LaserSourceTemplate(0, dir_up, 7),
     };
 
     std::vector<LaserTargetTemplate> laserTargets{ LaserTargetTemplate(0, dir_up, 10, 1),
