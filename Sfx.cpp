@@ -8,7 +8,7 @@
 
 class Keyboard;
 
-sfx::LevelName::LevelName(std::string name, int level): Sfx(RES_X/2, RES_Y/3), text(name) {
+sfx::LevelName::LevelName(std::string name, int level): Sfx(RES_X/2, RES_Y/10), text(name) {
     std::stringstream ss;
     ss << "Stage " << level;
     levelNumberText = ss.str();
@@ -35,9 +35,9 @@ void sfx::LevelName::draw() {
     if (animframe > 120) color.a = 0;
 
     sfLevelText.setColor(color);
-    sfLevelText.setPosition(x, y-20);
+    sfLevelText.setPosition(x, y-15);
     sfText.setColor(color);
-    sfText.setPosition(x, y+20);
+    sfText.setPosition(x, y+15);
 
     window->draw(sfLevelText);
     window->draw(sfText);
