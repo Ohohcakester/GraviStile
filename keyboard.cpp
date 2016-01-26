@@ -1,15 +1,19 @@
 #include <SFML/Graphics.hpp>
 #include "keyboard.h"
 
-Keyboard::Keyboard() {
-
-}
+Keyboard::Keyboard() :
+up(false), down(false), left(false), right(false), comma(false), period(false){}
 
 void Keyboard::update() {
-    up = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
-    down = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
-    left = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
-    right = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
-    comma = sf::Keyboard::isKeyPressed(sf::Keyboard::Comma);
-    period = sf::Keyboard::isKeyPressed(sf::Keyboard::Period);
+}
+
+void Keyboard::updateKey(sf::Keyboard::Key key, bool status) {
+    switch (key) {
+    case sf::Keyboard::Up: up = status; break;
+    case sf::Keyboard::Down: down = status; break;
+    case sf::Keyboard::Left: left = status; break;
+    case sf::Keyboard::Right: right = status; break;
+    case sf::Keyboard::Comma: comma = status; break;
+    case sf::Keyboard::Period: period = status; break;
+    }
 }

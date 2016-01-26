@@ -115,6 +115,11 @@ void processEvent(sf::Event event) {
         }
         case sf::Event::KeyPressed: {
             keyPress(event.key.code);
+            game.key.updateKey(event.key.code, true);
+            break;
+        }
+        case sf::Event::KeyReleased: {
+            game.key.updateKey(event.key.code, false);
             break;
         }
         case sf::Event::MouseButtonReleased: {

@@ -8,6 +8,7 @@ public:
 
     Keyboard();
     void update();
+    void updateKey(sf::Keyboard::Key key, bool status);
 };
 
 
