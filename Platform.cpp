@@ -10,6 +10,7 @@
 #include "LaserTarget.h"
 #include "Player.h"
 #include "Grid.h"
+#include "Sfx.h"
 
 Platform::Platform() {
     this->isNull = true;
@@ -201,6 +202,7 @@ bool Platform::isBlockedFromUndisabling(Grid* grid, Player* player) {
 bool Platform::tryUnblockFromDisabled(Grid* grid, Player* player) {
     if (disabledStatus == platformStatus_waitingForEnable && !isBlockedFromUndisabling(grid, player)) {
         disabledStatus = platformStatus_enabled;
+        playEnableAnimation();
         return true;
     }
     return false;
@@ -214,9 +216,11 @@ void Platform::toggleDisabledStatus() {
         break;
     case platformStatus_waitingForEnable:
         disabledStatus = platformStatus_disabled;
+        playDisableAnimation();
         break;
     case platformStatus_enabled:
         disabledStatus = platformStatus_disabled;
+        playDisableAnimation();
         break;
     }
 }
@@ -381,4 +385,13 @@ bool Platform::oneSidedCollidesWith(Platform* o) {
 
 bool Platform::isWithinClickHitbox(int x, int y) {
     return isWithinRect(x, y, x1, y1, x2, y2);
+}
+
+void Platform::playDisableAnimation() {
+    game.spawnNewSfx(new sfx::PlatformChange(x, y, true));
+}
+
+void Platform::playEnableAnimation() {
+    game.spawnNewSfx(new sfx::PlatformChange(x, y, false));
+
 }

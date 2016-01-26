@@ -14,6 +14,15 @@ void IGameObject::drawCircle(sf::CircleShape* shape, float px, float py) {
     window->draw(*shape);
 }
 
+void IGameObject::drawTriangle(sf::CircleShape* shape, float px, float py, float angle) {
+    game.camera->toRel(&px, &py);
+
+    shape->setRotation((angle - game.camera->angle) * 180 / M_PI);
+    shape->setPosition(px, py);
+
+    window->draw(*shape);
+}
+
 void IGameObject::drawRectangle(sf::RectangleShape* shape, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y) {
     game.camera->toRel(&tl_x, &tl_y);
     game.camera->toRel(&bl_x, &bl_y);

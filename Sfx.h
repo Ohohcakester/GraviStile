@@ -73,6 +73,22 @@ namespace sfx {
         sf::CircleShape shape;
         sf::Color color;
     };
+
+    class PlatformChange : public Sfx {
+    public:
+        PlatformChange(int x, int y, bool expanding);
+
+        void draw();
+        void sfxUpdate();
+
+    protected:
+        float angle;
+        float scale;
+        int timeLimit;
+        sf::CircleShape shape;
+        sf::Color color;
+        bool expanding;
+    };
 }
 
 

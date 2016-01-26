@@ -98,6 +98,9 @@ public:
     void addLaserSource(LaserSource* laserSource);
     void addLaserTarget(LaserTarget* laserTarget);
 
+    void playDisableAnimation();
+    void playEnableAnimation();
+
     bool collidesWith(Platform* o);
 };
 

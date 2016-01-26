@@ -129,6 +129,40 @@ void sfx::LaserParticle::sfxUpdate() {
 }
 
 
+sfx::PlatformChange::PlatformChange(int x, int y, bool expanding) : Sfx(x, y), expanding(expanding), timeLimit(25), angle(0), scale(1) {
+    color = sf::Color::Magenta;
+    shape = sf::CircleShape(game.zoom*15.0f, 3);
+    sfxUpdate();
+    shape.setFillColor(color);
+    shape.setOrigin(shape.getRadius(), shape.getRadius());
+}
+
+void sfx::PlatformChange::draw() {
+    shape.setFillColor(color);
+    shape.setScale(sf::Vector2f(scale, scale));
+    drawTriangle(&shape, x, y, angle);
+}
+
+void sfx::PlatformChange::sfxUpdate() {
+    runPhysics();
+
+    if (expanding) {
+        angle += 0.15f;
+        scale = animframe * 5.0f / timeLimit;
+        color.a = (timeLimit - animframe) * 240 / timeLimit;
+        if (animframe > timeLimit) color.a = 0;
+    }
+    else {
+        angle -= 0.15f;
+        scale = (timeLimit - animframe) * 5.0f / timeLimit;
+        color.a = animframe * 240 / timeLimit;
+        if (animframe > timeLimit) color.a = 240;
+    }
+
+    if (animframe > timeLimit) die();
+}
+
+
 // Base Sfx Methods
 void sfx::Sfx::update(Keyboard k) {
     if (!isActive) return;
