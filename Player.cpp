@@ -514,6 +514,7 @@ bool Player::isControlsDisabled() {
 
 void Player::die() {
     game.spawnNewSfx(new sfx::PlayerDeath(x, y, angle, pheight, facingRight));
+    game.spawnNewSfx(new sfx::Text(RES_X / 2, RES_Y / 3, "Press 'R' to restart", -1, 60, 30));
     this->isActive = false;
 }
 

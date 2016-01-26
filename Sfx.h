@@ -23,14 +23,17 @@ namespace sfx {
 
     class Text : public Sfx {
     public:
-        Text(int x, int y, std::string name, int timeout) : Sfx(x, y), text(name), timeout(timeout) {}
+        Text(int x, int y, std::string text, int timeout, int delay, int size);
 
         void draw();
         void sfxUpdate();
 
     protected:
+        sf::Color color;
         std::string text;
+        sf::Text sfText;
         int timeout;
+        int delay;
     };
 
     class PlayerDeath : public Sfx {

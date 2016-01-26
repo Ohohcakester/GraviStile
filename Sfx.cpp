@@ -49,12 +49,28 @@ void sfx::LevelName::sfxUpdate() {
     if (animframe > 120) die();
 }
 
-void sfx::Text::draw() {
+sfx::Text::Text(int x, int y, std::string text, int timeout, int delay, int size) : 
+Sfx(x, y), text(text), timeout(timeout), delay(delay) {
+    color = sf::Color::White;
 
+    sfText.setFont(textures->comicsans);
+    sfText.setString(text);
+    sfText.setCharacterSize(size);
+    sfText.setColor(color);
+    sf::FloatRect textRect = sfText.getLocalBounds();
+    sfText.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+}
+
+void sfx::Text::draw() {
+    if (animframe >= delay) {
+        sfText.setColor(color);
+        sfText.setPosition(x, y);
+        window->draw(sfText);
+    }
 }
 
 void sfx::Text::sfxUpdate() {
-    if (animframe > timeout) die();
+    if (timeout != -1 && animframe > timeout) die();
 }
 
 
