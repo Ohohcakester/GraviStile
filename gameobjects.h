@@ -18,6 +18,7 @@
 #include "LaserTarget.h"
 #include "SwitchConnection.h"
 #include "AbstractCamera.h"
+#include "BaseSfx.h"
 
 
 #endif

@@ -10,6 +10,9 @@ public:
     int x;
     int y;
 
+    IGameObject(int x, int y) : x(x), y(y) {}
+    IGameObject() {}
+
     virtual ~IGameObject() {}
     virtual void draw() = 0;
     virtual void update(Keyboard k) = 0;

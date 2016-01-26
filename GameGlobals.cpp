@@ -1,5 +1,6 @@
 #include <iostream>
 #include "GameGlobals.h"
+#include "Sfx.h"
 
 int REFRESH_FRAMES = 5;
 
@@ -42,6 +43,10 @@ GameGlobals::~GameGlobals() {
         delete laserTargets[i];
     }
 
+    for (size_t i = 0, n = sfxList.size(); i < n; ++i) {
+        delete sfxList[i];
+    }
+
     if (camera != nullptr) {
         delete camera;
     }
@@ -57,6 +62,35 @@ void GameGlobals::update() {
     }
 }
 
+void GameGlobals::updateAllSfx() {
+    for (size_t i = 0, n = sfxList.size(); i < n; ++i) {
+        if (sfxList[i]->isActive) sfxList[i]->update(key);
+    }
+
+    sfxArrayClearCounter--;
+    if (sfxArrayClearCounter <= 0) {
+        // cleanup inactive sfx from sfx array.
+        int current = 0;
+        for (size_t i = 0, n = sfxList.size(); i < n; ++i) {
+            if (sfxList[i]->isActive) {
+                sfxList[current] = sfxList[i];
+                current++;
+            }
+            else {
+                delete sfxList[i];
+            }
+        }
+        sfxList.resize(current);
+
+        // Reset timer for clearing sfx.
+        sfxArrayClearCounter = 60;
+    }
+}
+
+void GameGlobals::spawnNewSfx(sfx::Sfx* newSfx) {
+    sfxList.push_back(newSfx);
+}
+
 void GameGlobals::onStart() {
     for (size_t i = 0, n = platforms.size(); i < n; ++i) {
         platforms[i]->repositionAttachedObjects();
@@ -64,6 +98,8 @@ void GameGlobals::onStart() {
 
     refreshMapState();
     refreshCounter += REFRESH_FRAMES * 5;
+
+    spawnNewSfx(new sfx::LevelName(stageName, currentStage));
 }
 
 void GameGlobals::finishRotatingTrigger() {

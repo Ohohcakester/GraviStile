@@ -121,6 +121,7 @@
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Point.cpp" />
+    <ClCompile Include="Sfx.cpp" />
     <ClCompile Include="SpinConnection.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
@@ -138,6 +139,7 @@
     </ClInclude>
     <ClInclude Include="AbstractCamera.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="BaseSfx.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EditableLevelTemplate.h" />
     <ClInclude Include="EditorCamera.h" />
@@ -162,6 +164,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="SelectionState.h" />
+    <ClInclude Include="Sfx.h" />
     <ClInclude Include="SpinConnection.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>

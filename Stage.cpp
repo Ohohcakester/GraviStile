@@ -153,6 +153,7 @@ void initialiseFromStageObject(GameStage gameStage) {
     game.zoom = (float)(gameStage.zoom);
     Door door = Door(gameStage.door.x, gameStage.door.y, gameStage.door.orientation);
     game.door = door;
+    game.stageName = gameStage.name;
 
     linkPlatforms(&gameStage, &game.platforms, &game.spinConnections);
     setupLasers(&gameStage, &platformsById);

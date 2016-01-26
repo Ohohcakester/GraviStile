@@ -97,6 +97,9 @@
     <ClCompile Include="FileIO.cpp">
       <Filter>editor</Filter>
     </ClCompile>
+    <ClCompile Include="Sfx.cpp">
+      <Filter>gameobjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="keyboard.h" />
@@ -196,6 +199,12 @@
       <Filter>editor</Filter>
     </ClInclude>
     <ClInclude Include="IClickable.h">
+      <Filter>gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sfx.h">
+      <Filter>gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseSfx.h">
       <Filter>gameobjects</Filter>
     </ClInclude>
   </ItemGroup>

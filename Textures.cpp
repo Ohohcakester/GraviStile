@@ -2,6 +2,9 @@
 #include "Textures.h"
 
 Textures::Textures() {
+    if (!comicsans.loadFromFile("comicbd.ttf")) {
+        std::cout << "Unable to load font!\n";
+    }
     if (!background.loadFromFile("img/bg.jpg")) {
         std::cout << "Unable to load background!";
     }
@@ -26,6 +29,8 @@ Textures::Textures() {
 
     spinConnectionWireColor = sf::Color(255, 255, 0, 255);
     switchConnectionWireColor = sf::Color(96, 127, 0, 160);
+
+    levelNameTextColor = sf::Color(255, 224, 127, 255);
 
     //std::cout << platformColor.r << " " << platformColor.g << " " << platformColor.b << std::endl;
 }

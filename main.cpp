@@ -159,6 +159,7 @@ void updateGame() {
         return;
     }
 
+    game.updateAllSfx();
     game.key.update();
     game.background.update(game.key);
     game.player.update(game.key);
@@ -204,6 +205,9 @@ void drawGameFrame() {
         game.switchConnections[i]->draw();
     }
 
+    for (size_t i = 0, n = game.sfxList.size(); i < n; ++i) {
+        if (game.sfxList[i]->isActive) game.sfxList[i]->draw();
+    }
 }
 
 void drawMenuFrame() {
@@ -217,9 +221,6 @@ void drawMenuFrame() {
     float itemWidth = itemSpacing*0.5f;
     float halfItemWidth = itemWidth/2;
 
-    sf::Font comicsans;
-    if (!comicsans.loadFromFile("comicbd.ttf")) std::cout << "ERROR\n";
-    
     for (int i=0;i<menu.nItems;++i) {
         int col = i%menu.cols;
         int row = i/menu.cols;
@@ -247,7 +248,7 @@ void drawMenuFrame() {
         std::ostringstream ss;
         ss << i + 1;
         sf::Text numbering;
-        numbering.setFont(comicsans);
+        numbering.setFont(textures->comicsans);
         numbering.setString(ss.str());
         numbering.setCharacterSize(40);
         numbering.setColor(textures->platformColor);

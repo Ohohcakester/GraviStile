@@ -20,6 +20,10 @@ public:
     sf::Color spinConnectionWireColor;
     sf::Color switchConnectionWireColor;
 
+    sf::Color levelNameTextColor;
+
+    sf::Font comicsans;
+
     Textures();
 };
 

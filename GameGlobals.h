@@ -6,6 +6,8 @@
 
 class GameGlobals {
 public:
+    std::string stageName;
+
     int refreshCounter;
 
     int currentStage;
@@ -31,7 +33,7 @@ public:
     std::vector<Laser*> lasers;
     std::vector<LaserSource*> laserSources;
     std::vector<LaserTarget*> laserTargets;
-
+    std::vector<sfx::Sfx*> sfxList;
 
     GameGlobals();
     ~GameGlobals();
@@ -40,8 +42,14 @@ public:
 
     void onStart();
     void update();
+    void updateAllSfx();
     void refreshMapState();
     void finishRotatingTrigger();
+
+    void spawnNewSfx(sfx::Sfx* newSfx);
+
+private:
+    int sfxArrayClearCounter;
 };
 
 
