@@ -64,7 +64,7 @@ SwitchConnectionWire::SwitchConnectionWire(AbstractAttachedObject* laserTarget, 
     sx = laserTarget->x;
     sy = laserTarget->y;
     shape = sf::RectangleShape();
-    shape.setFillColor(textures->switchConnectionWireColor);
+    shape.setFillColor(global::textures->switchConnectionWireColor);
 }
 
 void SwitchConnectionWire::update(Keyboard k) {

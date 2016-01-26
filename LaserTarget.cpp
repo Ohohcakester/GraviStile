@@ -12,7 +12,7 @@ const int DIM_Y2_ALT = 30;
 
 void LaserTarget::initialise() {
     shape = sf::RectangleShape();
-    shape.setFillColor(textures->laserTargetColor);
+    shape.setFillColor(global::textures->laserTargetColor);
 }
 
 void LaserTarget::resetTargetOnStatus() {

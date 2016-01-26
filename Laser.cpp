@@ -17,7 +17,7 @@ Laser::Laser() {
 
 Laser::Laser(LaserSource* source) : source(source) {
     shape = sf::RectangleShape();
-    shape.setFillColor(textures->laserColor);
+    shape.setFillColor(global::textures->laserColor);
 }
 
 void Laser::setup(int orientation, int sx, int sy, int ex, int ey) {
@@ -25,37 +25,38 @@ void Laser::setup(int orientation, int sx, int sy, int ex, int ey) {
     int rsx, rsy, rex, rey;
     gridToActual(sx, sy, &rsx, &rsy);
     gridToActual(ex, ey, &rex, &rey);
+    int halfTileWidth = global::TILE_WIDTH / 2;
 
     switch (orientation) {
     case dir_up:
         x1 = rsx - halfWidth;
         x2 = rsx + halfWidth;
-        y1 = rey + TILE_WIDTH / 2;
-        y2 = rsy - TILE_WIDTH / 2;
+        y1 = rey + halfTileWidth;
+        y2 = rsy - halfTileWidth;
         targetX = rsx;
         targetY = y1;
         break;
     case dir_right:
         y1 = rsy - halfWidth;
         y2 = rsy + halfWidth;
-        x1 = rsx + TILE_WIDTH / 2;
-        x2 = rex - TILE_WIDTH / 2;
+        x1 = rsx + halfTileWidth;
+        x2 = rex - halfTileWidth;
         targetX = x2;
         targetY = rsy;
         break;
     case dir_down:
         x1 = rsx - halfWidth;
         x2 = rsx + halfWidth;
-        y1 = rsy + TILE_WIDTH / 2;
-        y2 = rey - TILE_WIDTH / 2;
+        y1 = rsy + halfTileWidth;
+        y2 = rey - halfTileWidth;
         targetX = rsx;
         targetY = y2;
         break;
     case dir_left:
         y1 = rsy - halfWidth;
         y2 = rsy + halfWidth;
-        x1 = rex + TILE_WIDTH / 2;
-        x2 = rsx - TILE_WIDTH / 2;
+        x1 = rex + halfTileWidth;
+        x2 = rsx - halfTileWidth;
         targetX = x1;
         targetY = rsy;
         break;
@@ -89,7 +90,7 @@ void Laser::update(Keyboard k) {
                 break;
             }
 
-            game.spawnNewSfx(new sfx::LaserParticle(px, py, vx, vy, ax, ay));
+            global::game.spawnNewSfx(new sfx::LaserParticle(px, py, vx, vy, ax, ay));
 
             particleTimer = rand() % 3 + 2;
         }

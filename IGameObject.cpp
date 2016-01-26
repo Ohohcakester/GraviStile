@@ -7,23 +7,29 @@
 #include <math.h>
 
 void IGameObject::drawCircle(sf::CircleShape* shape, float px, float py) {
+    GameGlobals& game = global::game;
+
     game.camera->toRel(&px, &py);
 
     shape->setOrigin(-px + shape->getRadius(), -py + shape->getRadius());
 
-    window->draw(*shape);
+    global::window->draw(*shape);
 }
 
 void IGameObject::drawTriangle(sf::CircleShape* shape, float px, float py, float angle) {
+    GameGlobals& game = global::game;
+
     game.camera->toRel(&px, &py);
 
     shape->setRotation((angle - game.camera->angle) * 180 / M_PI);
     shape->setPosition(px, py);
 
-    window->draw(*shape);
+    global::window->draw(*shape);
 }
 
 void IGameObject::drawRectangle(sf::RectangleShape* shape, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y) {
+    GameGlobals& game = global::game;
+
     game.camera->toRel(&tl_x, &tl_y);
     game.camera->toRel(&bl_x, &bl_y);
     game.camera->toRel(&br_x, &br_y);
@@ -39,10 +45,12 @@ void IGameObject::drawRectangle(sf::RectangleShape* shape, float tl_x, float tl_
     shape->setSize(sf::Vector2f(width, height));
     shape->setPosition(tl_x, tl_y);
     shape->setRotation(angle);
-    window->draw(*shape);
+    global::window->draw(*shape);
 }
 
 void IGameObject::drawSprite(sf::Sprite* sprite, float tl_x, float tl_y, float bl_x, float bl_y, float br_x, float br_y, bool xFlipped) {
+    GameGlobals& game = global::game;
+
     game.camera->toRel(&tl_x, &tl_y);
     game.camera->toRel(&bl_x, &bl_y);
     game.camera->toRel(&br_x, &br_y);
@@ -70,7 +78,7 @@ void IGameObject::drawSprite(sf::Sprite* sprite, float tl_x, float tl_y, float b
     }
     sprite->setRotation(angle);
 
-    window->draw(*sprite);
+    global::window->draw(*sprite);
 }
 
 

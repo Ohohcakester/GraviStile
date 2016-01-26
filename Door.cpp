@@ -16,7 +16,7 @@ Door::Door(int cx, int cy, int orientation) {
     gridToActual(cx, cy, &this->x, &this->y);
     this->orientation = orientation;
 
-    sprite.setTexture(textures->door);
+    sprite.setTexture(global::textures->door);
 
     shape = sf::RectangleShape();
     shape.setFillColor(sf::Color::Yellow);
@@ -25,7 +25,7 @@ Door::Door(int cx, int cy, int orientation) {
 }
 
 void Door::draw() {
-    float w = TILE_WIDTH * 1 / 2;
+    float w = global::TILE_WIDTH * 1 / 2;
 
     switch (orientation) {
     case dir_up:
@@ -47,19 +47,21 @@ void Door::draw() {
 }
 
 void Door::update(Keyboard k) {
-    if (game.player.isRotating) return;
-    if (game.player.currentPlatform->isNull) return;
-    if (!game.player.currentPlatform->isUnderDoor(cx, cy, orientation)) return;
-    if (game.player.orientation != orientation) return;
+    Player& player = global::game.player;
+
+    if (player.isRotating) return;
+    if (player.currentPlatform->isNull) return;
+    if (!player.currentPlatform->isUnderDoor(cx, cy, orientation)) return;
+    if (player.orientation != orientation) return;
     int playerX, playerY;
-    game.player.getGridCoordinates(&playerX, &playerY);
+    player.getGridCoordinates(&playerX, &playerY);
     if (playerX == cx && playerY == cy) {
-        game.puzzleComplete = true;
+        global::game.puzzleComplete = true;
     }
 }
 
 bool Door::isWithinClickHitbox(int sx, int sy) {
-    float w = TILE_WIDTH * 1 / 2;
+    float w = global::TILE_WIDTH * 1 / 2;
     int x1 = x - w;
     int y1 = y - w;
     int x2 = x + w;

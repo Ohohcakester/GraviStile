@@ -3,7 +3,7 @@
 
 Menu::Menu() {
     cols = 6;
-    nItems = NUMBER_OF_STAGES;
+    nItems = global::NUMBER_OF_STAGES;
     selection = 0;
 }
 

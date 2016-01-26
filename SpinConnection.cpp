@@ -76,7 +76,7 @@ SpinConnection* createSpinConnection(std::vector<Platform*> platforms) {
 
 SpinConnectionWire::SpinConnectionWire(float sx, float sy, float ex, float ey) : sx(sx), sy(sy), ex(ex), ey(ey) {
     shape = sf::RectangleShape();
-    shape.setFillColor(textures->spinConnectionWireColor);
+    shape.setFillColor(global::textures->spinConnectionWireColor);
 }
 
 void SpinConnectionWire::update(Keyboard k) {

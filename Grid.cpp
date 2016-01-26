@@ -19,10 +19,12 @@ Grid::Grid(int minX, int minY, int maxX, int maxY) :
 
     gridToActual(maxX, maxY, &this->boundMaxX, &this->boundMaxY);
     gridToActual(minX, minY, &this->boundMinX, &this->boundMinY);
-    this->boundMaxX += OUT_OF_BOUNDS_TILES * TILE_WIDTH;
-    this->boundMaxY += OUT_OF_BOUNDS_TILES * TILE_WIDTH;
-    this->boundMinX -= OUT_OF_BOUNDS_TILES * TILE_WIDTH;
-    this->boundMinY -= OUT_OF_BOUNDS_TILES * TILE_WIDTH;
+
+    int boundaryExtension = global::OUT_OF_BOUNDS_TILES * global::TILE_WIDTH;
+    this->boundMaxX += boundaryExtension;
+    this->boundMaxY += boundaryExtension;
+    this->boundMinX -= boundaryExtension;
+    this->boundMinY -= boundaryExtension;
 }
 
 bool Grid::isBlocked(int x, int y) {

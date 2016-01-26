@@ -24,7 +24,7 @@ Player::Player(int cx, int cy) {
     isRotating = false;
     setOrientation(dir_up);
 
-    sprite.setTexture(textures->player);
+    sprite.setTexture(global::textures->player);
     shape = sf::RectangleShape();
     shape.setFillColor(sf::Color::Blue);
 
@@ -68,8 +68,8 @@ bool Player::rotatesIntoPlatform() {
         _y2 += halfWidth;
     }
 
-    for (size_t i = 0, n = game.platforms.size(); i < n; ++i) {
-        Platform* platform = game.platforms[i];
+    for (size_t i = 0, n = global::game.platforms.size(); i < n; ++i) {
+        Platform* platform = global::game.platforms[i];
         if (currentPlatform->samePosition(platform)) continue; // Exception: can collide with the current platform.
         if (platform->isDisabled()) continue;
         if (collidesWithTargetOrientation(_x1, _y1, _x2, _y2, platform)) return true;
@@ -167,7 +167,7 @@ void Player::update(Keyboard k) {
 
         // platform has stopped rotating.
         this->finishRotating(currentPlatform->isRotationSuccessful);
-        game.finishRotatingTrigger();
+        global::game.finishRotatingTrigger();
     }
 
     if (!currentPlatform->isNull && currentPlatform->isDisabled()) {
@@ -179,7 +179,7 @@ void Player::update(Keyboard k) {
         die();
     }
 
-    if (game.grid.isOutOfBounds(x, y)) {
+    if (global::game.grid.isOutOfBounds(x, y)) {
         die();
     }
 
@@ -261,8 +261,8 @@ void Player::tryMoveInDirection(int dx, int dy) {
     int hitPlatformDirection = -1;
 
     // Find the closest colliding platform (moveDistance is used to judge the closeness)
-    for (size_t i = 0; i<game.platforms.size(); ++i) {
-        Platform* platform = game.platforms[i];
+    for (size_t i = 0; i<global::game.platforms.size(); ++i) {
+        Platform* platform = global::game.platforms[i];
         if (platform->isDisabled()) continue;
 
         int mx, my = 0;
@@ -444,7 +444,7 @@ void Player::setOrientation(int orientation) {
 void Player::collision(Platform* plat) {
     if (x2 > plat->x1 && x1 < plat->x2 && y2 > plat->y1 && y1 < plat->y2) {
         int touchSide = -1;
-        int closestDist = TILE_WIDTH * 2;
+        int closestDist = global::TILE_WIDTH * 2;
         if (x2 - plat->x1 < closestDist) {
             touchSide = dir_left;
             closestDist = x2 - plat->x1;
@@ -513,14 +513,14 @@ bool Player::isControlsDisabled() {
 }
 
 void Player::die() {
-    game.spawnNewSfx(new sfx::PlayerDeath(x, y, angle, pheight, facingRight));
-    game.spawnNewSfx(new sfx::Text(RES_X / 2, RES_Y / 3, "Press 'R' to restart", -1, 60, 30));
+    global::game.spawnNewSfx(new sfx::PlayerDeath(x, y, angle, pheight, facingRight));
+    global::game.spawnNewSfx(new sfx::Text(global::RES_X / 2, global::RES_Y / 3, "Press 'R' to restart", -1, 60, 30));
     this->isActive = false;
 }
 
 bool Player::isTouchingLaser() {
-    for (size_t i = 0, n = game.lasers.size(); i < n; ++i){
-        Laser* l = game.lasers[i];
+    for (size_t i = 0, n = global::game.lasers.size(); i < n; ++i){
+        Laser* l = global::game.lasers[i];
         if (rectsIntersect(x-5, y-5, x+5, y+5, l->x1, l->y1, l->x2, l->y2)) return true;
     }
     return false;

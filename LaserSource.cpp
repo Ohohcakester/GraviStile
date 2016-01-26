@@ -19,7 +19,7 @@ const int DIM_Y2 = 0;
 
 void LaserSource::initialise() {
     shape = sf::RectangleShape();
-    shape.setFillColor(textures->laserSourceColor);
+    shape.setFillColor(global::textures->laserSourceColor);
 }
 
 void LaserSource::setupLaser(Laser* laser) {
@@ -37,7 +37,7 @@ void LaserSource::fireLaser() {
     int currY = this->cy + dy;
     
     int range = 60;
-    Grid* grid = &game.grid;
+    Grid* grid = &global::game.grid;
     while (range > 0 && !grid->isBlocked(currX, currY)) {
         currX += dx;
         currY += dy;
@@ -46,8 +46,8 @@ void LaserSource::fireLaser() {
 
     laser->setup(this->orientation, this->cx, this->cy, currX, currY);
 
-    for (size_t i = 0, n = game.laserTargets.size(); i < n; ++i) {
-        LaserTarget* target = game.laserTargets[i];
+    for (size_t i = 0, n = global::game.laserTargets.size(); i < n; ++i) {
+        LaserTarget* target = global::game.laserTargets[i];
         if (areComplementaryOrientations(this->orientation, target->orientation) &&
                 currX == target->cx && currY == target->cy) {
             target->laserConnect(this->laser);

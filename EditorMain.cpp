@@ -25,7 +25,7 @@ int tryAssignId(PlatformTemplate* platformTemplate);
 
 
 void exitEditor() {
-    editorState.uninitialise();
+    global::editorState.uninitialise();
     initialiseMenu();
 }
 
@@ -35,7 +35,7 @@ void print(std::string message) {
 
 void printCurrentTool() {
     std::string toolName = "???";
-    switch (editorState.toolState.state) {
+    switch (global::editorState.toolState.state) {
     case tool_none: toolName = "None"; break;
     case tool_move: toolName = "Move"; break;
     case tool_leftTiles: toolName = "Left Tiles"; break;
@@ -52,6 +52,7 @@ void printCurrentTool() {
 }
 
 void pressKey(int keyNum) {
+    EditorState& editorState = global::editorState;
     SelectionState* selection = &editorState.selectionState;
     ToolState* tools = &editorState.toolState;
 
@@ -110,6 +111,8 @@ void pressKey(int keyNum) {
 
 
 void editorKeyPress(sf::Keyboard::Key keyCode) {
+    EditorState& editorState = global::editorState;
+    GameGlobals& game = global::game;
     SelectionState* selection = &editorState.selectionState;
     ToolState* tools = &editorState.toolState;
     EditableLevelTemplate* templ = &editorState.levelTemplate;
@@ -443,6 +446,8 @@ void editorKeyPress(sf::Keyboard::Key keyCode) {
 
 
 void trySelect(double x, double y) {
+    EditorState& editorState = global::editorState;
+    GameGlobals& game = global::game;
     SelectionState* selection = &editorState.selectionState;
     EditableLevelTemplate* templ = &editorState.levelTemplate;
 
@@ -493,7 +498,7 @@ void trySelect(double x, double y) {
 int tryAssignId(PlatformTemplate* platform) {
     if (platform->id != -1) return platform->id;
 
-    EditableLevelTemplate* templ = &editorState.levelTemplate;
+    EditableLevelTemplate* templ = &global::editorState.levelTemplate;
 
     std::set<int> takenIds;
     for (size_t i = 0, n = templ->platforms.size(); i < n; ++i) {
@@ -510,6 +515,8 @@ int tryAssignId(PlatformTemplate* platform) {
 }
 
 void placePlatform(int x, int y) {
+    EditorState& editorState = global::editorState;
+
     int cx, cy;
     actualToGrid(x, y, &cx, &cy);
     editorState.levelTemplate.platforms.push_back(PlatformTemplate(cx, cy, 1, 1, true, dir_up));
@@ -518,6 +525,8 @@ void placePlatform(int x, int y) {
 }
 
 void placePlayer(int x, int y) {
+    EditorState& editorState = global::editorState;
+
     int cx, cy;
     actualToGrid(x, y, &cx, &cy);
 
@@ -528,6 +537,8 @@ void placePlayer(int x, int y) {
 }
 
 void placeDoor(int x, int y) {
+    EditorState& editorState = global::editorState;
+
     int cx, cy;
     actualToGrid(x, y, &cx, &cy);
 
@@ -539,9 +550,9 @@ void placeDoor(int x, int y) {
 
 void editorMouseClick(int x, int y, bool leftClick) {
     float absX = x, absY = y;
-    game.camera->toAbs(&absX, &absY);
+    global::game.camera->toAbs(&absX, &absY);
 
-    ToolState* tools = &editorState.toolState;
+    ToolState* tools = &global::editorState.toolState;
 
     //std::cout << "Absolute: " << absX << ", " << absY << "\n";
     if (leftClick) {
@@ -564,7 +575,10 @@ void editorMouseClick(int x, int y, bool leftClick) {
 }
 
 void refreshEditorGameDisplay(bool playMode) {
-    game = GameGlobals();
+    global::game = GameGlobals();
+    GameGlobals& game = global::game;
+    EditorState& editorState = global::editorState;
+
     game.puzzleComplete = false;
 
     initialiseFromStageObject(editorState.levelTemplate.generateStage());
@@ -576,8 +590,8 @@ void refreshEditorGameDisplay(bool playMode) {
         game.assignNewCamera(new EditorCamera(editorState.camX, editorState.camY, editorState.camZoom));
     }
     Grid* grid = &game.grid;
-    game.width = grid->sizeX*TILE_WIDTH;
-    game.height = grid->sizeY*TILE_WIDTH;
+    game.width = grid->sizeX*global::TILE_WIDTH;
+    game.height = grid->sizeY*global::TILE_WIDTH;
     Background bg = Background((grid->minX + grid->maxX) / 2, (grid->minY + grid->maxY) / 2);
     game.background = bg;
 
@@ -586,6 +600,8 @@ void refreshEditorGameDisplay(bool playMode) {
 }
 
 void initialiseEditor() {
+    EditorState& editorState = global::editorState;
+
     gameStatus = gamestatus_editor;
     editorState.initialise();
     editorState.levelTemplate = EditableLevelTemplate(getStage(24));
@@ -600,9 +616,11 @@ void drawEditorFrame() {
 
 
 void updateEditor() {
-    game.key.update();
+    EditorState& editorState = global::editorState;
+    GameGlobals& game = global::game;
+    Keyboard& key = global::key;
 
-    game.camera->update(game.key);
+    game.camera->update(key);
 
     editorState.camX = game.camera->px;
     editorState.camY = game.camera->py;
@@ -611,7 +629,7 @@ void updateEditor() {
 
 
 void tryReturnToEditor() {
-    if (!editorState.isActive) return;
+    if (!global::editorState.isActive) return;
 
     gameStatus = gamestatus_editor;
     refreshEditorGameDisplay();

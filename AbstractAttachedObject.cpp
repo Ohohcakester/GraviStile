@@ -76,11 +76,11 @@ void AbstractAttachedObject::toActualCoordindates(float* dx, float* dy) {
     // Note dx and dy are relative to the origin of the platform.
 
     // 1. Move to top of tile
-    *dy -= TILE_WIDTH / 2;
+    *dy -= global::TILE_WIDTH / 2;
     // 2. Rotate about tile (0,0)
     rotateVector(dx, dy, orientationToAngle(this->relativeOrientation));
     // 3. Move to the correct tile on the platform. (assuming platform is dir_up facing.)
-    *dx += TILE_WIDTH * position;
+    *dx += global::TILE_WIDTH * position;
     // 4. Rotate to the platform's angle.
     rotateVector(dx, dy, platform->angle);
 }

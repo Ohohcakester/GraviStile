@@ -13,7 +13,6 @@ public:
     int currentStage;
 
     Player player;
-    Keyboard key;
     Door door;
     Background background;
     AbstractCamera* camera;

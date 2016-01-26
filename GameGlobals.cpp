@@ -1,5 +1,6 @@
 #include <iostream>
 #include "GameGlobals.h"
+#include "globals.h"
 #include "Sfx.h"
 
 int REFRESH_FRAMES = 5;
@@ -64,7 +65,7 @@ void GameGlobals::update() {
 
 void GameGlobals::updateAllSfx() {
     for (size_t i = 0, n = sfxList.size(); i < n; ++i) {
-        if (sfxList[i]->isActive) sfxList[i]->update(key);
+        if (sfxList[i]->isActive) sfxList[i]->update(global::key);
     }
 
     sfxArrayClearCounter--;

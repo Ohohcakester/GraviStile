@@ -8,10 +8,10 @@ Background::Background() {}
 
 Background::Background(int x, int y) {
     gridToActual(x, y, &this->x, &this->y);
-    int nTiles = std::max(game.grid.sizeX, game.grid.sizeY);
-    this->width = nTiles*TILE_WIDTH * 2;
-    this->height = nTiles*TILE_WIDTH * 3 / 2;
-    sprite.setTexture(textures->background);
+    int nTiles = std::max(global::game.grid.sizeX, global::game.grid.sizeY);
+    this->width = nTiles*global::TILE_WIDTH * 2;
+    this->height = nTiles*global::TILE_WIDTH * 3 / 2;
+    sprite.setTexture(global::textures->background);
 }
 
 void Background::draw() {

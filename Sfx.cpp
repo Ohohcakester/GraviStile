@@ -8,21 +8,22 @@
 
 class Keyboard;
 
-sfx::LevelName::LevelName(std::string name, int level): Sfx(RES_X/2, RES_Y/10), text(name) {
+sfx::LevelName::LevelName(std::string name, int level) : 
+Sfx(global::RES_X / 2, global::RES_Y / 10), text(name) {
     std::stringstream ss;
     ss << "Stage " << level;
     levelNumberText = ss.str();
 
-    color = textures->levelNameTextColor;
+    color = global::textures->levelNameTextColor;
 
-    sfLevelText.setFont(textures->comicsans);
+    sfLevelText.setFont(global::textures->comicsans);
     sfLevelText.setString(levelNumberText);
     sfLevelText.setCharacterSize(20);
     sfLevelText.setColor(color);
     sf::FloatRect textRect = sfLevelText.getLocalBounds();
     sfLevelText.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
 
-    sfText.setFont(textures->comicsans);
+    sfText.setFont(global::textures->comicsans);
     sfText.setString(text);
     sfText.setCharacterSize(30);
     sfText.setColor(color);
@@ -39,8 +40,8 @@ void sfx::LevelName::draw() {
     sfText.setColor(color);
     sfText.setPosition(x, y+15);
 
-    window->draw(sfLevelText);
-    window->draw(sfText);
+    global::window->draw(sfLevelText);
+    global::window->draw(sfText);
 }
 
 void sfx::LevelName::sfxUpdate() {
@@ -53,7 +54,7 @@ sfx::Text::Text(int x, int y, std::string text, int timeout, int delay, int size
 Sfx(x, y), text(text), timeout(timeout), delay(delay) {
     color = sf::Color::White;
 
-    sfText.setFont(textures->comicsans);
+    sfText.setFont(global::textures->comicsans);
     sfText.setString(text);
     sfText.setCharacterSize(size);
     sfText.setColor(color);
@@ -65,7 +66,7 @@ void sfx::Text::draw() {
     if (animframe >= delay) {
         sfText.setColor(color);
         sfText.setPosition(x, y);
-        window->draw(sfText);
+        global::window->draw(sfText);
     }
 }
 
@@ -76,7 +77,7 @@ void sfx::Text::sfxUpdate() {
 
 sfx::PlayerDeath::PlayerDeath(int x, int y, float angle, float pheight, bool facingRight) :
         Sfx(x, y), angle(angle), baseSize(pheight/2), facingRight(facingRight) {
-    sprite.setTexture(textures->player);
+    sprite.setTexture(global::textures->player);
     size = baseSize;
 
     float ax = 0, ay = 0.05f;
@@ -85,7 +86,7 @@ sfx::PlayerDeath::PlayerDeath(int x, int y, float angle, float pheight, bool fac
         float fireAngle = randomAngle();
         float vx = 0, vy = rand()%30/10.0 + 1;
         rotateVector(&vx, &vy, fireAngle);
-        game.spawnNewSfx(new sfx::DeathParticle(x, y, vx, vy, ax, ay));
+        global::game.spawnNewSfx(new sfx::DeathParticle(x, y, vx, vy, ax, ay));
     }
 
 }
@@ -106,7 +107,7 @@ void sfx::PlayerDeath::sfxUpdate() {
 sfx::DeathParticle::DeathParticle(int x, int y, float vx, float vy, float ax, float ay) :
 Sfx(x, y, vx, vy, ax, ay), timeLimit(40) {
     color = sf::Color::White;
-    shape = sf::CircleShape(game.zoom*4.0f);
+    shape = sf::CircleShape(global::game.zoom*4.0f);
     shape.setFillColor(color);
 }
 
@@ -127,7 +128,7 @@ void sfx::DeathParticle::sfxUpdate() {
 sfx::LaserParticle::LaserParticle(int x, int y, float vx, float vy, float ax, float ay) :
 Sfx(x, y, vx, vy, ax, ay), timeLimit(25) {
     color = sf::Color::Red;
-    shape = sf::CircleShape(game.zoom*5.5f);
+    shape = sf::CircleShape(global::game.zoom*5.5f);
     shape.setFillColor(color);
 }
 
@@ -147,7 +148,7 @@ void sfx::LaserParticle::sfxUpdate() {
 
 sfx::PlatformChange::PlatformChange(int x, int y, bool expanding) : Sfx(x, y), expanding(expanding), timeLimit(25), angle(0), scale(1) {
     color = sf::Color::Magenta;
-    shape = sf::CircleShape(game.zoom*15.0f, 3);
+    shape = sf::CircleShape(global::game.zoom*15.0f, 3);
     sfxUpdate();
     shape.setFillColor(color);
     shape.setOrigin(shape.getRadius(), shape.getRadius());

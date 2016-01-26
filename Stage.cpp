@@ -33,6 +33,8 @@ void linkPlatforms(GameStage* gameStage, std::vector<Platform*>* _platforms, std
 }
 
 void setupLasers(GameStage* gameStage, std::map<int, Platform*>* _platformsById) {
+    GameGlobals& game = global::game;
+
     std::map<int, Platform*>& platformsById = *_platformsById;
 
     for (size_t i = 0, n = gameStage->laserSources.size(); i < n; ++i) {
@@ -128,10 +130,12 @@ void initialiseGrid(std::vector<Platform*>* platforms) {
         if (y2 > maxY) maxY = y2;
     }
 
-    game.grid = Grid(minX, minY, maxX, maxY);
+    global::game.grid = Grid(minX, minY, maxX, maxY);
 }
 
 void initialiseFromStageObject(GameStage gameStage) {
+    GameGlobals& game = global::game;
+
     int nPlatforms = gameStage.platforms.size();
 
     std::map<int, Platform*> platformsById;
@@ -161,6 +165,6 @@ void initialiseFromStageObject(GameStage gameStage) {
 
 
 void initialiseStage(int stage) {
-    game.currentStage = stage;
+    global::game.currentStage = stage;
     initialiseFromStageObject(getStage(stage));
 }

@@ -30,12 +30,12 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
     setOrientation(orientation);
     finishRotation();
 
-    sprite.setTexture(textures->pivot);
+    sprite.setTexture(global::textures->pivot);
     shape = sf::RectangleShape();
-    shape.setFillColor(textures->platformColor);
+    shape.setFillColor(global::textures->platformColor);
     extraLineShape = sf::RectangleShape();
-    extraLineShape.setFillColor(textures->platformSurfaceColor);
-    pivotShape = sf::CircleShape(game.zoom*TILE_WIDTH / 3);
+    extraLineShape.setFillColor(global::textures->platformSurfaceColor);
+    pivotShape = sf::CircleShape(global::game.zoom*global::TILE_WIDTH / 3);
     pivotShape.setFillColor(sf::Color::Magenta);
     isUsingDisabledGraphic = false;
 }
@@ -43,6 +43,8 @@ Platform::Platform(int cx, int cy, int leftTiles, int rightTiles, bool rotatable
 void Platform::updateUsingDisabledGraphic() {
     bool isDisabled = this->isDisabled();
     if (isDisabled != isUsingDisabledGraphic) {
+        Textures* textures = global::textures;
+
         isUsingDisabledGraphic = isDisabled;
         if (isDisabled) {
             shape.setFillColor(textures->platformDisabledColor);
@@ -57,19 +59,11 @@ void Platform::updateUsingDisabledGraphic() {
 void Platform::draw() {
     //isUsingDisabledGraphic = !isDisabled(); // DEBUG CODE
     updateUsingDisabledGraphic();
-
-    /*std::vector<Platform*>* ot = &game.platforms;  // DEBUG CODE
-    for (size_t i = 0, n = ot->size(); i < n; ++i) {  // DEBUG CODE
-        Platform* p = (*ot)[i];
-        if (this->samePosition(p)) continue;
-        if (this->collidesWith(p)) shape.setFillColor(textures->laserColor);
-    }*/
-
-
-    float _x1 = - TILE_WIDTH * (leftTiles + 0.5);
-    float _x2 = TILE_WIDTH * (rightTiles + 0.5);
-    float _y1 = - TILE_WIDTH / 2;
-    float _y2 = TILE_WIDTH / 2;
+    
+    float _x1 = -global::TILE_WIDTH * (leftTiles + 0.5);
+    float _x2 = global::TILE_WIDTH * (rightTiles + 0.5);
+    float _y1 = -global::TILE_WIDTH / 2;
+    float _y2 = global::TILE_WIDTH / 2;
 
     float tlx, tly, blx, bly, brx, bry;
     generateRotatedCorners(_x1, _y1, _x2, _y2, &tlx, &tly, &blx, &bly, &brx, &bry, angle);
@@ -82,7 +76,7 @@ void Platform::draw() {
         drawRectangle(&extraLineShape, x+tlx, y+tly, x+blx, y+bly, x+brx, y+bry);
 
         if (!this->isRotationDisabled && !this->isDisabled()) {
-            float radius = game.zoom*TILE_WIDTH / 3;
+            float radius = global::game.zoom*global::TILE_WIDTH / 3;
             generateRotatedCorners(-radius, -radius, radius, radius, &tlx, &tly, &blx, &bly, &brx, &bry, angle);
             drawSprite(&sprite, x + tlx, y + tly, x + blx, y + bly, x + brx, y + bry);
         }
@@ -98,13 +92,13 @@ void Platform::update(Keyboard k) {
 
         float diff = clampedAngularDifference(angle, targetAngle);
         if (diff < 0) {
-            angle -= ROTATE_SPEED;
+            angle -= global::ROTATE_SPEED;
             diff = clampedAngularDifference(angle, targetAngle);
             if (diff >= 0) {
                 onReach();
             }
         } else {
-            angle += ROTATE_SPEED;
+            angle += global::ROTATE_SPEED;
             diff = clampedAngularDifference(angle, targetAngle);
             if (diff < 0) {
                 onReach();
@@ -116,7 +110,7 @@ void Platform::update(Keyboard k) {
 bool Platform::isObstructedWhileRotating() {
     if (this->isDisabled()) return false;
 
-    std::vector<Platform*>* platforms = &game.platforms;
+    std::vector<Platform*>* platforms = &global::game.platforms;
     for (size_t i = 0, n = platforms->size(); i < n; ++i) {
         Platform* p = (*platforms)[i];
         if (this->samePosition(p)) continue;
@@ -135,7 +129,7 @@ void Platform::finishRotation() {
 }
 
 void Platform::onReach() {
-    if (!isRevertingToPreviousRotation && game.player.rotatesIntoPlatform()) {
+    if (!isRevertingToPreviousRotation && global::game.player.rotatesIntoPlatform()) {
         cancelRotation();
         return;
     }
@@ -250,31 +244,32 @@ void Platform::revertToPreviousOrientation() {
 }
 
 void Platform::setOrientation(int orientation) {
+    int tileWidth = global::TILE_WIDTH;
     this->orientation = orientation;
 
-    this->x1 = x - TILE_WIDTH / 2;
-    this->x2 = x + TILE_WIDTH / 2;
-    this->y1 = y - TILE_WIDTH / 2;
-    this->y2 = y + TILE_WIDTH / 2;
+    this->x1 = x - tileWidth / 2;
+    this->x2 = x + tileWidth / 2;
+    this->y1 = y - tileWidth / 2;
+    this->y2 = y + tileWidth / 2;
 
     if (orientation == dir_up) {
-        this->x1 -= TILE_WIDTH * leftTiles;
-        this->x2 += TILE_WIDTH * rightTiles;
+        this->x1 -= tileWidth * leftTiles;
+        this->x2 += tileWidth * rightTiles;
     }
 
     if (orientation == dir_right) {
-        this->y1 -= TILE_WIDTH * leftTiles;
-        this->y2 += TILE_WIDTH * rightTiles;
+        this->y1 -= tileWidth * leftTiles;
+        this->y2 += tileWidth * rightTiles;
     }
 
     if (orientation == dir_down) {
-        this->x1 -= TILE_WIDTH * rightTiles;
-        this->x2 += TILE_WIDTH * leftTiles;
+        this->x1 -= tileWidth * rightTiles;
+        this->x2 += tileWidth * leftTiles;
     }
 
     if (orientation == dir_left) {
-        this->y1 -= TILE_WIDTH * rightTiles;
-        this->y2 += TILE_WIDTH * leftTiles;
+        this->y1 -= tileWidth * rightTiles;
+        this->y2 += tileWidth * leftTiles;
     }
 
     this->targetAngle = orientationToAngle(orientation);
@@ -341,14 +336,14 @@ bool Platform::collidesWith(Platform* o) {
 }
 
 bool Platform::oneSidedCollidesWith(Platform* o) {
-    float left = -TILE_WIDTH * (leftTiles + 0.25); // don't add 0.5
-    float right = TILE_WIDTH * (rightTiles + 0.25);
+    float left = -global::TILE_WIDTH * (leftTiles + 0.25); // don't add 0.5
+    float right = global::TILE_WIDTH * (rightTiles + 0.25);
 
-    float _x1b = -TILE_WIDTH * (o->leftTiles + 0.25); // don't add 0.5
-    float _x2b = TILE_WIDTH * (o->rightTiles + 0.25);
+    float _x1b = -global::TILE_WIDTH * (o->leftTiles + 0.25); // don't add 0.5
+    float _x2b = global::TILE_WIDTH * (o->rightTiles + 0.25);
 
-    float minY = -TILE_WIDTH * 0.4f;
-    float maxY = TILE_WIDTH * 0.4f;
+    float minY = -global::TILE_WIDTH * 0.4f;
+    float maxY = global::TILE_WIDTH * 0.4f;
 
     float tlx2, tly2, blx2, bly2, brx2, bry2, trx2, try2;
     generateRotatedCorners(_x1b, minY, _x2b, maxY, &tlx2, &tly2, &blx2, &bly2, &brx2, &bry2, &trx2, &try2, o->angle - angle);
@@ -388,10 +383,10 @@ bool Platform::isWithinClickHitbox(int x, int y) {
 }
 
 void Platform::playDisableAnimation() {
-    game.spawnNewSfx(new sfx::PlatformChange(x, y, true));
+    global::game.spawnNewSfx(new sfx::PlatformChange(x, y, true));
 }
 
 void Platform::playEnableAnimation() {
-    game.spawnNewSfx(new sfx::PlatformChange(x, y, false));
+    global::game.spawnNewSfx(new sfx::PlatformChange(x, y, false));
 
 }

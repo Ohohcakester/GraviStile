@@ -10,7 +10,7 @@ const float ROTATE_SNAP_SPEED = 0.15f;
 Camera::Camera() {}
 
 Camera::Camera(Player* player) {
-    zoom = game.zoom;
+    zoom = global::game.zoom;
     snapSpeed = 0.2f;
     snapSpeedRotating = 0.6f;
 

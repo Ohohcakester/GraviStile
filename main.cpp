@@ -17,36 +17,40 @@
 int gameStatus = gamestatus_menu;
 
 void rotateRight() {
-    if (!game.player.canRotate(true)) return;
-    int orientation = orientationRotateRight(game.player.orientation);
+    Player& player = global::game.player;
+
+    if (!player.canRotate(true)) return;
+    int orientation = orientationRotateRight(player.orientation);
 
     int pivotX, pivotY;
-    gridToActual(game.player.currentPlatform->cx, game.player.currentPlatform->cy, &pivotX, &pivotY);
+    gridToActual(player.currentPlatform->cx, player.currentPlatform->cy, &pivotX, &pivotY);
 
-    game.player.rotateTo(orientation);
+    player.rotateTo(orientation);
 }
 
 void rotateLeft() {
-    if (!game.player.canRotate(false)) return;
-    int orientation = orientationRotateLeft(game.player.orientation);
+    Player& player = global::game.player;
+
+    if (!player.canRotate(false)) return;
+    int orientation = orientationRotateLeft(player.orientation);
 
     int pivotX, pivotY;
-    gridToActual(game.player.currentPlatform->cx, game.player.currentPlatform->cy, &pivotX, &pivotY);
+    gridToActual(player.currentPlatform->cx, player.currentPlatform->cy, &pivotX, &pivotY);
 
-    game.player.rotateTo(orientation);
+    player.rotateTo(orientation);
 }
 
 void restartLevel() {
-    if (editorState.isActive) {
+    if (global::editorState.isActive) {
         editorRestartStage();
     }
     else {
-        initialiseGame(game.currentStage);
+        initialiseGame(global::game.currentStage);
     }
 }
 
 void quitGame() {
-    if (editorState.isActive) {
+    if (global::editorState.isActive) {
         tryReturnToEditor();
     }
     else {
@@ -55,7 +59,7 @@ void quitGame() {
 }
 
 void inGameKeyPress(sf::Keyboard::Key keyCode) {
-    if (keyCode == sf::Keyboard::Space) game.player.jump();
+    if (keyCode == sf::Keyboard::Space) global::game.player.jump();
     if (keyCode == sf::Keyboard::A) rotateLeft();
     if (keyCode == sf::Keyboard::D) rotateRight();
     if (keyCode == sf::Keyboard::R) restartLevel();
@@ -65,6 +69,8 @@ void inGameKeyPress(sf::Keyboard::Key keyCode) {
 }
 
 void menuKeyPress(sf::Keyboard::Key keyCode) {
+    Menu& menu = global::menu;
+
     if (keyCode == sf::Keyboard::Return) initialiseGame(menu.selection + 1);
     if (keyCode == sf::Keyboard::Space) initialiseGame(menu.selection + 1);
     if (keyCode == sf::Keyboard::Left) menu.previous();
@@ -110,16 +116,16 @@ void mouseClick(int x, int y, bool leftClick) {
 void processEvent(sf::Event event) {
     switch(event.type) {
         case sf::Event::Closed: {
-            window->close();
+            global::window->close();
             break;
         }
         case sf::Event::KeyPressed: {
             keyPress(event.key.code);
-            game.key.updateKey(event.key.code, true);
+            global::key.updateKey(event.key.code, true);
             break;
         }
         case sf::Event::KeyReleased: {
-            game.key.updateKey(event.key.code, false);
+            global::key.updateKey(event.key.code, false);
             break;
         }
         case sf::Event::MouseButtonReleased: {
@@ -136,7 +142,9 @@ void processEvent(sf::Event event) {
 
 void initialiseGame(int stage) {
     gameStatus = gamestatus_inGame;
-    game = GameGlobals();
+    global::game = GameGlobals();
+    GameGlobals& game = global::game;
+
     game.puzzleComplete = false;
     game.zoom = 0.4f;
 
@@ -144,8 +152,8 @@ void initialiseGame(int stage) {
 
     game.assignNewCamera(new Camera(&game.player));
     Grid* grid = &game.grid;
-    game.width = grid->sizeX*TILE_WIDTH;
-    game.height = grid->sizeY*TILE_WIDTH;
+    game.width = grid->sizeX*global::TILE_WIDTH;
+    game.height = grid->sizeY*global::TILE_WIDTH;
     Background bg = Background((grid->minX + grid->maxX) / 2, (grid->minY + grid->maxY) / 2);
     game.background = bg;
 
@@ -157,6 +165,9 @@ void initialiseMenu() {
 }
 
 void updateGame() {
+    GameGlobals& game = global::game;
+    Keyboard& key = global::key;
+
     if (game.puzzleComplete) {
         game.door.endStageTimeout--;
         if (game.door.endStageTimeout <= 0) {
@@ -166,23 +177,22 @@ void updateGame() {
     }
 
     game.updateAllSfx();
-    game.key.update();
-    game.background.update(game.key);
-    game.player.update(game.key);
-    game.camera->update(game.key);
+    game.background.update(key);
+    game.player.update(key);
+    game.camera->update(key);
     for (size_t i = 0, n = game.platforms.size(); i < n; ++i) {
-        game.platforms[i]->update(game.key);
+        game.platforms[i]->update(key);
     }
     for (size_t i = 0, n = game.lasers.size(); i < n; ++i) {
-        game.lasers[i]->update(game.key);
+        game.lasers[i]->update(key);
     }
     for (size_t i = 0, n = game.laserSources.size(); i < n; ++i) {
-        game.laserSources[i]->update(game.key);
+        game.laserSources[i]->update(key);
     }
     for (size_t i = 0, n = game.laserTargets.size(); i < n; ++i) {
-        game.laserTargets[i]->update(game.key);
+        game.laserTargets[i]->update(key);
     }
-    game.door.update(game.key);
+    game.door.update(key);
 
     game.update();
 }
@@ -192,6 +202,8 @@ void updateMenu() {
 }
 
 void drawGameFrame() {
+    GameGlobals& game = global::game;
+
     game.background.draw();
     game.camera->draw();
 
@@ -226,7 +238,9 @@ void drawGameFrame() {
 }
 
 void drawMenuFrame() {
-    float itemSpacing = RES_X / menu.cols;
+    Menu& menu = global::menu;
+
+    float itemSpacing = global::RES_X / menu.cols;
     float itemGlowWidth = itemSpacing*0.7f;
     float halfItemGlowWidth = itemGlowWidth/2;
 
@@ -245,42 +259,42 @@ void drawMenuFrame() {
             shape3.setFillColor(sf::Color::White);
             shape3.setSize(sf::Vector2f(itemGlowWidth,itemGlowWidth));
             shape3.setPosition(itemSpacing*(col+0.5f)-halfItemGlowWidth, itemSpacing*(row+0.5f)-halfItemGlowWidth);
-            window->draw(shape3);
+            global::window->draw(shape3);
         }
 
         sf::RectangleShape shape;
-        shape.setFillColor(textures->platformColor);
+        shape.setFillColor(global::textures->platformColor);
         shape.setSize(sf::Vector2f(itemOutlineWidth,itemOutlineWidth));
         shape.setPosition(itemSpacing*(col+0.5f)-halfItemOutlineWidth, itemSpacing*(row+0.5f)-halfItemOutlineWidth);
-        window->draw(shape);
+        global::window->draw(shape);
 
         sf::RectangleShape shape2;
-        shape2.setFillColor(textures->platformSurfaceColor);
+        shape2.setFillColor(global::textures->platformSurfaceColor);
         shape2.setSize(sf::Vector2f(itemWidth,itemWidth));
         shape2.setPosition(itemSpacing*(col+0.5f)-halfItemWidth, itemSpacing*(row+0.5f)-halfItemWidth);
-        window->draw(shape2);
+        global::window->draw(shape2);
         
         std::ostringstream ss;
         ss << i + 1;
         sf::Text numbering;
-        numbering.setFont(textures->comicsans);
+        numbering.setFont(global::textures->comicsans);
         numbering.setString(ss.str());
         numbering.setCharacterSize(40);
-        numbering.setColor(textures->platformColor);
+        numbering.setColor(global::textures->platformColor);
         sf::FloatRect textRect = numbering.getLocalBounds();
         numbering.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
         numbering.setPosition(itemSpacing*(col + 0.5f), itemSpacing*(row + 0.5f));
-        window->draw(numbering);
+        global::window->draw(numbering);
     }
 }
 
 int main(int argc, TCHAR *argv[]) {
     //test::runTests(); return 0; // Uncomment to run tests.
 
-    sf::RenderWindow w(sf::VideoMode(RES_X, RES_Y), "GraviStile");
-    window = &w;
+    sf::RenderWindow w(sf::VideoMode(global::RES_X, global::RES_Y), "GraviStile");
+    global::window = &w;
     Textures t;
-    textures = &t;
+    global::textures = &t;
 
     sf::Clock clock;
     
@@ -289,9 +303,9 @@ int main(int argc, TCHAR *argv[]) {
 
     initialiseMenu();
     
-    while (window->isOpen()) {
+    while (global::window->isOpen()) {
         sf::Event event;
-        while (window->pollEvent(event)) {
+        while (global::window->pollEvent(event)) {
             processEvent(event);
         }
         dTime += clock.getElapsedTime().asSeconds();
@@ -306,14 +320,15 @@ int main(int argc, TCHAR *argv[]) {
 
             if (dTime < frameTime) {
                 // frame skip if lagging
-                window->clear();
+                global::window->clear();
 
+                global::key.update();
                 if (gameStatus == gamestatus_inGame) drawGameFrame();
                 else if (gameStatus == gamestatus_editor) drawEditorFrame();
                 else if (gameStatus == gamestatus_menu) drawMenuFrame();
 
                 else drawGameFrame();
-                window->display();
+                global::window->display();
             }
         }
     }
