@@ -5,7 +5,7 @@
  * ======================== */
 
 GameStage level1() {
-    std::string name = "Gap";
+    std::string name = "Mind the Gap";
 
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(1, 1, 1, 1, false, dir_up),
@@ -130,7 +130,7 @@ GameStage level7() {
 
 
 GameStage level8() {
-    std::string name = "Pivots";
+    std::string name = "Pivot Turn";
 
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(3, 1, 0, 0, true, dir_right),
@@ -195,7 +195,7 @@ GameStage level10() {
 }
 
 GameStage level11() {
-    std::string name = "Leap of Faith";
+    std::string name = "Catch";
 
     std::vector<PlatformTemplate> platforms{
         PlatformTemplate(3, 2, 1, 1, true, dir_up),
