@@ -65,6 +65,7 @@ void inGameKeyPress(sf::Keyboard::Key keyCode) {
 }
 
 void menuKeyPress(sf::Keyboard::Key keyCode) {
+    if (keyCode == sf::Keyboard::Return) initialiseGame(menu.selection + 1);
     if (keyCode == sf::Keyboard::Space) initialiseGame(menu.selection + 1);
     if (keyCode == sf::Keyboard::Left) menu.previous();
     if (keyCode == sf::Keyboard::Right) menu.next();
