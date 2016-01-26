@@ -2,7 +2,7 @@
 #include "Textures.h"
 
 Textures::Textures() {
-    if (!comicsans.loadFromFile("comicbd.ttf")) {
+    if (!comicsans.loadFromFile("VeraBd.ttf")) {
         std::cout << "Unable to load font!\n";
     }
     if (!background.loadFromFile("img/bg.jpg")) {
