@@ -36,7 +36,7 @@ void sfx::LevelName::draw() {
     if (animframe > 120) color.a = 0;
 
     sfLevelText.setColor(color);
-    sfLevelText.setPosition(x, y-15);
+    sfLevelText.setPosition(x, y-20);
     sfText.setColor(color);
     sfText.setPosition(x, y+15);
 
