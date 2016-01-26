@@ -4,6 +4,7 @@
 #include "gamemath.h"
 #include "GameGlobals.h"
 #include "Textures.h"
+#include "Sfx.h"
 
 Player::Player(){}
 
@@ -512,6 +513,7 @@ bool Player::isControlsDisabled() {
 }
 
 void Player::die() {
+    game.spawnNewSfx(new sfx::PlayerDeath(x, y, angle, pheight, facingRight));
     this->isActive = false;
 }
 

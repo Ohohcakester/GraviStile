@@ -32,6 +32,34 @@ namespace sfx {
         std::string text;
         int timeout;
     };
+
+    class PlayerDeath : public Sfx {
+    public:
+        PlayerDeath(int x, int y, float angle, float pheight, bool facingRight);
+
+        void draw();
+        void sfxUpdate();
+
+    protected:
+        bool facingRight;
+        float angle;
+        sf::Sprite sprite;
+        float baseSize;
+        float size;
+    };
+
+    class DeathParticle : public Sfx {
+    public:
+        DeathParticle(int x, int y, float vx, float vy, float ax, float ay);
+
+        void draw();
+        void sfxUpdate();
+
+    protected:
+        int timeLimit;
+        sf::CircleShape shape;
+        sf::Color color;
+    };
 }
 
 
