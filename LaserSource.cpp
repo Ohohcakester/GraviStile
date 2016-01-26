@@ -36,7 +36,7 @@ void LaserSource::fireLaser() {
     int currX = this->cx + dx;
     int currY = this->cy + dy;
     
-    int range = 30;
+    int range = 60;
     Grid* grid = &game.grid;
     while (range > 0 && !grid->isBlocked(currX, currY)) {
         currX += dx;
