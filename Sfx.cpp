@@ -66,7 +66,7 @@ sfx::PlayerDeath::PlayerDeath(int x, int y, float angle, float pheight, bool fac
     float ax = 0, ay = 0.05f;
     rotateVector(&ax, &ay, angle);
     for (int i = 0; i < 15; ++i) {
-        float fireAngle = rand()%5000 / 5000.0 * M_2PI;
+        float fireAngle = randomAngle();
         float vx = 0, vy = rand()%30/10.0 + 1;
         rotateVector(&vx, &vy, fireAngle);
         game.spawnNewSfx(new sfx::DeathParticle(x, y, vx, vy, ax, ay));
@@ -102,6 +102,27 @@ void sfx::DeathParticle::draw() {
 void sfx::DeathParticle::sfxUpdate() {
     runPhysics();
     color.a = (timeLimit - animframe) * 255 / timeLimit;
+    if (animframe > timeLimit) color.a = 0;
+
+    if (animframe > timeLimit) die();
+}
+
+
+sfx::LaserParticle::LaserParticle(int x, int y, float vx, float vy, float ax, float ay) :
+Sfx(x, y, vx, vy, ax, ay), timeLimit(25) {
+    color = sf::Color::Red;
+    shape = sf::CircleShape(game.zoom*5.5f);
+    shape.setFillColor(color);
+}
+
+void sfx::LaserParticle::draw() {
+    shape.setFillColor(color);
+    drawCircle(&shape, x, y);
+}
+
+void sfx::LaserParticle::sfxUpdate() {
+    runPhysics();
+    color.a = (timeLimit - animframe) * 191 / timeLimit;
     if (animframe > timeLimit) color.a = 0;
 
     if (animframe > timeLimit) die();

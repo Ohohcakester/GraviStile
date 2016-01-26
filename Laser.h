@@ -24,6 +24,10 @@ public:
     void draw();
     void update(Keyboard k);
     void setup(int orientation, int sx, int sy, int ex, int ey);
+
+protected:
+    int targetX, targetY;
+    int particleTimer;
 };
 
 #endif

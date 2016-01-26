@@ -60,6 +60,19 @@ namespace sfx {
         sf::CircleShape shape;
         sf::Color color;
     };
+
+    class LaserParticle : public Sfx {
+    public:
+        LaserParticle(int x, int y, float vx, float vy, float ax, float ay);
+
+        void draw();
+        void sfxUpdate();
+
+    protected:
+        int timeLimit;
+        sf::CircleShape shape;
+        sf::Color color;
+    };
 }
 
 

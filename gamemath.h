@@ -32,4 +32,8 @@ float dotProduct(float dx1, float dy1, float dx2, float dy2);
 
 int div_floor(int n, int d);
 
+float randomAngle();
+
+float randRange(float a, float b);
+
 #endif

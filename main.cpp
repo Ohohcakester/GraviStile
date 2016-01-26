@@ -165,8 +165,17 @@ void updateGame() {
     game.background.update(game.key);
     game.player.update(game.key);
     game.camera->update(game.key);
-    for (size_t i = 0; i<game.platforms.size(); ++i) {
+    for (size_t i = 0, n = game.platforms.size(); i < n; ++i) {
         game.platforms[i]->update(game.key);
+    }
+    for (size_t i = 0, n = game.lasers.size(); i < n; ++i) {
+        game.lasers[i]->update(game.key);
+    }
+    for (size_t i = 0, n = game.laserSources.size(); i < n; ++i) {
+        game.laserSources[i]->update(game.key);
+    }
+    for (size_t i = 0, n = game.laserTargets.size(); i < n; ++i) {
+        game.laserTargets[i]->update(game.key);
     }
     game.door.update(game.key);
 

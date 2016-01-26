@@ -2,6 +2,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+#include <random>
 #include "gamemath.h"
 #include "Point.h"
 
@@ -99,4 +100,12 @@ int div_floor(int n, int d) {
     int r = n%d;
     if ((r != 0) && ((r < 0) != (d < 0)))--q;
     return q;
+}
+
+float randomAngle() {
+    return rand() % 5000 / 5000.0 * M_2PI;
+}
+
+float randRange(float a, float b) {
+    return rand() % 5000 / 5000.0 * (b - a) + a;
 }
