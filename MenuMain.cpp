@@ -39,16 +39,28 @@ void drawMainMenu() {
     sf::Sprite sprite;
     sprite.setTexture(global::textures->background);
 
-    float fit = std::max(global::RES_X / sprite.getLocalBounds().width, global::RES_Y / sprite.getLocalBounds().height) * 1.5f;
+    float fit = std::max(global::RES_X / sprite.getLocalBounds().width, global::RES_Y / sprite.getLocalBounds().height) * 1.4f;
     sprite.setScale(sf::Vector2f(fit, fit));
-    sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
-    sprite.setPosition(global::RES_X/2, global::RES_Y/3);
+    sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height);
+    sprite.setPosition(global::RES_X / 2, global::RES_Y);
     global::window->draw(sprite);
 
     global::menu.menuPlatform.draw();
 
-    sf::Text sfText = setupText(global::RES_X / 2, global::RES_Y / 4, 50, global::textures->platformSurfaceColor, "GraviStile");
-    global::window->draw(sfText);
+    {
+        sf::Text sfText = setupText(global::RES_X / 2, global::RES_Y / 6 + 5, 60, global::textures->platformColor, "GraviStile");
+        global::window->draw(sfText);
+    }
+
+    {
+        sf::Text sfText = setupText(global::RES_X / 2, global::RES_Y / 6, 60, global::textures->platformSurfaceColor, "GraviStile");
+        global::window->draw(sfText);
+    }
+
+    {
+        sf::Text sfText = setupText(global::RES_X / 2, global::RES_Y * (0.93f), 25, global::textures->platformSurfaceColor, "Press 'A' or 'D' to Start");
+        global::window->draw(sfText);
+    }
 }
 
 void drawLevelSelect() {
