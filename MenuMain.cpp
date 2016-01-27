@@ -76,9 +76,9 @@ void menuKeyPress(sf::Keyboard::Key keyCode) {
     if (keyCode == sf::Keyboard::Up) menu.up();
     if (keyCode == sf::Keyboard::Down) menu.down();
 
-    if (keyCode == sf::Keyboard::Num1) initialiseGame(100);
+    /*if (keyCode == sf::Keyboard::Num1) initialiseGame(100);
     if (keyCode == sf::Keyboard::Num2) initialiseGame(101);
     if (keyCode == sf::Keyboard::Num3) initialiseGame(102);
 
-    if (keyCode == sf::Keyboard::BackSpace) initialiseEditor();
+    if (keyCode == sf::Keyboard::BackSpace) initialiseEditor();*/
 }
