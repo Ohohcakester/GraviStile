@@ -1,7 +1,7 @@
 #include "Menu.h"
 #include "globals.h"
 
-Menu::Menu() {
+Menu::Menu() : currentMenu(menu_main) {
     cols = 6;
     nItems = global::NUMBER_OF_STAGES;
     selection = 0;
@@ -32,3 +32,6 @@ void Menu::up() {
     }
 }
 
+void Menu::gotoMenu(int menuScreen) {
+    currentMenu = menuScreen;
+}

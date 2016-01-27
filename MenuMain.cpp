@@ -15,7 +15,20 @@ void updateMenu() {
 }
 
 
-void drawMenuFrame() {
+void drawMainMenu() {
+    sf::Text numbering;
+    numbering.setFont(global::textures->comicsans);
+    numbering.setString("GraviStile");
+    numbering.setCharacterSize(50);
+    numbering.setColor(global::textures->platformSurfaceColor);
+    sf::FloatRect textRect = numbering.getLocalBounds();
+    numbering.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+    numbering.setPosition(global::RES_X / 2, global::RES_Y / 4);
+    global::window->draw(numbering);
+
+}
+
+void drawLevelSelect() {
     Menu& menu = global::menu;
     GameStats& gameStats = global::gameStats;
 
@@ -70,12 +83,24 @@ void drawMenuFrame() {
     }
 }
 
+void drawMenuFrame() {
+    switch (global::menu.currentMenu) {
+    case menu_main:
+        drawMainMenu();
+        break;
+    case menu_levelSelect:
+        drawLevelSelect();
+        break;
+    }
+}
+
 void tryStartStage(int stageNo) {
     if (global::gameStats.isLocked(stageNo)) return;
     initialiseGame(stageNo);
 }
 
-void menuKeyPress(sf::Keyboard::Key keyCode) {
+
+void menuLevelSelectKeyPress(sf::Keyboard::Key keyCode) {
     Menu& menu = global::menu;
 
     if (keyCode == sf::Keyboard::Return) tryStartStage(menu.selection + 1);
@@ -85,9 +110,29 @@ void menuKeyPress(sf::Keyboard::Key keyCode) {
     if (keyCode == sf::Keyboard::Up) menu.up();
     if (keyCode == sf::Keyboard::Down) menu.down();
 
+    if (keyCode == sf::Keyboard::Escape) global::menu.gotoMenu(menu_main);
+
     /*if (keyCode == sf::Keyboard::Num1) initialiseGame(100);
     if (keyCode == sf::Keyboard::Num2) initialiseGame(101);
     if (keyCode == sf::Keyboard::Num3) initialiseGame(102);
 
     if (keyCode == sf::Keyboard::BackSpace) initialiseEditor();*/
+}
+
+void menuMainKeyPress(sf::Keyboard::Key keyCode) {
+    Menu& menu = global::menu;
+
+    if (keyCode == sf::Keyboard::Return) global::menu.gotoMenu(menu_levelSelect);
+    if (keyCode == sf::Keyboard::Space) global::menu.gotoMenu(menu_levelSelect);
+}
+
+void menuKeyPress(sf::Keyboard::Key keyCode) {
+    switch (global::menu.currentMenu) {
+    case menu_main:
+        menuMainKeyPress(keyCode);
+        break;
+    case menu_levelSelect:
+        menuLevelSelectKeyPress(keyCode);
+        break;
+    }
 }
