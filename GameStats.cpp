@@ -3,11 +3,12 @@
 #include <vector>
 #include <iostream>
 
-const int UNLOCK_AHEAD = 3;
+const int UNLOCK_AHEAD = 5;
 
 GameStats::GameStats() {
     cleared.resize(global::NUMBER_OF_STAGES+1, false);
     refreshLastUnlockedStage();
+    loadData();
 }
 
 void GameStats::refreshLastUnlockedStage() {
@@ -22,6 +23,7 @@ void GameStats::refreshLastUnlockedStage() {
 void GameStats::stageClear(int stageNo) {
     cleared[stageNo] = true;
     refreshLastUnlockedStage();
+    saveData();
 }
 
 bool GameStats::isLocked(int stageNo) {
