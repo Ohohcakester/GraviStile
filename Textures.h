@@ -22,6 +22,8 @@ public:
     sf::Color menuButtonBorderColor;
     sf::Color menuButtonBorderClearedColor;
 
+    sf::Color levelButtonTextClearedColor;
+
     sf::Color spinConnectionWireColor;
     sf::Color switchConnectionWireColor;
 

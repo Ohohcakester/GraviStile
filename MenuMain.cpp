@@ -6,6 +6,19 @@
 #include "Textures.h"
 #include <sstream>
 
+void drawText(int cx, int cy, int size, sf::Color color, std::string text) {
+    sf::Text sfText;
+    sfText.setFont(global::textures->comicsans);
+    sfText.setString(text);
+    sfText.setCharacterSize(size);
+    sfText.setColor(color);
+    sf::FloatRect textRect = sfText.getLocalBounds();
+    sfText.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+    sfText.setPosition(cx, cy);
+    global::window->draw(sfText);
+}
+
+
 void initialiseMenu() {
     gameStatus = gamestatus_menu;
 }
@@ -16,16 +29,7 @@ void updateMenu() {
 
 
 void drawMainMenu() {
-    sf::Text numbering;
-    numbering.setFont(global::textures->comicsans);
-    numbering.setString("GraviStile");
-    numbering.setCharacterSize(50);
-    numbering.setColor(global::textures->platformSurfaceColor);
-    sf::FloatRect textRect = numbering.getLocalBounds();
-    numbering.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
-    numbering.setPosition(global::RES_X / 2, global::RES_Y / 4);
-    global::window->draw(numbering);
-
+    drawText(global::RES_X / 2, global::RES_Y / 4, 50, global::textures->platformSurfaceColor, "GraviStile");
 }
 
 void drawLevelSelect() {
@@ -46,11 +50,14 @@ void drawLevelSelect() {
         int col = i%menu.cols;
         int row = i / menu.cols;
 
+        float cx = itemSpacing*(col + 0.5f);
+        float cy = itemSpacing*(row + 0.5f);
+
         if (i == menu.selection) {
             sf::RectangleShape shape3;
             shape3.setFillColor(sf::Color::White);
             shape3.setSize(sf::Vector2f(itemGlowWidth, itemGlowWidth));
-            shape3.setPosition(itemSpacing*(col + 0.5f) - halfItemGlowWidth, itemSpacing*(row + 0.5f) - halfItemGlowWidth);
+            shape3.setPosition(cx - halfItemGlowWidth, cy - halfItemGlowWidth);
             global::window->draw(shape3);
         }
 
@@ -59,27 +66,23 @@ void drawLevelSelect() {
         if (gameStats.cleared[i + 1]) shape.setFillColor(global::textures->menuButtonBorderClearedColor);
         else shape.setFillColor(global::textures->menuButtonBorderColor);
         shape.setSize(sf::Vector2f(itemOutlineWidth, itemOutlineWidth));
-        shape.setPosition(itemSpacing*(col + 0.5f) - halfItemOutlineWidth, itemSpacing*(row + 0.5f) - halfItemOutlineWidth);
+        shape.setPosition(cx - halfItemOutlineWidth, cy - halfItemOutlineWidth);
         global::window->draw(shape);
 
         sf::RectangleShape shape2;
         if (gameStats.isLocked(i + 1)) shape2.setFillColor(global::textures->menuButtonFaceDisabledColor);
         else shape2.setFillColor(global::textures->menuButtonFaceColor);
         shape2.setSize(sf::Vector2f(itemWidth, itemWidth));
-        shape2.setPosition(itemSpacing*(col + 0.5f) - halfItemWidth, itemSpacing*(row + 0.5f) - halfItemWidth);
+        shape2.setPosition(cx - halfItemWidth, cy - halfItemWidth);
         global::window->draw(shape2);
+
+        if (gameStats.cleared[i + 1]) {
+            drawText(cx, cy + 25, 15, global::textures->levelButtonTextClearedColor, "CLEAR");
+        }
 
         std::ostringstream ss;
         ss << i + 1;
-        sf::Text numbering;
-        numbering.setFont(global::textures->comicsans);
-        numbering.setString(ss.str());
-        numbering.setCharacterSize(40);
-        numbering.setColor(global::textures->menuButtonBorderColor);
-        sf::FloatRect textRect = numbering.getLocalBounds();
-        numbering.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
-        numbering.setPosition(itemSpacing*(col + 0.5f), itemSpacing*(row + 0.5f));
-        global::window->draw(numbering);
+        drawText(cx, cy-5, 40, global::textures->menuButtonBorderColor, ss.str());
     }
 }
 
