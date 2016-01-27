@@ -58,9 +58,6 @@
     <ClCompile Include="globals.cpp">
       <Filter>globals</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>globals</Filter>
-    </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>globals</Filter>
     </ClCompile>
@@ -101,6 +98,9 @@
       <Filter>gameobjects</Filter>
     </ClCompile>
     <ClCompile Include="MenuMain.cpp">
+      <Filter>menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
       <Filter>menu</Filter>
     </ClCompile>
   </ItemGroup>
@@ -161,9 +161,6 @@
     <ClInclude Include="globals.h">
       <Filter>globals</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>globals</Filter>
-    </ClInclude>
     <ClInclude Include="Textures.h">
       <Filter>globals</Filter>
     </ClInclude>
@@ -211,6 +208,9 @@
       <Filter>gameobjects</Filter>
     </ClInclude>
     <ClInclude Include="MenuMain.h">
+      <Filter>menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
       <Filter>menu</Filter>
     </ClInclude>
   </ItemGroup>
