@@ -34,6 +34,15 @@ void updateMenu() {
 
 
 void drawMainMenu() {
+    sf::Sprite sprite;
+    sprite.setTexture(global::textures->background);
+
+    float fit = std::max(global::RES_X / sprite.getLocalBounds().width, global::RES_Y / sprite.getLocalBounds().height) * 1.5f;
+    sprite.setScale(sf::Vector2f(fit, fit));
+    sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
+    sprite.setPosition(global::RES_X/2, global::RES_Y/3);
+    global::window->draw(sprite);
+
     sf::Text sfText = setupText(global::RES_X / 2, global::RES_Y / 4, 50, global::textures->platformSurfaceColor, "GraviStile");
     global::window->draw(sfText);
 }
