@@ -42,18 +42,16 @@ void drawMenuFrame() {
         }
 
         sf::RectangleShape shape;
-        shape.setFillColor(global::textures->menuButtonBorderColor);
+
+        if (gameStats.cleared[i + 1]) shape.setFillColor(global::textures->menuButtonBorderClearedColor);
+        else shape.setFillColor(global::textures->menuButtonBorderColor);
         shape.setSize(sf::Vector2f(itemOutlineWidth, itemOutlineWidth));
         shape.setPosition(itemSpacing*(col + 0.5f) - halfItemOutlineWidth, itemSpacing*(row + 0.5f) - halfItemOutlineWidth);
         global::window->draw(shape);
 
         sf::RectangleShape shape2;
-        if (gameStats.isLocked(i + 1)) {
-            shape2.setFillColor(global::textures->menuButtonFaceDisabledColor);
-        }
-        else {
-            shape2.setFillColor(global::textures->menuButtonFaceColor);
-        }
+        if (gameStats.isLocked(i + 1)) shape2.setFillColor(global::textures->menuButtonFaceDisabledColor);
+        else shape2.setFillColor(global::textures->menuButtonFaceColor);
         shape2.setSize(sf::Vector2f(itemWidth, itemWidth));
         shape2.setPosition(itemSpacing*(col + 0.5f) - halfItemWidth, itemSpacing*(row + 0.5f) - halfItemWidth);
         global::window->draw(shape2);

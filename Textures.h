@@ -20,6 +20,7 @@ public:
     sf::Color menuButtonFaceColor;
     sf::Color menuButtonFaceDisabledColor;
     sf::Color menuButtonBorderColor;
+    sf::Color menuButtonBorderClearedColor;
 
     sf::Color spinConnectionWireColor;
     sf::Color switchConnectionWireColor;
