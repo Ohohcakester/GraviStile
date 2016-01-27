@@ -62,6 +62,7 @@ void quitGame() {
 
 void inGameKeyPress(sf::Keyboard::Key keyCode) {
     if (keyCode == sf::Keyboard::Space) global::game.player.jump();
+    if (keyCode == sf::Keyboard::Up) global::game.player.jump();
     if (keyCode == sf::Keyboard::A) rotateLeft();
     if (keyCode == sf::Keyboard::D) rotateRight();
     if (keyCode == sf::Keyboard::R) restartLevel();
