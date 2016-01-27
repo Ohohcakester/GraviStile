@@ -8,6 +8,7 @@ class GameGlobals;
 class Menu;
 class Textures;
 class Keyboard;
+class GameStats;
 
 namespace editor {
     class EditorState;
@@ -17,6 +18,7 @@ namespace editor {
 namespace global {
     extern GameGlobals game;
     extern Keyboard key;
+    extern GameStats gameStats;
     extern editor::EditorState editorState;
     extern Textures* textures;
     extern Menu menu;

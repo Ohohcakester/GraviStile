@@ -17,6 +17,10 @@ public:
     sf::Color laserTargetColor;
     sf::Color laserColor;
 
+    sf::Color menuButtonFaceColor;
+    sf::Color menuButtonFaceDisabledColor;
+    sf::Color menuButtonBorderColor;
+
     sf::Color spinConnectionWireColor;
     sf::Color switchConnectionWireColor;
 

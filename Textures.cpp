@@ -27,6 +27,10 @@ Textures::Textures() {
     laserTargetColor = sf::Color(127, 127, 127, 255);
     laserColor = sf::Color(255, 0, 0, 255);
 
+    menuButtonFaceColor = sf::Color(255, 191, 196, 255);
+    menuButtonFaceDisabledColor = sf::Color(140, 90, 90, 255);
+    menuButtonBorderColor = sf::Color(110, 63, 75, 255);
+
     spinConnectionWireColor = sf::Color(255, 255, 0, 255);
     switchConnectionWireColor = sf::Color(96, 127, 0, 160);
 

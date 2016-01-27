@@ -103,6 +103,9 @@
     <ClCompile Include="Menu.cpp">
       <Filter>menu</Filter>
     </ClCompile>
+    <ClCompile Include="GameStats.cpp">
+      <Filter>menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="keyboard.h" />
@@ -211,6 +214,9 @@
       <Filter>menu</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
+      <Filter>menu</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStats.h">
       <Filter>menu</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,6 +14,7 @@
 #include "MenuMain.h"
 #include "tests.h"
 #include "EditorState.h"
+#include "GameStats.h"
 
 int gameStatus = gamestatus_menu;
 
@@ -151,6 +152,7 @@ void updateGame() {
     if (game.puzzleComplete) {
         game.door.endStageTimeout--;
         if (game.door.endStageTimeout <= 0) {
+            global::gameStats.stageClear(game.currentStage);
             quitGame();
         }
         return;

@@ -6,6 +6,7 @@
 #include "Menu.h"
 #include "gamemath.h"
 #include "EditorState.h"
+#include "GameStats.h"
 
 void gridToActual(int gridX, int gridY, int* actualX, int* actualY) {
     *actualX = gridX*global::TILE_WIDTH + global::TILE_WIDTH / 2;
@@ -44,6 +45,7 @@ void rotateAboutPivotGrid(int oldOrientation, int newOrientation, int gridcx, in
 
 namespace global {
     GameGlobals game;
+    GameStats gameStats;
     Keyboard key;
     editor::EditorState editorState;
     Textures* textures;

@@ -1,5 +1,6 @@
 #include "main.h"
 #include "GameGlobals.h"
+#include "GameStats.h"
 #include "globals.h"
 #include "Menu.h"
 #include "Textures.h"
@@ -16,6 +17,7 @@ void updateMenu() {
 
 void drawMenuFrame() {
     Menu& menu = global::menu;
+    GameStats& gameStats = global::gameStats;
 
     float itemSpacing = global::RES_X / menu.cols;
     float itemGlowWidth = itemSpacing*0.7f;
@@ -40,13 +42,18 @@ void drawMenuFrame() {
         }
 
         sf::RectangleShape shape;
-        shape.setFillColor(global::textures->platformColor);
+        shape.setFillColor(global::textures->menuButtonBorderColor);
         shape.setSize(sf::Vector2f(itemOutlineWidth, itemOutlineWidth));
         shape.setPosition(itemSpacing*(col + 0.5f) - halfItemOutlineWidth, itemSpacing*(row + 0.5f) - halfItemOutlineWidth);
         global::window->draw(shape);
 
         sf::RectangleShape shape2;
-        shape2.setFillColor(global::textures->platformSurfaceColor);
+        if (gameStats.isLocked(i + 1)) {
+            shape2.setFillColor(global::textures->menuButtonFaceDisabledColor);
+        }
+        else {
+            shape2.setFillColor(global::textures->menuButtonFaceColor);
+        }
         shape2.setSize(sf::Vector2f(itemWidth, itemWidth));
         shape2.setPosition(itemSpacing*(col + 0.5f) - halfItemWidth, itemSpacing*(row + 0.5f) - halfItemWidth);
         global::window->draw(shape2);
@@ -57,7 +64,7 @@ void drawMenuFrame() {
         numbering.setFont(global::textures->comicsans);
         numbering.setString(ss.str());
         numbering.setCharacterSize(40);
-        numbering.setColor(global::textures->platformColor);
+        numbering.setColor(global::textures->menuButtonBorderColor);
         sf::FloatRect textRect = numbering.getLocalBounds();
         numbering.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
         numbering.setPosition(itemSpacing*(col + 0.5f), itemSpacing*(row + 0.5f));
@@ -65,12 +72,16 @@ void drawMenuFrame() {
     }
 }
 
+void tryStartStage(int stageNo) {
+    if (global::gameStats.isLocked(stageNo)) return;
+    initialiseGame(stageNo);
+}
 
 void menuKeyPress(sf::Keyboard::Key keyCode) {
     Menu& menu = global::menu;
 
-    if (keyCode == sf::Keyboard::Return) initialiseGame(menu.selection + 1);
-    if (keyCode == sf::Keyboard::Space) initialiseGame(menu.selection + 1);
+    if (keyCode == sf::Keyboard::Return) tryStartStage(menu.selection + 1);
+    if (keyCode == sf::Keyboard::Space) tryStartStage(menu.selection + 1);
     if (keyCode == sf::Keyboard::Left) menu.previous();
     if (keyCode == sf::Keyboard::Right) menu.next();
     if (keyCode == sf::Keyboard::Up) menu.up();

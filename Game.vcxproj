@@ -94,6 +94,7 @@
     <ClCompile Include="EditorCamera.cpp" />
     <ClCompile Include="EditorMain.cpp" />
     <ClCompile Include="FileIO.cpp" />
+    <ClCompile Include="GameStats.cpp" />
     <ClCompile Include="MenuMain.cpp" />
     <ClCompile Include="SelectionState.cpp" />
     <ClCompile Include="EditorState.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="GameGlobals.h" />
     <ClInclude Include="gamemath.h" />
+    <ClInclude Include="GameStats.h" />
     <ClInclude Include="Grid.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
