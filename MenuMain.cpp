@@ -5,8 +5,10 @@
 #include "Menu.h"
 #include "Textures.h"
 #include <sstream>
+#include "LevelButton.h"
+#include <iostream>
 
-void drawText(int cx, int cy, int size, sf::Color color, std::string text) {
+sf::Text setupText(int cx, int cy, int size, sf::Color color, std::string text) {
     sf::Text sfText;
     sfText.setFont(global::textures->mainFont);
     sfText.setString(text);
@@ -15,7 +17,7 @@ void drawText(int cx, int cy, int size, sf::Color color, std::string text) {
     sf::FloatRect textRect = sfText.getLocalBounds();
     sfText.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
     sfText.setPosition(cx, cy);
-    global::window->draw(sfText);
+    return sfText;
 }
 
 
@@ -24,65 +26,22 @@ void initialiseMenu() {
 }
 
 void updateMenu() {
-
+    std::vector<LevelButton>& levelButtons = global::menu.levelButtons;
+    for (size_t i = 0, n = levelButtons.size(); i < n; ++i) {
+        levelButtons[i].update();
+    }
 }
 
 
 void drawMainMenu() {
-    drawText(global::RES_X / 2, global::RES_Y / 4, 50, global::textures->platformSurfaceColor, "GraviStile");
+    sf::Text sfText = setupText(global::RES_X / 2, global::RES_Y / 4, 50, global::textures->platformSurfaceColor, "GraviStile");
+    global::window->draw(sfText);
 }
 
 void drawLevelSelect() {
-    Menu& menu = global::menu;
-    GameStats& gameStats = global::gameStats;
-
-    float itemSpacing = global::RES_X / menu.cols;
-    float itemGlowWidth = itemSpacing*0.7f;
-    float halfItemGlowWidth = itemGlowWidth / 2;
-
-    float itemOutlineWidth = itemSpacing*0.6f;
-    float halfItemOutlineWidth = itemOutlineWidth / 2;
-
-    float itemWidth = itemSpacing*0.5f;
-    float halfItemWidth = itemWidth / 2;
-
-    for (int i = 0; i<menu.nItems; ++i) {
-        int col = i%menu.cols;
-        int row = i / menu.cols;
-
-        float cx = itemSpacing*(col + 0.5f);
-        float cy = itemSpacing*(row + 0.5f);
-
-        if (i == menu.selection) {
-            sf::RectangleShape shape3;
-            shape3.setFillColor(sf::Color::White);
-            shape3.setSize(sf::Vector2f(itemGlowWidth, itemGlowWidth));
-            shape3.setPosition(cx - halfItemGlowWidth, cy - halfItemGlowWidth);
-            global::window->draw(shape3);
-        }
-
-        sf::RectangleShape shape;
-
-        if (gameStats.cleared[i + 1]) shape.setFillColor(global::textures->menuButtonBorderClearedColor);
-        else shape.setFillColor(global::textures->menuButtonBorderColor);
-        shape.setSize(sf::Vector2f(itemOutlineWidth, itemOutlineWidth));
-        shape.setPosition(cx - halfItemOutlineWidth, cy - halfItemOutlineWidth);
-        global::window->draw(shape);
-
-        sf::RectangleShape shape2;
-        if (gameStats.isLocked(i + 1)) shape2.setFillColor(global::textures->menuButtonFaceDisabledColor);
-        else shape2.setFillColor(global::textures->menuButtonFaceColor);
-        shape2.setSize(sf::Vector2f(itemWidth, itemWidth));
-        shape2.setPosition(cx - halfItemWidth, cy - halfItemWidth);
-        global::window->draw(shape2);
-
-        if (gameStats.cleared[i + 1]) {
-            drawText(cx, cy + 25, 15, global::textures->levelButtonTextClearedColor, "CLEAR");
-        }
-
-        std::ostringstream ss;
-        ss << i + 1;
-        drawText(cx, cy-5, 40, global::textures->menuButtonBorderColor, ss.str());
+    std::vector<LevelButton>& levelButtons = global::menu.levelButtons;
+    for (size_t i = 0, n = levelButtons.size(); i < n; ++i) {
+        levelButtons[i].draw();
     }
 }
 

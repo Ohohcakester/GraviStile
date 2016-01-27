@@ -27,8 +27,10 @@ Textures::Textures() {
     laserTargetColor = sf::Color(127, 127, 127, 255);
     laserColor = sf::Color(255, 0, 0, 255);
 
-    menuButtonFaceColor = sf::Color(255, 191, 196, 255);
-    menuButtonFaceDisabledColor = sf::Color(140, 90, 90, 255);
+    menuButtonFaceColor = sf::Color(204, 140, 146, 255);
+    menuButtonFaceDisabledColor = sf::Color(120, 80, 84, 255);
+    menuButtonSurfaceColor = sf::Color(255, 191, 196, 255);
+    menuButtonSurfaceDisabledColor = sf::Color(155, 100, 106, 255);
     menuButtonBorderColor = sf::Color(110, 63, 75, 255);
     menuButtonBorderClearedColor = sf::Color(127, 96, 60, 255);
 

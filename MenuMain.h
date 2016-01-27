@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 
+sf::Text setupText(int cx, int cy, int size, sf::Color color, std::string text);
+
 void initialiseMenu();
 
 void drawMenuFrame();

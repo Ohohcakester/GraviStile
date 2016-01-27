@@ -19,6 +19,8 @@ public:
 
     sf::Color menuButtonFaceColor;
     sf::Color menuButtonFaceDisabledColor;
+    sf::Color menuButtonSurfaceColor;
+    sf::Color menuButtonSurfaceDisabledColor;
     sf::Color menuButtonBorderColor;
     sf::Color menuButtonBorderClearedColor;
 

@@ -95,6 +95,7 @@
     <ClCompile Include="EditorMain.cpp" />
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="GameStats.cpp" />
+    <ClCompile Include="LevelButton.cpp" />
     <ClCompile Include="MenuMain.cpp" />
     <ClCompile Include="SelectionState.cpp" />
     <ClCompile Include="EditorState.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="LaserTarget.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="LevelButton.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuMain.h" />
