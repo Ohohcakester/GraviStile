@@ -22,13 +22,15 @@ void Menu::initialise() {
 void Menu::setupLevelButtons() {
     levelButtons.reserve(nItems);
 
+    int top_pad = global::RES_Y / 10;
+
     itemSpacing = global::RES_X / cols;
     for (int i = 0; i < nItems; ++i) {
         int col = i%cols;
         int row = i / cols;
 
         float cx = itemSpacing*(col + 0.5f);
-        float cy = itemSpacing*(row + 0.5f);
+        float cy = itemSpacing*(row + 0.5f) + top_pad;
 
         levelButtons.push_back(LevelButton(cx, cy, i + 1));
     }

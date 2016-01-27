@@ -64,6 +64,9 @@ void drawMainMenu() {
 }
 
 void drawLevelSelect() {
+    sf::Text sfText = setupText(global::RES_X / 2, global::RES_Y/13, 35, global::textures->platformSurfaceColor, "Select a Stage");
+    global::window->draw(sfText);
+
     std::vector<LevelButton>& levelButtons = global::menu.levelButtons;
     for (size_t i = 0, n = levelButtons.size(); i < n; ++i) {
         levelButtons[i].draw();
