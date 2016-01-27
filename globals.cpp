@@ -44,13 +44,6 @@ void rotateAboutPivotGrid(int oldOrientation, int newOrientation, int gridcx, in
 }
 
 namespace global {
-    GameGlobals game;
-    GameStats gameStats;
-    Keyboard key;
-    editor::EditorState editorState;
-    Textures* textures;
-    Menu menu;
-
     int RES_X = 800;
     int RES_Y = 600;
     int TILE_WIDTH = 50;
@@ -59,6 +52,15 @@ namespace global {
     const float ROTATE_SPEED = 0.1f;
 
     const int NUMBER_OF_STAGES = 24;
+
+
+    GameGlobals game;
+    GameStats gameStats;
+    Keyboard key;
+    editor::EditorState editorState;
+    Textures* textures;
+    Menu menu;
+
 
     sf::RenderWindow* window;
 }

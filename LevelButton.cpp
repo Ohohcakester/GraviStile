@@ -19,7 +19,7 @@ cx(cx), cy(cy), stageNo(stageNo), isRotating(true), angle(0), targetAngle(0) {
 
 void LevelButton::update() {
     if (isRotating) {
-        float dAngle = clampedAngle(targetAngle + 0.01f - angle) - 0.01f;
+        float dAngle = clampedAngle(targetAngle - angle);
         if (dAngle > 0) {
             if (dAngle > ROTATE_SPEED) {
                 angle += ROTATE_SPEED;

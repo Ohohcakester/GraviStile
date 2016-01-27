@@ -106,8 +106,11 @@
     <ClCompile Include="GameStats.cpp">
       <Filter>menu</Filter>
     </ClCompile>
+    <ClCompile Include="MenuPlatform.cpp">
+      <Filter>menu</Filter>
+    </ClCompile>
     <ClCompile Include="LevelButton.cpp">
-      <Filter>globals</Filter>
+      <Filter>menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -222,8 +225,11 @@
     <ClInclude Include="GameStats.h">
       <Filter>menu</Filter>
     </ClInclude>
+    <ClInclude Include="MenuPlatform.h">
+      <Filter>menu</Filter>
+    </ClInclude>
     <ClInclude Include="LevelButton.h">
-      <Filter>globals</Filter>
+      <Filter>menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

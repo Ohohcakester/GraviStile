@@ -30,6 +30,7 @@ void updateMenu() {
     for (size_t i = 0, n = levelButtons.size(); i < n; ++i) {
         levelButtons[i].update();
     }
+    global::menu.menuPlatform.update();
 }
 
 
@@ -42,6 +43,8 @@ void drawMainMenu() {
     sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
     sprite.setPosition(global::RES_X/2, global::RES_Y/3);
     global::window->draw(sprite);
+
+    global::menu.menuPlatform.draw();
 
     sf::Text sfText = setupText(global::RES_X / 2, global::RES_Y / 4, 50, global::textures->platformSurfaceColor, "GraviStile");
     global::window->draw(sfText);
@@ -93,8 +96,8 @@ void menuLevelSelectKeyPress(sf::Keyboard::Key keyCode) {
 void menuMainKeyPress(sf::Keyboard::Key keyCode) {
     Menu& menu = global::menu;
 
-    if (keyCode == sf::Keyboard::Return) global::menu.gotoMenu(menu_levelSelect);
-    if (keyCode == sf::Keyboard::Space) global::menu.gotoMenu(menu_levelSelect);
+    if (keyCode == sf::Keyboard::A) global::menu.menuPlatform.tryRotateTo(dir_left);
+    if (keyCode == sf::Keyboard::D) global::menu.menuPlatform.tryRotateTo(dir_right);
 }
 
 void menuKeyPress(sf::Keyboard::Key keyCode) {

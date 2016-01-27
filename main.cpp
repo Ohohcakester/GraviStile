@@ -223,6 +223,7 @@ int main(int argc, TCHAR *argv[]) {
     global::window = &w;
     Textures t;
     global::textures = &t;
+    global::menu.initialise();
 
     sf::Clock clock;
     

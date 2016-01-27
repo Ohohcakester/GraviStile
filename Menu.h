@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "LevelButton.h"
+#include "MenuPlatform.h"
 
 
 enum eMenuScreen{
@@ -21,9 +22,11 @@ public:
     int nItems;
     float itemSpacing;
 
+    MenuPlatform menuPlatform;
     std::vector<LevelButton> levelButtons;
 
     Menu();
+    void initialise();
     void next();
     void previous();
     void down();

@@ -15,6 +15,10 @@ Menu::Menu() : currentMenu(menu_main) {
     refreshLevelButtonRotations();
 }
 
+void Menu::initialise() {
+    menuPlatform.initialise();
+}
+
 void Menu::setupLevelButtons() {
     levelButtons.reserve(nItems);
 
@@ -77,4 +81,11 @@ void Menu::up() {
 
 void Menu::gotoMenu(int menuScreen) {
     currentMenu = menuScreen;
+    switch (currentMenu) {
+    case menu_main:
+        menuPlatform.tryRotateTo(dir_up);
+        break;
+    case menu_levelSelect:
+        break;
+    }
 }
