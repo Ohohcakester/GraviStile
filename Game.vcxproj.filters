@@ -100,6 +100,9 @@
     <ClCompile Include="Sfx.cpp">
       <Filter>gameobjects</Filter>
     </ClCompile>
+    <ClCompile Include="MenuMain.cpp">
+      <Filter>menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="keyboard.h" />
@@ -207,6 +210,9 @@
     <ClInclude Include="BaseSfx.h">
       <Filter>gameobjects</Filter>
     </ClInclude>
+    <ClInclude Include="MenuMain.h">
+      <Filter>menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="gameobjects">
@@ -226,6 +232,9 @@
     </Filter>
     <Filter Include="unittest">
       <UniqueIdentifier>{a2618b3a-a1b8-41b8-b967-4e0ff98b02b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="menu">
+      <UniqueIdentifier>{5014dc1a-27dc-490d-9e95-837905982edf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

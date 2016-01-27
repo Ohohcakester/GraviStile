@@ -94,6 +94,7 @@
     <ClCompile Include="EditorCamera.cpp" />
     <ClCompile Include="EditorMain.cpp" />
     <ClCompile Include="FileIO.cpp" />
+    <ClCompile Include="MenuMain.cpp" />
     <ClCompile Include="SelectionState.cpp" />
     <ClCompile Include="EditorState.cpp" />
     <ClCompile Include="GameGlobals.cpp" />
@@ -163,6 +164,7 @@
     </ClInclude>
     <ClInclude Include="main.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuMain.h" />
     <ClInclude Include="SelectionState.h" />
     <ClInclude Include="Sfx.h" />
     <ClInclude Include="SpinConnection.h">

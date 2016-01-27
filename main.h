@@ -12,7 +12,6 @@ enum GameStatus {
 extern int gameStatus;
 
 void initialiseGame(int stage);
-void initialiseMenu();
 
 void drawGameFrame();
 

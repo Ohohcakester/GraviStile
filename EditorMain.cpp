@@ -7,6 +7,7 @@
 #include "GameGlobals.h"
 #include "globals.h"
 #include "main.h"
+#include "MenuMain.h"
 #include "EditorCamera.h"
 #include "Stage.h"
 #include "gamemath.h"
