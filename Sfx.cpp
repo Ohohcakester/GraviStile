@@ -16,14 +16,14 @@ Sfx(global::RES_X / 2, global::RES_Y / 10), text(name) {
 
     color = global::textures->levelNameTextColor;
 
-    sfLevelText.setFont(global::textures->comicsans);
+    sfLevelText.setFont(global::textures->mainFont);
     sfLevelText.setString(levelNumberText);
     sfLevelText.setCharacterSize(20);
     sfLevelText.setColor(color);
     sf::FloatRect textRect = sfLevelText.getLocalBounds();
     sfLevelText.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
 
-    sfText.setFont(global::textures->comicsans);
+    sfText.setFont(global::textures->mainFont);
     sfText.setString(text);
     sfText.setCharacterSize(30);
     sfText.setColor(color);
@@ -54,7 +54,7 @@ sfx::Text::Text(int x, int y, std::string text, int timeout, int delay, int size
 Sfx(x, y), text(text), timeout(timeout), delay(delay) {
     color = sf::Color::White;
 
-    sfText.setFont(global::textures->comicsans);
+    sfText.setFont(global::textures->mainFont);
     sfText.setString(text);
     sfText.setCharacterSize(size);
     sfText.setColor(color);

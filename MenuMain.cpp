@@ -8,7 +8,7 @@
 
 void drawText(int cx, int cy, int size, sf::Color color, std::string text) {
     sf::Text sfText;
-    sfText.setFont(global::textures->comicsans);
+    sfText.setFont(global::textures->mainFont);
     sfText.setString(text);
     sfText.setCharacterSize(size);
     sfText.setColor(color);

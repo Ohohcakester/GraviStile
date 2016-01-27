@@ -29,7 +29,7 @@ public:
 
     sf::Color levelNameTextColor;
 
-    sf::Font comicsans;
+    sf::Font mainFont;
 
     Textures();
 };
