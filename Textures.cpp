@@ -36,6 +36,4 @@ Textures::Textures() {
     switchConnectionWireColor = sf::Color(96, 127, 0, 160);
 
     levelNameTextColor = sf::Color(255, 224, 127, 255);
-
-    //std::cout << platformColor.r << " " << platformColor.g << " " << platformColor.b << std::endl;
 }
