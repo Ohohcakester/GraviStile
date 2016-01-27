@@ -82,6 +82,7 @@ void menuLevelSelectKeyPress(sf::Keyboard::Key keyCode) {
 
     if (keyCode == sf::Keyboard::Return) menu.triggerStartGameSequence();
     if (keyCode == sf::Keyboard::Space) menu.triggerStartGameSequence();
+    if (keyCode == sf::Keyboard::A) menu.triggerStartGameSequence();
     if (keyCode == sf::Keyboard::Left) menu.previous();
     if (keyCode == sf::Keyboard::Right) menu.next();
     if (keyCode == sf::Keyboard::Up) menu.up();
