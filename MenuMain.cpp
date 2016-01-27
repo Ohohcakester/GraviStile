@@ -23,6 +23,7 @@ sf::Text setupText(int cx, int cy, int size, sf::Color color, std::string text) 
 
 void initialiseMenu() {
     gameStatus = gamestatus_menu;
+    global::menu.refreshLevelButtonRotations();
 }
 
 void updateMenu() {
@@ -68,17 +69,19 @@ void drawMenuFrame() {
     }
 }
 
-void tryStartStage(int stageNo) {
-    if (global::gameStats.isLocked(stageNo)) return;
+bool tryStartStage(int stageNo) {
+    if (global::gameStats.isLocked(stageNo)) return false;
     initialiseGame(stageNo);
+    return true;
 }
 
 
 void menuLevelSelectKeyPress(sf::Keyboard::Key keyCode) {
     Menu& menu = global::menu;
+    if (menu.isGameStarting) return;
 
-    if (keyCode == sf::Keyboard::Return) tryStartStage(menu.selection + 1);
-    if (keyCode == sf::Keyboard::Space) tryStartStage(menu.selection + 1);
+    if (keyCode == sf::Keyboard::Return) menu.triggerStartGameSequence();
+    if (keyCode == sf::Keyboard::Space) menu.triggerStartGameSequence();
     if (keyCode == sf::Keyboard::Left) menu.previous();
     if (keyCode == sf::Keyboard::Right) menu.next();
     if (keyCode == sf::Keyboard::Up) menu.up();

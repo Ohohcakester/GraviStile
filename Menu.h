@@ -16,6 +16,7 @@ public:
     // Variables
     int currentMenu;
     int selection;
+    bool isGameStarting;
 
     // Constants
     int cols;
@@ -34,6 +35,7 @@ public:
 
     void setupLevelButtons();
     void refreshLevelButtonRotations();
+    void triggerStartGameSequence();
 
     void gotoMenu(int menuScreen);
 };

@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-Menu::Menu() : currentMenu(menu_main) {
+Menu::Menu() : currentMenu(menu_main), isGameStarting(false) {
     cols = 6;
     nItems = global::NUMBER_OF_STAGES;
     selection = 0;
@@ -88,4 +88,9 @@ void Menu::gotoMenu(int menuScreen) {
     case menu_levelSelect:
         break;
     }
+}
+
+void Menu::triggerStartGameSequence() {
+    refreshLevelButtonRotations();
+    levelButtons[selection].rotateToBetween(0.7f, dir_up, dir_left, true);
 }

@@ -13,7 +13,7 @@
 const float ROTATE_SPEED = 0.15f;
 
 LevelButton::LevelButton(float cx, float cy, int stageNo) :
-cx(cx), cy(cy), stageNo(stageNo), isRotating(true), angle(0), targetAngle(0) {
+cx(cx), cy(cy), stageNo(stageNo), isRotating(true), angle(0), targetAngle(0), startLevelOnFinishRotating(false) {
 
 }
 
@@ -122,14 +122,22 @@ void LevelButton::draw() {
 void LevelButton::rotateTo(int orientation) {
     targetAngle = orientationToAngle(orientation);
     isRotating = true;
+
+    startLevelOnFinishRotating = false;
 }
 
-void LevelButton::rotateToBetween(float weight1, int orientation1, int orientation2) {
-    targetAngle = weight1*orientationToAngle(orientation1) + (1-weight1)*orientationToAngle(orientation2);
+void LevelButton::rotateToBetween(float weight1, int orientation1, int orientation2, bool startLevel) {
+    targetAngle = clampedAngle(orientationToAngle(orientation1) - orientationToAngle(orientation2))*weight1 + orientationToAngle(orientation2);
     isRotating = true;
+
+    startLevelOnFinishRotating = startLevel;
 }
 
 void LevelButton::finishRotating() {
+    isRotating = false;
     angle = clampedAngle(targetAngle);
-
+    if (startLevelOnFinishRotating) {
+        tryStartStage(stageNo);
+        startLevelOnFinishRotating = false;
+    }
 }

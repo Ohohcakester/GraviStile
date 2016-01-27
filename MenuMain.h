@@ -13,5 +13,6 @@ void menuKeyPress(sf::Keyboard::Key keyCode);
 
 void updateMenu();
 
+bool tryStartStage(int stageNo);
 
 #endif

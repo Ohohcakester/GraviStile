@@ -11,7 +11,7 @@ public:
     void update();
     void draw();
     void rotateTo(int orientation);
-    void rotateToBetween(float weight1, int orientation1, int orientation2);
+    void rotateToBetween(float weight1, int orientation1, int orientation2, bool startLevel = false);
 
 protected:
     float cx;
@@ -19,6 +19,7 @@ protected:
     float angle;
     float targetAngle;
     bool isRotating;
+    bool startLevelOnFinishRotating;
 
     void finishRotating();
 };
