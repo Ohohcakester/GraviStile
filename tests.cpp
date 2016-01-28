@@ -60,17 +60,11 @@ namespace test {
         std::cout << "Running Tests...\n";
 
         saveDataTest(30, 30);
-
         saveDataTest(20, 27);
-
         saveDataTest(13, 3);
-
         saveDataTest(2, 34);
-
         saveDataTest(89, 121);
-
         saveDataTest(127, 63);
-        return;
 
         cameraRelAbsTest(-5, 3.2f, 15, -19.5f, 0);
         cameraRelAbsTest(0, 3.2, -0.03f, 3.2f, -1.2f);
