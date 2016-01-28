@@ -2,8 +2,13 @@
 #include "globals.h"
 #include <vector>
 #include <iostream>
+#include <sstream>
+#include <string>
+
+using namespace std;
 
 const int UNLOCK_AHEAD = 5;
+const string SAVE_FILE_NAME = "save.dat";
 
 GameStats::GameStats() {
     cleared.resize(global::NUMBER_OF_STAGES+1, false);

@@ -7,3 +7,6 @@ sfml
 *.o
 
 *.user
+
+# Gravistile
+TEST_SAVE.dat

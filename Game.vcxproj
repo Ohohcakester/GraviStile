@@ -98,6 +98,7 @@
     <ClCompile Include="LevelButton.cpp" />
     <ClCompile Include="MenuMain.cpp" />
     <ClCompile Include="MenuPlatform.cpp" />
+    <ClCompile Include="SaveIO.cpp" />
     <ClCompile Include="SelectionState.cpp" />
     <ClCompile Include="EditorState.cpp" />
     <ClCompile Include="GameGlobals.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuMain.h" />
     <ClInclude Include="MenuPlatform.h" />
+    <ClInclude Include="SaveIO.h" />
     <ClInclude Include="SelectionState.h" />
     <ClInclude Include="Sfx.h" />
     <ClInclude Include="SpinConnection.h">

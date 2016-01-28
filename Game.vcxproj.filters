@@ -112,6 +112,9 @@
     <ClCompile Include="LevelButton.cpp">
       <Filter>menu</Filter>
     </ClCompile>
+    <ClCompile Include="SaveIO.cpp">
+      <Filter>menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="keyboard.h" />
@@ -229,6 +232,9 @@
       <Filter>menu</Filter>
     </ClInclude>
     <ClInclude Include="LevelButton.h">
+      <Filter>menu</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveIO.h">
       <Filter>menu</Filter>
     </ClInclude>
   </ItemGroup>
