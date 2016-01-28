@@ -1,9 +1,7 @@
 #include "GameStats.h"
 #include "globals.h"
 #include <vector>
-#include <iostream>
-#include <sstream>
-#include <string>
+#include "SaveIO.h"
 
 using namespace std;
 
@@ -36,9 +34,13 @@ bool GameStats::isLocked(int stageNo) {
 }
 
 void GameStats::saveData() {
-
+    SaveIO io(cleared.size());
+    io.data = cleared;
+    io.save(SAVE_FILE_NAME);
 }
 
 void GameStats::loadData() {
-
+    SaveIO io(cleared.size());
+    io.load(SAVE_FILE_NAME);
+    cleared = io.data;
 }

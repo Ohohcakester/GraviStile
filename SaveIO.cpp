@@ -37,6 +37,8 @@ void SaveIO::save(std::string filename) {
 
 void SaveIO::load(std::string filename) {
     data.clear();
+    data.resize(size, false);
+
     ifstream in(filename);
     int readSize = -1;
 

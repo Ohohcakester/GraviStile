@@ -217,7 +217,7 @@ void drawGameFrame() {
 }
 
 int main(int argc, TCHAR *argv[]) {
-    test::runTests(); return 0; // Uncomment to run tests.
+    //test::runTests(); return 0; // Uncomment to run tests.
 
     sf::RenderWindow w(sf::VideoMode(global::RES_X, global::RES_Y), "GraviStile");
     global::window = &w;
