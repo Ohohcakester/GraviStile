@@ -2,7 +2,7 @@
 #define EDITABLE_LEVEL_TEMPLATE_H_
 
 #include "Stage.h"
-class GameStage;
+struct GameStage;
 
 namespace editor {
     class EditableLevelTemplate {
