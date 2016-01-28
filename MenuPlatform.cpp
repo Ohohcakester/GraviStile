@@ -6,7 +6,7 @@
 #include "Menu.h"
 #include <iostream>
 
-const float ROTATE_SPEED = 0.07f;
+const float ROTATE_SPEED = 0.1f;
 
 MenuPlatform::MenuPlatform() :
 cx(global::RES_X / 2), cy(global::RES_Y * 3 / 5), isRotating(true), angle(0), targetAngle(0), transitionRemainingFrames(-1) {
