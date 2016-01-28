@@ -10,8 +10,8 @@ const string SAVE_FILE_NAME = "save.dat";
 
 GameStats::GameStats() {
     cleared.resize(global::NUMBER_OF_STAGES+1, false);
-    refreshLastUnlockedStage();
     loadData();
+    refreshLastUnlockedStage();
 }
 
 void GameStats::refreshLastUnlockedStage() {
