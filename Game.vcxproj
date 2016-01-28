@@ -87,118 +87,118 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AbstractAttachedObject.cpp">
+    <ClCompile Include="src\AbstractAttachedObject.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="AbstractCamera.cpp" />
-    <ClCompile Include="Background.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Door.cpp" />
-    <ClCompile Include="EditableLevelTemplate.cpp" />
-    <ClCompile Include="EditorCamera.cpp" />
-    <ClCompile Include="EditorMain.cpp" />
-    <ClCompile Include="FileIO.cpp" />
-    <ClCompile Include="GameStats.cpp" />
-    <ClCompile Include="LevelButton.cpp" />
-    <ClCompile Include="MenuMain.cpp" />
-    <ClCompile Include="MenuPlatform.cpp" />
-    <ClCompile Include="SaveIO.cpp" />
-    <ClCompile Include="SelectionState.cpp" />
-    <ClCompile Include="EditorState.cpp" />
-    <ClCompile Include="GameGlobals.cpp" />
-    <ClCompile Include="gamemath.cpp" />
-    <ClCompile Include="gameobjects.cpp" />
-    <ClCompile Include="globals.cpp" />
-    <ClCompile Include="Grid.cpp">
+    <ClCompile Include="src\AbstractCamera.cpp" />
+    <ClCompile Include="src\Background.cpp" />
+    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\Door.cpp" />
+    <ClCompile Include="src\EditableLevelTemplate.cpp" />
+    <ClCompile Include="src\EditorCamera.cpp" />
+    <ClCompile Include="src\EditorMain.cpp" />
+    <ClCompile Include="src\FileIO.cpp" />
+    <ClCompile Include="src\GameStats.cpp" />
+    <ClCompile Include="src\LevelButton.cpp" />
+    <ClCompile Include="src\MenuMain.cpp" />
+    <ClCompile Include="src\MenuPlatform.cpp" />
+    <ClCompile Include="src\SaveIO.cpp" />
+    <ClCompile Include="src\SelectionState.cpp" />
+    <ClCompile Include="src\EditorState.cpp" />
+    <ClCompile Include="src\GameGlobals.cpp" />
+    <ClCompile Include="src\gamemath.cpp" />
+    <ClCompile Include="src\gameobjects.cpp" />
+    <ClCompile Include="src\globals.cpp" />
+    <ClCompile Include="src\Grid.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="IGameObject.cpp" />
-    <ClCompile Include="keyboard.cpp" />
-    <ClCompile Include="Laser.cpp">
+    <ClCompile Include="src\IGameObject.cpp" />
+    <ClCompile Include="src\keyboard.cpp" />
+    <ClCompile Include="src\Laser.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="LaserSource.cpp">
+    <ClCompile Include="src\LaserSource.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="LaserTarget.cpp">
+    <ClCompile Include="src\LaserTarget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Levels.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="Orientations.cpp" />
-    <ClCompile Include="Platform.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Point.cpp" />
-    <ClCompile Include="Sfx.cpp" />
-    <ClCompile Include="SpinConnection.cpp">
+    <ClCompile Include="src\Levels.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Menu.cpp" />
+    <ClCompile Include="src\Orientations.cpp" />
+    <ClCompile Include="src\Platform.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Point.cpp" />
+    <ClCompile Include="src\Sfx.cpp" />
+    <ClCompile Include="src\SpinConnection.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="SwitchConnection.cpp">
+    <ClCompile Include="src\Stage.cpp" />
+    <ClCompile Include="src\SwitchConnection.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="tests.cpp" />
-    <ClCompile Include="Textures.cpp" />
-    <ClCompile Include="ToolState.cpp" />
+    <ClCompile Include="src\tests.cpp" />
+    <ClCompile Include="src\Textures.cpp" />
+    <ClCompile Include="src\ToolState.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AbstractAttachedObject.h">
+    <ClInclude Include="src\AbstractAttachedObject.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="AbstractCamera.h" />
-    <ClInclude Include="Background.h" />
-    <ClInclude Include="BaseSfx.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="EditableLevelTemplate.h" />
-    <ClInclude Include="EditorCamera.h" />
-    <ClInclude Include="EditorMain.h" />
-    <ClInclude Include="EditorState.h" />
-    <ClInclude Include="FileIO.h" />
-    <ClInclude Include="GameGlobals.h" />
-    <ClInclude Include="gamemath.h" />
-    <ClInclude Include="GameStats.h" />
-    <ClInclude Include="Grid.h">
+    <ClInclude Include="src\AbstractCamera.h" />
+    <ClInclude Include="src\Background.h" />
+    <ClInclude Include="src\BaseSfx.h" />
+    <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\EditableLevelTemplate.h" />
+    <ClInclude Include="src\EditorCamera.h" />
+    <ClInclude Include="src\EditorMain.h" />
+    <ClInclude Include="src\EditorState.h" />
+    <ClInclude Include="src\FileIO.h" />
+    <ClInclude Include="src\GameGlobals.h" />
+    <ClInclude Include="src\gamemath.h" />
+    <ClInclude Include="src\GameStats.h" />
+    <ClInclude Include="src\Grid.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="IClickable.h" />
-    <ClInclude Include="Laser.h">
+    <ClInclude Include="src\IClickable.h" />
+    <ClInclude Include="src\Laser.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="LaserSource.h">
+    <ClInclude Include="src\LaserSource.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="LaserTarget.h">
+    <ClInclude Include="src\LaserTarget.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="LevelButton.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="MenuMain.h" />
-    <ClInclude Include="MenuPlatform.h" />
-    <ClInclude Include="SaveIO.h" />
-    <ClInclude Include="SelectionState.h" />
-    <ClInclude Include="Sfx.h" />
-    <ClInclude Include="SpinConnection.h">
+    <ClInclude Include="src\LevelButton.h" />
+    <ClInclude Include="src\main.h" />
+    <ClInclude Include="src\Menu.h" />
+    <ClInclude Include="src\MenuMain.h" />
+    <ClInclude Include="src\MenuPlatform.h" />
+    <ClInclude Include="src\SaveIO.h" />
+    <ClInclude Include="src\SelectionState.h" />
+    <ClInclude Include="src\Sfx.h" />
+    <ClInclude Include="src\SpinConnection.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Orientations.h" />
-    <ClInclude Include="Door.h" />
-    <ClInclude Include="gameobjects.h" />
-    <ClInclude Include="globals.h" />
-    <ClInclude Include="IGameObject.h" />
-    <ClInclude Include="keyboard.h" />
-    <ClInclude Include="Platform.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Point.h" />
-    <ClInclude Include="Stage.h" />
-    <ClInclude Include="SwitchConnection.h">
+    <ClInclude Include="src\Orientations.h" />
+    <ClInclude Include="src\Door.h" />
+    <ClInclude Include="src\gameobjects.h" />
+    <ClInclude Include="src\globals.h" />
+    <ClInclude Include="src\IGameObject.h" />
+    <ClInclude Include="src\keyboard.h" />
+    <ClInclude Include="src\Platform.h" />
+    <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\Point.h" />
+    <ClInclude Include="src\Stage.h" />
+    <ClInclude Include="src\SwitchConnection.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="tests.h" />
-    <ClInclude Include="teststubs.h" />
-    <ClInclude Include="Textures.h" />
-    <ClInclude Include="ToolState.h" />
+    <ClInclude Include="src\tests.h" />
+    <ClInclude Include="src\teststubs.h" />
+    <ClInclude Include="src\Textures.h" />
+    <ClInclude Include="src\ToolState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
