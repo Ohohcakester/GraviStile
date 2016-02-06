@@ -3,11 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Gravistile by Ohohcakester</title>
+    <meta property="og:title" content="GraviStile" />
+    <meta property="og:url" content="http://ohohcakester.github.io/GraviStile" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="A Challenging Puzzle Platformer"/>
+    <meta property="og:video" content="https://www.youtube.com/watch?v=E2efuJVO-yU" />
+    
+    <title>GraviStile - A Challenging Puzzle Platformer</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/github-dark.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="javascripts/respond.js"></script>
+    <script src="javascripts/jquery.fitvids.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -21,17 +28,18 @@
       <div id="header">
         <nav>
           <li class="fork"><a href="https://github.com/Ohohcakester/GraviStile">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/Ohohcakester/GraviStile/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/Ohohcakester/GraviStile/tarball/master">TAR</a></li>
+          <li class="downloads"><a href="https://github.com/Ohohcakester/GraviStile/releases">Release Page</a></li>
+          <li class="downloads"><a href="https://github.com/Ohohcakester/GraviStile/releases/download/2.0/GraviStile_v2_00.zip">Windows</a></li>
+          <!--<li class="downloads"><a href="https://github.com/Ohohcakester/GraviStile/tarball/master">-</a></li>-->
           <li class="title">DOWNLOADS</li>
         </nav>
       </div><!-- end header -->
 
-    <div class="wrapper">
+    <div id="mainpanel" class="wrapper">
 
       <section>
         <div id="title">
-          <h1>Gravistile</h1>
+          <h1>GraviStile</h1>
           <p>A Challenging Puzzle Platformer</p>
           <hr>
           <span class="credits left">Project maintained by <a href="https://github.com/Ohohcakester">Ohohcakester</a></span>
@@ -41,7 +49,9 @@
         <h1>
 <a id="gravistile" class="anchor" href="#gravistile" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GraviStile</h1>
 
-<p><img src="https://github.com/Ohohcakester/GraviStile/tree/screenshot/screenshot/ss_main.png" alt="GraviStile"></p>
+<iframe id="introvideo" align="center" width="800" height="600" style="object-fit:cover" id="ytplayer" type="text/html"
+      src="http://www.youtube.com/embed/E2efuJVO-yU?rel=0&autoplay=0&showinfo=0"
+      frameborder="0"></iframe>
 
 <p>GraviStile is a Puzzle Platformer, based around a simple mechanic of rotating platforms to change the direction of gravity.
 Face 24 challenging, carefully crafted levels in this mind-bending platformer!</p>
@@ -93,9 +103,9 @@ Face 24 challenging, carefully crafted levels in this mind-bending platformer!</
 <h2>
 <a id="screenshots" class="anchor" href="#screenshots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Screenshots</h2>
 
-<p><img src="https://github.com/Ohohcakester/GraviStile/tree/screenshot/screenshot/ss_grav1.png" alt="platforms">
-<img src="https://github.com/Ohohcakester/GraviStile/tree/screenshot/screenshot/ss_grav2.png" alt="lasers">
-<img src="https://github.com/Ohohcakester/GraviStile/tree/screenshot/screenshot/ss_grav3.png" alt="confusion"></p>
+<p><img src="https://raw.githubusercontent.com/Ohohcakester/GraviStile/screenshot/screenshot/ss_grav1.png" alt="platforms">
+<img src="https://raw.githubusercontent.com/Ohohcakester/GraviStile/screenshot/screenshot/ss_grav2.png" alt="lasers">
+<img src="https://raw.githubusercontent.com/Ohohcakester/GraviStile/screenshot/screenshot/ss_grav3.png" alt="confusion"></p>
 
 <ul>
 <li><a href="https://github.com/Ohohcakester/GraviStile/releases">Latest Release</a></li>
@@ -105,6 +115,12 @@ Face 24 challenging, carefully crafted levels in this mind-bending platformer!</
 
     </div>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+    <script>
+        $(document).ready(function(){
+            $("#mainpanel").fitVids();
+        });
+    </script>
     
   </body>
 </html>
