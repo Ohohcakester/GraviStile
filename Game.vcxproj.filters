@@ -1,240 +1,240 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="keyboard.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="gameobjects.cpp">
+    <ClCompile Include="src\keyboard.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\gameobjects.cpp">
       <Filter>gameobjects</Filter>
     </ClCompile>
-    <ClCompile Include="IGameObject.cpp">
+    <ClCompile Include="src\IGameObject.cpp">
       <Filter>gameobjects</Filter>
     </ClCompile>
-    <ClCompile Include="Platform.cpp">
+    <ClCompile Include="src\Platform.cpp">
       <Filter>gameobjects</Filter>
     </ClCompile>
-    <ClCompile Include="Point.cpp">
+    <ClCompile Include="src\Point.cpp">
       <Filter>gameobjects</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="src\Player.cpp">
       <Filter>gameobjects</Filter>
     </ClCompile>
-    <ClCompile Include="Door.cpp">
+    <ClCompile Include="src\Door.cpp">
       <Filter>gameobjects</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
+    <ClCompile Include="src\Camera.cpp">
       <Filter>gameobjects</Filter>
     </ClCompile>
-    <ClCompile Include="Background.cpp">
+    <ClCompile Include="src\Background.cpp">
       <Filter>gameobjects</Filter>
     </ClCompile>
-    <ClCompile Include="gamemath.cpp" />
-    <ClCompile Include="Stage.cpp">
+    <ClCompile Include="src\gamemath.cpp" />
+    <ClCompile Include="src\Stage.cpp">
       <Filter>stages</Filter>
     </ClCompile>
-    <ClCompile Include="SpinConnection.cpp">
+    <ClCompile Include="src\SpinConnection.cpp">
       <Filter>gameobjects\connections</Filter>
     </ClCompile>
-    <ClCompile Include="Orientations.cpp">
+    <ClCompile Include="src\Orientations.cpp">
       <Filter>gameobjects</Filter>
     </ClCompile>
-    <ClCompile Include="LaserSource.cpp">
+    <ClCompile Include="src\LaserSource.cpp">
       <Filter>gameobjects\connections</Filter>
     </ClCompile>
-    <ClCompile Include="Laser.cpp">
+    <ClCompile Include="src\Laser.cpp">
       <Filter>gameobjects\connections</Filter>
     </ClCompile>
-    <ClCompile Include="LaserTarget.cpp">
+    <ClCompile Include="src\LaserTarget.cpp">
       <Filter>gameobjects\connections</Filter>
     </ClCompile>
-    <ClCompile Include="SwitchConnection.cpp">
+    <ClCompile Include="src\SwitchConnection.cpp">
       <Filter>gameobjects\connections</Filter>
     </ClCompile>
-    <ClCompile Include="AbstractAttachedObject.cpp">
+    <ClCompile Include="src\AbstractAttachedObject.cpp">
       <Filter>gameobjects\connections</Filter>
     </ClCompile>
-    <ClCompile Include="Grid.cpp">
+    <ClCompile Include="src\Grid.cpp">
       <Filter>stages</Filter>
     </ClCompile>
-    <ClCompile Include="globals.cpp">
+    <ClCompile Include="src\globals.cpp">
       <Filter>globals</Filter>
     </ClCompile>
-    <ClCompile Include="Textures.cpp">
+    <ClCompile Include="src\Textures.cpp">
       <Filter>globals</Filter>
     </ClCompile>
-    <ClCompile Include="GameGlobals.cpp">
+    <ClCompile Include="src\GameGlobals.cpp">
       <Filter>globals</Filter>
     </ClCompile>
-    <ClCompile Include="Levels.cpp">
+    <ClCompile Include="src\Levels.cpp">
       <Filter>stages</Filter>
     </ClCompile>
-    <ClCompile Include="EditorState.cpp">
+    <ClCompile Include="src\EditorState.cpp">
       <Filter>editor</Filter>
     </ClCompile>
-    <ClCompile Include="SelectionState.cpp">
+    <ClCompile Include="src\SelectionState.cpp">
       <Filter>editor</Filter>
     </ClCompile>
-    <ClCompile Include="ToolState.cpp">
+    <ClCompile Include="src\ToolState.cpp">
       <Filter>editor</Filter>
     </ClCompile>
-    <ClCompile Include="EditableLevelTemplate.cpp">
+    <ClCompile Include="src\EditableLevelTemplate.cpp">
       <Filter>editor</Filter>
     </ClCompile>
-    <ClCompile Include="EditorMain.cpp">
+    <ClCompile Include="src\EditorMain.cpp">
       <Filter>editor</Filter>
     </ClCompile>
-    <ClCompile Include="EditorCamera.cpp">
+    <ClCompile Include="src\EditorCamera.cpp">
       <Filter>editor</Filter>
     </ClCompile>
-    <ClCompile Include="AbstractCamera.cpp">
+    <ClCompile Include="src\AbstractCamera.cpp">
       <Filter>gameobjects</Filter>
     </ClCompile>
-    <ClCompile Include="tests.cpp">
+    <ClCompile Include="src\tests.cpp">
       <Filter>unittest</Filter>
     </ClCompile>
-    <ClCompile Include="FileIO.cpp">
+    <ClCompile Include="src\FileIO.cpp">
       <Filter>editor</Filter>
     </ClCompile>
-    <ClCompile Include="Sfx.cpp">
+    <ClCompile Include="src\Sfx.cpp">
       <Filter>gameobjects</Filter>
     </ClCompile>
-    <ClCompile Include="MenuMain.cpp">
+    <ClCompile Include="src\MenuMain.cpp">
       <Filter>menu</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
+    <ClCompile Include="src\Menu.cpp">
       <Filter>menu</Filter>
     </ClCompile>
-    <ClCompile Include="GameStats.cpp">
+    <ClCompile Include="src\GameStats.cpp">
       <Filter>menu</Filter>
     </ClCompile>
-    <ClCompile Include="MenuPlatform.cpp">
+    <ClCompile Include="src\MenuPlatform.cpp">
       <Filter>menu</Filter>
     </ClCompile>
-    <ClCompile Include="LevelButton.cpp">
+    <ClCompile Include="src\LevelButton.cpp">
       <Filter>menu</Filter>
     </ClCompile>
-    <ClCompile Include="SaveIO.cpp">
+    <ClCompile Include="src\SaveIO.cpp">
       <Filter>menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="keyboard.h" />
-    <ClInclude Include="gameobjects.h">
+    <ClInclude Include="src\keyboard.h" />
+    <ClInclude Include="src\gameobjects.h">
       <Filter>gameobjects</Filter>
     </ClInclude>
-    <ClInclude Include="IGameObject.h">
+    <ClInclude Include="src\IGameObject.h">
       <Filter>gameobjects</Filter>
     </ClInclude>
-    <ClInclude Include="Platform.h">
+    <ClInclude Include="src\Platform.h">
       <Filter>gameobjects</Filter>
     </ClInclude>
-    <ClInclude Include="Point.h">
+    <ClInclude Include="src\Point.h">
       <Filter>gameobjects</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="src\Player.h">
       <Filter>gameobjects</Filter>
     </ClInclude>
-    <ClInclude Include="Door.h">
+    <ClInclude Include="src\Door.h">
       <Filter>gameobjects</Filter>
     </ClInclude>
-    <ClInclude Include="Orientations.h">
+    <ClInclude Include="src\Orientations.h">
       <Filter>gameobjects</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
+    <ClInclude Include="src\Camera.h">
       <Filter>gameobjects</Filter>
     </ClInclude>
-    <ClInclude Include="Background.h">
+    <ClInclude Include="src\Background.h">
       <Filter>gameobjects</Filter>
     </ClInclude>
-    <ClInclude Include="gamemath.h" />
-    <ClInclude Include="Stage.h">
+    <ClInclude Include="src\gamemath.h" />
+    <ClInclude Include="src\Stage.h">
       <Filter>stages</Filter>
     </ClInclude>
-    <ClInclude Include="SpinConnection.h">
+    <ClInclude Include="src\SpinConnection.h">
       <Filter>gameobjects\connections</Filter>
     </ClInclude>
-    <ClInclude Include="LaserSource.h">
+    <ClInclude Include="src\LaserSource.h">
       <Filter>gameobjects\connections</Filter>
     </ClInclude>
-    <ClInclude Include="Laser.h">
+    <ClInclude Include="src\Laser.h">
       <Filter>gameobjects\connections</Filter>
     </ClInclude>
-    <ClInclude Include="LaserTarget.h">
+    <ClInclude Include="src\LaserTarget.h">
       <Filter>gameobjects\connections</Filter>
     </ClInclude>
-    <ClInclude Include="SwitchConnection.h">
+    <ClInclude Include="src\SwitchConnection.h">
       <Filter>gameobjects\connections</Filter>
     </ClInclude>
-    <ClInclude Include="AbstractAttachedObject.h">
+    <ClInclude Include="src\AbstractAttachedObject.h">
       <Filter>gameobjects\connections</Filter>
     </ClInclude>
-    <ClInclude Include="Grid.h">
+    <ClInclude Include="src\Grid.h">
       <Filter>stages</Filter>
     </ClInclude>
-    <ClInclude Include="globals.h">
+    <ClInclude Include="src\globals.h">
       <Filter>globals</Filter>
     </ClInclude>
-    <ClInclude Include="Textures.h">
+    <ClInclude Include="src\Textures.h">
       <Filter>globals</Filter>
     </ClInclude>
-    <ClInclude Include="GameGlobals.h">
+    <ClInclude Include="src\GameGlobals.h">
       <Filter>globals</Filter>
     </ClInclude>
-    <ClInclude Include="SelectionState.h">
+    <ClInclude Include="src\SelectionState.h">
       <Filter>editor</Filter>
     </ClInclude>
-    <ClInclude Include="ToolState.h">
+    <ClInclude Include="src\ToolState.h">
       <Filter>editor</Filter>
     </ClInclude>
-    <ClInclude Include="EditorState.h">
+    <ClInclude Include="src\EditorState.h">
       <Filter>editor</Filter>
     </ClInclude>
-    <ClInclude Include="EditableLevelTemplate.h">
+    <ClInclude Include="src\EditableLevelTemplate.h">
       <Filter>editor</Filter>
     </ClInclude>
-    <ClInclude Include="EditorMain.h">
+    <ClInclude Include="src\EditorMain.h">
       <Filter>editor</Filter>
     </ClInclude>
-    <ClInclude Include="main.h" />
-    <ClInclude Include="EditorCamera.h">
+    <ClInclude Include="src\main.h" />
+    <ClInclude Include="src\EditorCamera.h">
       <Filter>editor</Filter>
     </ClInclude>
-    <ClInclude Include="AbstractCamera.h">
+    <ClInclude Include="src\AbstractCamera.h">
       <Filter>gameobjects</Filter>
     </ClInclude>
-    <ClInclude Include="tests.h">
+    <ClInclude Include="src\tests.h">
       <Filter>unittest</Filter>
     </ClInclude>
-    <ClInclude Include="teststubs.h">
+    <ClInclude Include="src\teststubs.h">
       <Filter>unittest</Filter>
     </ClInclude>
-    <ClInclude Include="FileIO.h">
+    <ClInclude Include="src\FileIO.h">
       <Filter>editor</Filter>
     </ClInclude>
-    <ClInclude Include="IClickable.h">
+    <ClInclude Include="src\IClickable.h">
       <Filter>gameobjects</Filter>
     </ClInclude>
-    <ClInclude Include="Sfx.h">
+    <ClInclude Include="src\Sfx.h">
       <Filter>gameobjects</Filter>
     </ClInclude>
-    <ClInclude Include="BaseSfx.h">
+    <ClInclude Include="src\BaseSfx.h">
       <Filter>gameobjects</Filter>
     </ClInclude>
-    <ClInclude Include="MenuMain.h">
+    <ClInclude Include="src\MenuMain.h">
       <Filter>menu</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
+    <ClInclude Include="src\Menu.h">
       <Filter>menu</Filter>
     </ClInclude>
-    <ClInclude Include="GameStats.h">
+    <ClInclude Include="src\GameStats.h">
       <Filter>menu</Filter>
     </ClInclude>
-    <ClInclude Include="MenuPlatform.h">
+    <ClInclude Include="src\MenuPlatform.h">
       <Filter>menu</Filter>
     </ClInclude>
-    <ClInclude Include="LevelButton.h">
+    <ClInclude Include="src\LevelButton.h">
       <Filter>menu</Filter>
     </ClInclude>
-    <ClInclude Include="SaveIO.h">
+    <ClInclude Include="src\SaveIO.h">
       <Filter>menu</Filter>
     </ClInclude>
   </ItemGroup>
