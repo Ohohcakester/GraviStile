@@ -1,6 +1,7 @@
 Test
 Debug
 Release
+_build
 ddd
 sfml
 *.bat
