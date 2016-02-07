@@ -17,10 +17,10 @@ public:
 
     void initialise();
 
-    LaserTarget(Platform* platform, int orientation) : AbstractAttachedObject(platform, orientation) {
+    LaserTarget(Platform* platform, int orientation) : AbstractAttachedObject(platform, orientation), isOn(false) {
         initialise();
     }
-    LaserTarget(Platform* platform, int relativeOrientation, int position) : AbstractAttachedObject(platform, relativeOrientation, position) {
+    LaserTarget(Platform* platform, int relativeOrientation, int position) : AbstractAttachedObject(platform, relativeOrientation, position), isOn(false) {
         initialise();
     }
 

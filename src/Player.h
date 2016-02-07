@@ -65,7 +65,7 @@ public:
 
     int getPlatformMoveDistance(int fromX, int fromY, int dx, int dy, Platform* plat, int* moveX, int* moveY, int* hitDirection);
 
-    void Player::getSpriteCoordinates(float* sx, float* sy);
+    void getSpriteCoordinates(float* sx, float* sy);
 
     void getGridCoordinates(int* gridX, int* gridY);
 

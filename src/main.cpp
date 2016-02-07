@@ -1,4 +1,3 @@
-#include <tchar.h>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
@@ -216,7 +215,7 @@ void drawGameFrame() {
     }
 }
 
-int main(int argc, TCHAR *argv[]) {
+int main(int argc, char* argv[]) {
     //test::runTests(); return 0; // Uncomment to run tests.
 
     sf::RenderWindow w(sf::VideoMode(global::RES_X, global::RES_Y), "GraviStile");
@@ -226,12 +225,12 @@ int main(int argc, TCHAR *argv[]) {
     global::menu.initialise();
 
     sf::Clock clock;
-    
+
     float frameTime = 1/60.f;
     float dTime = 0;
 
     initialiseMenu();
-    
+
     while (global::window->isOpen()) {
         sf::Event event;
         while (global::window->pollEvent(event)) {
@@ -242,7 +241,7 @@ int main(int argc, TCHAR *argv[]) {
 
         if (dTime > frameTime) {
             dTime -= frameTime;
-            
+
             if (gameStatus == gamestatus_inGame) updateGame();
             else if (gameStatus == gamestatus_editor) updateEditor();
             else if (gameStatus == gamestatus_menu) updateMenu();

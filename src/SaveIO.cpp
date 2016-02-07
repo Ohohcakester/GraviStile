@@ -3,6 +3,7 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include <limits.h>
 
 using namespace std;
 
@@ -48,9 +49,9 @@ void SaveIO::load(std::string filename) {
         if (readSize == -1) readSize = (int)c;
         else bitData.push_back(c);
     }
-    
+
     if (readSize == -1 || readSize > bitData.size()*CHAR_BIT) return;
-    
+
     data.resize(readSize + CHECKSUM_LENGTH, false);
     for (int i = 0; i < data.size(); ++i) {
         int bit = i % CHAR_BIT;

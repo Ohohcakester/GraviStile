@@ -7,7 +7,7 @@
 #include "AbstractAttachedObject.h"
 
 SwitchConnection::SwitchConnection(LaserTarget* laserTarget, std::vector<Platform*> platforms, std::vector<Platform*> pivots) :
-        laserTarget(laserTarget), connectedPlatforms(platforms), connectedPivots(pivots) {
+        laserTarget(laserTarget), connectedPlatforms(platforms), connectedPivots(pivots), isOn(false) {
     setupWires();
 }
 

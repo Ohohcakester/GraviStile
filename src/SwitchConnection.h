@@ -33,7 +33,7 @@ class SwitchConnectionWire : IGameObject {
     AbstractAttachedObject* laserTarget;
 
 public:
-    SwitchConnectionWire::SwitchConnectionWire(AbstractAttachedObject* laserTarget, float ex, float ey);
+    SwitchConnectionWire(AbstractAttachedObject* laserTarget, float ex, float ey);
     void draw();
     void update(Keyboard k);
 };
