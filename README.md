@@ -1,5 +1,7 @@
 GraviStile
 ==========
+- [GitHub Pages](http://ohohcakester.github.io/GraviStile)
+- [Gameplay Video](https://www.youtube.com/watch?v=LYD48lrv1qs)
 
 ![GraviStile](../screenshot/screenshot/ss_main.png)
 
