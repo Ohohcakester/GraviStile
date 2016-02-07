@@ -8,7 +8,7 @@ Face 24 challenging, carefully crafted levels in this mind-bending platformer!
 
 ## Download
 * [**Download (Windows)** [640KB]](https://github.com/Ohohcakester/GraviStile/releases/download/2.0/GraviStile_v2_00_Windows.zip)
-* [**Download (Linux)** [430KB]](https://github.com/Ohohcakester/GraviStile/releases/download/2.0/GraviStile_v2_00_Linux.gz)
+* [**Download (Linux)** [430KB]](https://github.com/Ohohcakester/GraviStile/releases/download/2.0/GraviStile_v2_00_Linux.tar.gz)
 * [**Release Page**](https://github.com/Ohohcakester/GraviStile/releases)
 
 
