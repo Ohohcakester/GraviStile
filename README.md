@@ -36,3 +36,29 @@ Face 24 challenging, carefully crafted levels in this mind-bending platformer!
 
 - [Latest Release](https://github.com/Ohohcakester/GraviStile/releases)
 - [Download Link](https://github.com/Ohohcakester/GraviStile/releases/download/2.0/GraviStile_v2_00.zip)
+
+
+
+
+## Building GraviStile on your Platform
+
+GraviStile uses SFML (Simple and Fast Multimedia Library), which is available here:
+- http://www.sfml-dev.org
+
+### Windows
+
+Follow the instructions to configure an SFML project in Visual Studio here.
+- http://www.sfml-dev.org/tutorials/2.3/start-vc.php
+
+Alternatively, install the latest version of MinGW and download the compatible SFML library [here](http://www.sfml-dev.org/download/sfml/2.3.2/), then follow the instructions for compiling on Linux.
+
+
+### Linux
+
+Quickest way:
+- Install SFML: `sudo apt-get install libsfml-dev`
+- Then run `build.sh`. This builds the game into the _build directory.
+
+Alternatively, you can follow the instructions to compile an SFML app here:
+- http://www.sfml-dev.org/tutorials/2.3/start-linux.php
+- Note: compile with the flag `-std=c++11` if using g++.
