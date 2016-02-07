@@ -7,7 +7,10 @@ GraviStile is a Puzzle Platformer, based around a simple mechanic of rotating pl
 Face 24 challenging, carefully crafted levels in this mind-bending platformer!
 
 ## Download
-* [**Download Here**](https://github.com/Ohohcakester/GraviStile/releases/download/2.0/GraviStile_v2_00.zip)
+* [**Download (Windows)** [640KB]](https://github.com/Ohohcakester/GraviStile/releases/download/2.0/GraviStile_v2_00_Windows.zip)
+* [**Download (Linux)** [430KB]](https://github.com/Ohohcakester/GraviStile/releases/download/2.0/GraviStile_v2_00_Linux.gz)
+* [**Release Page**](https://github.com/Ohohcakester/GraviStile/releases)
+
 
 ## How to Play
 * Rotating a platform changes the direction of gravity.
@@ -32,12 +35,6 @@ Face 24 challenging, carefully crafted levels in this mind-bending platformer!
 ![platforms](../screenshot/screenshot/ss_grav1.png)
 ![lasers](../screenshot/screenshot/ss_grav2.png)
 ![confusion](../screenshot/screenshot/ss_grav3.png)
-
-
-- [Latest Release](https://github.com/Ohohcakester/GraviStile/releases)
-- [Download Link](https://github.com/Ohohcakester/GraviStile/releases/download/2.0/GraviStile_v2_00.zip)
-
-
 
 
 ## Building GraviStile on your Platform
