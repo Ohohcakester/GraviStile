@@ -1,5 +1,8 @@
 GraviStile
 ==========
+
+[![Build Status](https://travis-ci.org/)](https://travis-ci.org/apache/incubator-singa)
+
 - [GitHub Pages](http://ohohcakester.github.io/GraviStile)
 - [Gameplay Video](https://www.youtube.com/watch?v=LYD48lrv1qs)
 
